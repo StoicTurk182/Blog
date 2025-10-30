@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/tags/blog/</loc>
+    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/categories/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/my-it-journey-begins/</loc>
+    <loc>http://localhost:1313/categories/getting-started-server-deployment/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/getting-started-server-deployment/</loc>
+    <loc>http://localhost:1313/tags/hardware/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
@@ -17,10 +20,16 @@
     <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/posts/my-it-journey-begins/</loc>
+    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/technology/</loc>
-    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+    <loc>http://localhost:1313/categories/hardware/</loc>
+    <lastmod>2025-10-30T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/current-workstation-custom-built/</loc>
+    <lastmod>2025-10-30T00:00:00+00:00</lastmod>
   </url>
 </urlset>

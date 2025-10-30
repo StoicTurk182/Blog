@@ -16,5 +16,12 @@
       <guid>http://localhost:1313/categories/getting-started-server-deployment/</guid>
       <description></description>
     </item>
+    <item>
+      <title>Hardware</title>
+      <link>http://localhost:1313/categories/hardware/</link>
+      <pubDate>Thu, 30 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/hardware/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

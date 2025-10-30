@@ -3,7 +3,7 @@ title: "My Current Custom PC Build - 2025"
 date: 2025-10-30
 description: "A look at my current custom PC setup and specifications."
 categories: ["hardware"]
-tags: ["hardware"]
+tags: ["Blog","Hardware"]
 draft: false
 ---
 
@@ -29,24 +29,19 @@ Samsung SSD 970 EVO Plus 250GB
 
 WD_BLACK SN770 1TB
 ## Power Supply
-
 Antec SF850X 850W Power Supply 80+ Gold
 
 ## Case
 FRAME 4000D Modular Mid-Tower PC Case
 
 ## Cooling
-
 Thermalright Phantom Spirit 120 EVO
 
 ## Peripherals
-
 Dual Monitor
 MAG 27CQ6F
 PL2470H
 
 ## Performance
-
 Upper Mid Range will add linux Bench marks soon! 
-
-## Future Upgrades
+I plan on getting more RAM and a better GPU but for minor dev work this is a great system. 

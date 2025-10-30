@@ -7,23 +7,15 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
 
 [params]
   description = "My personal blog"
-  
+
   [params.logo]
     title = "Projects 2025"
     subtitle = "Information Technology Musings"
 
-  # Social links
-  [[params.social]]
-    name = "github"
-    url = "https://github.com/andrewjones"
-
-  [[params.social]]
-    name = "twitter" 
-    url = "https://twitter.com/andrewjones"
-
-  [[params.social]]
-    name = "linkedin"
-    url = "https://linkedin.com/in/andrewjones"
+ [params.style]
+  # Check theme documentation for available variables
+  background = "#1a1a1a"
+  text = "#e0e0e0"
 
   # CORRECT WIDGET CONFIGURATION
   [params.sidebar]
@@ -38,4 +30,4 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true
+      unsafe = true      

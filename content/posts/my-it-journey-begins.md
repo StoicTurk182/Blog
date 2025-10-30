@@ -3,7 +3,7 @@ title: "Self Hosting New Blog"
 date: 2025-10-30T14:53:39Z
 draft: false
 author: "Andrew Jones"
-tags: ['Technology']
+tags: ["Blog","Hardware"]
 categories: ['Getting Started Server Deployment']
 featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
 description: "My it journey begins - insights from Andrew Jones, IT Engineer in London, UK"
