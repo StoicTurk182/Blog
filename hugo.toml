@@ -34,3 +34,8 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     
     # Widgets configuration
     widgets = ["recent", "categories", "social", "search"]
+
+    [markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
