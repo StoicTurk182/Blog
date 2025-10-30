@@ -1,7 +1,7 @@
 ---
 title: "First Post"
 date: 2025-10-30T14:53:39Z
-draft: true
+draft: false
 author: "Andrew Jones"
 tags: ['Technology']
 categories: ['Getting Started']

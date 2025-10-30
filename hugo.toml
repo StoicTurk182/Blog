@@ -8,15 +8,11 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
 [params]
   description = "My personal blog"
   
-  # Mainroad logo settings
   [params.logo]
     title = "Projects 2025"
     subtitle = "Information Technology Musings"
 
-  # Use available widgets - remove the about widget section
-  # Mainroad supports these widgets: recent, categories, taglist, social, search
-
-  # Social links will display your info
+  # Social links
   [[params.social]]
     name = "github"
     url = "https://github.com/andrewjones"
@@ -29,9 +25,12 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     name = "linkedin"
     url = "https://linkedin.com/in/andrewjones"
 
-# Enable sidebar widgets (these are the available ones)
-[params.widgets]
-    recent = true
-    categories = true
-    taglist = true
-    social = true
+  # CORRECT WIDGET CONFIGURATION
+  [params.sidebar]
+    # Enable sidebar on different page types
+    home = true
+    single = true  
+    list = true
+    
+    # Widgets configuration
+    widgets = ["recent", "categories", "social", "search"]
