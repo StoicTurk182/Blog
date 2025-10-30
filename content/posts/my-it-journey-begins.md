@@ -9,8 +9,6 @@ featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
 description: "My it journey begins - insights from Andrew Jones, IT Engineer in London, UK"
 ---
 
-# My VPS Journey Begins using OVH 
-
 Welcome to my new blog! After years working in IT, I've decided to document my journey, share what I'm learning, and create a resource for others in the technology field.
 
 <!--more-->

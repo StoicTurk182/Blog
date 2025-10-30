@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My-Rig on My Blog</title>
+    <link>http://localhost:1313/tags/my-rig/</link>
+    <description>Recent content in My-Rig on My Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
+    <lastBuildDate>Thu, 30 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/my-rig/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Current Custom PC Build - 2025</title>
+      <link>http://localhost:1313/posts/current-workstation-custom-built/</link>
+      <pubDate>Thu, 30 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/current-workstation-custom-built/</guid>
+      <description>&lt;h2 id=&#34;system-overview&#34;&gt;System Overview&lt;/h2&gt;&#xA;&lt;h2 id=&#34;cpu&#34;&gt;CPU&lt;/h2&gt;&#xA;&lt;h2 id=&#34;gpu&#34;&gt;GPU&lt;/h2&gt;&#xA;&lt;h2 id=&#34;motherboard&#34;&gt;Motherboard&lt;/h2&gt;&#xA;&lt;h2 id=&#34;memory&#34;&gt;Memory&lt;/h2&gt;&#xA;&lt;h2 id=&#34;storage&#34;&gt;Storage&lt;/h2&gt;&#xA;&lt;h2 id=&#34;power-supply&#34;&gt;Power Supply&lt;/h2&gt;&#xA;&lt;h2 id=&#34;case&#34;&gt;Case&lt;/h2&gt;&#xA;&lt;h2 id=&#34;cooling&#34;&gt;Cooling&lt;/h2&gt;&#xA;&lt;h2 id=&#34;peripherals&#34;&gt;Peripherals&lt;/h2&gt;&#xA;&lt;h2 id=&#34;performance&#34;&gt;Performance&lt;/h2&gt;&#xA;&lt;h2 id=&#34;future-upgrades&#34;&gt;Future Upgrades&lt;/h2&gt;</description>
+    </item>
+  </channel>
+</rss>
