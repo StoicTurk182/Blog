@@ -1,15 +1,15 @@
 ---
-title: "First Post"
+title: "Debian VPS Servers"
 date: 2025-10-30T14:53:39Z
 draft: false
 author: "Andrew Jones"
 tags: ['Technology']
-categories: ['Getting Started']
+categories: ['Getting Started Server Deployment']
 featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
 description: "My it journey begins - insights from Andrew Jones, IT Engineer in London, UK"
 ---
 
-# My IT Journey Begins
+# My VPS Journey Begins using OVH
 
 *Published on 15:05 30/10/2025 by **Andrew Jones***
 

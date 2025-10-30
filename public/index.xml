@@ -10,11 +10,11 @@
     <lastBuildDate>Thu, 30 Oct 2025 14:53:39 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>First Post</title>
+      <title>Debian VPS Servers</title>
       <link>http://localhost:1313/posts/my-it-journey-begins/</link>
       <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
       <guid>http://localhost:1313/posts/my-it-journey-begins/</guid>
-      <description>&lt;h1 id=&#34;my-it-journey-begins&#34;&gt;My IT Journey Begins&lt;/h1&gt;&#xA;&lt;p&gt;&lt;em&gt;Published on 15:05 30/10/2025 by &lt;strong&gt;Andrew Jones&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Welcome to my new blog! After years working in IT, I&amp;rsquo;ve decided to document my journey, share what I&amp;rsquo;m learning, and create a resource for others in the technology field.&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;my-vps-journey-begins-using-ovh&#34;&gt;My VPS Journey Begins using OVH&lt;/h1&gt;&#xA;&lt;p&gt;&lt;em&gt;Published on 15:05 30/10/2025 by &lt;strong&gt;Andrew Jones&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Welcome to my new blog! After years working in IT, I&amp;rsquo;ve decided to document my journey, share what I&amp;rsquo;m learning, and create a resource for others in the technology field.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
