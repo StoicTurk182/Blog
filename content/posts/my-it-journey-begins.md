@@ -4,7 +4,7 @@ date: 2025-10-30T14:53:39Z
 draft: false
 author: "Andrew Jones"
 tags: ["Blog","Hardware"]
-categories: ['Getting Started Server Deployment']
+categories: ['Getting Started Server Deployment - Debian VPS']
 featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
 description: "My it journey begins - insights from Andrew Jones, IT Engineer in London, UK"
 ---
@@ -35,6 +35,6 @@ I'll be covering topics like:
 
 <img src="/images/posts/Andrew.png" alt="Andrew" width="150" style="border-radius: 8px;"> 
 
-*Published on 15:05 30/10/2025 by **Andrew Jones*** 
+*Published on 15:05 30/10/2025 by **Andrew Jones - IT Engineer*** 
 
 This blog is built with **Hugo** and the **Mainroad theme**, hosted on my own Debian VPS. It's been a great learning experience setting everything up from scratch!

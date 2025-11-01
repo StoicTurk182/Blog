@@ -1,4 +1,4 @@
-baseURL = 'http://localhost:1313/'
+baseURL = 'https://blog.ajolnet.com/'
 title = 'My Blog'
 theme = 'mainroad'
 languageCode = 'en-us'
@@ -50,6 +50,11 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   name = "YouTube Channel"
   url = "https://www.youtube.com/@saraf01"
   weight = 4
+
+[[menu.main]]
+    name = "Contact Me"
+    url = "/contact/"
+    weight = 100
 
     [markup]
   [markup.goldmark]

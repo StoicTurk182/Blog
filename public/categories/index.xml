@@ -10,10 +10,10 @@
     <lastBuildDate>Thu, 30 Oct 2025 14:53:39 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Getting Started Server Deployment</title>
-      <link>http://localhost:1313/categories/getting-started-server-deployment/</link>
+      <title>Getting Started Server Deployment - Debian VPS</title>
+      <link>http://localhost:1313/categories/getting-started-server-deployment---debian-vps/</link>
       <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
-      <guid>http://localhost:1313/categories/getting-started-server-deployment/</guid>
+      <guid>http://localhost:1313/categories/getting-started-server-deployment---debian-vps/</guid>
       <description></description>
     </item>
     <item>
@@ -21,6 +21,13 @@
       <link>http://localhost:1313/categories/hardware/</link>
       <pubDate>Thu, 30 Oct 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/categories/hardware/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Professional</title>
+      <link>http://localhost:1313/categories/professional/</link>
+      <pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/professional/</guid>
       <description></description>
     </item>
   </channel>

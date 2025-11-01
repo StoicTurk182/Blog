@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Professional-Development on My Blog</title>
+    <link>http://localhost:1313/tags/professional-development/</link>
+    <description>Recent content in Professional-Development on My Blog</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 15 Jan 2024 10:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/professional-development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Role at GMA: A Professional Journey on the Helpdesk</title>
+      <link>http://localhost:1313/posts/my-professional-journey/</link>
+      <pubDate>Mon, 15 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/my-professional-journey/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/posts/logo-min.png&#34; alt=&#34;Company Office or Workspace&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-company-and-my-role&#34;&gt;The Company and My Role&lt;/h2&gt;&#xA;&lt;h3 id=&#34;about-gma&#34;&gt;About GMA&lt;/h3&gt;&#xA;&lt;p&gt;GMA is a small-to-medium-sized MSP that operates across all areas of IT. The company runs a lean operation, featuring a remarkably busy helpdesk often referred to as the “coal face.” The workload was consistently high—not rushed, but characterized by a sustained flow of tickets.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
