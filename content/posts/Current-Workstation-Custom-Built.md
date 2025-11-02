@@ -6,10 +6,7 @@ categories: ["hardware"]
 tags: ["Blog","Hardware"]
 draft: false
 ---
-This the most recent system I have built and it is the best I could do, a aiming 
-or the upper mid-range performance tier that can hold its own 
-when confronted with many different workloads. As of september this year the whole system cost under 2k and it 
-outperforms my old 5950x which is now a server I use for video production.
+This system is my latest and most capable build to date. I engineered it for the upper mid-range tier, where it confidently tackles everything from gaming to intensive creative applications. Remarkably, the entire setup cost less than £2,000 as of this September and even surpasses the performance of my old 5950x, which has since been relegated to server duty for video production.
 
 <br><img src="/images/posts/RIG.jpg" alt="Andrew" width="275" style="border-radius: 5px;"></br>
 <h2 style="font-size: 1.5rem; margin: 1; padding: 1;">System Overview</h2>
