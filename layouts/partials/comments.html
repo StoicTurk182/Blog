@@ -1,0 +1,9 @@
+{{ if .Site.Params.comments.utterances }}
+<script src="https://utteranc.es/client.js"
+        repo="{{ .Site.Params.comments.utterancesRepo }}"
+        issue-term="{{ .Site.Params.comments.utterancesIssueTerm }}"
+        theme="{{ .Site.Params.comments.utterancesTheme }}"
+        crossorigin="anonymous"
+        async>
+</script>
+{{ end }}

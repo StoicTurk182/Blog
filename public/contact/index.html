@@ -58,13 +58,6 @@
 			</a>
 		</li>
 		<li class="menu__item">
-			<a class="menu__link" href="https://www.youtube.com/@saraf01">
-				
-				<span class="menu__text">YouTube Channel</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
 			<a class="menu__link" href="/contact/">
 				
 				<span class="menu__text">Contact Me</span>
@@ -83,9 +76,27 @@
 	<article class="post">
 		<header class="post__header">
 			<h1 class="post__title">Contact Me</h1>
-			
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime="2023-10-18T00:00:00Z">October 18, 2023</time></div>
+  <span class="reading-time">
+    • 1 min read
+  </span>
+</div>
 		</header>
-		<div class="content post__content clearfix">
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#get-in-touch">Get In Touch</a></li>
+    <li><a href="#social-media">Social Media</a></li>
+    <li><a href="#contact-form">Contact Form</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
 			<h2 id="get-in-touch">Get In Touch</h2>
 <p><strong>Email:</strong> <a href="mailto:Stoicturk182@protonmail.com">Stoicturk182@protonmail.com</a>
 <strong>Phone:</strong> (44) 07990338386
@@ -116,7 +127,31 @@
 	</article>
 </main>
 
+<div class="authorbox clearfix">
+    
+    <figure class="authorbox__avatar">
+        <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
+    </figure>
+    
+    <div class="authorbox__header">
+        <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1;">About Andrew Jones</span>
+    </div>
+    <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1;">
+    <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
+    <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
+    <p style="margin: 0.2em 0;">IT Technical Engineer</p>
+</div>
+</div>
 
+
+
+<script src="https://utteranc.es/client.js"
+        repo="StoicTurk182/Blog"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
 
 
 			</div>
@@ -125,9 +160,9 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting New Blog</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/current-workstation-custom-built/">My Current Custom PC Build - 2025</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
 		</ul>
 	</div>
 </div>
@@ -136,11 +171,21 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/getting-started-server-deployment---debian-vps/">Getting Started Server Deployment - Debian VPS</a></li>
+				<a class="widget__link" href="/categories/audio-visual/">Audio Visual</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/hardware/">Hardware</a></li>
+				<a class="widget__link" href="/categories/getting-started-server-deployment---debian-vps/">Getting Started Server Deployment - Debian VPS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/professional/">Professional</a></li>
+				<a class="widget__link" href="/categories/hardware/">Hardware</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/professional/">Professional</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 		</ul>
 	</div>
 </div><div class="widget-search widget">
@@ -149,6 +194,15 @@
 		<input class="widget-search__submit" type="submit" value="Search">
 		<input type="hidden" name="sitesearch" value="http://localhost:1313/">
 	</form>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
+	</div>
 </div>
 </aside>
 		</div>
@@ -163,5 +217,7 @@
 </footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 </body>
 </html>

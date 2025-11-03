@@ -2,6 +2,8 @@
 title: "My Videos"
 date: 2025-01-01
 description: "My YouTube channel and videos"
+tags: ["Videos"]
+categories: ['Audio Visual']
 ---
 
 

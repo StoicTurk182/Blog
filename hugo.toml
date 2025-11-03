@@ -7,6 +7,16 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
 
 [params]
   description = "Personal Projects"
+  readmore = true          # Show "Read more" button in lists
+  authorbox = true         # Show author box at bottom of pages
+  pager = true             # Show prev/next navigation (this is showPostNav)
+  toc = true               # Enable Table of Contents
+  mathjax = true           # Enable MathJax (math equations)
+  readingTime = true
+  post_meta = ["author", "date", "categories","readingtime"] 
+  author = "Andrew Jones"
+  authorbio = "/"
+  authoravatar = "/images/posts/Andrew.png"
 
   [params.logo]
     title = "Projects 2025"
@@ -25,7 +35,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     list = true
 
     # Widgets configuration
-    widgets = ["recent", "categories", "social", "search"]
+    widgets = ["recent", "categories", "social", "search","taglist"]
 
      [params.social]
     youtube = "https://www.youtube.com/@saraf01"
@@ -47,16 +57,22 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   weight = 3
 
 [[menu.main]]
-  name = "YouTube Channel"
-  url = "https://www.youtube.com/@saraf01"
-  weight = 4
-
-[[menu.main]]
     name = "Contact Me"
     url = "/contact/"
     weight = 100
 
+  [params.widgets]
+  recent_num = 5
+  categories_counter = true
+  tags_counter = true
+
     [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true      
+      unsafe = true    
+
+   [params.comments]
+  utterances = true
+  utterancesRepo = "StoicTurk182/Blog"
+  utterancesIssueTerm = "pathname"
+  utterancesTheme = "github-dark"  

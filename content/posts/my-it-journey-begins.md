@@ -33,8 +33,4 @@ I'll be covering topics like:
 
 ## First Steps
 
-<img src="/images/posts/Andrew.png" alt="Andrew" width="150" style="border-radius: 8px;"> 
-
-*Published on 15:05 30/10/2025 by **Andrew Jones - IT Engineer*** 
-
 This blog is built with **Hugo** and the **Mainroad theme**, hosted on my own Debian VPS. It's been a great learning experience setting everything up from scratch!

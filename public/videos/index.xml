@@ -1,13 +1,87 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>My Videos on Andy J Blog - Trials of an IT Engineer</title>
-    <link>http://localhost:1313/videos/</link>
-    <description>Recent content in My Videos on Andy J Blog - Trials of an IT Engineer</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
-    <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:1313/videos/index.xml" rel="self" type="application/rss+xml" />
-  </channel>
+    <channel>
+        <title>Andy J Blog - Trials of an IT Engineer</title>
+        <link>http://localhost:1313/</link>
+        <description>Personal Projects</description>
+        <generator>Hugo</generator>
+        <language>en-us</language>
+        <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
+        <lastBuildDate>Wed, 01 Jan 2025 00:00:00 +0000</lastBuildDate>
+        <atom:link href="http://localhost:1313/videos/" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>My Role at GMA: A Professional Journey on the Helpdesk</title>
+            <link>http://localhost:1313/posts/my-professional-journey/</link>
+            <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
+            <guid>http://localhost:1313/posts/my-professional-journey/</guid>
+            <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/posts/logo-min.png&#34; alt=&#34;Company Office or Workspace&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;the-company-and-my-role&#34;&gt;The Company and My Role&lt;/h2&gt;
+&lt;h3 id=&#34;about-gma&#34;&gt;About GMA&lt;/h3&gt;
+&lt;p&gt;GMA is a small-to-medium-sized MSP that operates across all areas of IT. The company runs a lean operation, featuring a remarkably busy helpdesk often referred to as the “coal face.” The workload was consistently high—not rushed, but characterized by a sustained flow of tickets.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Self Hosting New Blog</title>
+            <link>http://localhost:1313/posts/my-it-journey-begins/</link>
+            <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
+            <guid>http://localhost:1313/posts/my-it-journey-begins/</guid>
+            <description>&lt;p&gt;Welcome to my new blog! After years working in IT, I&amp;rsquo;ve decided to document my journey, share what I&amp;rsquo;m learning, and create a resource for others in the technology field.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>My Current Custom PC Build - 2025</title>
+            <link>http://localhost:1313/posts/current-workstation-custom-built/</link>
+            <pubDate>Thu, 30 Oct 2025 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/current-workstation-custom-built/</guid>
+            <description>&lt;p&gt;This system is my latest and most capable build to date. I engineered it for the upper mid-range tier, where it confidently tackles everything from gaming to intensive creative applications. Remarkably, the entire setup cost less than £2,000 as of this September and even surpasses the performance of my old 5950x, which has since been relegated to server duty for video production.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;img src=&#34;http://localhost:1313/images/posts/RIG.jpg&#34; alt=&#34;Andrew&#34; width=&#34;275&#34; style=&#34;border-radius: 5px;&#34;&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;h2 style=&#34;font-size: 1.5rem; margin: 1; padding: 1;&#34;&gt;System Overview&lt;/h2&gt;
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;CPU&lt;/h2&gt;AMD Ryzen 9 7900X
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;GPU&lt;/h2&gt;AMD Radeon RX 9070
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Motherboard&lt;/h2&gt;MSI MAG X670E TOMAHAWK WIFI (MS-7E12)
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Memory&lt;/h2&gt;64GB CP32G64C40U5B.M8B3 
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Storage&lt;/h2&gt;Samsung SSD 990 PRO with Heatsink 1TB - Samsung SSD 970 EVO Plus 250GB - WD_BLACK SN770 1TB
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Power Supply&lt;/h2&gt;Antec SF850X 850W Power Supply 80+ Gold
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Case&lt;/h2&gt;FRAME 4000D Modular Mid-Tower PC Case
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Cooling&lt;/h2&gt;Thermalright Phantom Spirit 120 EVO
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Peripherals&lt;/h2&gt;Dual Monitor - MAG 27CQ6F - PL2470H
+&lt;h2 style=&#34;font-size: 1.0rem; color: red; margin: 0; padding: 0;&#34;&gt;Performance&lt;/h2&gt;Upper Mid Range I will add linux Bench marks soon! I plan on getting more RAM and a better GPU but for minor dev work this is a great system.
+&lt;br&gt;</description>
+        </item>
+        
+        <item>
+            <title>Contact Me</title>
+            <link>http://localhost:1313/contact/</link>
+            <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/contact/</guid>
+            <description>&lt;h2 id=&#34;get-in-touch&#34;&gt;Get In Touch&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; &lt;a href=&#34;mailto:Stoicturk182@protonmail.com&#34;&gt;Stoicturk182@protonmail.com&lt;/a&gt;
+&lt;strong&gt;Phone:&lt;/strong&gt; (44) 07990338386
+&lt;strong&gt;Location:&lt;/strong&gt; London, UK&lt;/p&gt;
+&lt;h2 id=&#34;social-media&#34;&gt;Social Media&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/StoicTurk182&#34;&gt;StoicTurk182&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;LinkedIn: &lt;a href=&#34;https://linkedin.com/in/andrew-john-j-780&#34;&gt;Andrew Jones&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;contact-form&#34;&gt;Contact Form&lt;/h2&gt;
+&lt;p&gt;You can also reach me using the form below:&lt;/p&gt;
+&lt;form action=&#34;https://formspree.io/f/xovppvjo&#34; method=&#34;POST&#34;&gt;
+  &lt;div style=&#34;margin-bottom: 1rem;&#34;&gt;
+    &lt;label for=&#34;name&#34; style=&#34;display: block; margin-bottom: 0.5rem;&#34;&gt;Your Name:&lt;/label&gt;
+    &lt;input type=&#34;text&#34; id=&#34;name&#34; name=&#34;name&#34; required style=&#34;width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;&#34;&gt;
+  &lt;/div&gt;
+  &lt;div style=&#34;margin-bottom: 1rem;&#34;&gt;
+    &lt;label for=&#34;email&#34; style=&#34;display: block; margin-bottom: 0.5rem;&#34;&gt;Your Email:&lt;/label&gt;
+    &lt;input type=&#34;email&#34; id=&#34;email&#34; name=&#34;email&#34; required style=&#34;width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;&#34;&gt;
+  &lt;/div&gt;
+  &lt;div style=&#34;margin-bottom: 1rem;&#34;&gt;
+    &lt;label for=&#34;message&#34; style=&#34;display: block; margin-bottom: 0.5rem;&#34;&gt;Message:&lt;/label&gt;
+    &lt;textarea id=&#34;message&#34; name=&#34;message&#34; rows=&#34;5&#34; required style=&#34;width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;&#34;&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+&lt;p&gt;&lt;button type=&#34;submit&#34; style=&#34;background-color: #007bff; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;&#34;&gt;Send Message&lt;/button&gt;&lt;/p&gt;</description>
+        </item>
+        
+    </channel>
 </rss>

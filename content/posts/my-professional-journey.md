@@ -1,9 +1,9 @@
 ---
 title: "My Role at GMA: A Professional Journey on the Helpdesk"
-date: 2024-01-15T10:00:00Z
+date: 2025-10-30T14:53:39Z
 draft: false
 categories: ["Professional"]
-tags: ["work-experience", "career-growth", "professional-development"]
+tags: ["professional-development"]
 description: "Reflecting on my time as [Your Job Title] at [Company Name] - challenges, achievements, and lessons learned."
 author: "Your Name"
 featuredImage: "/images/company-office.jpg"
@@ -25,6 +25,7 @@ A core principle at GMA is cultivating exceptional client relationships and cons
 
 <br>
 
+
 ## Skills Developed and Enhanced Learning
 
 When I started at GMA, I possessed good technical knowledge, but it was largely siloed and theoretical. A helpdesk role shatters that paradigm. You are constantly forced to adapt, with each ticket presenting a unique challenge you've never faced before.
@@ -32,7 +33,6 @@ When I started at GMA, I possessed good technical knowledge, but it was largely 
 This environment also demands a mastery of soft skills. I learned to communicate complex, often unfamiliar, technical concepts to non-technical users—breaking them down into understandable steps while meticulously managing that most critical commodity: time. In this industry, the idiom "work smarter, not harder" is paramount. I grew to be decisive, learning from my mistakes rather than overthinking, which is a sure path to trouble.
 
 These skills were tested and honed daily. After solo completion of 1,161 tickets and thousands of hours on the phone, I can state without hyperbole that I've gained a practical, deep-seated knowledge of IT that simply cannot be taught in a classroom.
-
 
 
 <img src="/images/posts/premium_photo-1661877737564-3dfd7282efcb.jpg" alt="Andrew" width="600" style="border-radius: 8px;"> 

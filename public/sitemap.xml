@@ -17,7 +17,16 @@
     <loc>http://localhost:1313/tags/hardware/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/posts/my-professional-journey/</loc>
+    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/professional/</loc>
+    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/professional-development/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/my-it-journey-begins/</loc>
@@ -32,23 +41,14 @@
     <loc>http://localhost:1313/posts/current-workstation-custom-built/</loc>
     <lastmod>2025-10-30T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/categories/audio-visual/</loc>
+    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/videos/</loc>
     <lastmod>2025-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/career-growth/</loc>
-    <lastmod>2024-01-15T10:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/my-professional-journey/</loc>
-    <lastmod>2024-01-15T10:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/professional/</loc>
-    <lastmod>2024-01-15T10:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/professional-development/</loc>
-    <lastmod>2024-01-15T10:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/work-experience/</loc>
-    <lastmod>2024-01-15T10:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/tags/videos/</loc>
+    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/contact/</loc>
     <lastmod>2023-10-18T00:00:00+00:00</lastmod>

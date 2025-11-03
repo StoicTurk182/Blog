@@ -58,13 +58,6 @@
 			</a>
 		</li>
 		<li class="menu__item">
-			<a class="menu__link" href="https://www.youtube.com/@saraf01">
-				
-				<span class="menu__text">YouTube Channel</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
 			<a class="menu__link" href="/contact/">
 				
 				<span class="menu__text">Contact Me</span>
@@ -83,9 +76,29 @@
 	<article class="post">
 		<header class="post__header">
 			<h1 class="post__title">Self Hosting New Blog</h1>
-			
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime="2025-10-30T14:53:39Z">October 30, 2025</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class="meta__text">
+	</span>
+</div>
+  <span class="reading-time">
+    • 1 min read
+  </span>
+</div>
 		</header>
-		<div class="content post__content clearfix">
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#why-start-this-blog">Why Start This Blog?</a></li>
+    <li><a href="#what-to-expect">What to Expect</a></li>
+    <li><a href="#first-steps">First Steps</a></li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
 			<p>Welcome to my new blog! After years working in IT, I&rsquo;ve decided to document my journey, share what I&rsquo;m learning, and create a resource for others in the technology field.</p>
 <h2 id="why-start-this-blog">Why Start This Blog?</h2>
 <p>As an IT Engineer based in London, I constantly encounter interesting challenges and solutions that I believe are worth sharing. This blog will serve as:</p>
@@ -104,8 +117,6 @@
 <li><strong>Project Showcases</strong> - Real-world implementations</li>
 </ul>
 <h2 id="first-steps">First Steps</h2>
-<img src="/images/posts/Andrew.png" alt="Andrew" width="150" style="border-radius: 8px;"> 
-<p><em>Published on 15:05 30/10/2025 by <strong>Andrew Jones - IT Engineer</strong></em></p>
 <p>This blog is built with <strong>Hugo</strong> and the <strong>Mainroad theme</strong>, hosted on my own Debian VPS. It&rsquo;s been a great learning experience setting everything up from scratch!</p>
 		</div>
 		<footer class="post__footer">
@@ -125,7 +136,45 @@
 	</article>
 </main>
 
+<div class="authorbox clearfix">
+    
+    <figure class="authorbox__avatar">
+        <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
+    </figure>
+    
+    <div class="authorbox__header">
+        <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1;">About Andrew Jones</span>
+    </div>
+    <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1;">
+    <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
+    <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
+    <p style="margin: 0.2em 0;">IT Technical Engineer</p>
+</div>
+</div>
 
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/current-workstation-custom-built/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">My Current Custom PC Build - 2025</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/posts/my-professional-journey/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">My Role at GMA: A Professional Journey on the Helpdesk</p>
+		</a>
+	</div>
+</nav>
+
+<script src="https://utteranc.es/client.js"
+        repo="StoicTurk182/Blog"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
 
 
 			</div>
@@ -134,9 +183,9 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting New Blog</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/current-workstation-custom-built/">My Current Custom PC Build - 2025</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
 		</ul>
 	</div>
 </div>
@@ -145,11 +194,21 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/getting-started-server-deployment---debian-vps/">Getting Started Server Deployment - Debian VPS</a></li>
+				<a class="widget__link" href="/categories/audio-visual/">Audio Visual</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/hardware/">Hardware</a></li>
+				<a class="widget__link" href="/categories/getting-started-server-deployment---debian-vps/">Getting Started Server Deployment - Debian VPS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/professional/">Professional</a></li>
+				<a class="widget__link" href="/categories/hardware/">Hardware</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/professional/">Professional</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 		</ul>
 	</div>
 </div><div class="widget-search widget">
@@ -158,6 +217,15 @@
 		<input class="widget-search__submit" type="submit" value="Search">
 		<input type="hidden" name="sitesearch" value="http://localhost:1313/">
 	</form>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
+	</div>
 </div>
 </aside>
 		</div>
@@ -172,5 +240,7 @@
 </footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 </body>
 </html>

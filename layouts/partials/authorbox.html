@@ -1,0 +1,17 @@
+{{ if and (.Site.Params.author) (.Site.Params.authorbio) }}
+<div class="authorbox clearfix">
+    {{ if and (.Site.Params.authoravatar) (fileExists (printf "static/%s" .Site.Params.authoravatar)) }}
+    <figure class="authorbox__avatar">
+        <img alt="{{ .Site.Params.author }} avatar" src="{{ .Site.Params.authoravatar | relURL }}" class="avatar" height="90" width="90">
+    </figure>
+    {{ end }}
+    <div class="authorbox__header">
+        <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1;">About {{ .Site.Params.author }}</span>
+    </div>
+    <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1;">
+    <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
+    <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
+    <p style="margin: 0.2em 0;">IT Technical Engineer</p>
+</div>
+</div>
+{{ end }}
