@@ -1,12 +1,12 @@
 baseURL = 'https://blog.ajolnet.com/'
-title = 'My Blog'
+title = 'Andy J Blog - Trials of an IT Engineer'
 theme = 'mainroad'
 languageCode = 'en-us'
 author = "Andrew Jones"
 copyright = "© 2025 Andrew Jones. All rights reserved."
 
 [params]
-  description = "My personal blog"
+  description = "Personal Projects"
 
   [params.logo]
     title = "Projects 2025"

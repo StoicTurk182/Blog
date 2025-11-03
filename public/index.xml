@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My Blog</title>
+    <title>Andy J Blog - Trials of an IT Engineer</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content on My Blog</description>
+    <description>Recent content on Andy J Blog - Trials of an IT Engineer</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
