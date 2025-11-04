@@ -1,98 +1,115 @@
 ---
-title: "{{ replace .File.ContentBaseName "-" " " | title }}"
+title: "Monthly Update {{ .Date.Year }}-{{ .Date.Month }}"
 date: {{ .Date }}
 draft: true
 layout: "tech_newsletter"
-issue: "Vol. 1, Issue 1"
-categories: ["weekly"]
-tags: ["Tech News"]
+issue: "Vol. {{ replaceRE "^0" "" .Date.Month }}, Issue 1"
+category: ["monthly News"]
+categories: ["monthly news"]
+tags: ["News"]
 
 sections:
   - title: "Top Stories"
     type: "featured"
     articles:
-      - title: "Your Main Story Headline"
-        summary: "Brief summary of the main technology news"
-        category: "update"
+      - title: "BREAKING: Major Security Vulnerability Discovered"
+        summary: "Critical update required for widespread system vulnerability"
+        category: "security"
+        urgency: "critical"
         details: |
-          **Add detailed content here with full Markdown support:**
+          **EMERGENCY SECURITY UPDATE REQUIRED**
+
+          Details about the critical security vulnerability...
+
+          **Critical Details:**
+          - **CVSS Score:** X.X/10
+          - **Affected Systems:** List affected systems
+          - **Attack Vector:** How the attack works
+          - **Current Status:** Exploitation status
           
-          - Paragraphs with proper formatting
-          - **Bold text** and *italic text*
-          - Bullet point lists
-          - Numbered lists
-          - [Clickable links](https://example.com)
+          **Immediate Actions:**
+          1. Action 1
+          2. Action 2
+          3. Action 3
+          
+          **Impact:** What successful exploitation allows
+          
+          **Download Patch:** [Link to patch]
+
+      - title: "New Technology Recommendation"
+        summary: "Brief description of the technology"
+        category: "recommended"
+        details: |
+          **Technology Name** is a [brief description].
+
+          **Key Features:**
+          - Feature 1
+          - Feature 2
+          - Feature 3
+          
+          **Protocol Foundation:**
+          - Technical detail 1
+          - Technical detail 2
+          
+          **Use Cases:**
+          - Use case 1
+          - Use case 2
+          
+          **Key Benefits:**
+          - Benefit 1
+          - Benefit 2
+          
+          **Download:** [Official Site](https://example.com)
 
   - title: "Security Updates"
     type: "security"
     articles:
-      - title: "Tailscale: Zero-Trust Mesh VPN"
-        summary: "WireGuard-based overlay network with automatic peer discovery and certificate-based authentication"
+      - title: "New Threat Campaign Detected"
+        summary: "Description of the new threat"
         category: "security"
+        urgency: "high"
         details: |
-          **Technical Architecture:**
+          **Threat Level: HIGH**
           
-          **Protocol Foundation:**
-          - Built on **WireGuard®** (UDP-based, state-of-the-art cryptography)
-          - **Noise protocol framework** for key exchange
-          - **Curve25519** for key agreement, **ChaCha20** for encryption, **Poly1305** for authentication
+          Description of the threat campaign...
+          
+          **Key Indicators:**
+          - Indicator 1
+          - Indicator 2
+          - Indicator 3
+          
+          **Protection Measures:**
+          - Measure 1
+          - Measure 2
+          - Measure 3
 
-          **Network Architecture:**
-          - **Full mesh topology** - All nodes can communicate directly
-          - **NAT traversal** using STUN/ICE techniques
-          - **DERP (Detour Encrypted Routing Protocol)** relays for difficult NAT scenarios
-          - **IPv6-only internal addressing** (ULA range fd7a:115c:a1e0::/48)
-
-          **Authentication & Authorization:**
-          - **OAuth 2.0/OIDC** integration (Google, Microsoft, GitHub, etc.)
-          - **Ephemeral certificates** issued by coordination server
-          - **ACL-based policy engine** for granular access control
-          - **MagicDNS** for automatic service discovery
-
-          **Key Differentiators:**
-          - **Zero-config** - Automatic peer discovery and routing
-          - **User-centric** - Identity-based rather than IP-based
-          - **Cross-platform** - Linux, Windows, macOS, iOS, Android, BSD
-          - **Cloud-agnostic** - Works across any network environment
-
-          **Use Cases:**
-          - Secure remote access to internal services
-          - Multi-cloud connectivity
-          - Developer environments
-          - IoT device management
-          - Kubernetes cluster networking
-
-          **Security Model:**
-          - **Zero-trust** - Default deny, explicit allow
-          - **Certificate rotation** - Short-lived certificates (typically 24 hours)
-          - **Perfect forward secrecy** - Each session uses new keys
-          - **No open inbound ports** - All connections are outbound-initiated
-
-  - title: "Driver & Software Updates"
-    type: "updates"
+  - title: "Technology Deep Dive"
+    type: "technical"
     articles:
-      - title: "Latest Software Release"
-        summary: "Summary of new features and improvements"
-        category: "recommended"
+      - title: "In-Depth Analysis: Technology Name"
+        summary: "Comprehensive technical analysis"
+        category: "technical"
         details: |
-          **Release Details:**
+          **Technical Overview**
           
-          - Version information
-          - Key features
-          - Download links
-          - Installation notes
-
-  - title: "Useful Tools"
-    type: "apps"
-    articles:
-      - title: "Essential Application"
-        summary: "Why this tool is useful"
-        category: "recommended"
-        details: |
-          **Tool Overview:**
+          Detailed technical analysis...
           
-          - Key benefits
-          - Use cases
-          - Download information
-          - Setup instructions
+          **Architecture:**
+          - Component 1
+          - Component 2
+          
+          **Implementation:**
+          - Step 1
+          - Step 2
+          
+          **Best Practices:**
+          - Practice 1
+          - Practice 2
 ---
+
+## Quick Start
+
+Now when you create a new newsletter post:
+
+```bash
+hugo new content posts/monthly-update-{{ date "2006-01" now }}.md

@@ -36,13 +36,17 @@ sections:
           **Impact:** Successful exploitation allows full system compromise without user interaction. Multiple ransomware groups including LockBit and BlackCat have weaponized this vulnerability.
           
           **Download Patch:** [Microsoft Security Update Guide](https://msrc.microsoft.com/update-guide)
-        
-        
-      - title: "Tailscale: Zero-Trust Mesh VPN"
-        summary: "The beginning and end of Zero Trust Networking"
+
+  - title: "New Technology Recommendation"
+    type: "Application-Networks"
+    articles:    
+      -title:
+        summary: "Tailscale: Zero-config VPN for secure network connectivity"
         category: "recommended"
         details: |
-          **Tailscale** is a zero-config VPN that makes secure network connectivity incredibly simple to set up and manage.
+          **Tailscale** 
+          
+          Is a zero-config VPN that makes secure network connectivity incredibly simple to set up and manage.
 
           **Protocol Foundation:**
           - Built on **WireGuard®** (UDP-based, state-of-the-art cryptography)
@@ -54,7 +58,8 @@ sections:
           - **NAT traversal** using STUN/ICE techniques
           - **DERP (Detour Encrypted Routing Protocol)** relays for difficult NAT scenarios
           - **IPv6-only internal addressing** (ULA range fd7a:115c:a1e0::/48)
-                    **Authentication & Authorization:**
+
+          **Authentication & Authorization:**
           - **OAuth 2.0/OIDC** integration (Google, Microsoft, GitHub, etc.)
           - **Ephemeral certificates** issued by coordination server
           - **ACL-based policy engine** for granular access control
@@ -79,15 +84,11 @@ sections:
           - **Perfect forward secrecy** - Each session uses new keys
           - **No open inbound ports** - All connections are outbound-initiated
 
-
-            
-
-
-           **Key Benefits:**
-           - **Zero configuration** - Works out of the box
-           - **Cross-platform** - Windows, Mac, Linux, iOS, Android
-           - **Secure by default** - Built on WireGuard protocol
-           - **Free for personal use** - Up to 100 devices
+          **Key Benefits:**
+          - **Zero configuration** - Works out of the box
+          - **Cross-platform** - Windows, Mac, Linux, iOS, Android
+          - **Secure by default** - Built on WireGuard protocol
+          - **Free for personal use** - Up to 100 devices
           
           **Download:** [Tailscale Official Site](https://tailscale.com/download)
 

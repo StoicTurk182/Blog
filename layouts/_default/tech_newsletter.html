@@ -132,7 +132,7 @@
             <span class="issue-date">{{ .Date.Format "Monday, January 2, 2006" }}</span>
             <span class="issue-number">{{ .Params.issue }}</span>
         </div>
-        {{ if .Params.category }}
+        {{ if .Params.categories }}
         <div class="category-badge">
             {{ range .Params.categories }}{{ upper . }} {{ end }}EDITION
         </div>
@@ -145,18 +145,20 @@
             <h2 class="section-title">{{ .title }}</h2>
             <div class="section-content">
                 {{ range .articles }}
-<article class="news-article">
-    <h3 class="article-title">{{ .title }}</h3>
-    {{ if .category }}
-    <span class="article-category {{ .category }}">{{ .category }}</span>
-    {{ end }}
-    <p class="article-summary">{{ .summary | markdownify }}</p>
-    {{ if .details }}
-    <div class="article-details">
-        {{ .details | markdownify }}
-    </div>
-    {{ end }}
-</article>
+                <article class="news-article">
+                    <div class="article-header">
+                        <h3 class="article-title">{{ .title }}</h3>
+                        {{ if .category }}
+                        <span class="article-category {{ .category }}">{{ .category }}</span>
+                        {{ end }}
+                    </div>
+                    <p class="article-summary">{{ .summary | markdownify }}</p>
+                    {{ if .details }}
+                    <div class="article-details">
+                        {{ .details | markdownify }}
+                    </div>
+                    {{ end }}
+                </article>
                 {{ end }}
             </div>
         </section>
