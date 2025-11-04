@@ -61,6 +61,11 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     url = "/contact/"
     weight = 100
 
+    [[menu.main]]
+name = "Tech News"
+url = "/tech-newsletter/weekly-update-1/"
+weight = 10
+
   [params.widgets]
   recent_num = 5
   categories_counter = true
