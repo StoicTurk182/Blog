@@ -2,18 +2,17 @@
 title: "My Role at GMA: A Professional Journey on the Helpdesk"
 date: 2025-10-30T14:53:39Z
 draft: false
+layout: "professional"
 categories: ["Professional"]
 tags: ["professional-development"]
-description: "Reflecting on my time as [Your Job Title] at [Company Name] - challenges, achievements, and lessons learned."
-author: "Your Name"
-featuredImage: "/images/company-office.jpg"
+description: "Reflecting on my time as IT engineer at GMA - challenges, achievements, and lessons learned."
+author: "Andrew Jones"
+featuredImage: "/images/posts/logo-min.png"
 ---
 
 ## Introduction
 
 My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.  
-
-![Company Office or Workspace](/images/posts/logo-min.png)
 
 ## The Company and My Role
 

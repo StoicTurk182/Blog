@@ -79,87 +79,263 @@
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">Contact Me</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime="2023-10-18T00:00:00Z">October 18, 2023</time></div>
-  <span class="reading-time">
-    • 1 min read
-  </span>
-</div>
-		</header>
-		
-<div class="post__toc toc">
-	<div class="toc__title">Page content</div>
-	<div class="toc__menu">
-		<nav id="TableOfContents">
-  <ul>
-    <li><a href="#get-in-touch">Get In Touch</a></li>
-    <li><a href="#social-media">Social Media</a></li>
-    <li><a href="#contact-form">Contact Form</a></li>
-  </ul>
-</nav>
-	</div>
-</div><div class="content post__content clearfix">
-			<h2 id="get-in-touch">Get In Touch</h2>
-<p><strong>Email:</strong> <a href="mailto:Stoicturk182@protonmail.com">Stoicturk182@protonmail.com</a>
-<strong>Phone:</strong> (44) 07990338386
-<strong>Location:</strong> London, UK</p>
-<h2 id="social-media">Social Media</h2>
-<ul>
-<li>GitHub: <a href="https://github.com/StoicTurk182">StoicTurk182</a></li>
-<li>LinkedIn: <a href="https://linkedin.com/in/andrew-john-j-780">Andrew Jones</a></li>
-</ul>
-<h2 id="contact-form">Contact Form</h2>
-<p>You can also reach me using the form below:</p>
-<form action="https://formspree.io/f/xovppvjo" method="POST">
-  <div style="margin-bottom: 1rem;">
-    <label for="name" style="display: block; margin-bottom: 0.5rem;">Your Name:</label>
-    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
-  </div>
-  <div style="margin-bottom: 1rem;">
-    <label for="email" style="display: block; margin-bottom: 0.5rem;">Your Email:</label>
-    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
-  </div>
-  <div style="margin-bottom: 1rem;">
-    <label for="message" style="display: block; margin-bottom: 0.5rem;">Message:</label>
-    <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
-  </div>
-<p><button type="submit" style="background-color: #007bff; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;">Send Message</button></p>
-</form>
-		</div>
-	</article>
-</main>
+<article class="contact-page">
+    
+    <header class="contact-header">
+        <h1 class="contact-title">Contact Me</h1>
+        <p class="contact-subtitle">Get in touch - I'd love to hear from you</p>
+    </header>
 
-<div class="authorbox clearfix">
     
-    <figure class="authorbox__avatar">
-        <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
-    </figure>
-    
-    <div class="authorbox__header">
-        <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1;">About Andrew Jones</span>
+    <div class="contact-content">
+        <div class="contact-grid">
+            
+            <div class="contact-info">
+                <h2>📧 Email & Phone</h2>
+                <div class="contact-details">
+                    <p><strong>Email:</strong> <a href="mailto:Stoicturk182@protonmail.com">Stoicturk182@protonmail.com</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+447990338386">(44) 07990338386</a></p>
+                    <p><strong>Location:</strong> London, UK</p>
+                </div>
+
+                <h2>🌐 Social Media</h2>
+                <div class="social-links">
+                    <p><strong>GitHub:</strong> <a href="https://github.com/StoicTurk182" target="_blank">StoicTurk182</a></p>
+                    <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/andrew-john-j-780" target="_blank">Andrew Jones</a></p>
+                </div>
+            </div>
+
+            
+            <div class="contact-form">
+                <h2>📝 Send Me a Message</h2>
+                <form action="https://formspree.io/f/xovppvjo" method="POST" class="form">
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        
+        
+        <div class="authorbox clearfix">
+            
+            <figure class="authorbox__avatar">
+                <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
+            </figure>
+            
+            <div class="authorbox__header">
+                <span class="authorbox__name">About Andrew Jones</span>
+            </div>
+            <div class="authorbox__description">
+                <p>Projects 2025 Blog</p>
+                <p>Information Technology Enthusiast</p>
+                <p>IT Technical Engineer</p>
+            </div>
+        </div>
+        
+
+        
+        
+        <div class="comments-section">
+            <h3>💬 Comments & Questions</h3>
+            <script src="https://utteranc.es/client.js"
+                    repo="StoicTurk182/Blog"
+                    issue-term="pathname"
+                    theme="github-dark"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        </div>
+        
     </div>
-    <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1;">
-    <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
-    <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
-    <p style="margin: 0.2em 0;">IT Technical Engineer</p>
-</div>
-</div>
+</article>
 
+<style>
+.contact-page {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
 
+.contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #e2e8f0;
+}
 
-<script src="https://utteranc.es/client.js"
-        repo="StoicTurk182/Blog"
-        issue-term="pathname"
-        theme="github-dark"
-        crossorigin="anonymous"
-        async>
-</script>
+.contact-title {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin: 1rem 0;
+}
 
+.contact-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.contact-info h2,
+.contact-form h2 {
+    color: #1e293b;
+    border-bottom: 2px solid #f80000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-details p,
+.social-links p {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+}
+
+.contact-details a,
+.social-links a {
+    color: #eb4925;
+    text-decoration: none;
+}
+
+.contact-details a:hover,
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+ 
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #e91212;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.submit-btn {
+    background-color: #eb2825;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #d81d1d;
+}
+
+ 
+.authorbox {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    border-left: 4px solid #eb2525;
+}
+
+.authorbox__avatar {
+    float: left;
+    margin: 0 1.5rem 1rem 0;
+}
+
+.authorbox__avatar img {
+    border-radius: 8px;
+}
+
+.authorbox__header {
+    margin-bottom: 1rem;
+}
+
+.authorbox__name {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.authorbox__description {
+    font-size: 0.9em;
+    color: #475569;
+    line-height: 1.1;
+}
+
+.authorbox__description p {
+    margin: 0.2em 0;
+}
+
+ 
+.comments-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+}
+
+.comments-section h3 {
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+}
+
+ 
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-title {
+        font-size: 2rem;
+    }
+    
+    .authorbox__avatar {
+        float: none;
+        margin: 0 auto 1rem auto;
+        display: block;
+        text-align: center;
+    }
+}
+</style>
 
 			</div>
 			<aside class="sidebar">
@@ -168,7 +344,7 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting New Blog</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting a New Blog</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/current-workstation-custom-built/">My Current Custom PC Build - 2025</a></li>
 		</ul>
 	</div>
@@ -209,9 +385,10 @@
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/news/" title="News">News (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pc-build/" title="PC Build">PC Build (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
 	</div>

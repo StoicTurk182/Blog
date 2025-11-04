@@ -1,12 +1,13 @@
 ---
-title: "Self Hosting New Blog"
+title: "Self Hosting a New Blog"
 date: 2025-10-30T14:53:39Z
 draft: false
+layout: "professional"
 author: "Andrew Jones"
-tags: ["Blog","Hardware"]
+tags: ["Blog"]
 categories: ['Getting Started Server Deployment - Debian VPS']
 featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
-description: "My it journey begins - insights from Andrew Jones, IT Engineer in London, UK"
+description: "My IT journey Continues - insights from Andrew Jones, IT Engineer in London, UK"
 ---
 
 Welcome to my new blog! After years working in IT, I've decided to document my journey, share what I'm learning, and create a resource for others in the technology field.

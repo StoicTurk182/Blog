@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>My Current Custom PC Build - 2025 - Andy J Blog - Trials of an IT Engineer</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="A look at my current custom PC setup and specifications.">
+	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -79,87 +79,272 @@
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">My Current Custom PC Build - 2025</h1>
-			<div class="post__meta meta">
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime="2025-10-30T00:00:00Z">October 30, 2025</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/hardware/" rel="category">Hardware</a>
-	</span>
-</div>
-  <span class="reading-time">
-    • 1 min read
-  </span>
-</div>
-		</header>
-		<div class="content post__content clearfix">
-			<p>This system is my latest and most capable build to date. I engineered it for the upper mid-range tier, where it confidently tackles everything from gaming to intensive creative applications. Remarkably, the entire setup cost less than £2,000 as of this September and even surpasses the performance of my old 5950x, which has since been relegated to server duty for video production.</p>
-<p><br><img src="/images/posts/RIG.jpg" alt="Andrew" width="275" style="border-radius: 5px;"></br></p>
-<h2 style="font-size: 1.5rem; margin: 1; padding: 1;">System Overview</h2>
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">CPU</h2>AMD Ryzen 9 7900X
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">GPU</h2>AMD Radeon RX 9070
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Motherboard</h2>MSI MAG X670E TOMAHAWK WIFI (MS-7E12)
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Memory</h2>64GB CP32G64C40U5B.M8B3 
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Storage</h2>Samsung SSD 990 PRO with Heatsink 1TB - Samsung SSD 970 EVO Plus 250GB - WD_BLACK SN770 1TB
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Power Supply</h2>Antec SF850X 850W Power Supply 80+ Gold
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Case</h2>FRAME 4000D Modular Mid-Tower PC Case
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Cooling</h2>Thermalright Phantom Spirit 120 EVO
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Peripherals</h2>Dual Monitor - MAG 27CQ6F - PL2470H
-<h2 style="font-size: 1.0rem; color: red; margin: 0; padding: 0;">Performance</h2>Upper Mid Range I will add linux Bench marks soon! I plan on getting more RAM and a better GPU but for minor dev work this is a great system.
-<br>
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/blog/" rel="tag">Blog</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/hardware/" rel="tag">Hardware</a>
-		</li>
-	</ul>
-</div>
-		</footer>
-	</article>
-</main>
+<style>
+.tech-newsletter {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+     
+    line-height: 1.6;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
-<div class="authorbox clearfix">
-    
-    <figure class="authorbox__avatar">
-        <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
-    </figure>
-    
-    <div class="authorbox__header">
-        <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1;">About Andrew Jones</span>
+.newsletter-header {
+    border-bottom: 3px solid #eb2525;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.publication-name {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #1e293b;
+    margin: 0;
+}
+
+.issue-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgb(231, 31, 31);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    text-transform: uppercase;
+}
+
+.news-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.news-article {
+    background: #f8fafc;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #cbd5e1;
+}
+
+.article-title {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+}
+
+.article-category {
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.article-category.security {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.article-category.update {
+    background: #f0f9ff;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+.article-category.recommended {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+.article-summary {
+    color: #475569;
+    margin: 0.5rem 0;
+}
+
+.article-details {
+    background: white;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 3px solid #94a3b8;
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+.newsletter-footer {
+    border-top: 2px solid #e2e8f0;
+    padding-top: 1.5rem;
+    text-align: center;
+    color: #64748b;
+    margin-top: 2rem;
+}
+</style>
+
+<div class="tech-newsletter">
+    <header class="newsletter-header">
+        <h1 class="publication-name">Tech Chronicle</h1>
+        <div class="issue-info">
+            <span class="issue-date">Thursday, October 30, 2025</span>
+            <span class="issue-number">Hardware Spotlight</span>
+        </div>
+        
+        <div class="category-badge">
+            HARDWARE EDITION
+        </div>
+        
+    </header>
+
+    <div class="newsletter-content">
+        
+        <section class="news-section">
+            <h2 class="section-title">Hardware Review</h2>
+            <div class="section-content">
+                
+                <article class="news-article">
+                    <div class="article-header">
+                        <h3 class="article-title">My 2025 Custom PC Build: Upper Mid-Range Powerhouse</h3>
+                        
+                        <span class="article-category hardware">hardware</span>
+                        
+                    </div>
+                    <p class="article-summary">AMD Ryzen 9 7900X and Radeon RX 9070 deliver exceptional performance under £2,000</p>
+                    
+                    <div class="article-details">
+                        <p><strong>System Overview</strong></p>
+<p>This system is my latest and most capable build to date. I engineered it for the upper mid-range tier, where it confidently tackles everything from gaming to intensive creative applications. Remarkably, the entire setup cost less than £2,000 as of this September and even surpasses the performance of my old 5950x, which has since been relegated to server duty for video production.</p>
+<p><img src="/images/posts/RIG.jpg" alt="My PC Build"></p>
+<p><strong>Complete Specifications:</strong></p>
+<p><strong>CPU:</strong> AMD Ryzen 9 7900X</p>
+<p><strong>GPU:</strong> AMD Radeon RX 9070</p>
+<p><strong>Motherboard:</strong> MSI MAG X670E TOMAHAWK WIFI (MS-7E12)</p>
+<p><strong>Memory:</strong> 64GB CP32G64C40U5B.M8B3</p>
+<p><strong>Storage:</strong></p>
+<ul>
+<li>Samsung SSD 990 PRO with Heatsink 1TB</li>
+<li>Samsung SSD 970 EVO Plus 250GB</li>
+<li>WD_BLACK SN770 1TB</li>
+</ul>
+<p><strong>Power Supply:</strong> Antec SF850X 850W Power Supply 80+ Gold</p>
+<p><strong>Case:</strong> FRAME 4000D Modular Mid-Tower PC Case</p>
+<p><strong>Cooling:</strong> Thermalright Phantom Spirit 120 EVO</p>
+<p><strong>Peripherals:</strong></p>
+<ul>
+<li>Dual Monitor Setup</li>
+<li>MAG 27CQ6F</li>
+<li>PL2470H</li>
+</ul>
+<p><strong>Performance Assessment:</strong>
+Upper Mid-Range - I will add Linux benchmarks soon! I plan on getting more RAM and a better GPU but for minor dev work this is a great system.</p>
+<p><strong>Value Proposition:</strong>
+Exceptional performance-to-cost ratio, outperforming previous high-end systems while maintaining budget consciousness.</p>
+
+                    </div>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+        <section class="news-section">
+            <h2 class="section-title">Build Philosophy</h2>
+            <div class="section-content">
+                
+                <article class="news-article">
+                    <div class="article-header">
+                        <h3 class="article-title">Why This Configuration Works</h3>
+                        
+                        <span class="article-category recommended">recommended</span>
+                        
+                    </div>
+                    <p class="article-summary">Strategic component selection for maximum performance per pound</p>
+                    
+                    <div class="article-details">
+                        <p><strong>Design Strategy:</strong></p>
+<ul>
+<li><strong>Balanced Budget Allocation:</strong> Prioritized CPU and GPU while maintaining quality across all components</li>
+<li><strong>Future-Proof Foundation:</strong> AM5 platform with DDR5 memory ensures long-term upgrade path</li>
+<li><strong>Thermal Efficiency:</strong> High-performance air cooling maintains optimal temperatures without liquid complexity</li>
+<li><strong>Storage Tiering:</strong> Combination of high-speed NVMe drives for different workload requirements</li>
+</ul>
+<p><strong>Key Decisions:</strong></p>
+<ul>
+<li>AMD Ryzen 9 7900X for exceptional multi-threaded performance</li>
+<li>Radeon RX 9070 for competitive gaming and creative workloads</li>
+<li>64GB RAM to handle demanding development environments</li>
+<li>Multiple storage tiers for optimized workflow management</li>
+</ul>
+
+                    </div>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
+        <section class="news-section">
+            <h2 class="section-title">Future Upgrades</h2>
+            <div class="section-content">
+                
+                <article class="news-article">
+                    <div class="article-header">
+                        <h3 class="article-title">Planned Enhancements</h3>
+                        
+                        <span class="article-category update">update</span>
+                        
+                    </div>
+                    <p class="article-summary">RAM expansion and GPU upgrades on the horizon</p>
+                    
+                    <div class="article-details">
+                        <p><strong>Next Phase Upgrades:</strong></p>
+<ul>
+<li><strong>Memory Expansion:</strong> Additional 64GB RAM for virtualized development environments</li>
+<li><strong>GPU Enhancement:</strong> Next-generation graphics card for improved rendering performance</li>
+<li><strong>Storage:</strong> Additional NVMe storage for project archives</li>
+<li><strong>Cooling:</strong> Potential upgrade to high-end air cooler or AIO solution</li>
+</ul>
+<p><strong>Timeline:</strong> Q1 2026 for initial upgrades, with further enhancements planned throughout the year.</p>
+
+                    </div>
+                    
+                </article>
+                
+            </div>
+        </section>
+        
     </div>
-    <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1;">
-    <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
-    <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
-    <p style="margin: 0.2em 0;">IT Technical Engineer</p>
+
+    <footer class="newsletter-footer">
+        <p><strong>Tech Chronicle</strong> - Your weekly technology briefing</p>
+        <div class="footer-links">
+            <a href="/">← Back to Home</a>
+        </div>
+    </footer>
 </div>
-</div>
-
-
-<nav class="pager flex">
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/posts/my-it-journey-begins/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">Self Hosting New Blog</p>
-		</a>
-	</div>
-</nav>
-
-<script src="https://utteranc.es/client.js"
-        repo="StoicTurk182/Blog"
-        issue-term="pathname"
-        theme="github-dark"
-        crossorigin="anonymous"
-        async>
-</script>
-
 
 			</div>
 			<aside class="sidebar">
@@ -168,7 +353,7 @@
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting New Blog</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting a New Blog</a></li>
 			<li class="widget__item"><a class="widget__link" href="/posts/current-workstation-custom-built/">My Current Custom PC Build - 2025</a></li>
 		</ul>
 	</div>
@@ -209,9 +394,10 @@
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/news/" title="News">News (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pc-build/" title="PC Build">PC Build (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
 	</div>

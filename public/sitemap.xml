@@ -29,9 +29,6 @@
     <loc>http://localhost:1313/categories/getting-started-server-deployment---debian-vps/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/hardware/</loc>
-    <lastmod>2025-10-30T14:53:39+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/my-professional-journey/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
@@ -48,10 +45,16 @@
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/hardware/</loc>
-    <lastmod>2025-10-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-30T10:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/hardware/</loc>
+    <lastmod>2025-10-30T10:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/current-workstation-custom-built/</loc>
-    <lastmod>2025-10-30T00:00:00+00:00</lastmod>
+    <lastmod>2025-10-30T10:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/pc-build/</loc>
+    <lastmod>2025-10-30T10:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/audio-visual/</loc>
     <lastmod>2025-01-01T00:00:00+00:00</lastmod>

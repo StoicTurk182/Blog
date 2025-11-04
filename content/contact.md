@@ -2,9 +2,10 @@
 title: "Contact Me"
 date: 2023-10-18T00:00:00Z
 draft: false
+layout: "contact"
 ---
 
-## Get In Touch
+## Email & Phone
 
 **Email:** Stoicturk182@protonmail.com 
 **Phone:** (44) 07990338386 
@@ -34,5 +35,5 @@ You can also reach me using the form below:
     <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
   </div>
   
-  <button type="submit" style="background-color: #007bff; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;">Send Message</button>
+  <button type="submit" style="background-color:rgb(34, 39, 45); color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;">Send Message</button>
 </form>
