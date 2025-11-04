@@ -1,0 +1,487 @@
+{{ define "main" }}
+<div class="homepage">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">{{ .Site.Title }}</h1>
+            {{ with .Site.Params.description }}
+            <p class="hero-description">{{ . }}</p>
+            {{ end }}
+            <div class="hero-actions">
+                <a href="/tech-newsletter" class="btn-primary">Latest Tech News</a>
+                <a href="/posts" class="btn-secondary">View All Posts</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Content -->
+    <section class="featured-section">
+        <div class="section-header">
+            <h2>Latest Updates</h2>
+            <p>Recent articles and newsletters</p>
+        </div>
+
+        <div class="content-grid">
+            <!-- Featured Newsletter -->
+            {{ $newsletters := where .Site.RegularPages "Type" "tech-newsletter" }}
+            {{ with index $newsletters 0 }}
+            <article class="featured-card newsletter-card">
+                <div class="card-header">
+                    <span class="card-badge">Newsletter</span>
+                    <time class="card-date">{{ .Date.Format "January 2, 2006" }}</time>
+                </div>
+                <h3 class="card-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h3>
+                <p class="card-description">{{ .Description | default .Summary }}</p>
+                <div class="card-footer">
+                    <a href="{{ .RelPermalink }}" class="card-link">Read Issue</a>
+                </div>
+            </article>
+            {{ end }}
+
+            <!-- Latest Blog Post -->
+            {{ $posts := where .Site.RegularPages "Type" "posts" }}
+            {{ with index $posts 0 }}
+            <article class="featured-card post-card">
+                <div class="card-header">
+                    <span class="card-badge">Article</span>
+                    <time class="card-date">{{ .Date.Format "January 2, 2006" }}</time>
+                </div>
+                <h3 class="card-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h3>
+                <p class="card-description">{{ .Description | default .Summary }}</p>
+                <div class="card-footer">
+                    <a href="{{ .RelPermalink }}" class="card-link">Read Post</a>
+                </div>
+            </article>
+            {{ end }}
+
+            <!-- Quick Links Card -->
+            <article class="featured-card links-card">
+                <div class="card-header">
+                    <span class="card-badge">Explore</span>
+                </div>
+                <h3 class="card-title">Quick Access</h3>
+                <div class="links-list">
+                    <a href="/tech-newsletter" class="link-item">Tech Newsletters</a>
+                    <a href="/posts" class="link-item">All Blog Posts</a>
+                    <a href="/categories" class="link-item">Categories</a>
+                    <a href="/tags" class="link-item">Tags</a>
+                    {{ with .Site.GetPage "/contact" }}
+                    <a href="{{ .RelPermalink }}" class="link-item">Contact</a>
+                    {{ end }}
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Recent Posts Section -->
+    <section class="recent-section">
+        <div class="section-header">
+            <h2>Recent Posts</h2>
+            <a href="/posts" class="view-all">View All</a>
+        </div>
+
+        <div class="posts-list">
+            {{ range first 3 (where .Site.RegularPages "Type" "posts") }}
+            <article class="post-preview">
+                <time class="post-date">{{ .Date.Format "January 2, 2006" }}</time>
+                <h3 class="post-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h3>
+                <p class="post-excerpt">{{ .Description | default (truncate 120 .Summary) }}</p>
+                <div class="post-meta">
+                    {{ with .Params.categories }}
+                    <span class="post-category">{{ index . 0 }}</span>
+                    {{ end }}
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </section>
+
+    <!-- About Section -->
+    {{ if .Site.Params.authorbio }}
+    <section class="about-section">
+        <div class="section-header">
+            <h2>About</h2>
+        </div>
+        <div class="about-content">
+            {{ if and (.Site.Params.authoravatar) (fileExists (printf "static/%s" .Site.Params.authoravatar)) }}
+            <img src="{{ .Site.Params.authoravatar | relURL }}" alt="{{ .Site.Params.author }}" class="about-avatar">
+            {{ end }}
+            <div class="about-text">
+                <h3>{{ .Site.Params.author }}</h3>
+                <p>{{ .Site.Params.authorbio }}</p>
+                <div class="about-links">
+                    {{ with .Site.GetPage "/contact" }}
+                    <a href="{{ .RelPermalink }}" class="about-link">Get in Touch</a>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+    </section>
+    {{ end }}
+</div>
+
+<style>
+.homepage {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 3rem;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    font-weight: 300;
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: #dc2626;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #374151;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    color: #1f2937;
+    margin: 0;
+    font-weight: 400;
+}
+
+.section-header p {
+    color: #6b7280;
+    margin: 0.5rem 0 0 0;
+}
+
+.view-all {
+    color: #dc2626;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.view-all:hover {
+    text-decoration: underline;
+}
+
+/* Featured Content Grid */
+.featured-section {
+    margin-bottom: 4rem;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.featured-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.2s;
+}
+
+.featured-card:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.card-badge {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.newsletter-card .card-badge {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.card-date {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.card-title {
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+}
+
+.card-title a {
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    color: #dc2626;
+}
+
+.card-description {
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0 0 1.5rem 0;
+}
+
+.card-footer {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 1rem;
+}
+
+.card-link {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* Links Card */
+.links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.link-item {
+    color: #374151;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6;
+    transition: color 0.2s;
+}
+
+.link-item:hover {
+    color: #dc2626;
+}
+
+.link-item:last-child {
+    border-bottom: none;
+}
+
+/* Recent Posts */
+.recent-section {
+    margin-bottom: 4rem;
+}
+
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post-preview {
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.post-preview:hover {
+    border-color: #d1d5db;
+    background: #fafafa;
+}
+
+.post-date {
+    color: #6b7280;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.post-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.post-title a {
+    color: #1f2937;
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: #dc2626;
+}
+
+.post-excerpt {
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+}
+
+.post-category {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* About Section */
+.about-section {
+    margin-bottom: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.about-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.about-text h3 {
+    margin: 0 0 1rem 0;
+    color: #1f2937;
+    font-size: 1.3rem;
+}
+
+.about-text p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0 0 1.5rem 0;
+}
+
+.about-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.about-link {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.about-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .homepage {
+        padding: 0 0.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .about-avatar {
+        margin: 0 auto;
+    }
+}
+</style>
+{{ end }}

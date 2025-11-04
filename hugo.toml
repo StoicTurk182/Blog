@@ -15,7 +15,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   readingTime = true
   post_meta = ["author", "date", "categories","readingtime"] 
   author = "Andrew Jones"
-  authorbio = "/"
+  authorbio = "IT Technical Engineer and technology enthusiast with 20+ years of experience in gaming and content creation. Passionate about cybersecurity, networking, and sharing knowledge through technical writing and video production."
   authoravatar = "/images/posts/Andrew.png"
 
   [params.logo]
