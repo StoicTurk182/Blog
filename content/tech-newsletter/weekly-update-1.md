@@ -40,10 +40,10 @@ sections:
   - title: "New Technology Recommendation"
     type: "Application-Networks"
     articles:    
-      -title:
+      - title: "Tailscale Mesh Network"
         summary: "Tailscale: Zero-config VPN for secure network connectivity"
         category: "recommended"
-        details: |
+        details: | 
           **Tailscale** 
           
           Is a zero-config VPN that makes secure network connectivity incredibly simple to set up and manage.
