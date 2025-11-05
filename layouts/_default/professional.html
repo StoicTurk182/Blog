@@ -25,26 +25,6 @@
         {{ .Content }}
     </div>
 
-    <!-- Author Bio Section -->
-    {{ if and (.Site.Params.author) (.Site.Params.authorbio) }}
-    <div class="authorbox clearfix" style="margin: 3rem 0; padding: 2rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid #eb2525;">
-        {{ if and (.Site.Params.authoravatar) (fileExists (printf "static/%s" .Site.Params.authoravatar)) }}
-        <figure class="authorbox__avatar" style="float: left; margin: 0 1.5rem 1rem 0;">
-            <img alt="{{ .Site.Params.author }} avatar" src="{{ .Site.Params.authoravatar | relURL }}" class="avatar" height="90" width="90" style="border-radius: 8px;">
-        </figure>
-        {{ end }}
-        <div class="authorbox__header">
-            <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1; font-weight: bold; color: #1e293b;">About {{ .Site.Params.author }}</span>
-        </div>
-        <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1; color: #475569;">
-            <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
-            <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
-            <p style="margin: 0.2em 0;">IT Technical Engineer</p>
-        </div>
-        <div style="clear: both;"></div>
-    </div>
-    {{ end }}
-
     <!-- Skills Highlight Section -->
     {{ if findRE "## Technical Skills" .Content }}
     <div class="skills-highlight">
