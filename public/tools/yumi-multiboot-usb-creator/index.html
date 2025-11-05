@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>YUMI Multiboot USB Creator - Andy J Blog - Trials of an IT Engineer</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="Create bootable USB drives with multiple operating systems and utilities">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Projects 2025" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Projects 2025</div>
+					<div class="logo__tagline">Information Technology Musings</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/posts/">
+				
+				<span class="menu__text">Posts</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/videos/">
+				
+				<span class="menu__text">Videos</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tech-newsletter/weekly-update-1/">
+				
+				<span class="menu__text">Tech News</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tools/">
+				
+				<span class="menu__text">Tools</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/contact/">
+				
+				<span class="menu__text">Contact Me</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<div class="tool-single-page">
+    
+
+    <section class="tool-hero">
+        
+        <div class="hero-content">
+           
+            <div class="tool-header">
+                <span class="tool-badge">Tool</span>
+                
+                <span class="reading-time">• 2 min read</span>
+                
+                <span class="tool-version">v2.0.9</span>
+                
+            </div>
+            <h1 class="hero-title">YUMI Multiboot USB Creator</h1>
+            
+        </div>
+    </section>
+
+    
+    <section class="tool-content-section">
+        <div class="tool-actions">
+           
+            
+            <a href="https://pendrivelinux.com/downloads/YUMI/YUMI-2.0.9.exe" class="btn-secondary">Download</a>
+            
+            <a href="/tools/" class="btn-secondary">← Back to Tools</a>
+        </div>
+
+        
+        <article class="tool-article">
+            <h1 id="yumi-multiboot-usb-creator">YUMI Multiboot USB Creator</h1>
+<p>YUMI (Your Universal Multiboot Integrator) is a powerful tool that allows you to create a bootable USB drive containing multiple operating systems, antivirus utilities, disc cloning, diagnostic tools, and more.</p>
+<h2 id="overview">Overview</h2>
+<p>YUMI makes it easy to create a multiboot USB drive that can boot various Linux distributions, Windows installers, and system utilities from a single device. It&rsquo;s the successor to MultibootISOs and uses syslinux to boot extracted distributions from the USB device.</p>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li><strong>Multiple OS Support</strong>: Install numerous Linux distributions on one USB drive</li>
+<li><strong>Windows Integration</strong>: Supports Windows XP through Windows 11 installers</li>
+<li><strong>Utility Collection</strong>: Includes antivirus tools, backup utilities, and diagnostic software</li>
+<li><strong>UEFI Support</strong>: Compatible with both Legacy BIOS and UEFI systems</li>
+<li><strong>Persistent Storage</strong>: Option to create persistent storage for some distributions</li>
+<li><strong>Simple Interface</strong>: Easy-to-use interface with distribution auto-download options</li>
+</ul>
+<h2 id="supported-distributions">Supported Distributions</h2>
+<p>YUMI supports a wide range of operating systems including:</p>
+<h3 id="linux-distributions">Linux Distributions</h3>
+<ul>
+<li>Ubuntu and derivatives (Kubuntu, Lubuntu, Xubuntu)</li>
+<li>Linux Mint</li>
+<li>Debian</li>
+<li>Fedora</li>
+<li>Arch Linux</li>
+<li>openSUSE</li>
+<li>CentOS</li>
+<li>And many more&hellip;</li>
+</ul>
+<h3 id="system-utilities">System Utilities</h3>
+<ul>
+<li>GParted</li>
+<li>Clonezilla</li>
+<li>DBAN (Darik&rsquo;s Boot and Nuke)</li>
+<li>Memtest86+</li>
+<li>Hiren&rsquo;s BootCD</li>
+<li>Ultimate Boot CD</li>
+<li>Various antivirus rescue disks</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2>
+<ul>
+<li><strong>Windows OS</strong>: Windows XP or later (tool runs on Windows)</li>
+<li><strong>USB Drive</strong>: 4GB minimum (8GB+ recommended for multiple distributions)</li>
+<li><strong>Administrator Rights</strong>: Required for USB formatting and boot sector writing</li>
+</ul>
+<h2 id="how-to-use">How to Use</h2>
+<ol>
+<li><strong>Download YUMI</strong> from the official website</li>
+<li><strong>Run as Administrator</strong> for proper functionality</li>
+<li><strong>Select USB Drive</strong> from the dropdown menu</li>
+<li><strong>Choose Distribution</strong> from the extensive list</li>
+<li><strong>Browse ISO File</strong> or let YUMI download it automatically</li>
+<li><strong>Click Create</strong> to add the distribution to your USB drive</li>
+<li><strong>Repeat</strong> for additional distributions as needed</li>
+</ol>
+<h2 id="download-options">Download Options</h2>
+<ul>
+<li><strong>Standard Version</strong>: For most users with typical requirements</li>
+<li><strong>UEFI Version</strong>: For systems requiring UEFI boot support</li>
+<li><strong>Legacy Version</strong>: For older systems with specific requirements</li>
+</ul>
+<h2 id="usage-tips">Usage Tips</h2>
+<ul>
+<li>Always back up your USB drive data before using YUMI</li>
+<li>Use a high-quality USB 3.0 drive for better performance</li>
+<li>Some distributions work better with specific YUMI versions</li>
+<li>You can remove distributions individually through the YUMI interface</li>
+<li>Persistent storage is available for certain Ubuntu-based distributions</li>
+</ul>
+<h2 id="security-notes">Security Notes</h2>
+<ul>
+<li>Only download YUMI from the official pendrivelinux.com website</li>
+<li>Verify ISO checksums when manually adding distributions</li>
+<li>Some antivirus software may flag boot sector tools - add exceptions as needed</li>
+<li>Always scan downloaded ISO files for malware</li>
+</ul>
+<h2 id="alternatives">Alternatives</h2>
+<p>While YUMI is excellent for Windows users, other platforms have alternatives:</p>
+<ul>
+<li><strong>Rufus</strong>: Fast USB creation for single distributions</li>
+<li><strong>Etcher</strong>: Cross-platform USB writer</li>
+<li><strong>Ventoy</strong>: Advanced multiboot solution with different approach</li>
+</ul>
+<hr>
+<p><em>Last updated: January 2024. YUMI is developed and maintained by Pendrivelinux.</em></p>
+
+        </article>
+
+        
+        <div class="tool-footer-actions">
+            
+            <a href="https://pendrivelinux.com/downloads/YUMI/YUMI-2.0.9.exe" class="card-link download-link">Download Tool</a>
+            
+        </div>
+    </section>
+</div>
+
+<style>
+.reading-time {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.tool-single-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+ 
+.tool-hero {
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+}
+
+.tool-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tool-badge {
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.tool-version {
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.tool-hero .hero-title {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    font-weight: 300;
+}
+
+.tool-hero .hero-description {
+    font-size: 1.3rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+ 
+.tool-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+ 
+.tool-meta {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.meta-group {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.meta-group:last-child {
+    margin-bottom: 0;
+}
+
+.meta-group strong {
+    min-width: 80px;
+    color: #374151;
+    font-weight: 600;
+}
+
+.categories, .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-tag {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.tag {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    border: 1px solid #e5e7eb;
+}
+
+ 
+.tool-article {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.7;
+    color: #374151;
+}
+
+.tool-article h2 {
+    color: #1f2937;
+    font-weight: 400;
+    margin: 2rem 0 1rem 0;
+}
+
+.tool-article h3 {
+    color: #374151;
+    font-weight: 500;
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.tool-article p {
+    margin-bottom: 1rem;
+}
+
+.tool-article ul, .tool-article ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.tool-article li {
+    margin-bottom: 0.5rem;
+}
+
+ 
+.tool-footer-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 2rem;
+}
+
+ 
+.btn-primary {
+    background: #dc2626;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #374151;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}
+
+.card-link {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #dc2626;
+    border-radius: 6px;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.demo-link {
+    background: #f0fdf4;
+    color: #059669 !important;
+    border: 1px solid #bbf7d0;
+}
+
+.demo-link:hover {
+    background: #dcfce7;
+    color: #047857 !important;
+}
+
+.download-link {
+    background: #dc2626;
+    color: white !important;
+}
+
+.download-link:hover {
+    background: #b91c1c;
+    color: white !important;
+}
+
+ 
+@media (max-width: 768px) {
+    .tool-single-page {
+        padding: 0 0.5rem;
+    }
+    
+    .tool-hero .hero-title {
+        font-size: 2rem;
+    }
+    
+    .tool-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tool-meta {
+        padding: 1rem;
+    }
+    
+    .meta-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tool-footer-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .meta-group strong {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .tool-article {
+        padding: 0 0.5rem;
+    }
+}
+</style>
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/tools/iventoy-pxe-server/">iVentoy PXE Server</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/process-lasso/">Process Lasso</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/sysinterals-suit/">Sysinternals Suite</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/yumi-multiboot-usb-creator/">YUMI Multiboot USB Creator</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/audio-visual/">Audio Visual</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/getting-started-server-deployment---debian-vps/">Getting Started Server Deployment - Debian VPS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hardware/">Hardware</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/news/">News</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/professional/">Professional</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/tools/">Tools</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/useful-tools-and-applications/">Useful Tools and Applications</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2025 Andy J Blog - Trials of an IT Engineer.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

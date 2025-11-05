@@ -35,3 +35,131 @@ I'll be covering topics like:
 ## First Steps
 
 This blog is built with **Hugo** and the **Mainroad theme**, hosted on my own Debian VPS. It's been a great learning experience setting everything up from scratch!
+
+## My Journey into Production Networking
+
+I have long sought to really deploy an extensive real world production network, but I was always held back by time or constraints caused by real life commitments. This project has been me forcing myself to really apply all that I have learned over the last few years by immersing myself in IT, technology and to some extent science fiction.
+
+What was once the purview of my wildest imaginings is now daily routine and the extent by which computers have advanced is truly stunning to me.
+
+Linux has always held deep fascination with me, but I have never really decided to stick at it and use it for major projects; this has changed in recent times as I find myself really engrossed in using this operating system and learning all I can from it.
+
+## The Abstraction of Technology
+
+Technology and the understanding of it in the context of computers is like looking at a grain of sand and seeing someone play a modern video game - realizing from a materials perspective all integrated circuits are just that, sand. It really is a complex transformation, that is very abstract at scale.
+
+I want to convey that scale, when it comes to massively disparate systems of complexity where no one person understands every aspect of a system. You are forced to develop specificity as the subject matter is simply, too complex. This leads inexorably to abstraction so the people who work at the layer above can understand the principle of the layer below.
+
+This is the heart of modern computer systems and the networks that connect them, this is why I needed to really focus on mastering Linux. It is not just another OS, it is the backbone of the interlink of 98 percent of all the computers on the planet and to not learn about it in-depth is a gross mis-service to my development as an enthusiast.
+
+## Embracing the Learning Process
+
+I had to, very recently, admit to myself that I can never know it all, even if I had a millennium of time, I would never be able to retain all the required knowledge to make a computer. What I can do is work on trying to know a system I created and manage that system as well as I can. Learning as much as I can along the way - it's a process and I would like to detail that process below in as simple terms as I can.
+
+I created this blog via Hugo as an experiment on:
+
+1. Learning modern web development
+2. Being able to have an excuse to build and maintain a network that involves many different skills that I have learned over the last few years
+
+Also, as an attempt to try to understand the interplay and relationship between hardware and software and by extension DEV-ops. As most of the technologies I used to build all of this began, as most do, in a notepad. Zero physical interaction pure virtualisation.
+
+### Topology (obfuscated)
+
+### Network Connections
+
+**🔵 WIREGUARD NETWORK**
+- SERVER 1 ↔ SERVER 2
+- BOTH SERVERS ↔ CLIENTS
+
+**🟣 TAILSCALE NETWORK**
+- SERVER 1 ↔ SERVER 2
+- BOTH SERVERS ↔ CLIENTS
+
+### Active Services
+
+**SERVER 1:**
+- 🗄️ DATABASE SERVICES
+- 📁 FILE SHARING
+- 🔐 SECURE SHELL
+- 🐳 CONTAINER PLATFORM
+
+**SERVER 2:**
+- 🌐 WEB SERVICES
+- 📁 FILE SHARING
+- 🔐 SECURE SHELL
+- 📊 SYSTEM MONITORING
+
+### Security Status
+- FIREWALL ACTIVE ON BOTH SERVERS
+- VPN-ONLY FILE SHARING
+- ISOLATED DOCKER NETWORKS
+
+## Project Outcomes & Security
+
+The above is the basic framework of what drives the site "you are on right now" and it has been a very interesting project to work on. My understanding of Linux has improved immeasurably, and my theoretical networking comprehension has also been put to the test.
+
+This has also given me a golden opportunity to create my own security architecture and really test my port knowledge and research capabilities, this in turn has presented the opportunity to take a real go at pen testing my own deployments. I have also been using [Lynis](https://cisofy.com/lynis/) as a native security auditing tool to get a better idea of holes in my infrastructure.
+
+## Applied Skills & Automation
+
+**Other skills I have applied:**
+- Learning about Linux automations like Cron to make task automated and thus, stress free
+- Scripting my own backups under my own cadence internal, cloud external and dedicated archive local
+- Creating my own VPN server and having be a work horse across my network
+- Security testing and weakness testing etc
+
+## Core Technologies & Skills
+
+### Infrastructure & Hosting
+- Cloud VPS Providers (Scaleway, DigitalOcean, etc.)
+- Linux Server Administration (Ubuntu/Debian)
+- IPv4 & IPv6 Networking
+- DNS Management
+
+### VPN Technologies
+- WireGuard (Site-to-site & remote access VPN)
+- Tailscale (Mesh VPN/Magic DNS)
+- Firewall Management (UFW/iptables)
+
+### Containerization & Services
+- Docker + Docker Compose
+- Container Networking (Bridge networks)
+- Web Server (Nginx/Apache)
+- File Sharing (Samba/SMB)
+- Database Systems (Based on your apps)
+- SSH Server Management
+
+### Monitoring & Management
+- System Monitoring (PM2, custom scripts)
+- Log Management
+- Web-based Admin (Webmin)
+
+## Skills Developed
+
+### Networking Skills
+- Subnetting & CIDR (IPv4/IPv6)
+- Routing Table Management
+- VPN Configuration (WireGuard peers, keys)
+- Firewall Policy Design
+- Network Segmentation
+- DNS Configuration
+
+### Security Skills
+- SSH Hardening (Key-based auth, custom ports)
+- Service Isolation (Public vs VPN-only services)
+- Port Management & Service Binding
+- Access Control (IP-based restrictions)
+
+### System Administration
+- Linux Server Management
+- Docker Container Orchestration
+- Service Configuration (Nginx, Samba, SSH)
+- Backup Strategies
+- Certificate Management (SSL/TLS)
+
+### Architectural Skills
+- Multi-homed Service Design (services on multiple interfaces)
+- Traffic Flow Optimization
+- Failover Planning
+- Load Distribution
+

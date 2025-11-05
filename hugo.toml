@@ -35,7 +35,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     list = true
 
     # Widgets configuration
-    widgets = ["recent", "categories", "social", "search","taglist"]
+    widgets = ["recent", "categories", "social"]
 
      [params.social]
     youtube = "https://www.youtube.com/@saraf01"
@@ -66,6 +66,11 @@ name = "Tech News"
 url = "/tech-newsletter/weekly-update-1/"
 weight = 10
 
+[[menu.main]]
+name = "Tools"
+url = "/tools/"
+weight = 20
+
   [params.widgets]
   recent_num = 5
   categories_counter = true
@@ -80,4 +85,4 @@ weight = 10
   utterances = true
   utterancesRepo = "StoicTurk182/Blog"
   utterancesIssueTerm = "pathname"
-  utterancesTheme = "github-dark"  
+  utterancesTheme = "github-dark"

@@ -77,5 +77,49 @@
 &lt;p&gt;&lt;button type=&#34;submit&#34; style=&#34;background-color:rgb(34, 39, 45); color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;&#34;&gt;Send Message&lt;/button&gt;&lt;/p&gt;</description>
         </item>
         
+        <item>
+            <title>iVentoy PXE Server</title>
+            <link>http://localhost:1313/tools/iventoy-pxe-server/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/iventoy-pxe-server/</guid>
+            <description>&lt;h1 id=&#34;iventoy-pxe-server&#34;&gt;iVentoy PXE Server&lt;/h1&gt;
+&lt;p&gt;iVentoy is an enhanced PXE server that allows you to boot and install multiple operating systems simultaneously over the network directly from ISO files, eliminating the need for individual bootable USB drives.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;iVentoy brings the multi-boot convenience of Ventoy to network deployment. It serves as a central network boot server that can handle over 110 different operating systems without requiring ISO extraction or modification. Originally created by the developer of Ventoy, it&amp;rsquo;s designed for both home labs and enterprise environments.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Process Lasso</title>
+            <link>http://localhost:1313/tools/process-lasso/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/process-lasso/</guid>
+            <description>&lt;h1 id=&#34;process-lasso&#34;&gt;Process Lasso&lt;/h1&gt;
+&lt;p&gt;Process Lasso is an innovative system optimization and automation software that improves PC performance, responsiveness, and stability through process priority optimization, CPU affinity management, and proactive system monitoring.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Process Lasso works in the background to optimize your system&amp;rsquo;s process scheduling, ensuring that important applications get the CPU resources they need while preventing background processes from degrading system responsiveness. It&amp;rsquo;s particularly effective for gamers, content creators, and power users who demand maximum system performance.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Sysinternals Suite</title>
+            <link>http://localhost:1313/tools/sysinterals-suit/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/sysinterals-suit/</guid>
+            <description>&lt;h1 id=&#34;sysinternals-suite&#34;&gt;Sysinternals Suite&lt;/h1&gt;
+&lt;p&gt;The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft[citation:2][citation:5].&lt;/p&gt;
+&lt;h2 id=&#34;key-featured-utilities&#34;&gt;Key Featured Utilities&lt;/h2&gt;
+&lt;p&gt;While the suite contains many tools, some of the most powerful and frequently used include[citation:1][citation:5]:&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>YUMI Multiboot USB Creator</title>
+            <link>http://localhost:1313/tools/yumi-multiboot-usb-creator/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/yumi-multiboot-usb-creator/</guid>
+            <description>&lt;h1 id=&#34;yumi-multiboot-usb-creator&#34;&gt;YUMI Multiboot USB Creator&lt;/h1&gt;
+&lt;p&gt;YUMI (Your Universal Multiboot Integrator) is a powerful tool that allows you to create a bootable USB drive containing multiple operating systems, antivirus utilities, disc cloning, diagnostic tools, and more.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;YUMI makes it easy to create a multiboot USB drive that can boot various Linux distributions, Windows installers, and system utilities from a single device. It&amp;rsquo;s the successor to MultibootISOs and uses syslinux to boot extracted distributions from the USB device.&lt;/p&gt;</description>
+        </item>
+        
     </channel>
 </rss>

@@ -4,6 +4,10 @@
     <header class="professional-header">
         <div class="post-meta">
             <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+
+            <!-- ADD READING TIME HERE -->
+        <span class="reading-time">• {{ .ReadingTime }} min read</span>
+
             <span class="post-category">{{ index .Params.categories 0 }}</span>
         </div>
         <h1 class="post-title">{{ .Title }}</h1>
@@ -62,6 +66,13 @@
 </article>
 
 <style>
+
+.reading-time {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .professional-post {
     max-width: 800px;
     margin: 2rem auto;
@@ -72,7 +83,7 @@
     text-align: center;
     margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid #fd0000;
 }
 
 .post-meta {

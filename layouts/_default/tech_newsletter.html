@@ -31,7 +31,7 @@
     gap: 2rem;
     margin-top: 0.5rem;
     font-size: 0.9rem;
-    color: #64748b;
+    color: #000000;
 }
 
 .category-badge {
@@ -59,16 +59,17 @@
 }
 
 .news-article {
-    background: #f8fafc;
+    background: #ffffff;
     padding: 1.5rem;
     margin-bottom: 1rem;
     border-radius: 8px;
-    border-left: 4px solid #cbd5e1;
+    border-left: 4px solid #ff0606;
 }
 
 .article-title {
     font-size: 1.1rem;
     color: #1e293b;
+
     margin: 0 0 0.5rem 0;
     font-weight: 600;
 }
@@ -91,7 +92,7 @@
 
 .article-category.update {
     background: #f0f9ff;
-    color: #0369a1;
+    color: #000000;
     border: 1px solid #bae6fd;
 }
 
@@ -110,9 +111,9 @@
     background: white;
     padding: 1rem;
     border-radius: 6px;
-    border-left: 3px solid #94a3b8;
+    border-left: 0px solid #000000;
     font-size: 0.9rem;
-    color: #64748b;
+    color: #555e69;
     margin-top: 0.5rem;
 }
 
@@ -123,6 +124,12 @@
     color: #64748b;
     margin-top: 2rem;
 }
+
+.reading-time {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 </style>
 
 <div class="tech-newsletter">
@@ -130,6 +137,7 @@
         <h1 class="publication-name">Tech Chronicle</h1>
         <div class="issue-info">
             <span class="issue-date">{{ .Date.Format "Monday, January 2, 2006" }}</span>
+             <span class="reading-time">• {{ .ReadingTime }} min read</span>
             <span class="issue-number">{{ .Params.issue }}</span>
         </div>
         {{ if .Params.categories }}

@@ -1,0 +1,315 @@
+{{ define "main" }}
+<div class="tool-single-page">
+    <!-- Hero Section -->
+
+    <section class="tool-hero">
+        
+        <div class="hero-content">
+           
+            <div class="tool-header">
+                <span class="tool-badge">Tool</span>
+                <!-- READING TIME SHOULD BE HERE, in the tool-header -->
+                <span class="reading-time">• {{ .ReadingTime }} min read</span>
+                {{ with .Params.version }}
+                <span class="tool-version">v{{ . }}</span>
+                {{ end }}
+            </div>
+            <h1 class="hero-title">{{ .Title }}</h1>
+            {{ with .Params.subtitle }}
+            <p class="hero-description">{{ . }}</p>
+            {{ end }}
+        </div>
+    </section>
+
+    <!-- Tool Content Section -->
+    <section class="tool-content-section">
+        <div class="tool-actions">
+           
+            {{ with .Params.download_url }}
+            <a href="{{ . }}" class="btn-secondary">Download</a>
+            {{ end }}
+            <a href="/tools/" class="btn-secondary">← Back to Tools</a>
+        </div>
+
+        <!-- Main Content -->
+        <article class="tool-article">
+            {{ .Content }}
+        </article>
+
+        <!-- Additional Actions -->
+        <div class="tool-footer-actions">
+            {{ with .Params.download_url }}
+            <a href="{{ . }}" class="card-link download-link">Download Tool</a>
+            {{ end }}
+        </div>
+    </section>
+</div>
+
+<style>
+.reading-time {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.tool-single-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Tool Hero Section */
+.tool-hero {
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+}
+
+.tool-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tool-badge {
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.tool-version {
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.tool-hero .hero-title {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    font-weight: 300;
+}
+
+.tool-hero .hero-description {
+    font-size: 1.3rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+/* Tool Actions */
+.tool-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+/* Tool Metadata */
+.tool-meta {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.meta-group {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.meta-group:last-child {
+    margin-bottom: 0;
+}
+
+.meta-group strong {
+    min-width: 80px;
+    color: #374151;
+    font-weight: 600;
+}
+
+.categories, .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-tag {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.tag {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    border: 1px solid #e5e7eb;
+}
+
+/* Tool Article */
+.tool-article {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.7;
+    color: #374151;
+}
+
+.tool-article h2 {
+    color: #1f2937;
+    font-weight: 400;
+    margin: 2rem 0 1rem 0;
+}
+
+.tool-article h3 {
+    color: #374151;
+    font-weight: 500;
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.tool-article p {
+    margin-bottom: 1rem;
+}
+
+.tool-article ul, .tool-article ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.tool-article li {
+    margin-bottom: 0.5rem;
+}
+
+/* Tool Footer Actions */
+.tool-footer-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 2rem;
+}
+
+/* Button Styles (same as tools page) */
+.btn-primary {
+    background: #dc2626;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #374151;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}
+
+.card-link {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #dc2626;
+    border-radius: 6px;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.demo-link {
+    background: #f0fdf4;
+    color: #059669 !important;
+    border: 1px solid #bbf7d0;
+}
+
+.demo-link:hover {
+    background: #dcfce7;
+    color: #047857 !important;
+}
+
+.download-link {
+    background: #dc2626;
+    color: white !important;
+}
+
+.download-link:hover {
+    background: #b91c1c;
+    color: white !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tool-single-page {
+        padding: 0 0.5rem;
+    }
+    
+    .tool-hero .hero-title {
+        font-size: 2rem;
+    }
+    
+    .tool-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tool-meta {
+        padding: 1rem;
+    }
+    
+    .meta-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tool-footer-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .meta-group strong {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .tool-article {
+        padding: 0 0.5rem;
+    }
+}
+</style>
+{{ end }}

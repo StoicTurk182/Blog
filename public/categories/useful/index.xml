@@ -1,0 +1,89 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Andy J Blog - Trials of an IT Engineer</title>
+        <link>http://localhost:1313/</link>
+        <description>Personal Projects</description>
+        <generator>Hugo</generator>
+        <language>en-us</language>
+        <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
+        
+        <atom:link href="http://localhost:1313/categories/useful/" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Monthly Update 1</title>
+            <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
+            <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
+            <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
+            <description>&lt;hr&gt;</description>
+        </item>
+        
+        <item>
+            <title>My Role at GMA: A Professional Journey on the Helpdesk</title>
+            <link>http://localhost:1313/posts/my-professional-journey/</link>
+            <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
+            <guid>http://localhost:1313/posts/my-professional-journey/</guid>
+            <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.&lt;/p&gt;
+&lt;h2 id=&#34;the-company-and-my-role&#34;&gt;The Company and My Role&lt;/h2&gt;
+&lt;h3 id=&#34;about-gma&#34;&gt;About GMA&lt;/h3&gt;
+&lt;p&gt;GMA is a small-to-medium-sized MSP that operates across all areas of IT. The company runs a lean operation, featuring a remarkably busy helpdesk often referred to as the “coal face.” The workload was consistently high—not rushed, but characterized by a sustained flow of tickets.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Self Hosting a New Blog</title>
+            <link>http://localhost:1313/posts/my-it-journey-begins/</link>
+            <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
+            <guid>http://localhost:1313/posts/my-it-journey-begins/</guid>
+            <description>&lt;p&gt;Welcome to my new blog! After years working in IT, I&amp;rsquo;ve decided to document my journey, share what I&amp;rsquo;m learning, and create a resource for others in the technology field.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>My Current Custom PC Build - 2025</title>
+            <link>http://localhost:1313/posts/current-workstation-custom-built/</link>
+            <pubDate>Thu, 30 Oct 2025 10:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/current-workstation-custom-built/</guid>
+            <description></description>
+        </item>
+        
+        <item>
+            <title>Contact Me</title>
+            <link>http://localhost:1313/contact/</link>
+            <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/contact/</guid>
+            <description>&lt;h2 id=&#34;email--phone&#34;&gt;Email &amp;amp; Phone&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; &lt;a href=&#34;mailto:Stoicturk182@protonmail.com&#34;&gt;Stoicturk182@protonmail.com&lt;/a&gt;
+&lt;strong&gt;Phone:&lt;/strong&gt; (44) 07990338386
+&lt;strong&gt;Location:&lt;/strong&gt; London, UK&lt;/p&gt;
+&lt;h2 id=&#34;social-media&#34;&gt;Social Media&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/StoicTurk182&#34;&gt;StoicTurk182&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;LinkedIn: &lt;a href=&#34;https://linkedin.com/in/andrew-john-j-780&#34;&gt;Andrew Jones&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;contact-form&#34;&gt;Contact Form&lt;/h2&gt;
+&lt;p&gt;You can also reach me using the form below:&lt;/p&gt;
+&lt;form action=&#34;https://formspree.io/f/xovppvjo&#34; method=&#34;POST&#34;&gt;
+  &lt;div style=&#34;margin-bottom: 1rem;&#34;&gt;
+    &lt;label for=&#34;name&#34; style=&#34;display: block; margin-bottom: 0.5rem;&#34;&gt;Your Name:&lt;/label&gt;
+    &lt;input type=&#34;text&#34; id=&#34;name&#34; name=&#34;name&#34; required style=&#34;width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;&#34;&gt;
+  &lt;/div&gt;
+  &lt;div style=&#34;margin-bottom: 1rem;&#34;&gt;
+    &lt;label for=&#34;email&#34; style=&#34;display: block; margin-bottom: 0.5rem;&#34;&gt;Your Email:&lt;/label&gt;
+    &lt;input type=&#34;email&#34; id=&#34;email&#34; name=&#34;email&#34; required style=&#34;width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;&#34;&gt;
+  &lt;/div&gt;
+  &lt;div style=&#34;margin-bottom: 1rem;&#34;&gt;
+    &lt;label for=&#34;message&#34; style=&#34;display: block; margin-bottom: 0.5rem;&#34;&gt;Message:&lt;/label&gt;
+    &lt;textarea id=&#34;message&#34; name=&#34;message&#34; rows=&#34;5&#34; required style=&#34;width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;&#34;&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+&lt;p&gt;&lt;button type=&#34;submit&#34; style=&#34;background-color:rgb(34, 39, 45); color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;&#34;&gt;Send Message&lt;/button&gt;&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Tools &amp; Applications</title>
+            <link>http://localhost:1313/tools/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/</guid>
+            <description>&lt;p&gt;Welcome to my tools collection! Here you&amp;rsquo;ll find various applications and utilities I&amp;rsquo;ve built to solve common problems.&lt;/p&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

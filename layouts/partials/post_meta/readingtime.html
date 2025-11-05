@@ -1,5 +1,14 @@
-{{ if .Site.Params.readingTime }}
-  <span class="reading-time">
-    • {{ .ReadingTime }} min read
-  </span>
+{{ define "main" }}
+<!-- Debug Info -->
+<div style="background: #f0f0f0; padding: 10px; margin-bottom: 20px;">
+    <strong>Debug Info:</strong><br>
+    Site Params: {{ .Site.Params }}<br>
+    ReadingTime Param: {{ .Site.Params.readingTime }}<br>
+    Actual ReadingTime: {{ .ReadingTime }}<br>
+    Word Count: {{ .WordCount }}
+</div>
+
+<article class="post-single">
+    <!-- rest of your template -->
+</article>
 {{ end }}

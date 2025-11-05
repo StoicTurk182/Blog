@@ -8,10 +8,10 @@
     <loc>http://localhost:1313/categories/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/monthly-news/</loc>
+    <loc>http://localhost:1313/tech-newsletter/weekly-update-1/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tech-newsletter/weekly-update-1/</loc>
+    <loc>http://localhost:1313/categories/news/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/news/</loc>
@@ -67,5 +67,35 @@
   </url><url>
     <loc>http://localhost:1313/contact/</loc>
     <lastmod>2023-10-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/applications/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tools/iventoy-pxe-server/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/network-boot/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/os-deployment/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/performance/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tools/process-lasso/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/pxe/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tools/sysinterals-suit/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/system-mgmt/</loc>
+  </url><url>
+    <loc>http://localhost:1313/categories/tools/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/tools/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tools/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/usb-os-installation/</loc>
+  </url><url>
+    <loc>http://localhost:1313/categories/useful-tools-and-applications/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tools/yumi-multiboot-usb-creator/</loc>
   </url>
 </urlset>

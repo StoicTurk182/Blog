@@ -4,8 +4,8 @@ date: 2025-11-04T19:29:41Z
 draft: false
 layout: "tech_newsletter"
 issue: "Vol. 1, Issue 1"
-category: ["monthly News"]
-categories: ["monthly news"]
+category: ["News"]
+categories: ["news"]
 tags: ["News"]
 
 sections:

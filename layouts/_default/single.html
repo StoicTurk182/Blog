@@ -1,0 +1,187 @@
+{{ define "main" }}
+<article class="professional-post">
+    <!-- Enhanced Header -->
+    <header class="professional-header">
+        <div class="post-meta">
+            <span class="post-date">{{ .Date.Format "January 2, 2006" }}</span>
+                    
+          <!-- READING TIME ADDED HERE -->
+            {{ if .Site.Params.readingTime }}
+            <span class="reading-time">• {{ .ReadingTime }} min read</span>
+            {{ end }}
+            
+            <span class="post-category">{{ index .Params.categories 0 }}</span>
+        </div>
+        <h1 class="post-title">{{ .Title }}</h1>
+        <p class="post-description">{{ .Description }}</p>
+        <div class="author-info">
+            <span class="author">By {{ .Params.author }}</span>
+        </div>
+    </header>
+
+    <!-- Featured Image -->
+    {{ if .Params.featuredImage }}
+    <div class="featured-image">
+        <img src="{{ .Params.featuredImage }}" alt="{{ .Title }}" />
+    </div>
+    {{ end }}
+
+    <!-- Content with Enhanced Typography -->
+    <div class="post-content">
+        {{ .Content }}
+    </div>
+
+    <!-- Skills Highlight Section -->
+    {{ if findRE "## Technical Skills" .Content }}
+    <div class="skills-highlight">
+        <h3>🛠️ Key Skills Developed</h3>
+        <div class="skills-grid">
+            {{ if findRE "Telephony" .Content }}<span class="skill-tag">Telephony Systems</span>{{ end }}
+            {{ if findRE "Linux" .Content }}<span class="skill-tag">Linux Administration</span>{{ end }}
+            {{ if findRE "O365" .Content }}<span class="skill-tag">Microsoft 365</span>{{ end }}
+            {{ if findRE "Powershell" .Content }}<span class="skill-tag">PowerShell</span>{{ end }}
+            {{ if findRE "Soft Skills" .Content }}<span class="skill-tag">Client Communication</span>{{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    <!-- Professional Takeaways -->
+    {{ if findRE "## Lessons Learned" .Content }}
+    <div class="takeaways">
+        <h3>💡 Professional Insights</h3>
+        <div class="insights">
+            {{ if findRE "Lesson 1:" .Content }}<div class="insight-item">Helpdesk provides massive technology exposure</div>{{ end }}
+            {{ if findRE "Lesson 2:" .Content }}<div class="insight-item">Telephony systems offer comprehensive learning</div>{{ end }}
+            {{ if findRE "Lesson 3:" .Content }}<div class="insight-item">Effective prioritization over queue management</div>{{ end }}
+            {{ if findRE "Lesson 4:" .Content }}<div class="insight-item">Strategic career progression is essential</div>{{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    <!-- Next Steps Callout -->
+    {{ if findRE "## Conclusion" .Content }}
+    <div class="next-steps">
+        <h3>🚀 What's Next</h3>
+        <p>Moving to Informal IT for networking specialization and deeper technical challenges.</p>
+    </div>
+    {{ end }}
+</article>
+
+<style>
+.professional-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.professional-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.post-date {
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* READING TIME STYLES - STANDALONE */
+.reading-time {
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.post-category {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.post-title {
+    font-size: 2.5rem;
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.post-description {
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.author {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.post-content {
+    line-height: 1.7;
+    color: #374151;
+    font-size: 1.1rem;
+}
+
+.post-content h2 {
+    color: #1f2937;
+    font-weight: 400;
+    margin: 2rem 0 1rem 0;
+    font-size: 1.8rem;
+}
+
+.post-content h3 {
+    color: #374151;
+    font-weight: 500;
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.4rem;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content ul, .post-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .professional-post {
+        padding: 1rem 0.5rem;
+    }
+    
+    .post-title {
+        font-size: 2rem;
+    }
+    
+    .post-meta {
+        gap: 0.75rem;
+    }
+}
+</style>
+{{ end }}

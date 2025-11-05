@@ -65,6 +65,13 @@
 			</a>
 		</li>
 		<li class="menu__item">
+			<a class="menu__link" href="/tools/">
+				
+				<span class="menu__text">Tools</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
 			<a class="menu__link" href="/contact/">
 				
 				<span class="menu__text">Contact Me</span>
@@ -84,6 +91,10 @@
     <header class="professional-header">
         <div class="post-meta">
             <span class="post-date">October 30, 2025</span>
+
+            
+        <span class="reading-time">• 5 min read</span>
+
             <span class="post-category">Getting Started Server Deployment - Debian VPS</span>
         </div>
         <h1 class="post-title">Self Hosting a New Blog</h1>
@@ -117,27 +128,128 @@
 </ul>
 <h2 id="first-steps">First Steps</h2>
 <p>This blog is built with <strong>Hugo</strong> and the <strong>Mainroad theme</strong>, hosted on my own Debian VPS. It&rsquo;s been a great learning experience setting everything up from scratch!</p>
+<h2 id="my-journey-into-production-networking">My Journey into Production Networking</h2>
+<p>I have long sought to really deploy an extensive real world production network, but I was always held back by time or constraints caused by real life commitments. This project has been me forcing myself to really apply all that I have learned over the last few years by immersing myself in IT, technology and to some extent science fiction.</p>
+<p>What was once the purview of my wildest imaginings is now daily routine and the extent by which computers have advanced is truly stunning to me.</p>
+<p>Linux has always held deep fascination with me, but I have never really decided to stick at it and use it for major projects; this has changed in recent times as I find myself really engrossed in using this operating system and learning all I can from it.</p>
+<h2 id="the-abstraction-of-technology">The Abstraction of Technology</h2>
+<p>Technology and the understanding of it in the context of computers is like looking at a grain of sand and seeing someone play a modern video game - realizing from a materials perspective all integrated circuits are just that, sand. It really is a complex transformation, that is very abstract at scale.</p>
+<p>I want to convey that scale, when it comes to massively disparate systems of complexity where no one person understands every aspect of a system. You are forced to develop specificity as the subject matter is simply, too complex. This leads inexorably to abstraction so the people who work at the layer above can understand the principle of the layer below.</p>
+<p>This is the heart of modern computer systems and the networks that connect them, this is why I needed to really focus on mastering Linux. It is not just another OS, it is the backbone of the interlink of 98 percent of all the computers on the planet and to not learn about it in-depth is a gross mis-service to my development as an enthusiast.</p>
+<h2 id="embracing-the-learning-process">Embracing the Learning Process</h2>
+<p>I had to, very recently, admit to myself that I can never know it all, even if I had a millennium of time, I would never be able to retain all the required knowledge to make a computer. What I can do is work on trying to know a system I created and manage that system as well as I can. Learning as much as I can along the way - it&rsquo;s a process and I would like to detail that process below in as simple terms as I can.</p>
+<p>I created this blog via Hugo as an experiment on:</p>
+<ol>
+<li>Learning modern web development</li>
+<li>Being able to have an excuse to build and maintain a network that involves many different skills that I have learned over the last few years</li>
+</ol>
+<p>Also, as an attempt to try to understand the interplay and relationship between hardware and software and by extension DEV-ops. As most of the technologies I used to build all of this began, as most do, in a notepad. Zero physical interaction pure virtualisation.</p>
+<h3 id="topology-obfuscated">Topology (obfuscated)</h3>
+<h3 id="network-connections">Network Connections</h3>
+<p><strong>🔵 WIREGUARD NETWORK</strong></p>
+<ul>
+<li>SERVER 1 ↔ SERVER 2</li>
+<li>BOTH SERVERS ↔ CLIENTS</li>
+</ul>
+<p><strong>🟣 TAILSCALE NETWORK</strong></p>
+<ul>
+<li>SERVER 1 ↔ SERVER 2</li>
+<li>BOTH SERVERS ↔ CLIENTS</li>
+</ul>
+<h3 id="active-services">Active Services</h3>
+<p><strong>SERVER 1:</strong></p>
+<ul>
+<li>🗄️ DATABASE SERVICES</li>
+<li>📁 FILE SHARING</li>
+<li>🔐 SECURE SHELL</li>
+<li>🐳 CONTAINER PLATFORM</li>
+</ul>
+<p><strong>SERVER 2:</strong></p>
+<ul>
+<li>🌐 WEB SERVICES</li>
+<li>📁 FILE SHARING</li>
+<li>🔐 SECURE SHELL</li>
+<li>📊 SYSTEM MONITORING</li>
+</ul>
+<h3 id="security-status">Security Status</h3>
+<ul>
+<li>FIREWALL ACTIVE ON BOTH SERVERS</li>
+<li>VPN-ONLY FILE SHARING</li>
+<li>ISOLATED DOCKER NETWORKS</li>
+</ul>
+<h2 id="project-outcomes--security">Project Outcomes &amp; Security</h2>
+<p>The above is the basic framework of what drives the site &ldquo;you are on right now&rdquo; and it has been a very interesting project to work on. My understanding of Linux has improved immeasurably, and my theoretical networking comprehension has also been put to the test.</p>
+<p>This has also given me a golden opportunity to create my own security architecture and really test my port knowledge and research capabilities, this in turn has presented the opportunity to take a real go at pen testing my own deployments. I have also been using <a href="https://cisofy.com/lynis/">Lynis</a> as a native security auditing tool to get a better idea of holes in my infrastructure.</p>
+<h2 id="applied-skills--automation">Applied Skills &amp; Automation</h2>
+<p><strong>Other skills I have applied:</strong></p>
+<ul>
+<li>Learning about Linux automations like Cron to make task automated and thus, stress free</li>
+<li>Scripting my own backups under my own cadence internal, cloud external and dedicated archive local</li>
+<li>Creating my own VPN server and having be a work horse across my network</li>
+<li>Security testing and weakness testing etc</li>
+</ul>
+<h2 id="core-technologies--skills">Core Technologies &amp; Skills</h2>
+<h3 id="infrastructure--hosting">Infrastructure &amp; Hosting</h3>
+<ul>
+<li>Cloud VPS Providers (Scaleway, DigitalOcean, etc.)</li>
+<li>Linux Server Administration (Ubuntu/Debian)</li>
+<li>IPv4 &amp; IPv6 Networking</li>
+<li>DNS Management</li>
+</ul>
+<h3 id="vpn-technologies">VPN Technologies</h3>
+<ul>
+<li>WireGuard (Site-to-site &amp; remote access VPN)</li>
+<li>Tailscale (Mesh VPN/Magic DNS)</li>
+<li>Firewall Management (UFW/iptables)</li>
+</ul>
+<h3 id="containerization--services">Containerization &amp; Services</h3>
+<ul>
+<li>Docker + Docker Compose</li>
+<li>Container Networking (Bridge networks)</li>
+<li>Web Server (Nginx/Apache)</li>
+<li>File Sharing (Samba/SMB)</li>
+<li>Database Systems (Based on your apps)</li>
+<li>SSH Server Management</li>
+</ul>
+<h3 id="monitoring--management">Monitoring &amp; Management</h3>
+<ul>
+<li>System Monitoring (PM2, custom scripts)</li>
+<li>Log Management</li>
+<li>Web-based Admin (Webmin)</li>
+</ul>
+<h2 id="skills-developed">Skills Developed</h2>
+<h3 id="networking-skills">Networking Skills</h3>
+<ul>
+<li>Subnetting &amp; CIDR (IPv4/IPv6)</li>
+<li>Routing Table Management</li>
+<li>VPN Configuration (WireGuard peers, keys)</li>
+<li>Firewall Policy Design</li>
+<li>Network Segmentation</li>
+<li>DNS Configuration</li>
+</ul>
+<h3 id="security-skills">Security Skills</h3>
+<ul>
+<li>SSH Hardening (Key-based auth, custom ports)</li>
+<li>Service Isolation (Public vs VPN-only services)</li>
+<li>Port Management &amp; Service Binding</li>
+<li>Access Control (IP-based restrictions)</li>
+</ul>
+<h3 id="system-administration">System Administration</h3>
+<ul>
+<li>Linux Server Management</li>
+<li>Docker Container Orchestration</li>
+<li>Service Configuration (Nginx, Samba, SSH)</li>
+<li>Backup Strategies</li>
+<li>Certificate Management (SSL/TLS)</li>
+</ul>
+<h3 id="architectural-skills">Architectural Skills</h3>
+<ul>
+<li>Multi-homed Service Design (services on multiple interfaces)</li>
+<li>Traffic Flow Optimization</li>
+<li>Failover Planning</li>
+<li>Load Distribution</li>
+</ul>
     </div>
-
-    
-    
-    <div class="authorbox clearfix" style="margin: 3rem 0; padding: 2rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid #eb2525;">
-        
-        <figure class="authorbox__avatar" style="float: left; margin: 0 1.5rem 1rem 0;">
-            <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90" style="border-radius: 8px;">
-        </figure>
-        
-        <div class="authorbox__header">
-            <span class="authorbox__name" style="font-size: 1.2em; line-height: 1.1; font-weight: bold; color: #1e293b;">About Andrew Jones</span>
-        </div>
-        <div class="authorbox__description" style="font-size: 0.9em; line-height: 1.1; color: #475569;">
-            <p style="margin: 0.2em 0;">Projects 2025 Blog</p>
-            <p style="margin: 0.2em 0;">Information Technology Enthusiast</p>
-            <p style="margin: 0.2em 0;">IT Technical Engineer</p>
-        </div>
-        <div style="clear: both;"></div>
-    </div>
-    
 
     
     
@@ -150,6 +262,13 @@
 </article>
 
 <style>
+
+.reading-time {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .professional-post {
     max-width: 800px;
     margin: 2rem auto;
@@ -160,7 +279,7 @@
     text-align: center;
     margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid #fd0000;
 }
 
 .post-meta {
@@ -320,9 +439,10 @@
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/posts/my-professional-journey/">My Role at GMA: A Professional Journey on the Helpdesk</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/my-it-journey-begins/">Self Hosting a New Blog</a></li>
-			<li class="widget__item"><a class="widget__link" href="/posts/current-workstation-custom-built/">My Current Custom PC Build - 2025</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/iventoy-pxe-server/">iVentoy PXE Server</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/process-lasso/">Process Lasso</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/sysinterals-suit/">Sysinternals Suite</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/yumi-multiboot-usb-creator/">YUMI Multiboot USB Creator</a></li>
 		</ul>
 	</div>
 </div>
@@ -343,31 +463,22 @@
 				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/monthly-news/">Monthly News</a>&nbsp;
+				<a class="widget__link" href="/categories/news/">News</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/professional/">Professional</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/tools/">Tools</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/useful-tools-and-applications/">Useful Tools and Applications</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
 		</ul>
-	</div>
-</div><div class="widget-search widget">
-	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
-		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="http://localhost:1313/">
-	</form>
-</div>
-<div class="widget-taglist widget">
-	<h4 class="widget__title">Tags</h4>
-	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/news/" title="News">News (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/pc-build/" title="PC Build">PC Build (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
 	</div>
 </div>
 </aside>

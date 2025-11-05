@@ -66,7 +66,7 @@ body {
 
 .wrapper {
 	padding: 25px;
-	background: #fff;
+	background: #ffffff;
 }
 
 .flex {
@@ -1061,13 +1061,13 @@ textarea {
 	font-size: 16px;
 	font-size: 1rem;
 	text-transform: uppercase;
-	border-bottom: 3px solid #e22d30;
+	border-bottom: 2px solid #ff0000;
 }
 
 .widget__item {
 	display: block;
 	padding: 5px 0;
-	border-bottom: 1px dotted #ebebeb;
+	border-bottom: 1px dotted #8d7676;
 }
 
 .widget__item:first-child {
@@ -1078,9 +1078,9 @@ textarea {
 	display: inline-block;
 	padding: 0 6px;
 	font-size: .75rem;
-	color: #666;
+	color: #ff0000;
 	text-align: center;
-	background: #ebebeb;
+	background: #e9e9e9;
 	border-radius: 2em;
 }
 
