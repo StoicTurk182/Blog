@@ -10,11 +10,30 @@
         <atom:link href="http://localhost:1313/categories/tools/" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Monthly Update 1</title>
+            <title>NEWS</title>
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
             <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
-            <description>&lt;hr&gt;</description>
+            <description>&lt;p&gt;Welcome to the first monthly update! This edition covers critical security patches, essential tools for network management, and the latest threat intelligence you need to stay secure.&lt;/p&gt;
+&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
+&lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;
+&lt;h3 id=&#34;key-details&#34;&gt;Key Details&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;CVSS Score:&lt;/strong&gt; 9.8/10 (Critical)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Affected Systems:&lt;/strong&gt; Windows 10, 11, Server 2019/2022&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Attack Vector:&lt;/strong&gt; Remote code execution via malicious Office documents&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Status:&lt;/strong&gt; Active exploitation in 47 countries&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;immediate-actions-required&#34;&gt;Immediate Actions Required&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Apply KB5037851&lt;/strong&gt; emergency security update immediately&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Block Office macros&lt;/strong&gt; from the internet zone&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Enable Attack Surface Reduction&lt;/strong&gt; rules&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Monitor for suspicious PowerShell and MSHTA activity&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;impact-assessment&#34;&gt;Impact Assessment&lt;/h3&gt;
+&lt;p&gt;Successful exploitation allows full system compromise without user interaction. Multiple ransomware groups including LockBit and BlackCat have weaponized this vulnerability.&lt;/p&gt;</description>
         </item>
         
         <item>
@@ -42,7 +61,10 @@
             <link>http://localhost:1313/posts/current-workstation-custom-built/</link>
             <pubDate>Thu, 30 Oct 2025 10:00:00 +0000</pubDate>
             <guid>http://localhost:1313/posts/current-workstation-custom-built/</guid>
-            <description></description>
+            <description>&lt;h1 id=&#34;my-2025-custom-pc-build-upper-mid-range-powerhouse&#34;&gt;My 2025 Custom PC Build: Upper Mid-Range Powerhouse&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;AMD Ryzen 9 7900X and Radeon RX 9070 deliver exceptional performance under £2,000&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;system-overview&#34;&gt;System Overview&lt;/h2&gt;
+&lt;p&gt;This system is my latest and most capable build to date. I engineered it for the upper mid-range tier, where it confidently tackles everything from gaming to intensive creative applications. Remarkably, the entire setup cost less than £2,000 as of this September and even surpasses the performance of my old 5950x, which has since been relegated to server duty for video production.&lt;/p&gt;</description>
         </item>
         
         <item>

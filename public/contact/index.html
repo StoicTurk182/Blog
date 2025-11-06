@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Contact Me - Andy J Blog - Trials of an IT Engineer</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Contact Me - Andy J Blog - Trials of an IT Engineer</title>
+        <script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+        <meta name="description" content="">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
-	<link rel="stylesheet" href="/css/style.css">
-	
+        <link rel="stylesheet" href="/css/style.css">
+        
 
-	<link rel="shortcut icon" href="/favicon.ico">
-		
+        <link rel="shortcut icon" href="/favicon.ico">
+                
 </head>
 <body class="body">
-	<div class="container container--outer">
-		<header class="header">
+        <div class="container container--outer">
+                <header class="header">
 	<div class="container header__container">
 		
 	<div class="logo">
@@ -83,9 +83,9 @@
 
 	</div>
 </header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
+                <div class="wrapper flex">
+                        <div class="primary">
+                        
 <article class="contact-page">
     
     <header class="contact-header">
@@ -166,7 +166,7 @@
         rgba(245, 245, 245, 1) 90%,
         rgba(255, 255, 255, 0) 100%);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 0px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -319,8 +319,8 @@
 }
 </style>
 
-			</div>
-			<aside class="sidebar">
+                        </div>
+                        <aside class="sidebar">
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
@@ -370,8 +370,10 @@
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/amd/" title="AMD">AMD (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/applications/" title="Applications">Applications (3)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/custom-build/" title="Custom Build">Custom Build (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/network-boot/" title="Network-Boot">Network-Boot (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="Networking">Networking (1)</a>
@@ -389,8 +391,8 @@
 	</div>
 </div>
 </aside>
-		</div>
-		<footer class="footer">
+                </div>
+                <footer class="footer">
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
@@ -399,9 +401,101 @@
 		</div>
 	</div>
 </footer>
-	</div>
+        </div>
 <script async defer src="/js/menu.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.highlight').forEach(function(highlight) {
+        if (highlight.querySelector('.copy-code-btn')) return;
+        
+        const copyButton = document.createElement('button');
+        copyButton.className = 'copy-code-btn';
+        copyButton.innerHTML = '📋 Copy';
+        copyButton.title = 'Copy code to clipboard';
+        
+        copyButton.style.cssText = `
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid #e1e4e8;
+            border-radius: 4px;
+            padding: 4px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.2s ease;
+            z-index: 10;
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #24292e;
+        `;
+        
+        highlight.style.position = 'relative';
+        
+        highlight.addEventListener('mouseenter', function() {
+            copyButton.style.opacity = '1';
+        });
+        
+        highlight.addEventListener('mouseleave', function() {
+            copyButton.style.opacity = '0';
+        });
+        
+        copyButton.addEventListener('click', async function() {
+            const code = highlight.querySelector('code')?.textContent || highlight.textContent;
+            try {
+                await navigator.clipboard.writeText(code);
+                copyButton.innerHTML = '✅ Copied!';
+                copyButton.style.background = '#d4edda';
+                copyButton.style.borderColor = '#c3e6cb';
+                copyButton.style.color = '#155724';
+                setTimeout(() => {
+                    copyButton.innerHTML = '📋 Copy';
+                    copyButton.style.background = 'rgba(255,255,255,0.9)';
+                    copyButton.style.borderColor = '#e1e4e8';
+                    copyButton.style.color = '#24292e';
+                }, 2000);
+            } catch (err) {
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                copyButton.innerHTML = '✅ Copied!';
+                setTimeout(() => {
+                    copyButton.innerHTML = '📋 Copy';
+                }, 2000);
+            }
+        });
+        
+        highlight.appendChild(copyButton);
+    });
+});
+</script>
+
+<style>
+.highlight {
+    position: relative;
+    margin: 1rem 0;
+}
+
+.copy-code-btn:hover {
+    background: rgba(255,255,255,1) !important;
+    border-color: #0366d6 !important;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .copy-code-btn {
+        opacity: 1 !important;
+        font-size: 11px;
+        padding: 3px 8px;
+    }
+}
+</style>
+
 </body>
 </html>

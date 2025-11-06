@@ -87,11 +87,7 @@ weight = 20
   utterancesIssueTerm = "pathname"
   utterancesTheme = "github-dark"
 
-  [module]
-  [[module.imports]]
-    path = 'mainroad'
-
-  [[module.mounts]]
+[[module.mounts]]
     source = 'content'
     target = 'content'
 

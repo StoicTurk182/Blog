@@ -100,14 +100,7 @@ Modern ransomware has evolved beyond data encryption to triple-extortion tactics
 
 ---
 
-## 📊 This Month's Statistics
 
-- **Critical Patches Released:** 12
-- **New CVEs Reported:** 347
-- **Phishing Campaigns Detected:** 2,843
-- **Ransomware Attacks Prevented:** 156
-
----
 
 ## 📅 Looking Ahead
 

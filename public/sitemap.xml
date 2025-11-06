@@ -8,19 +8,25 @@
     <loc>http://localhost:1313/categories/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/networking/</loc>
+    <lastmod>2025-11-04T19:29:41+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tech-newsletter/weekly-update-1/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/news/</loc>
+    <loc>http://localhost:1313/categories/newsletter/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/news/</loc>
+    <loc>http://localhost:1313/tags/security/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tech-newsletter/</loc>
+    <lastmod>2025-11-04T19:29:41+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/updates/</loc>
     <lastmod>2025-11-04T19:29:41+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/blog/</loc>
@@ -43,6 +49,12 @@
   </url><url>
     <loc>http://localhost:1313/posts/my-it-journey-begins/</loc>
     <lastmod>2025-10-30T14:53:39+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/amd/</loc>
+    <lastmod>2025-10-30T10:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/custom-build/</loc>
+    <lastmod>2025-10-30T10:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/hardware/</loc>
     <lastmod>2025-10-30T10:00:00+00:00</lastmod>
