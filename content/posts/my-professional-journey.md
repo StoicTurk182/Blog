@@ -2,7 +2,6 @@
 title: "My Role at GMA: A Professional Journey on the Helpdesk"
 date: 2025-10-30T14:53:39Z
 draft: false
-layout: "professional"
 categories: ["Professional"]
 tags: ["professional-development"]
 description: "Reflecting on my time as IT engineer at GMA - challenges, achievements, and lessons learned."
