@@ -1,26 +1,697 @@
-<!doctype html><html class=no-js lang=en><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>iVentoy PXE Server - Andy J Blog - Trials of an IT Engineer</title><script>(function(e,t){e[t]=e[t].replace("no-js","js")})(document.documentElement,"className")</script><meta name=description content="Network boot solution for booting and installing multiple operating systems from ISO files over the network"><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class=logo><a class=logo__link href=/ title="Projects 2025" rel=home><div class="logo__item logo__text"><div class=logo__title>Projects 2025</div><div class=logo__tagline>Information Technology Musings</div></div></a></div><nav class=menu><button class=menu__btn aria-haspopup=true aria-expanded=false tabindex=0>
-<span class=menu__btn-title tabindex=-1>Menu</span></button><ul class=menu__list><li class=menu__item><a class=menu__link href=/><span class=menu__text>Home</span></a></li><li class=menu__item><a class=menu__link href=/posts/><span class=menu__text>Posts</span></a></li><li class=menu__item><a class=menu__link href=/videos/><span class=menu__text>Videos</span></a></li><li class=menu__item><a class=menu__link href=/tech-newsletter/weekly-update-1/><span class=menu__text>Tech News</span></a></li><li class=menu__item><a class=menu__link href=/tools/><span class=menu__text>Tools</span></a></li><li class=menu__item><a class=menu__link href=/contact/><span class=menu__text>Contact Me</span></a></li></ul></nav></div></header><div class="wrapper flex"><div class=primary><div class=tool-single-page><section class=tool-hero><div class=hero-content><div class=tool-header><span class=tool-badge>Tool</span>
-<span class=reading-time>• 3 min read</span>
-<span class=tool-version>v1.0.20</span></div><h1 class=hero-title>iVentoy PXE Server</h1></div></section><section class=tool-content-section><div class=tool-actions><a href=https://www.iventoy.com/en/download.html class=btn-secondary>Download</a>
-<a href=/tools/ class=btn-secondary>← Back to Tools</a></div><article class=tool-article><h1 id=iventoy-pxe-server>iVentoy PXE Server</h1><p>iVentoy is an enhanced PXE server that allows you to boot and install multiple operating systems simultaneously over the network directly from ISO files, eliminating the need for individual bootable USB drives.</p><h2 id=overview>Overview</h2><p>iVentoy brings the multi-boot convenience of Ventoy to network deployment. It serves as a central network boot server that can handle over 110 different operating systems without requiring ISO extraction or modification. Originally created by the developer of Ventoy, it&rsquo;s designed for both home labs and enterprise environments.</p><h2 id=key-features>Key Features</h2><h3 id=core-functionality>Core Functionality</h3><ul><li><strong>Direct ISO Booting</strong>: Boot directly from ISO files without extraction or conversion</li><li><strong>Massive OS Support</strong>: Supports 110+ Windows, Linux, WinPE, and VMware versions</li><li><strong>Full Architecture Support</strong>: Works with Legacy BIOS, IA32 UEFI, x86_64 UEFI, and ARM64 UEFI simultaneously</li><li><strong>Cross-Platform</strong>: Runs on both Windows and Linux operating systems</li></ul><h3 id=deployment--management>Deployment & Management</h3><ul><li><strong>Web Interface</strong>: Easy management through browser-based interface (port 26000)</li><li><strong>MAC Address Filtering</strong>: Control client access through permit/deny lists</li><li><strong>File Injection</strong>: Add drivers, scripts, or files to ISOs without repacking</li><li><strong>Auto Installation</strong>: Supports Windows (unattend.xml) and Linux (cloud-init, preseed) automated setups</li></ul><h3 id=network-integration>Network Integration</h3><ul><li><strong>Flexible DHCP Modes</strong>: Internal DHCP server or integration with third-party DHCP servers</li><li><strong>Dual Operation Modes</strong>: External mode for same VLAN, ExternalNet mode for different VLANs</li><li><strong>Client Monitoring</strong>: Real-time view of connected clients and their boot status</li></ul><h2 id=system-requirements>System Requirements</h2><ul><li><strong>Server OS</strong>: Windows 7/8/10/11 or Linux</li><li><strong>Network</strong>: Wired Ethernet connection (PXE does not work over Wi-Fi)</li><li><strong>Storage</strong>: Sufficient space for ISO library</li><li><strong>Ports</strong>: 26000 (Web UI), 16000 (HTTP), 69 (TFTP), 67/68 (DHCP)</li></ul><h2 id=usage-guide>Usage Guide</h2><h3 id=basic-setup>Basic Setup</h3><ol><li>Download and extract iVentoy package</li><li>Copy ISO files to the <code>iso</code> directory</li><li>Run iVentoy executable (<code>iVentoy.exe</code> on Windows or <code>./iventoy.sh start</code> on Linux)</li><li>Access web interface at <code>http://your-server-ip:26000</code></li><li>Configure IP settings and start PXE service</li></ol><h3 id=advanced-configuration>Advanced Configuration</h3><ul><li><strong>Third-party DHCP</strong>: Set next-server to iVentoy IP and bootfile to <code>iventoy_loader_16000</code></li><li><strong>Enterprise Deployment</strong>: Use Pro edition for unlimited clients and commercial use</li><li><strong>Automated Installs</strong>: Create scripts for unattended OS installations</li></ul><h2 id=comparison-free-vs-pro-edition>Comparison: Free vs Pro Edition</h2><table><thead><tr><th>Feature</th><th>Free Edition</th><th>Pro Edition</th></tr></thead><tbody><tr><td>Client Limit</td><td>20 clients</td><td>Unlimited</td></tr><tr><td>Commercial Use</td><td>Not allowed</td><td>Allowed</td></tr><tr><td>ARM64 Support</td><td>No</td><td>Yes</td></tr><tr><td>Cost</td><td>Free</td><td>$49 one-time</td></tr></tbody></table><h2 id=use-cases>Use Cases</h2><h3 id=ideal-for>Ideal For</h3><ul><li><strong>IT Departments</strong>: Rapid OS deployment across multiple machines</li><li><strong>Home Labs</strong>: Easy testing of different Linux distributions</li><li><strong>System Administrators</strong>: Centralized management of installation media</li><li><strong>Tech Support</strong>: Diagnostic and recovery tool distribution</li></ul><h3 id=limitations>Limitations</h3><ul><li>Requires wired network connections</li><li>Free edition limited to 20 concurrent clients</li><li>No ARM64 support in free edition</li></ul><h2 id=troubleshooting>Troubleshooting</h2><h3 id=common-issues>Common Issues</h3><ul><li><strong>PXE Boot Fails</strong>: Verify DHCP configuration and network connectivity</li><li><strong>ISO Not Appearing</strong>: Ensure filenames contain no spaces or unicode characters</li><li><strong>UEFI/Legacy Mismatch</strong>: Configure correct bootfile names for client firmware</li></ul><h3 id=best-practices>Best Practices</h3><ul><li>Use descriptive ISO filenames without special characters</li><li>Organize ISOs in subdirectories for better management</li><li>Regularly update to latest iVentoy version for new OS support</li></ul><hr><p><em>iVentoy is developed by the Ventoy project team. Last updated: January 2024</em></p></article><div class=tool-footer-actions><a href=https://www.iventoy.com/en/download.html class="card-link download-link">Download Tool</a></div></section></div><style>.reading-time{color:#64748b;font-size:.9rem;font-weight:500}.tool-single-page{max-width:1200px;margin:0 auto;padding:0 1rem}.tool-hero{text-align:center;padding:2rem 0 1rem;border-bottom:1px solid #e5e7eb;margin-bottom:2rem}.tool-header{display:flex;justify-content:center;align-items:center;gap:1rem;margin-bottom:1rem}.tool-badge{background:#f0f9ff;color:#0369a1;padding:.25rem .75rem;border-radius:12px;font-size:.8rem;font-weight:500}.tool-version{color:#6b7280;font-size:.8rem;font-family:monospace}.tool-hero .hero-title{font-size:2.5rem;color:#1f2937;margin:0 0 1rem;font-weight:300}.tool-hero .hero-description{font-size:1.3rem;color:#6b7280;margin-bottom:1.5rem}.tool-actions{display:flex;gap:1rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}.tool-meta{background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:1.5rem;margin-bottom:2rem}.meta-group{display:flex;align-items:start;gap:1rem;margin-bottom:1rem}.meta-group:last-child{margin-bottom:0}.meta-group strong{min-width:80px;color:#374151;font-weight:600}.categories,.tags{display:flex;flex-wrap:wrap;gap:.5rem}.category-tag{background:#fef2f2;color:#dc2626;padding:.25rem .75rem;border-radius:12px;font-size:.8rem;font-weight:500}.tag{background:#f3f4f6;color:#374151;padding:.2rem .6rem;border-radius:8px;font-size:.75rem;border:1px solid #e5e7eb}.tool-article{max-width:800px;margin:0 auto 3rem;line-height:1.7;color:#374151}.tool-article h2{color:#1f2937;font-weight:400;margin:2rem 0 1rem}.tool-article h3{color:#374151;font-weight:500;margin:1.5rem 0 .75rem}.tool-article p{margin-bottom:1rem}.tool-article ul,.tool-article ol{margin-bottom:1rem;padding-left:1.5rem}.tool-article li{margin-bottom:.5rem}.tool-footer-actions{display:flex;gap:1rem;justify-content:center;padding-top:2rem;border-top:1px solid #e5e7eb;margin-top:2rem}.btn-primary{background:#dc2626;color:#fff;padding:.75rem 1.5rem;text-decoration:none;border-radius:6px;font-weight:500;transition:background-color .2s;display:inline-block}.btn-primary:hover{background:#b91c1c}.btn-secondary{background:0 0;color:#374151;padding:.75rem 1.5rem;text-decoration:none;border:1px solid #d1d5db;border-radius:6px;font-weight:500;transition:all .2s;display:inline-block}.btn-secondary:hover{border-color:#9ca3af;background:#f9fafb}.card-link{color:#dc2626;text-decoration:none;font-weight:500;font-size:.9rem;transition:color .2s;padding:.75rem 1.5rem;border:1px solid #dc2626;border-radius:6px}.card-link:hover{text-decoration:underline}.demo-link{background:#f0fdf4;color:#059669!important;border:1px solid #bbf7d0}.demo-link:hover{background:#dcfce7;color:#047857!important}.download-link{background:#dc2626;color:#fff!important}.download-link:hover{background:#b91c1c;color:#fff!important}@media(max-width:768px){.tool-single-page{padding:0 .5rem}.tool-hero .hero-title{font-size:2rem}.tool-actions{flex-direction:column;align-items:center}.tool-meta{padding:1rem}.meta-group{flex-direction:column;gap:.5rem}.tool-footer-actions{flex-direction:column;align-items:center}.meta-group strong{min-width:auto}}@media(max-width:480px){.tool-article{padding:0 .5rem}}</style></div><aside class=sidebar><div class="widget-recent widget"><h4 class=widget__title>Recent Posts</h4><div class=widget__content><ul class=widget__list><li class=widget__item><a class=widget__link href=/tools/iventoy-pxe-server/>iVentoy PXE Server</a></li><li class=widget__item><a class=widget__link href=/tools/process-lasso/>Process Lasso</a></li><li class=widget__item><a class=widget__link href=/tools/sysinterals-suit/>Sysinternals Suite</a></li><li class=widget__item><a class=widget__link href=/tools/yumi-multiboot-usb-creator/>YUMI Multiboot USB Creator</a></li></ul></div></div><div class="widget-categories widget"><h4 class=widget__title>Categories</h4><div class=widget__content><ul class=widget__list><li class=widget__item><a class=widget__link href=/categories/audio-visual/>Audio Visual</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">1</span></li><li class=widget__item><a class=widget__link href=/categories/getting-started-server-deployment---debian-vps/>Getting Started Server Deployment - Debian VPS</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">1</span></li><li class=widget__item><a class=widget__link href=/categories/hardware/>Hardware</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">1</span></li><li class=widget__item><a class=widget__link href=/categories/news/>News</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">1</span></li><li class=widget__item><a class=widget__link href=/categories/professional/>Professional</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">1</span></li><li class=widget__item><a class=widget__link href=/categories/tools/>Tools</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">4</span></li><li class=widget__item><a class=widget__link href=/categories/useful-tools-and-applications/>Useful Tools and Applications</a>&nbsp;
-<span class="widget__counter widget__counter--bubble">1</span></li></ul></div></div><div class="widget-taglist widget"><h4 class=widget__title>Tags</h4><div class=widget__content><a class="widget-taglist__link widget__link btn" href=/tags/applications/ title=Applications>Applications (3)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/blog/ title=Blog>Blog (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/hardware/ title=Hardware>Hardware (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/network-boot/ title=Network-Boot>Network-Boot (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/news/ title=News>News (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/os-deployment/ title=Os-Deployment>Os-Deployment (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/pc-build/ title="PC Build">PC Build (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/performance/ title=Performance>Performance (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/professional-development/ title=Professional-Development>Professional-Development (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/pxe/ title=Pxe>Pxe (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/system-mgmt/ title="System MGMT">System MGMT (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/tools/ title=Tools>Tools (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/usb-os-installation/ title="USB OS Installation">USB OS Installation (1)</a>
-<a class="widget-taglist__link widget__link btn" href=/tags/videos/ title=Videos>Videos (1)</a></div></div></aside></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2025 Andy J Blog - Trials of an IT Engineer.
-<span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script></body></html>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>iVentoy PXE Server - Andy J Blog - Trials of an IT Engineer</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="Network boot solution for booting and installing multiple operating systems from ISO files over the network">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Projects 2025" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Projects 2025</div>
+					<div class="logo__tagline">Information Technology Musings</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/posts/">
+				
+				<span class="menu__text">Posts</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/videos/">
+				
+				<span class="menu__text">Videos</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tech-newsletter/weekly-update-1/">
+				
+				<span class="menu__text">Tech News</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tools/">
+				
+				<span class="menu__text">Tools</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/contact/">
+				
+				<span class="menu__text">Contact Me</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<div class="tool-single-page">
+    
+
+    <section class="tool-hero">
+        
+        <div class="hero-content">
+           
+            <div class="tool-header">
+                <span class="tool-badge">Tool</span>
+                
+                <span class="reading-time">• 3 min read</span>
+                
+                <span class="tool-version">v1.0.20</span>
+                
+            </div>
+            <h1 class="hero-title">iVentoy PXE Server</h1>
+            
+        </div>
+    </section>
+
+    
+    <section class="tool-content-section">
+        <div class="tool-actions">
+           
+            
+            <a href="https://www.iventoy.com/en/download.html" class="btn-secondary">Download</a>
+            
+            <a href="/tools/" class="btn-secondary">← Back to Tools</a>
+        </div>
+
+        
+        <article class="tool-article">
+            <h1 id="iventoy-pxe-server">iVentoy PXE Server</h1>
+<p>iVentoy is an enhanced PXE server that allows you to boot and install multiple operating systems simultaneously over the network directly from ISO files, eliminating the need for individual bootable USB drives.</p>
+<h2 id="overview">Overview</h2>
+<p>iVentoy brings the multi-boot convenience of Ventoy to network deployment. It serves as a central network boot server that can handle over 110 different operating systems without requiring ISO extraction or modification. Originally created by the developer of Ventoy, it&rsquo;s designed for both home labs and enterprise environments.</p>
+<h2 id="key-features">Key Features</h2>
+<h3 id="core-functionality">Core Functionality</h3>
+<ul>
+<li><strong>Direct ISO Booting</strong>: Boot directly from ISO files without extraction or conversion</li>
+<li><strong>Massive OS Support</strong>: Supports 110+ Windows, Linux, WinPE, and VMware versions</li>
+<li><strong>Full Architecture Support</strong>: Works with Legacy BIOS, IA32 UEFI, x86_64 UEFI, and ARM64 UEFI simultaneously</li>
+<li><strong>Cross-Platform</strong>: Runs on both Windows and Linux operating systems</li>
+</ul>
+<h3 id="deployment--management">Deployment &amp; Management</h3>
+<ul>
+<li><strong>Web Interface</strong>: Easy management through browser-based interface (port 26000)</li>
+<li><strong>MAC Address Filtering</strong>: Control client access through permit/deny lists</li>
+<li><strong>File Injection</strong>: Add drivers, scripts, or files to ISOs without repacking</li>
+<li><strong>Auto Installation</strong>: Supports Windows (unattend.xml) and Linux (cloud-init, preseed) automated setups</li>
+</ul>
+<h3 id="network-integration">Network Integration</h3>
+<ul>
+<li><strong>Flexible DHCP Modes</strong>: Internal DHCP server or integration with third-party DHCP servers</li>
+<li><strong>Dual Operation Modes</strong>: External mode for same VLAN, ExternalNet mode for different VLANs</li>
+<li><strong>Client Monitoring</strong>: Real-time view of connected clients and their boot status</li>
+</ul>
+<h2 id="system-requirements">System Requirements</h2>
+<ul>
+<li><strong>Server OS</strong>: Windows 7/8/10/11 or Linux</li>
+<li><strong>Network</strong>: Wired Ethernet connection (PXE does not work over Wi-Fi)</li>
+<li><strong>Storage</strong>: Sufficient space for ISO library</li>
+<li><strong>Ports</strong>: 26000 (Web UI), 16000 (HTTP), 69 (TFTP), 67/68 (DHCP)</li>
+</ul>
+<h2 id="usage-guide">Usage Guide</h2>
+<h3 id="basic-setup">Basic Setup</h3>
+<ol>
+<li>Download and extract iVentoy package</li>
+<li>Copy ISO files to the <code>iso</code> directory</li>
+<li>Run iVentoy executable (<code>iVentoy.exe</code> on Windows or <code>./iventoy.sh start</code> on Linux)</li>
+<li>Access web interface at <code>http://your-server-ip:26000</code></li>
+<li>Configure IP settings and start PXE service</li>
+</ol>
+<h3 id="advanced-configuration">Advanced Configuration</h3>
+<ul>
+<li><strong>Third-party DHCP</strong>: Set next-server to iVentoy IP and bootfile to <code>iventoy_loader_16000</code></li>
+<li><strong>Enterprise Deployment</strong>: Use Pro edition for unlimited clients and commercial use</li>
+<li><strong>Automated Installs</strong>: Create scripts for unattended OS installations</li>
+</ul>
+<h2 id="comparison-free-vs-pro-edition">Comparison: Free vs Pro Edition</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Feature</th>
+          <th>Free Edition</th>
+          <th>Pro Edition</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Client Limit</td>
+          <td>20 clients</td>
+          <td>Unlimited</td>
+      </tr>
+      <tr>
+          <td>Commercial Use</td>
+          <td>Not allowed</td>
+          <td>Allowed</td>
+      </tr>
+      <tr>
+          <td>ARM64 Support</td>
+          <td>No</td>
+          <td>Yes</td>
+      </tr>
+      <tr>
+          <td>Cost</td>
+          <td>Free</td>
+          <td>$49 one-time</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="use-cases">Use Cases</h2>
+<h3 id="ideal-for">Ideal For</h3>
+<ul>
+<li><strong>IT Departments</strong>: Rapid OS deployment across multiple machines</li>
+<li><strong>Home Labs</strong>: Easy testing of different Linux distributions</li>
+<li><strong>System Administrators</strong>: Centralized management of installation media</li>
+<li><strong>Tech Support</strong>: Diagnostic and recovery tool distribution</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ul>
+<li>Requires wired network connections</li>
+<li>Free edition limited to 20 concurrent clients</li>
+<li>No ARM64 support in free edition</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ul>
+<li><strong>PXE Boot Fails</strong>: Verify DHCP configuration and network connectivity</li>
+<li><strong>ISO Not Appearing</strong>: Ensure filenames contain no spaces or unicode characters</li>
+<li><strong>UEFI/Legacy Mismatch</strong>: Configure correct bootfile names for client firmware</li>
+</ul>
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+<li>Use descriptive ISO filenames without special characters</li>
+<li>Organize ISOs in subdirectories for better management</li>
+<li>Regularly update to latest iVentoy version for new OS support</li>
+</ul>
+<hr>
+<p><em>iVentoy is developed by the Ventoy project team. Last updated: January 2024</em></p>
+
+        </article>
+
+        
+        <div class="tool-footer-actions">
+            
+            <a href="https://www.iventoy.com/en/download.html" class="card-link download-link">Download Tool</a>
+            
+        </div>
+    </section>
+</div>
+
+<style>
+.reading-time {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.tool-single-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+ 
+.tool-hero {
+    text-align: center;
+    padding: 1.5rem 0 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1.5rem;
+}
+
+.tool-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.tool-badge {
+    background: #f0f9ff;
+    color: #0369a1;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    order: 1;
+}
+
+.tool-version {
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-family: monospace;
+    order: 2;
+}
+
+.tool-hero .hero-title {
+    font-size: 1.75rem;
+    color: #1f2937;
+    margin: 0 0 1rem;
+    font-weight: 300;
+    line-height: 1.3;
+    order: 0;  
+}
+
+.tool-hero .hero-description {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+ 
+.tool-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.action-button {
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+ 
+.tool-meta {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.meta-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.meta-group:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.meta-group strong {
+    color: #374151;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.categories, .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-tag {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.tag {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    border: 1px solid #e5e7eb;
+}
+
+ 
+.tool-article {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.tool-article h2 {
+    color: #1f2937;
+    font-weight: 400;
+    margin: 1.5rem 0 1rem;
+    font-size: 1.5rem;
+}
+
+.tool-article h3 {
+    color: #374151;
+    font-weight: 500;
+    margin: 1.25rem 0 0.75rem;
+    font-size: 1.25rem;
+}
+
+.tool-article p {
+    margin-bottom: 1rem;
+}
+
+.tool-article ul, .tool-article ol {
+    margin-bottom: 1rem;
+    padding-left: 1.25rem;
+}
+
+.tool-article li {
+    margin-bottom: 0.5rem;
+}
+
+ 
+.tool-footer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 1.5rem;
+}
+
+ 
+.btn-primary {
+    background: #dc2626;
+    color: white;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    display: block;
+    text-align: center;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #374151;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.btn-secondary:hover {
+    border-color: #9ca3af;
+    background: #f9fafb;
+}
+
+.card-link {
+    color: #dc2626;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dc2626;
+    border-radius: 6px;
+    display: block;
+    text-align: center;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+.demo-link {
+    background: #f0fdf4;
+    color: #059669 !important;
+    border: 1px solid #bbf7d0;
+}
+
+.demo-link:hover {
+    background: #dcfce7;
+    color: #047857 !important;
+}
+
+.download-link {
+    background: #dc2626;
+    color: white !important;
+    border: 1px solid #dc2626;
+}
+
+.download-link:hover {
+    background: #b91c1c;
+    color: white !important;
+}
+
+ 
+@media (min-width: 768px) {
+    .tool-single-page {
+        padding: 0 1.5rem;
+    }
+    
+    .tool-hero {
+        padding: 2.5rem 0 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .tool-header {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .tool-hero .hero-title {
+        font-size: 2.25rem;
+        order: 0;
+    }
+    
+    .tool-badge, .tool-version {
+        order: 1;
+    }
+    
+    .tool-hero .hero-description {
+        font-size: 1.25rem;
+    }
+    
+    .tool-actions {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .action-button {
+        width: auto;
+        min-width: 140px;
+    }
+    
+    .tool-meta {
+        padding: 1.5rem;
+    }
+    
+    .meta-group {
+        flex-direction: row;
+        align-items: start;
+        gap: 1rem;
+    }
+    
+    .meta-group strong {
+        min-width: 80px;
+        font-size: 1rem;
+    }
+    
+    .tool-article {
+        font-size: 1rem;
+        margin-bottom: 3rem;
+    }
+    
+    .tool-article h2 {
+        font-size: 1.75rem;
+        margin: 2rem 0 1rem;
+    }
+    
+    .tool-article h3 {
+        font-size: 1.5rem;
+    }
+    
+    .tool-footer-actions {
+        flex-direction: row;
+        gap: 1rem;
+        padding-top: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .btn-primary, .btn-secondary, .card-link {
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .tool-hero .hero-title {
+        font-size: 2.5rem;
+    }
+}
+
+ 
+@media (max-width: 360px) {
+    .tool-single-page {
+        padding: 0 0.75rem;
+    }
+    
+    .tool-hero .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .tool-hero .hero-description {
+        font-size: 1rem;
+    }
+    
+    .categories, .tags {
+        gap: 0.375rem;
+    }
+    
+    .category-tag, .tag {
+        font-size: 0.7rem;
+    }
+}
+</style>
+
+			</div>
+			<aside class="sidebar">
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/tools/iventoy-pxe-server/">iVentoy PXE Server</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/process-lasso/">Process Lasso</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/sysinterals-suit/">Sysinternals Suite</a></li>
+			<li class="widget__item"><a class="widget__link" href="/tools/yumi-multiboot-usb-creator/">YUMI Multiboot USB Creator</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/audio-visual/">Audio Visual</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/getting-started-server-deployment---debian-vps/">Getting Started Server Deployment - Debian VPS</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/hardware/">Hardware</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/news/">News</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/professional/">Professional</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/tools/">Tools</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">4</span>
+				</li>
+			<li class="widget__item">
+				<a class="widget__link" href="/categories/useful-tools-and-applications/">Useful Tools and Applications</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/applications/" title="Applications">Applications (3)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/network-boot/" title="Network-Boot">Network-Boot (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/news/" title="News">News (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/os-deployment/" title="Os-Deployment">Os-Deployment (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pc-build/" title="PC Build">PC Build (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/performance/" title="Performance">Performance (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pxe/" title="Pxe">Pxe (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/system-mgmt/" title="System MGMT">System MGMT (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="Tools">Tools (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/usb-os-installation/" title="USB OS Installation">USB OS Installation (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2025 Andy J Blog - Trials of an IT Engineer.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
