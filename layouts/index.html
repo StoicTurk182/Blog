@@ -81,6 +81,25 @@
     </section>
 </div>
 
+   <!-- Author Bio Section -->
+    {{ if and (.Site.Params.author) (.Site.Params.authorbio) }}
+    <section class="author-section">
+        <div class="authorbox clearfix">
+            {{ if and (.Site.Params.authoravatar) (fileExists (printf "static/%s" .Site.Params.authoravatar)) }}
+            <figure class="authorbox__avatar">
+                <img alt="{{ .Site.Params.author }} avatar" src="{{ .Site.Params.authoravatar | relURL }}" class="avatar" height="90" width="90">
+            </figure>
+            {{ end }}
+            <div class="authorbox__header">
+                <span class="authorbox__name">About {{ .Site.Params.author }}</span>
+            </div>
+            <div class="authorbox__description">
+                <p>Projects 2025 By Andrew John Jones</p>
+            </div>
+        </div>
+    </section>
+    {{ end }}
+
 <style>
     .blog-page {
         max-width: 800px;
