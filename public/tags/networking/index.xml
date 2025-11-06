@@ -6,7 +6,7 @@
         <generator>Hugo</generator>
         <language>en-us</language>
         <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
-        
+        <lastBuildDate>Tue, 04 Nov 2025 19:29:41 +0000</lastBuildDate>
         <atom:link href="http://localhost:1313/tags/networking/" rel="self" type="application/rss+xml" />
         
         <item>
@@ -14,7 +14,13 @@
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
             <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
-            <description>&lt;hr&gt;</description>
+            <description>&lt;h1 id=&#34;monthly-update-1&#34;&gt;Monthly Update #1&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Issue:&lt;/strong&gt; {{ .Params.issue }}&lt;br&gt;
+&lt;strong&gt;Published:&lt;/strong&gt; {{ .Date.Format &amp;ldquo;January 2, 2006&amp;rdquo; }}&lt;/p&gt;
+&lt;p&gt;Welcome to the first monthly update! This edition covers critical security patches, essential tools for network management, and the latest threat intelligence you need to stay secure.&lt;/p&gt;
+&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
+&lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;</description>
         </item>
         
         <item>
@@ -78,28 +84,14 @@
         </item>
         
         <item>
-            <title>JSON Formatter &amp; Validator</title>
-            <link>http://localhost:1313/tools/json-formatter/</link>
+            <title>iVentoy PXE Server</title>
+            <link>http://localhost:1313/tools/iventoy-pxe-server/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:1313/tools/json-formatter/</guid>
-            <description>&lt;h1 id=&#34;json-formatter-tool&#34;&gt;JSON Formatter Tool&lt;/h1&gt;
-&lt;p&gt;A powerful online JSON formatter and validator that helps developers work with JSON data more efficiently.&lt;/p&gt;
-&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Syntax Highlighting&lt;/strong&gt;: Color-coded JSON syntax for better readability&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Error Detection&lt;/strong&gt;: Real-time validation and error reporting&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Formatting Options&lt;/strong&gt;: Choose between compact and pretty-print formats&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tree View&lt;/strong&gt;: Collapsible tree structure for large JSON objects&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;how-to-use&#34;&gt;How to Use&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;Paste your JSON data into the input area&lt;/li&gt;
-&lt;li&gt;Click &amp;ldquo;Format&amp;rdquo; to beautify the JSON&lt;/li&gt;
-&lt;li&gt;Use &amp;ldquo;Validate&amp;rdquo; to check for syntax errors&lt;/li&gt;
-&lt;li&gt;Copy the formatted result&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;download&#34;&gt;Download&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;http://localhost:1313/downloads/json-formatter-v1.2.0.zip&#34;&gt;Download JSON Formatter v1.2.0&lt;/a&gt; (Windows, macOS, Linux)&lt;/p&gt;</description>
+            <guid>http://localhost:1313/tools/iventoy-pxe-server/</guid>
+            <description>&lt;h1 id=&#34;iventoy-pxe-server&#34;&gt;iVentoy PXE Server&lt;/h1&gt;
+&lt;p&gt;iVentoy is an enhanced PXE server that allows you to boot and install multiple operating systems simultaneously over the network directly from ISO files, eliminating the need for individual bootable USB drives.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;iVentoy brings the multi-boot convenience of Ventoy to network deployment. It serves as a central network boot server that can handle over 110 different operating systems without requiring ISO extraction or modification. Originally created by the developer of Ventoy, it&amp;rsquo;s designed for both home labs and enterprise environments.&lt;/p&gt;</description>
         </item>
         
         <item>
