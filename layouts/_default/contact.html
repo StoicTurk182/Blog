@@ -86,7 +86,7 @@
     text-align: center;
     margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 3px solid var(--accent-primary);
+    border-bottom: 1px solid #ff0000;
     
 }
 
@@ -99,7 +99,8 @@
 
 .contact-subtitle {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+     color: #6b7280;
+    margin-top: 0.5rem;
     font-style: italic;
 }
 
@@ -114,7 +115,7 @@
 .contact-info h2,
 .contact-form h2 {
     color: var(--text-primary);
-    border-bottom: 3px solid var(--accent-primary);
+    border-bottom: 1px solid #ff0000;
     padding-bottom: 0.75rem;
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
@@ -180,20 +181,21 @@
 }
 
 .submit-btn {
-    background: var(--accent-primary);
-    color: rgb(0, 0, 0);
+    background: transparent;
+    color: var(--accent-primary); /* Uses your red accent color */
     padding: 0.75rem 2rem;
-    border: none;
+    border: 2px solid var(--accent-primary);
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .submit-btn:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: var(--accent-primary);
 }
 
 /* Comments Section */

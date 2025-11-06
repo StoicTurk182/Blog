@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="tools-hero">
         <div class="hero-content">
-            <h1 class="hero-title">Postcards</h1>
+            <h1 class="hero-title">Posts</h1>
             <p class="hero-description">Applciations & Tools</p>
             <div class="tools-description">
                 {{ .Content }}
@@ -83,7 +83,7 @@
 </div>
 
 <style>
-.tools-page {
+    .tools-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -102,9 +102,7 @@
     color: #1f2937;
     margin: 0 0 1rem 0;
     font-weight: 300;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-   
+    /* REMOVED: display: grid; grid-template-columns: ... - this doesn't make sense for a title */
 }
 
 .tools-hero .hero-description {
@@ -123,9 +121,7 @@
 /* Tools Grid */
 .tools-section {
     margin-bottom: 4rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    /* REMOVED: display: grid; grid-template-columns: ... - conflicts with .tools-grid */
     background: linear-gradient(to bottom, 
         rgba(255, 255, 255, 0) 0%, 
         rgba(245, 245, 245, 1) 10%, 
@@ -138,7 +134,7 @@
 
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Changed from 350px to 300px for better mobile fit */
     gap: 2rem;
 }
 
@@ -164,6 +160,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    flex-wrap: wrap; /* ADDED: allows wrapping on small screens */
+    gap: 0.5rem; /* ADDED: spacing between wrapped items */
 }
 
 .tool-card .card-badge {
@@ -185,6 +183,7 @@
     margin: 0 0 1rem 0;
     font-size: 1.3rem;
     line-height: 1.3;
+    word-wrap: break-word; /* ADDED: prevents long titles from breaking layout */
 }
 
 .tool-card .card-title a {
@@ -254,6 +253,7 @@
     align-items: center;
     margin-top: auto;
     gap: 1rem;
+    flex-wrap: wrap; /* ADDED: allows wrapping on small screens */
 }
 
 .tool-card .card-link {
@@ -274,6 +274,7 @@
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    flex-wrap: wrap; /* ADDED: allows wrapping */
 }
 
 .action-link {
@@ -349,8 +350,20 @@
         padding: 0 0.5rem;
     }
     
+    .tools-hero {
+        padding: 2rem 0 1.5rem 0; /* ADDED: reduce padding on mobile */
+    }
+    
     .tools-hero .hero-title {
         font-size: 2rem;
+    }
+    
+    .tools-hero .hero-description {
+        font-size: 1.1rem; /* ADDED: slightly smaller on mobile */
+    }
+    
+    .tools-section {
+        padding: 1.5rem; /* ADDED: reduce padding on mobile */
     }
     
     .tools-grid {
@@ -361,7 +374,7 @@
     .tool-card .card-footer {
         flex-direction: column;
         gap: 0.75rem;
-        align-items: start;
+        align-items: flex-start; /* Changed from 'start' to 'flex-start' for better compatibility */
     }
     
     .tool-actions {
@@ -371,12 +384,16 @@
     
     .section-header {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start; /* Changed from 'start' */
         gap: 0.5rem;
     }
 }
 
 @media (max-width: 480px) {
+    .tools-hero .hero-title {
+        font-size: 1.5rem; /* ADDED: even smaller on very small screens */
+    }
+    
     .tool-card {
         padding: 1.25rem;
     }
@@ -387,7 +404,7 @@
     
     .tool-actions {
         flex-direction: column;
-        align-items: start;
+        align-items: stretch; /* CHANGED: from 'start' to 'stretch' for full-width buttons */
         gap: 0.5rem;
     }
     
