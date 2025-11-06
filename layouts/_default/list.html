@@ -3,10 +3,8 @@
     <!-- Hero Section -->
     <section class="tools-hero">
         <div class="hero-content">
-            <h1 class="hero-title">{{ .Title }}</h1>
-            {{ with .Params.subtitle }}
-            <p class="hero-description">{{ . }}</p>
-            {{ end }}
+            <h1 class="hero-title">Postcards</h1>
+            <p class="hero-description">Applciations & Tools</p>
             <div class="tools-description">
                 {{ .Content }}
             </div>
@@ -16,7 +14,7 @@
     <!-- Posts Grid Section -->
     <section class="tools-section">
         <div class="section-header">
-            <h2>All Posts</h2>
+            <h2>All Recent Posts</h2>
             <p>Latest articles and updates</p>
         </div>
 
@@ -104,6 +102,9 @@
     color: #1f2937;
     margin: 0 0 1rem 0;
     font-weight: 300;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   
 }
 
 .tools-hero .hero-description {
@@ -122,6 +123,17 @@
 /* Tools Grid */
 .tools-section {
     margin-bottom: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(245, 245, 245, 1) 10%, 
+        rgba(230, 230, 230, 1) 50%, 
+        rgba(245, 245, 245, 1) 90%,
+        rgba(255, 255, 255, 0) 100%);
+    padding: 2rem;
+    border-radius: 8px;
 }
 
 .tools-grid {

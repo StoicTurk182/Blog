@@ -248,11 +248,12 @@
 }
 
  
-.hero-section {
-    text-align: center;
-    padding: 4rem 0;
-    border-bottom: 1px solid #ff0000;
-    margin-bottom: 3rem;
+.hero-section{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
 }
 
 .hero-title {
@@ -350,6 +351,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(245, 245, 245, 1) 10%, 
+        rgba(230, 230, 230, 1) 50%, 
+        rgba(245, 245, 245, 1) 90%,
+        rgba(255, 255, 255, 0) 100%);
+    padding: 2rem;
+    border-radius: 8px;
 }
 
 .featured-card {
@@ -567,6 +576,7 @@
 @media (max-width: 768px) {
     .homepage {
         padding: 0 0.5rem;
+        
     }
     
     .hero-title {
@@ -645,6 +655,25 @@
 				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/applications/" title="Applications">Applications (3)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/network-boot/" title="Network-Boot">Network-Boot (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/news/" title="News">News (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/os-deployment/" title="Os-Deployment">Os-Deployment (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pc-build/" title="PC Build">PC Build (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/performance/" title="Performance">Performance (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pxe/" title="Pxe">Pxe (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/system-mgmt/" title="System MGMT">System MGMT (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="Tools">Tools (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/usb-os-installation/" title="USB OS Installation">USB OS Installation (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/videos/" title="Videos">Videos (1)</a>
 	</div>
 </div>
 </aside>

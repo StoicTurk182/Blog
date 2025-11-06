@@ -11,14 +11,14 @@
         <div class="contact-grid">
             <!-- Contact Information -->
             <div class="contact-info">
-                <h2>📧 Email & Phone</h2>
+                <h2> Email & Phone</h2>
                 <div class="contact-details">
                     <p><strong>Email:</strong> <a href="mailto:Stoicturk182@protonmail.com">Stoicturk182@protonmail.com</a></p>
                     <p><strong>Phone:</strong> <a href="tel:+447990338386">(44) 07990338386</a></p>
                     <p><strong>Location:</strong> London, UK</p>
                 </div>
 
-                <h2>🌐 Social Media</h2>
+                <h2> Social Media</h2>
                 <div class="social-links">
                     <p><strong>GitHub:</strong> <a href="https://github.com/StoicTurk182" target="_blank">StoicTurk182</a></p>
                     <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/andrew-john-j-780" target="_blank">Andrew Jones</a></p>
@@ -27,7 +27,7 @@
 
             <!-- Contact Form -->
             <div class="contact-form">
-                <h2>📝 Send Me a Message</h2>
+                <h2> Send Me a Message</h2>
                 <form action="https://formspree.io/f/xovppvjo" method="POST" class="form">
                     <div class="form-group">
                         <label for="name">Your Name:</label>
@@ -66,28 +66,40 @@
 </article>
 
 <style>
+
+    
 .contact-page {
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
+        background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(245, 245, 245, 1) 10%, 
+        rgba(230, 230, 230, 1) 50%, 
+        rgba(245, 245, 245, 1) 90%,
+        rgba(255, 255, 255, 0) 100%);
+    padding: 2rem;
+    border-radius: 8px;
 }
 
 .contact-header {
     text-align: center;
     margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 3px solid var(--accent-primary);
+    
 }
 
 .contact-title {
     font-size: 2.5rem;
-    color: #1e293b;
+    color: var(--text-primary);
     margin: 1rem 0;
+    font-weight: 700;
 }
 
 .contact-subtitle {
     font-size: 1.2rem;
-    color: #64748b;
+    color: var(--text-secondary);
     font-style: italic;
 }
 
@@ -96,30 +108,43 @@
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
+   
 }
 
 .contact-info h2,
 .contact-form h2 {
-    color: #1e293b;
-    border-bottom: 2px solid #f80000;
-    padding-bottom: 0.5rem;
+    color: var(--text-primary);
+    border-bottom: 3px solid var(--accent-primary);
+    padding-bottom: 0.75rem;
     margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .contact-details p,
 .social-links p {
     margin: 1rem 0;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.contact-details strong,
+.social-links strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .contact-details a,
 .social-links a {
-    color: #eb4925;
+    color: var(--accent-primary);
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
 .contact-details a:hover,
 .social-links a:hover {
+    color: var(--accent-hover);
     text-decoration: underline;
 }
 
@@ -131,91 +156,58 @@
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #d1d5db;
+    border: 2px solid var(--border-primary);
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.2s;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #e91212;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(226, 45, 48, 0.1);
 }
 
 .submit-btn {
-    background-color: #eb2825;
-    color: white;
+    background: var(--accent-primary);
+    color: rgb(0, 0, 0);
     padding: 0.75rem 2rem;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
-    background-color: #d81d1d;
-}
-
-/* Author Bio Styles */
-.authorbox {
-    margin: 3rem 0;
-    padding: 2rem;
-    background: #f8fafc;
-    border-radius: 12px;
-    border-left: 4px solid #eb2525;
-}
-
-.authorbox__avatar {
-    float: left;
-    margin: 0 1.5rem 1rem 0;
-}
-
-.authorbox__avatar img {
-    border-radius: 8px;
-}
-
-.authorbox__header {
-    margin-bottom: 1rem;
-}
-
-.authorbox__name {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #1e293b;
-}
-
-.authorbox__description {
-    font-size: 0.9em;
-    color: #475569;
-    line-height: 1.1;
-}
-
-.authorbox__description p {
-    margin: 0.2em 0;
+    background: var(--accent-hover);
+    transform: translateY(-2px);
 }
 
 /* Comments Section */
 .comments-section {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 2px solid #e2e8f0;
+    border-top: 2px solid var(--border-primary);
 }
 
 .comments-section h3 {
-    color: #1e293b;
+    color: var(--text-primary);
     margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--accent-primary);
 }
 
 /* Responsive Design */
@@ -223,17 +215,11 @@
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+        
     }
     
     .contact-title {
         font-size: 2rem;
-    }
-    
-    .authorbox__avatar {
-        float: none;
-        margin: 0 auto 1rem auto;
-        display: block;
-        text-align: center;
     }
 }
 </style>

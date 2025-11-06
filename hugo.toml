@@ -35,7 +35,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     list = true
 
     # Widgets configuration
-    widgets = ["recent", "categories", "social"]
+    widgets = ["recent", "categories", "social", "taglist"]
 
      [params.social]
     youtube = "https://www.youtube.com/@saraf01"

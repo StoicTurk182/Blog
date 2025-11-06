@@ -133,11 +133,12 @@
 }
 
 /* Hero Section */
-.hero-section {
-    text-align: center;
-    padding: 4rem 0;
-    border-bottom: 1px solid #ff0000;
-    margin-bottom: 3rem;
+.hero-section{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
 }
 
 .hero-title {
@@ -235,6 +236,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+    background: linear-gradient(to bottom, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(245, 245, 245, 1) 10%, 
+        rgba(230, 230, 230, 1) 50%, 
+        rgba(245, 245, 245, 1) 90%,
+        rgba(255, 255, 255, 0) 100%);
+    padding: 2rem;
+    border-radius: 8px;
 }
 
 .featured-card {
@@ -452,6 +461,7 @@
 @media (max-width: 768px) {
     .homepage {
         padding: 0 0.5rem;
+        
     }
     
     .hero-title {
