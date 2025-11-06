@@ -9,7 +9,7 @@ download_url: "https://learn.microsoft.com/en-us/sysinternals/downloads/sysinter
 ---
 # Sysinternals Suite
 
-The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft[citation:2][citation:5].
+The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft.
 
 ## Key Featured Utilities
 

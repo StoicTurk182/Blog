@@ -83,7 +83,7 @@ My time as an IT Engineer at GMA was more than just a job—it was a demanding y
 
 The foundation I built during this period has uniquely prepared me for my next career steps, and I'm grateful for every challenge and achievement along the way.
 
-Feeling ready to progress, I've decided to leave my role at GMA on excellent terms. I'm excited to be joining MSA, another London-based company, where I'll gain deeper exposure to my true passion: networking and all related technologies. While I know this will be a challenge, I am eagerly looking forward to it.
+Feeling ready to progress, I've decided to leave my role at GMA on excellent terms. I'm excited to be joining Informal IT, another London-based company, where I'll gain deeper exposure to my true passion: networking and all related technologies. While I know this will be a challenge, I am eagerly looking forward to it.
 
 This move will also provide me with more dedicated support and time to explore specialized areas of IT—a opportunity that was often limited by the fast-paced nature of my previous role. This isn't a critique of GMA, but rather a reflection of the different structure and approach at my new company.
 

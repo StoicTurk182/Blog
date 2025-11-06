@@ -2,7 +2,6 @@
 title: "Self Hosting a New Blog"
 date: 2025-10-30T14:53:39Z
 draft: false
-layout: "professional"
 author: "Andrew Jones"
 tags: ["Blog"]
 categories: ['Getting Started Server Deployment - Debian VPS']
@@ -63,36 +62,71 @@ I created this blog via Hugo as an experiment on:
 
 Also, as an attempt to try to understand the interplay and relationship between hardware and software and by extension DEV-ops. As most of the technologies I used to build all of this began, as most do, in a notepad. Zero physical interaction pure virtualisation.
 
-### Topology (obfuscated)
+### Topology (obfuscated-simple layout)
 
-### Network Connections
+```text
+====================================
+=== DUAL SERVER NETWORK TOPOLOGY ===
+====================================
 
-**🔵 WIREGUARD NETWORK**
-- SERVER 1 ↔ SERVER 2
-- BOTH SERVERS ↔ CLIENTS
+Generated: 2025-11-05 | Active Infrastructure
 
-**🟣 TAILSCALE NETWORK**
-- SERVER 1 ↔ SERVER 2
-- BOTH SERVERS ↔ CLIENTS
+          INTERNET
+             │
+             ├── PUBLIC GATEWAY x.x.x.x/x - UFW / Fail2ban / PAM / RSA-K / Password
+             │
+        SERVER 1 (vps-webserver) - PRODUCTION
+             ├── ens3 (PUBLIC: x.x.x.x/x)
+             │   ├── SSHD:22 ← x.x.x.x/x
+             │   └── Nginx:80,443
+             │
+             ├── WireGuard (wg0: 10.0.0.16/24)
+             │   ├── PEER: x.x.x.x/x:51820
+             │   ├── Samba:445 ← x.x.x.x
+             │   └── Services Route
+             │
+             └── Tailscale (100.XXX.XXX.XXX) [Webmin Front end Access]
+                 └── Management Access
 
-### Active Services
+        SERVER 2 (vps-VPN server) - OBFUSCATED
+             ├── ens3 (PUBLIC: x.x.x.x/x)
+             │   ├── SSHD:22
+             │   └── Nginx:80
+             │
+             ├── WireGuard (wg0: x.x.x.x/xx) - Server
+             │   ├── Multiple Peers
+             │   ├── Samba Client
+             │   └── Other Peers
+             │
+             └── Tailscale (100.XXX.XXX.XXX) - [Webmin Front end Access]
+                 └── Management Access
+             
 
-**SERVER 1:**
-- 🗄️ DATABASE SERVICES
-- 📁 FILE SHARING
-- 🔐 SECURE SHELL
-- 🐳 CONTAINER PLATFORM
+=== DOCKER INFRASTRUCTURE ===
+SERVER 1:
+br-XXXXX (192.168.80.XXX) ────┐
+  ├─ c5b0f1... (vw-network)   │ ACTIVE
+  └─ fe236a6... (vw-network)  │
 
-**SERVER 2:**
-- 🌐 WEB SERVICES
-- 📁 FILE SHARING
-- 🔐 SECURE SHELL
-- 📊 SYSTEM MONITORING
+SERVER 2:  
+Multiple bridge networks
+  ├─ br-XXXXX (172.17.0.XXX) ✗ DOWN
+  ├─ br-XXXXX (172.19.0.XXX) ✗ DOWN
+  └─ br-XXXXX (192.168.80.XXX) ✓ ACTIVE
 
-### Security Status
-- FIREWALL ACTIVE ON BOTH SERVERS
-- VPN-ONLY FILE SHARING
-- ISOLATED DOCKER NETWORKS
+=== CROSS-SERVER TRAFFIC === [Inter Net routing only via VPN]
+SERVER 1 ↔ SERVER 2 via:
+• WireGuard VPN (10.0.0.XXX)
+• Tailscale (100.XXX.XXX.XXX)
+• Internet (Public IPs)
+
+=== SECURITY STATUS ===
+✅ BOTH SERVERS: Firewall Active
+✅ SAMBA: WireGuard-only access
+✅ DOCKER: Isolated networks
+✅ WIREGUARD: Active multi-peer
+✅ SSH: Custom ports - [VPN only]
+```
 
 ## Project Outcomes & Security
 

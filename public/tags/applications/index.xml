@@ -14,8 +14,7 @@
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
             <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
-            <description>&lt;p&gt;Welcome to the first monthly update! This edition covers critical security patches, essential tools for network management, and the latest threat intelligence you need to stay secure.&lt;/p&gt;
-&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
+            <description>&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
 &lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;
 &lt;h3 id=&#34;key-details&#34;&gt;Key Details&lt;/h3&gt;

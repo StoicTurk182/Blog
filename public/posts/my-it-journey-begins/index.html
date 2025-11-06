@@ -91,10 +91,12 @@
     <header class="professional-header">
         <div class="post-meta">
             <span class="post-date">October 30, 2025</span>
-
+                    
+          
             
-        <span class="reading-time">• 5 min read</span>
-
+            <span class="reading-time">• 6 min read</span>
+            
+            
             <span class="post-category">Getting Started Server Deployment - Debian VPS</span>
         </div>
         <h1 class="post-title">Self Hosting a New Blog</h1>
@@ -144,40 +146,69 @@
 <li>Being able to have an excuse to build and maintain a network that involves many different skills that I have learned over the last few years</li>
 </ol>
 <p>Also, as an attempt to try to understand the interplay and relationship between hardware and software and by extension DEV-ops. As most of the technologies I used to build all of this began, as most do, in a notepad. Zero physical interaction pure virtualisation.</p>
-<h3 id="topology-obfuscated">Topology (obfuscated)</h3>
-<h3 id="network-connections">Network Connections</h3>
-<p><strong>🔵 WIREGUARD NETWORK</strong></p>
-<ul>
-<li>SERVER 1 ↔ SERVER 2</li>
-<li>BOTH SERVERS ↔ CLIENTS</li>
-</ul>
-<p><strong>🟣 TAILSCALE NETWORK</strong></p>
-<ul>
-<li>SERVER 1 ↔ SERVER 2</li>
-<li>BOTH SERVERS ↔ CLIENTS</li>
-</ul>
-<h3 id="active-services">Active Services</h3>
-<p><strong>SERVER 1:</strong></p>
-<ul>
-<li>🗄️ DATABASE SERVICES</li>
-<li>📁 FILE SHARING</li>
-<li>🔐 SECURE SHELL</li>
-<li>🐳 CONTAINER PLATFORM</li>
-</ul>
-<p><strong>SERVER 2:</strong></p>
-<ul>
-<li>🌐 WEB SERVICES</li>
-<li>📁 FILE SHARING</li>
-<li>🔐 SECURE SHELL</li>
-<li>📊 SYSTEM MONITORING</li>
-</ul>
-<h3 id="security-status">Security Status</h3>
-<ul>
-<li>FIREWALL ACTIVE ON BOTH SERVERS</li>
-<li>VPN-ONLY FILE SHARING</li>
-<li>ISOLATED DOCKER NETWORKS</li>
-</ul>
-<h2 id="project-outcomes--security">Project Outcomes &amp; Security</h2>
+<h3 id="topology-obfuscated-simple-layout">Topology (obfuscated-simple layout)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>====================================
+</span></span><span style="display:flex;"><span>=== DUAL SERVER NETWORK TOPOLOGY ===
+</span></span><span style="display:flex;"><span>====================================
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Generated: 2025-11-05 | Active Infrastructure
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          INTERNET
+</span></span><span style="display:flex;"><span>             │
+</span></span><span style="display:flex;"><span>             ├── PUBLIC GATEWAY x.x.x.x/x - UFW / Fail2ban / PAM / RSA-K / Password
+</span></span><span style="display:flex;"><span>             │
+</span></span><span style="display:flex;"><span>        SERVER 1 (vps-webserver) - PRODUCTION
+</span></span><span style="display:flex;"><span>             ├── ens3 (PUBLIC: x.x.x.x/x)
+</span></span><span style="display:flex;"><span>             │   ├── SSHD:22 ← x.x.x.x/x
+</span></span><span style="display:flex;"><span>             │   └── Nginx:80,443
+</span></span><span style="display:flex;"><span>             │
+</span></span><span style="display:flex;"><span>             ├── WireGuard (wg0: 10.0.0.16/24)
+</span></span><span style="display:flex;"><span>             │   ├── PEER: x.x.x.x/x:51820
+</span></span><span style="display:flex;"><span>             │   ├── Samba:445 ← x.x.x.x
+</span></span><span style="display:flex;"><span>             │   └── Services Route
+</span></span><span style="display:flex;"><span>             │
+</span></span><span style="display:flex;"><span>             └── Tailscale (100.XXX.XXX.XXX) [Webmin Front end Access]
+</span></span><span style="display:flex;"><span>                 └── Management Access
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SERVER 2 (vps-VPN server) - OBFUSCATED
+</span></span><span style="display:flex;"><span>             ├── ens3 (PUBLIC: x.x.x.x/x)
+</span></span><span style="display:flex;"><span>             │   ├── SSHD:22
+</span></span><span style="display:flex;"><span>             │   └── Nginx:80
+</span></span><span style="display:flex;"><span>             │
+</span></span><span style="display:flex;"><span>             ├── WireGuard (wg0: x.x.x.x/xx) - Server
+</span></span><span style="display:flex;"><span>             │   ├── Multiple Peers
+</span></span><span style="display:flex;"><span>             │   ├── Samba Client
+</span></span><span style="display:flex;"><span>             │   └── Other Peers
+</span></span><span style="display:flex;"><span>             │
+</span></span><span style="display:flex;"><span>             └── Tailscale (100.XXX.XXX.XXX) - [Webmin Front end Access]
+</span></span><span style="display:flex;"><span>                 └── Management Access
+</span></span><span style="display:flex;"><span>             
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>=== DOCKER INFRASTRUCTURE ===
+</span></span><span style="display:flex;"><span>SERVER 1:
+</span></span><span style="display:flex;"><span>br-XXXXX (192.168.80.XXX) ────┐
+</span></span><span style="display:flex;"><span>  ├─ c5b0f1... (vw-network)   │ ACTIVE
+</span></span><span style="display:flex;"><span>  └─ fe236a6... (vw-network)  │
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>SERVER 2:  
+</span></span><span style="display:flex;"><span>Multiple bridge networks
+</span></span><span style="display:flex;"><span>  ├─ br-XXXXX (172.17.0.XXX) ✗ DOWN
+</span></span><span style="display:flex;"><span>  ├─ br-XXXXX (172.19.0.XXX) ✗ DOWN
+</span></span><span style="display:flex;"><span>  └─ br-XXXXX (192.168.80.XXX) ✓ ACTIVE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>=== CROSS-SERVER TRAFFIC === [Inter Net routing only via VPN]
+</span></span><span style="display:flex;"><span>SERVER 1 ↔ SERVER 2 via:
+</span></span><span style="display:flex;"><span>• WireGuard VPN (10.0.0.XXX)
+</span></span><span style="display:flex;"><span>• Tailscale (100.XXX.XXX.XXX)
+</span></span><span style="display:flex;"><span>• Internet (Public IPs)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>=== SECURITY STATUS ===
+</span></span><span style="display:flex;"><span>✅ BOTH SERVERS: Firewall Active
+</span></span><span style="display:flex;"><span>✅ SAMBA: WireGuard-only access
+</span></span><span style="display:flex;"><span>✅ DOCKER: Isolated networks
+</span></span><span style="display:flex;"><span>✅ WIREGUARD: Active multi-peer
+</span></span><span style="display:flex;"><span>✅ SSH: Custom ports - [VPN only]
+</span></span></code></pre></div><h2 id="project-outcomes--security">Project Outcomes &amp; Security</h2>
 <p>The above is the basic framework of what drives the site &ldquo;you are on right now&rdquo; and it has been a very interesting project to work on. My understanding of Linux has improved immeasurably, and my theoretical networking comprehension has also been put to the test.</p>
 <p>This has also given me a golden opportunity to create my own security architecture and really test my port knowledge and research capabilities, this in turn has presented the opportunity to take a real go at pen testing my own deployments. I have also been using <a href="https://cisofy.com/lynis/">Lynis</a> as a native security auditing tool to get a better idea of holes in my infrastructure.</p>
 <h2 id="applied-skills--automation">Applied Skills &amp; Automation</h2>
@@ -262,173 +293,119 @@
 </article>
 
 <style>
-
-.reading-time {
-    color: #64748b;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
 .professional-post {
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 .professional-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 2px solid #fd0000;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
 }
 
 .post-meta {
     display: flex;
-    justify-content: center;
+    align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.post-date {
+    color: #6b7280;
     font-size: 0.9rem;
-    color: #64748b;
+    font-weight: 500;
+}
+
+ 
+.reading-time {
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .post-category {
-    background: #e61414;
-    color: white;
-    padding: 0.2rem 0.8rem;
+    background: #f3f4f6;
+    color: #374151;
+    padding: 0.25rem 0.75rem;
     border-radius: 12px;
     font-size: 0.8rem;
+    font-weight: 500;
 }
 
 .post-title {
     font-size: 2.5rem;
-    color: #1e293b;
-    margin: 1rem 0;
+    color: #1f2937;
+    margin: 0 0 1rem 0;
+    font-weight: 300;
     line-height: 1.2;
 }
 
 .post-description {
     font-size: 1.2rem;
-    color: #64748b;
-    font-style: italic;
-    margin-bottom: 1rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
 }
 
 .author-info {
-    color: #475569;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.featured-image {
-    margin: 2rem 0;
-    text-align: center;
-}
-
-.featured-image img {
-    max-width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.author {
+    color: #6b7280;
+    font-size: 0.9rem;
 }
 
 .post-content {
     line-height: 1.7;
+    color: #374151;
     font-size: 1.1rem;
 }
 
 .post-content h2 {
-    color: #1e293b;
-    border-bottom: 2px solid #eb2525;
-    padding-bottom: 0.5rem;
-    margin-top: 2.5rem;
+    color: #1f2937;
+    font-weight: 400;
+    margin: 2rem 0 1rem 0;
+    font-size: 1.8rem;
 }
 
 .post-content h3 {
     color: #374151;
-    margin-top: 2rem;
-}
-
-.post-content img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin: 1.5rem 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
- 
-.skills-highlight {
-    background: #f8fafc;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 2rem 0;
-    border-left: 4px solid #e51616;
-}
-
-.skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.skill-tag {
-    background: #e0f2fe;
-    color: #0369a1;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
     font-weight: 500;
+    margin: 1.5rem 0 0.75rem 0;
+    font-size: 1.4rem;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content ul, .post-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
 }
 
  
-.takeaways {
-    background: #f0fdf4;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 2rem 0;
-    border-left: 4px solid #16a34a;
-}
-
-.insights {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.insight-item {
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
-    border-left: 3px solid #16a34a;
-}
-
- 
-.next-steps {
-    background: #fef7ed;
-    padding: 2rem;
-    border-radius: 12px;
-    margin: 2rem 0;
-    border-left: 4px solid #ea580c;
-    text-align: center;
-}
-
 @media (max-width: 768px) {
     .professional-post {
-        padding: 0 0.5rem;
+        padding: 1rem 0.5rem;
     }
     
     .post-title {
         font-size: 2rem;
     }
     
-    .skills-grid {
-        justify-content: center;
-    }
-    
-    .authorbox__avatar {
-        float: none !important;
-        margin: 0 auto 1rem auto !important;
-        display: block;
-        text-align: center;
+    .post-meta {
+        gap: 0.75rem;
     }
 }
 </style>

@@ -91,7 +91,7 @@ body {
 	margin: 0 0 0 2.5%;
 	background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-tertiary));
 	padding: 1.5rem;
-	border-radius: 8px;
+	border-radius: 0px;
 	border: 1px solid var(--border-primary);
 	box-shadow: 0 2px 8px var(--shadow);
 }

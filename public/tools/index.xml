@@ -14,8 +14,7 @@
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
             <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
-            <description>&lt;p&gt;Welcome to the first monthly update! This edition covers critical security patches, essential tools for network management, and the latest threat intelligence you need to stay secure.&lt;/p&gt;
-&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
+            <description>&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
 &lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;
 &lt;h3 id=&#34;key-details&#34;&gt;Key Details&lt;/h3&gt;
@@ -61,10 +60,7 @@
             <link>http://localhost:1313/posts/current-workstation-custom-built/</link>
             <pubDate>Thu, 30 Oct 2025 10:00:00 +0000</pubDate>
             <guid>http://localhost:1313/posts/current-workstation-custom-built/</guid>
-            <description>&lt;h1 id=&#34;my-2025-custom-pc-build-upper-mid-range-powerhouse&#34;&gt;My 2025 Custom PC Build: Upper Mid-Range Powerhouse&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;AMD Ryzen 9 7900X and Radeon RX 9070 deliver exceptional performance under £2,000&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;system-overview&#34;&gt;System Overview&lt;/h2&gt;
-&lt;p&gt;This system is my latest and most capable build to date. I engineered it for the upper mid-range tier, where it confidently tackles everything from gaming to intensive creative applications. Remarkably, the entire setup cost less than £2,000 as of this September and even surpasses the performance of my old 5950x, which has since been relegated to server duty for video production.&lt;/p&gt;</description>
+            <description></description>
         </item>
         
         <item>
@@ -127,7 +123,7 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>http://localhost:1313/tools/sysinterals-suit/</guid>
             <description>&lt;h1 id=&#34;sysinternals-suite&#34;&gt;Sysinternals Suite&lt;/h1&gt;
-&lt;p&gt;The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft[citation:2][citation:5].&lt;/p&gt;
+&lt;p&gt;The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft.&lt;/p&gt;
 &lt;h2 id=&#34;key-featured-utilities&#34;&gt;Key Featured Utilities&lt;/h2&gt;
 &lt;p&gt;While the suite contains many tools, some of the most powerful and frequently used include[citation:1][citation:5]:&lt;/p&gt;</description>
         </item>

@@ -1,497 +1,324 @@
 {{ define "main" }}
-<article class="pc-build-page">
-    <!-- Tech Hero Section -->
-    <header class="tech-hero">
-        <div class="hero-content">
-            <h1 class="hero-title">{{ .Title }}</h1>
-            <p class="hero-description">{{ .Description }}</p>
-            <div class="build-meta">
-                <span class="build-budget">Budget: Under £2,000</span>
-                <span class="build-tier">Upper Mid-Range</span>
-                <span class="build-date">{{ .Date.Format "January 2006" }}</span>
-            </div>
+<article class="post">
+    <header class="post-header">
+        <h1 class="post-title">{{ .Title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
         </div>
-        
-        <div class="hero-specs">
-            <div class="spec-item">
-                <span class="spec-value">AMD Ryzen 9</span>
-                <span class="spec-label">CPU</span>
-            </div>
-            <div class="spec-item">
-                <span class="spec-value">Radeon RX 9070</span>
-                <span class="spec-label">GPU</span>
-            </div>
-            <div class="spec-item">
-                <span class="spec-value">64GB DDR5</span>
-                <span class="spec-label">Memory</span>
-            </div>
-        </div>
-        
-        <div class="hero-line"></div>
     </header>
 
-    <!-- Featured Build Image -->
-    <section class="build-showcase">
-        <div class="section-header">
-            <h2>Build Showcase</h2>
-            <div class="section-line"></div>
-        </div>
-        
-        <div class="build-image-container">
-            <img src="/images/posts/RIG.jpg" alt="2025 Custom PC Build" class="build-image" />
-            <div class="image-overlay">
-                <span class="overlay-text">Custom Built 2025</span>
-            </div>
-        </div>
-    </section>
+    <div class="post-content">
+        <!-- Build Image -->
+        <figure class="build-image">
+            <img src="/images/posts/RIG.jpg" alt="2025 Custom PC Build" />
+            <figcaption>Custom Built 2025 Workstation</figcaption>
+        </figure>
 
-    <!-- Specifications Grid -->
-    <section class="specs-section">
-        <div class="section-header">
-            <h2>Technical Specifications</h2>
-            <div class="section-line"></div>
-        </div>
-        
-        <div class="specs-grid">
-            <div class="spec-category">
-                <h3>Core Components</h3>
-                <div class="spec-list">
-                    <div class="spec-line">
-                        <span class="spec-name">Processor</span>
-                        <span class="spec-detail">AMD Ryzen 9 7900X</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Graphics</span>
-                        <span class="spec-detail">AMD Radeon RX 9070</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Motherboard</span>
-                        <span class="spec-detail">MSI MAG X670E TOMAHAWK WIFI</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Memory</span>
-                        <span class="spec-detail">64GB DDR5 CP32G64C40U5B.M8B3</span>
-                    </div>
-                </div>
+        <!-- Quick Specs -->
+        <div class="specs-highlight">
+            <div class="spec-item">
+                <strong>AMD Ryzen 9 7900X</strong>
+                <span>Processor</span>
             </div>
-            
-            <div class="spec-category">
-                <h3>Storage & Power</h3>
-                <div class="spec-list">
-                    <div class="spec-line">
-                        <span class="spec-name">Primary SSD</span>
-                        <span class="spec-detail">Samsung 990 PRO 1TB</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Secondary SSD</span>
-                        <span class="spec-detail">Samsung 970 EVO Plus 250GB</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Tertiary SSD</span>
-                        <span class="spec-detail">WD_BLACK SN770 1TB</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Power Supply</span>
-                        <span class="spec-detail">Antec SF850X 850W 80+ Gold</span>
-                    </div>
-                </div>
+            <div class="spec-item">
+                <strong>AMD Radeon RX 9070</strong>
+                <span>Graphics</span>
             </div>
-            
-            <div class="spec-category">
-                <h3>Cooling & Case</h3>
-                <div class="spec-list">
-                    <div class="spec-line">
-                        <span class="spec-name">CPU Cooler</span>
-                        <span class="spec-detail">Thermalright Phantom Spirit 120 EVO</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Case</span>
-                        <span class="spec-detail">FRAME 4000D Modular Mid-Tower</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Monitor 1</span>
-                        <span class="spec-detail">MAG 27CQ6F</span>
-                    </div>
-                    <div class="spec-line">
-                        <span class="spec-name">Monitor 2</span>
-                        <span class="spec-detail">PL2470H</span>
-                    </div>
-                </div>
+            <div class="spec-item">
+                <strong>64GB DDR5</strong>
+                <span>Memory</span>
+            </div>
+            <div class="spec-item">
+                <strong>AM5 Platform</strong>
+                <span>Socket</span>
             </div>
         </div>
-    </section>
 
-    <!-- Performance Metrics -->
-    <section class="performance-section">
-        <div class="section-header">
-            <h2>Performance Profile</h2>
-            <div class="section-line"></div>
-        </div>
+        <!-- Full Specifications -->
+        <h2>Technical Specifications</h2>
         
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-value">Upper Mid-Range</div>
-                <div class="metric-label">Performance Tier</div>
+        <h3>Core Components</h3>
+        <dl class="specs-list">
+            <dt>Processor</dt>
+            <dd>AMD Ryzen 9 7900X</dd>
+            
+            <dt>Graphics</dt>
+            <dd>AMD Radeon RX 9070</dd>
+            
+            <dt>Motherboard</dt>
+            <dd>MSI MAG X670E TOMAHAWK WIFI</dd>
+            
+            <dt>Memory</dt>
+            <dd>64GB DDR5 CP32G64C40U5B.M8B3</dd>
+        </dl>
+
+        <h3>Storage & Power</h3>
+        <dl class="specs-list">
+            <dt>Primary SSD</dt>
+            <dd>Samsung 990 PRO 1TB</dd>
+            
+            <dt>Secondary SSD</dt>
+            <dd>Samsung 970 EVO Plus 250GB</dd>
+            
+            <dt>Tertiary SSD</dt>
+            <dd>WD_BLACK SN770 1TB</dd>
+            
+            <dt>Power Supply</dt>
+            <dd>Antec SF850X 850W 80+ Gold</dd>
+        </dl>
+
+        <h3>Cooling & Case</h3>
+        <dl class="specs-list">
+            <dt>CPU Cooler</dt>
+            <dd>Thermalright Phantom Spirit 120 EVO</dd>
+            
+            <dt>Case</dt>
+            <dd>FRAME 4000D Modular Mid-Tower</dd>
+            
+            <dt>Monitor 1</dt>
+            <dd>MAG 27CQ6F</dd>
+            
+            <dt>Monitor 2</dt>
+            <dd>PL2470H</dd>
+        </dl>
+
+        <!-- Performance Summary -->
+        <h2>Performance Profile</h2>
+        <div class="performance-grid">
+            <div class="perf-item">
+                <span class="perf-value">Upper Mid-Range</span>
+                <span class="perf-label">Tier</span>
             </div>
-            <div class="metric-card">
-                <div class="metric-value">£2,000</div>
-                <div class="metric-label">Total Budget</div>
+            <div class="perf-item">
+                <span class="perf-value">Air Cooled</span>
+                <span class="perf-label">Cooling</span>
             </div>
-            <div class="metric-card">
-                <div class="metric-value">AMD AM5</div>
-                <div class="metric-label">Platform</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">Air Cooled</div>
-                <div class="metric-label">Cooling Solution</div>
+            <div class="perf-item">
+                <span class="perf-value">Future-Proof</span>
+                <span class="perf-label">Platform</span>
             </div>
         </div>
-        
-        <div class="performance-description">
+
+        <blockquote>
             <p>This build represents the sweet spot for performance-to-cost ratio in 2025, delivering exceptional capabilities for gaming, development, and content creation while maintaining future-proof AMD AM5 and DDR5 foundations.</p>
-        </div>
-    </section>
+        </blockquote>
 
-    <!-- Content Section -->
-    <section class="content-section">
-        <div class="section-header">
-            <h2>Build Details</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="post-content">
-            {{ .Content }}
-        </div>
-    </section>
-</article>
+        <!-- Your content -->
+        {{ .Content }}
+    </div>
+    
 
 <style>
-.pc-build-page {
-    max-width: 1200px;
+/* Mainroad-compatible minimal styles */
+.post {
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 1rem;
-    background: #ffffff;
-    color: #374151;
 }
 
-/* Tech Hero */
-.tech-hero {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-    padding: 2rem 1rem;
+.post-header {
     margin-bottom: 2rem;
-    position: relative;
-    border-bottom: 1px solid #e2e8f0;
     text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 2rem;
 }
 
-.hero-title {
-    font-size: 2rem;
+.post-title {
+    font-size: 2.5rem;
     margin: 0 0 1rem 0;
-    color: #1e293b;
-    font-weight: 300;
+    color: #2d3748;
+    font-weight: 400;
     line-height: 1.2;
 }
 
-.hero-description {
-    font-size: 1.1rem;
-    color: #64748b;
-    margin-bottom: 1.5rem;
-    line-height: 1.4;
-}
-
-.build-meta {
+.post-meta {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.build-budget, .build-tier, .build-date {
-    background: #ffffff;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 250px;
-}
-
-.build-budget { color: #059669; border-left: 3px solid #059669; }
-.build-tier { color: #dc2626; border-left: 3px solid #dc2626; }
-.build-date { color: #4f46e5; border-left: 3px solid #4f46e5; }
-
-.hero-specs {
-    display: flex;
-    flex-direction: column;
     gap: 1rem;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.post-budget, .post-tier {
+    background: #f7fafc;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    border-left: 3px solid #4299e1;
+}
+
+.post-tier {
+    border-left-color: #ed8936;
+}
+
+/* Build Image */
+.build-image {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.build-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.build-image figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #718096;
+    font-style: italic;
+}
+
+/* Quick Specs */
+.specs-highlight {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #bdbfc0ba;
+    border-radius: 0px;
 }
 
 .spec-item {
     text-align: center;
-    padding: 1rem;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 200px;
 }
 
-.spec-value {
+.spec-item strong {
     display: block;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1e293b;
+    color: #2d3748;
     margin-bottom: 0.25rem;
-}
-
-.spec-label {
-    font-size: 0.8rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-.hero-line {
-    position: absolute;
-    bottom: 0;
-    left: 1rem;
-    right: 1rem;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
-}
-
-/* Section Headers */
-.section-header {
-    margin-bottom: 2rem;
-    text-align: center;
-}
-
-.section-header h2 {
-    font-size: 1.75rem;
-    color: #1e293b;
-    margin-bottom: 1rem;
-    font-weight: 300;
-}
-
-.section-line {
-    height: 2px;
-    background: linear-gradient(90deg, #4f46e5, transparent);
-    width: 80px;
-    margin: 0 auto;
-}
-
-/* Build Showcase */
-.build-showcase {
-    margin-bottom: 3rem;
-}
-
-.build-image-container {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-}
-
-.build-image {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.image-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.overlay-text {
-    color: #ffffff;
     font-size: 1rem;
-    font-weight: 500;
 }
 
-/* Specifications */
-.specs-section {
-    margin-bottom: 3rem;
+.spec-item span {
+    font-size: 0.8rem;
+    color: #2d3748;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.specs-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.spec-category {
-    background: #f8fafc;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #4f46e5;
-}
-
-.spec-category h3 {
-    color: #1e293b;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.spec-list {
-    display: flex;
-    flex-direction: column;
+/* Specifications List */
+.specs-list {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 0.75rem;
+    margin: 1.5rem 0;
 }
 
-.spec-line {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+.specs-list dt {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+
+.specs-list dd {
+    margin: 0;
+    color: #2d3748;
+    margin-bottom: 0.75rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid #e2e8f0;
 }
 
-.spec-name {
-    color: #64748b;
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.spec-detail {
-    color: #1e293b;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-/* Performance Metrics */
-.performance-section {
-    margin-bottom: 3rem;
-}
-
-.metrics-grid {
+/* Performance Grid */
+.performance-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin: 2rem 0;
 }
 
-.metric-card {
-    background: #ffffff;
-    padding: 1.25rem;
-    border-radius: 8px;
+.perf-item {
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    background: #bdbfc0ba;
+    border-radius: 0px;
 }
 
-.metric-value {
-    font-size: 1.1rem;
+.perf-value {
+    display: block;
     font-weight: 600;
-    color: #4f46e5;
-    margin-bottom: 0.5rem;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
 }
 
-.metric-label {
-    font-size: 0.85rem;
-    color: #64748b;
+.perf-label {
+    font-size: 0.8rem;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.performance-description {
-    text-align: center;
+/* Blockquote styling */
+blockquote {
+    border-left: 4px solid #e2e8f0;
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-radius: 0 6px 6px 0;
 }
 
-.performance-description p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #475569;
+blockquote p {
+    margin: 0;
+    color: #4a5568;
+    font-style: italic;
 }
 
-/* Content Section */
-.content-section {
-    margin-bottom: 3rem;
+/* Headings */
+h2 {
+    color: #2d3748;
+    margin: 2.5rem 0 1rem 0;
+    font-weight: 500;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.5rem;
 }
 
-.post-content {
-    line-height: 1.6;
-    color: #374151;
-    font-size: 1rem;
+h3 {
+    color: #4a5568;
+    margin: 2rem 0 1rem 0;
+    font-weight: 500;
+    font-size: 1.25rem;
 }
 
-/* Tablet Styles */
-@media (min-width: 768px) {
-    .tech-hero {
-        padding: 3rem 2rem;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .post-title {
+        font-size: 2rem;
     }
     
-    .hero-title {
-        font-size: 2.5rem;
-    }
-    
-    .build-meta {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    
-    .hero-specs {
-        flex-direction: row;
-        justify-content: center;
-        gap: 1.5rem;
-    }
-    
-    .specs-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-    }
-    
-    .spec-line {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .metrics-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Desktop Styles */
-@media (min-width: 1024px) {
-    .tech-hero {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 3rem;
-        align-items: start;
-        text-align: left;
-    }
-    
-    .hero-content {
-        text-align: left;
-    }
-    
-    .build-meta {
-        justify-content: flex-start;
-    }
-    
-    .hero-specs {
+    .post-meta {
         flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .specs-highlight {
+        grid-template-columns: 1fr;
+    }
+    
+    .performance-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 769px) {
+    .specs-list {
+        grid-template-columns: 1fr 2fr;
         gap: 1rem;
     }
     
-    .metrics-grid {
-        grid-template-columns: repeat(4, 1fr);
+    .specs-list dt {
+        text-align: right;
+        padding-right: 1rem;
     }
     
-    .hero-title {
-        font-size: 3rem;
+    .specs-list dd {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }
 </style>
