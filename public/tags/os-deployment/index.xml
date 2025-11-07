@@ -96,6 +96,25 @@
         </item>
         
         <item>
+            <title></title>
+            <link>http://localhost:1313/posts/important-news/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/important-news/</guid>
+            <description></description>
+        </item>
+        
+        <item>
+            <title>Dark Reader</title>
+            <link>http://localhost:1313/tools/dark-reader/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/dark-reader/</guid>
+            <description>&lt;h1 id=&#34;dark-reader&#34;&gt;Dark Reader&lt;/h1&gt;
+&lt;p&gt;Dark Reader is an open-source browser extension that inverts bright website colors into high-contrast, easy-to-read dark themes. It reduces eyestrain during night and daily browsing by applying dark modes to websites on the fly.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This eye-care extension enables night mode by creating dark themes for websites dynamically. Dark Reader doesn&amp;rsquo;t simply invert colors; it intelligently analyzes website style sheets, background images, and vector graphics to produce optimal visual results. Trusted by over 10 million users, the extension doesn&amp;rsquo;t show ads and doesn&amp;rsquo;t collect or send user data anywhere.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
             <title>iVentoy PXE Server</title>
             <link>http://localhost:1313/tools/iventoy-pxe-server/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

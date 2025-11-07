@@ -1,6 +1,6 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date.Format "2006-01-02T15:04:05Z07:00" }}
+date: {{ .Date }}
 draft: false
 description: "Brief description of the post content for SEO and social sharing"
 categories: ["Technology"]

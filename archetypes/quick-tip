@@ -1,0 +1,51 @@
+---
+title: "Quick Tip: {{ replace .Name "-" " " | title }}"
+date: {{ .Date.Format "2006-01-02T15:04:05Z07:00" }}
+date: {{ .Date }}
+description: "Quick tip for {{ replace .Name "-" " " | title }}"
+categories: ["Tips"]
+tags: ["tip", "productivity", "short"]
+featuredImage: "/images/posts/{{ .Name }}/featured.jpg"
+featuredImageAlt: "Quick tip visual for {{ replace .Name "-" " " | title }}"
+readingTime: true
+---
+
+# Quick Tip: {{ replace .Name "-" " " | title }}
+
+## The Tip
+
+Concise explanation of the tip.
+
+## Why It Works
+
+Brief explanation of why this tip is effective.
+
+## Usage Example
+
+```bash
+# Quick command or code example
+your-command-here
+
+
+
+## Step 3: Fast Usage Commands
+
+In VS Code terminal, use these commands:
+
+### Create Single Posts
+```bash
+# Default template
+
+# Uses Post.md archetype
+hugo new posts/my-blog-post.md --kind post
+
+# Uses quick-tip archetype  
+hugo new posts/css-tricks.md --kind quick-tip
+
+# Uses special.md archetype
+hugo new posts/announcement.md --kind special
+
+# Uses test-post.md archetype
+hugo new posts/testing-feature.md --kind test-post
+
+hugo new posts/any-post.md
