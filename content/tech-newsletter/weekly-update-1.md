@@ -5,6 +5,7 @@ draft: false
 issue: "Vol. 1, Issue 1"
 categories: ["Newsletter"]
 tags: ["Security", "Networking", "Updates"]
+layout: "professional"
 description: "Critical security updates, Tailscale mesh networking, and emerging threats in cybersecurity"
 Author: "Andrew Jones"
 ---
@@ -97,15 +98,6 @@ Modern ransomware has evolved beyond data encryption to triple-extortion tactics
 - Develop incident response playbooks
 
 ---
-
-
-
-## Looking Ahead
-
-**Next Month's Focus:**
-- Cloud security best practices
-- Container security scanning tools
-- Identity and access management updates
 
 Stay secure and reach out with any questions!
 
