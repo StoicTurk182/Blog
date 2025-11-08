@@ -175,6 +175,9 @@
     font-size: 0.95rem;
     cursor: pointer;
     transition: border-color 0.2s;
+    width: 180px;      /* Add this line for a fixed width */
+    min-width: unset;  /* Optional: remove any min-width */
+    max-width: 100%;   /* Prevent overflow */
 }
 .category-filter:hover,
 .category-filter:focus {
