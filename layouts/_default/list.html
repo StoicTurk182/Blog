@@ -11,24 +11,25 @@
         </div>
     </header>
 
-    <!-- List Controls -->
-    <div class="list-controls">
-        <div class="controls-left">
-            <span class="results-count">{{ len .Pages }} articles</span>
-        </div>
-        {{ if .Site.Taxonomies.categories }}
-        <div class="controls-right">
-            <select class="category-filter" onchange="location = this.value;">
-                <option value="{{ .FirstSection.RelPermalink }}">All Categories</option>
-                {{ range .Site.Taxonomies.categories.ByCount }}
-                <option value="{{ .Page.RelPermalink }}" {{ if eq $.RelPermalink .Page.RelPermalink }}selected{{ end }}>
-                    {{ .Page.Title }} ({{ .Count }})
-                </option>
-                {{ end }}
-            </select>
-        </div>
-        {{ end }}
+<!-- List Controls -->
+<div class="list-controls">
+    <div class="controls-left">
+        <span class="results-count">{{ len .Pages }} articles</span>
     </div>
+    {{ if .Site.Taxonomies.categories }}
+    <div class="controls-right">
+        <label for="category-filter" class="visually-hidden">Filter by category</label>
+        <select id="category-filter" class="category-filter" onchange="location = this.value;" title="Filter by category">
+            <option value="{{ .FirstSection.RelPermalink }}">All Categories</option>
+            {{ range .Site.Taxonomies.categories.ByCount }}
+            <option value="{{ .Page.RelPermalink }}" {{ if eq $.RelPermalink .Page.RelPermalink }}selected{{ end }}>
+                {{ .Page.Title }} ({{ .Count }})
+            </option>
+            {{ end }}
+        </select>
+    </div>
+    {{ end }}
+</div>
 
     <!-- Articles List -->
     <div class="articles-list">
@@ -113,6 +114,17 @@
 </div>
 
 <style>
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
 .list-page {
     max-width: 800px;
     margin: 0 auto;

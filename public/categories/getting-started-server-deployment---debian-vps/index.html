@@ -97,52 +97,53 @@
         </div>
     </header>
 
-    
-    <div class="list-controls">
-        <div class="controls-left">
-            <span class="results-count">1 articles</span>
-        </div>
-        
-        <div class="controls-right">
-            <select class="category-filter" onchange="location = this.value;">
-                <option value="/categories/">All Categories</option>
-                
-                <option value="/categories/tools/" >
-                    Tools (5)
-                </option>
-                
-                <option value="/categories/audio-visual/" >
-                    Audio Visual (1)
-                </option>
-                
-                <option value="/categories/getting-started-server-deployment---debian-vps/" selected>
-                    Getting Started Server Deployment - Debian VPS (1)
-                </option>
-                
-                <option value="/categories/hardware/" >
-                    Hardware (1)
-                </option>
-                
-                <option value="/categories/newsletter/" >
-                    Newsletter (1)
-                </option>
-                
-                <option value="/categories/professional/" >
-                    Professional (1)
-                </option>
-                
-                <option value="/categories/system-administration/" >
-                    System Administration (1)
-                </option>
-                
-                <option value="/categories/useful-tools-and-applications/" >
-                    Useful Tools and Applications (1)
-                </option>
-                
-            </select>
-        </div>
-        
+
+<div class="list-controls">
+    <div class="controls-left">
+        <span class="results-count">1 articles</span>
     </div>
+    
+    <div class="controls-right">
+        <label for="category-filter" class="visually-hidden">Filter by category</label>
+        <select id="category-filter" class="category-filter" onchange="location = this.value;" title="Filter by category">
+            <option value="/categories/">All Categories</option>
+            
+            <option value="/categories/tools/" >
+                Tools (5)
+            </option>
+            
+            <option value="/categories/audio-visual/" >
+                Audio Visual (1)
+            </option>
+            
+            <option value="/categories/getting-started-server-deployment---debian-vps/" selected>
+                Getting Started Server Deployment - Debian VPS (1)
+            </option>
+            
+            <option value="/categories/hardware/" >
+                Hardware (1)
+            </option>
+            
+            <option value="/categories/newsletter/" >
+                Newsletter (1)
+            </option>
+            
+            <option value="/categories/professional/" >
+                Professional (1)
+            </option>
+            
+            <option value="/categories/system-administration/" >
+                System Administration (1)
+            </option>
+            
+            <option value="/categories/useful-tools-and-applications/" >
+                Useful Tools and Applications (1)
+            </option>
+            
+        </select>
+    </div>
+    
+</div>
 
     
     <div class="articles-list">
@@ -197,6 +198,17 @@
 </div>
 
 <style>
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
 .list-page {
     max-width: 800px;
     margin: 0 auto;
