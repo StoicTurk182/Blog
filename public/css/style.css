@@ -34,6 +34,46 @@ section {
 	color: transparent;
 }
 
+a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="btn"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"]) {
+    color: #b91c1c;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: #e53e3e;
+    position: relative;
+    padding-right: 1.1em;
+    transition: all 0.3s ease;
+    transform: translateX(0);
+}
+
+a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="btn"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"])::after {
+    content: "↗";
+    font-size: 0.8em;
+    color: #b91c1c;
+    position: absolute;
+    right: 0.1em;
+    top: 0.15em;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    transform: translate(0, 0);
+}
+
+a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"]):hover {
+    color: #e53e3e;
+    text-decoration: none;
+    background: none;
+    border-radius: 0;
+    transform: translateX(2px);
+}
+
+a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"]):hover::after {
+    color: #e53e3e;
+    opacity: 1;
+    transform: translate(2px, -2px);
+}
+
 /* Structure */
 html {
 	font-size: 100%;
@@ -713,7 +753,7 @@ button:not(:-moz-focusring):focus > .menu__btn-title {
 
 .content ul ul,
 .content ol ol,
-.content ol ul,
+.content.ol ul,
 .content ul ol {
 	margin: 0 0 0 40px;
 }
@@ -918,6 +958,7 @@ button:not(:-moz-focusring):focus > .menu__btn-title {
 	background: #e22d30;
 }
 
+
 /* Pager (prev/next links) navigation */
 .pager {
 	-webkit-justify-content: space-between;
@@ -1074,7 +1115,7 @@ textarea {
 	text-transform: uppercase;
 	letter-spacing: 0.5px;
 	color: var(--text-primary);
-	border-bottom: 3px solid var(--accent-primary);
+	border-bottom: 1px solid #e53e3e;
 }
 
 .widget__content {
@@ -1383,7 +1424,7 @@ textarea {
 	.sidebar {
 		margin-top: 20px;
 	}
-}
+
 
 @media screen and (max-width: 620px) {
 	input[type=text],

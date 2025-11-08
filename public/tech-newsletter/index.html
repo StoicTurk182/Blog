@@ -97,57 +97,62 @@
         </div>
     </header>
 
-    
-    <div class="list-controls">
+
+<div class="list-controls">
     <div class="controls-left">
         <span class="results-count">1 articles</span>
     </div>
     
     <div class="controls-right">
-        <div class="custom-dropdown" tabindex="0">
-            <button class="dropdown-selected category-filter" id="dropdownBtn">
-                All Categories
-            </button>
-            <div class="dropdown-list" id="dropdownList">
-                <a href="/tech-newsletter/" class="dropdown-item">All Categories</a>
-                
-                <a href="/categories/tools/" class="dropdown-item">
-                    Tools (5)
-                </a>
-                
-                <a href="/categories/audio-visual/" class="dropdown-item">
-                    Audio Visual (1)
-                </a>
-                
-                <a href="/categories/getting-started-server-deployment---debian-vps/" class="dropdown-item">
-                    Getting Started Server Deployment - Debian VPS (1)
-                </a>
-                
-                <a href="/categories/hardware/" class="dropdown-item">
-                    Hardware (1)
-                </a>
-                
-                <a href="/categories/newsletter/" class="dropdown-item">
-                    Newsletter (1)
-                </a>
-                
-                <a href="/categories/professional/" class="dropdown-item">
-                    Professional (1)
-                </a>
-                
-                <a href="/categories/system-administration/" class="dropdown-item">
-                    System Administration (1)
-                </a>
-                
-                <a href="/categories/useful-tools-and-applications/" class="dropdown-item">
-                    Useful Tools and Applications (1)
-                </a>
-                
-            </div>
-        </div>
+        <label for="category-filter" class="visually-hidden">Filter by category</label>
+        <select id="category-filter" class="category-filter" onchange="location = this.value;" title="Filter by category">
+            <option value="/tech-newsletter/">All Categories</option>
+            
+            <option value="/categories/tools/" >
+                Tools (5)
+            </option>
+            
+            <option value="/categories/audio-visual/" >
+                Audio Visual (1)
+            </option>
+            
+            <option value="/categories/getting-started-server-deployment---debian-vps/" >
+                Getting Started Server Deployment - Debian VPS (1)
+            </option>
+            
+            <option value="/categories/hardware/" >
+                Hardware (1)
+            </option>
+            
+            <option value="/categories/newsletter/" >
+                Newsletter (1)
+            </option>
+            
+            <option value="/categories/penetration-testing/" >
+                Penetration Testing (1)
+            </option>
+            
+            <option value="/categories/professional/" >
+                Professional (1)
+            </option>
+            
+            <option value="/categories/security/" >
+                Security (1)
+            </option>
+            
+            <option value="/categories/system-administration/" >
+                System Administration (1)
+            </option>
+            
+            <option value="/categories/useful-tools-and-applications/" >
+                Useful Tools and Applications (1)
+            </option>
+            
+        </select>
     </div>
     
 </div>
+
     
     <div class="articles-list">
         
@@ -205,6 +210,17 @@
 </div>
 
 <style>
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
 .list-page {
     max-width: 800px;
     margin: 0 auto;
@@ -267,6 +283,9 @@
     font-size: 0.95rem;
     cursor: pointer;
     transition: border-color 0.2s;
+    width: 180px;       
+    min-width: unset;   
+    max-width: 100%;    
 }
 .category-filter:hover,
 .category-filter:focus {
@@ -279,47 +298,6 @@
     outline: none;
     border-color: #e53e3e;
     box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
-}
-
- 
-.custom-dropdown {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-}
-.dropdown-selected {
-    width: 100%;
-    text-align: left;
-}
-.dropdown-list {
-    display: none;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    border: 1px solid #bfc7d1;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    z-index: 10;
-}
-.dropdown-item {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #222;
-    text-decoration: none;
-    border-bottom: 1px solid #f7fafc;
-    transition: background 0.2s;
-}
-.dropdown-item:last-child {
-    border-bottom: none;
-}
-.dropdown-item:hover {
-    background: #f7fafc;
-    color: #e53e3e;
-}
-.custom-dropdown.open .dropdown-list {
-    display: block;
 }
 
  

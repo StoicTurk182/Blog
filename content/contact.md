@@ -13,7 +13,7 @@ layout: "contact"
 
 ## Social Media
 - GitHub: [StoicTurk182](https://github.com/StoicTurk182)
-- LinkedIn: [Andrew Jones](https://linkedin.com/in/andrew-john-j-780)
+- LinkedIn: [Andrew Jones](https://www.linkedin.com/in/andrew-john-j-780177300)
 
 
 ## Contact Form

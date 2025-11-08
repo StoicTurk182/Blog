@@ -1,3 +1,5 @@
+
+
 /* Copy code button styles for Mainroad theme */
 .highlight {
     position: relative;
@@ -9,6 +11,7 @@
     border-color: #0366d6 !important;
     transform: translateY(-1px);
 }
+
 
 /* Ensure proper spacing */
 .post-content .highlight {
