@@ -319,6 +319,31 @@ Below is the complete backup script. You can copy this code and save it as `back
 #!/bin/bash
 # Streamlined Backup Script v3.0 - No manifest, better progress
 # Exit on error
+
+# Function to send email report
+send_email_report() {
+    local email_address="$1"
+    local log_file="$2"
+    local backup_file="$3"
+    
+    if [ -n "$email_address" ]; then
+        local subject="Backup Report - $(hostname) - $(date '+%Y-%m-%d %H:%M:%S')"
+        local body="Backup completed on $(date)\n\n"
+        body+="Backup file: $backup_file\n"
+        body+="Log file: $log_file\n\n"
+        body+="=== LAST 50 LINES OF LOG ===\n"
+        body+="$(tail -50 "$log_file" 2>/dev/null || echo 'Log file not available')\n"
+        
+        echo -e "$body" | mail -s "$subject" "$email_address"
+        
+        if [ $? -eq 0 ]; then
+            log_message "INFO" "Email report sent to $email_address"
+        else
+            log_message "ERROR" "Failed to send email to $email_address"
+        fi
+    fi
+}
+
 set -e
 
 # Configuration (can be overridden by environment variables)
@@ -356,11 +381,11 @@ if [ -n "$1" ]; then
 else
     # Show available mount points
     show_mount_points
-
+    
     # Prompt user to select
     echo "Enter mount point path (e.g., /Backup_Data or /mnt/vps_backup):"
     read -p "Mount point: " MOUNT_POINT
-
+    
     # If empty, try default /dev/sdb1
     if [ -z "$MOUNT_POINT" ]; then
         MOUNT_POINT=$(findmnt -n -o TARGET /dev/sdb1 2>/dev/null)
@@ -435,7 +460,7 @@ fi
 
 if [ "$AVAILABLE_SPACE" -lt "$((REQUIRED_SPACE + 10))" ]; then
     log_message "WARNING" "Low disk space! Consider cleaning old backups first."
-
+    
     # Offer to clean old backups
     read -p "Clean backups older than $RETENTION_DAYS days? (yes/no): " clean_now
     if [ "$clean_now" = "yes" ]; then
@@ -539,7 +564,7 @@ log_message "INFO" "Backup statistics: $BACKUP_SIZE, $FILE_COUNT files"
 if [ "$VERIFY_BACKUP" = true ]; then
     log_message "INFO" "Performing quick verification..."
     VERIFY_ERRORS=0
-
+    
     # Quick check of critical files
     for check_file in etc/hostname etc/passwd etc/fstab; do
         if [ ! -f "$BACKUP_DIR/system/$check_file" ] && [ -f "/$check_file" ]; then
@@ -547,7 +572,7 @@ if [ "$VERIFY_BACKUP" = true ]; then
             ((VERIFY_ERRORS++))
         fi
     done
-
+    
     if [ $VERIFY_ERRORS -eq 0 ]; then
         log_message "SUCCESS" "Backup verification passed"
     else
@@ -559,7 +584,7 @@ fi
 if [ "$COMPRESS_BACKUP" = true ]; then
     log_message "INFO" "Starting compression with $MAX_PARALLEL threads..."
     COMPRESS_START=$(date +%s)
-
+    
     if command -v pigz >/dev/null 2>&1; then
         # Use pigz for parallel compression with progress
         log_message "INFO" "Using pigz for parallel compression..."
@@ -571,7 +596,7 @@ if [ "$COMPRESS_BACKUP" = true ]; then
         log_message "INFO" "Using tar with verbose output..."
         tar czvf "$BACKUP_DIR.tar.gz" -C "$(dirname $BACKUP_DIR)" "$(basename $BACKUP_DIR)" 2>&1 | tee -a "$LOG_FILE"
     fi
-
+    
     if [ $? -eq 0 ]; then
         COMPRESSED_SIZE=$(du -sh "$BACKUP_DIR.tar.gz" | cut -f1)
         COMPRESSION_RATIO=$(echo "scale=2; $(du -s "$BACKUP_DIR.tar.gz" | cut -f1) * 100 / $(du -s "$BACKUP_DIR" | cut -f1)" | bc)
@@ -582,7 +607,7 @@ if [ "$COMPRESS_BACKUP" = true ]; then
         log_message "ERROR" "Compression failed, keeping uncompressed backup"
         BACKUP_FILE="$BACKUP_DIR"
     fi
-
+    
     COMPRESS_END=$(date +%s)
     log_message "INFO" "Compression took $((($COMPRESS_END - $COMPRESS_START)/60)) minutes"
 else
@@ -614,7 +639,7 @@ To restore from this backup:
 1. Full System Restore:
    # Extract backup (if compressed)
    tar xzf $BACKUP_FILE -C /
-
+   
    # Or use rsync for uncompressed
    rsync -av $BACKUP_FILE/system/ /
 
@@ -632,8 +657,17 @@ log_message "SUCCESS" "Total duration: $((DURATION/60)) minutes"
 log_message "SUCCESS" "Log file: $LOG_FILE"
 log_message "SUCCESS" "========================================="
 
+
+# Send email report if email address is configured
+send_email_report "$EMAIL_REPORT" "$LOG_FILE" "$BACKUP_FILE" "$RSYNC_EXIT"
+
 # Exit with appropriate code
 exit $RSYNC_EXIT
+
+
+# Cron Job I personally use: (Perfect for general use and if you are low on space)
+sudo RETENTION_DAYS=7 EMAIL_REPORT=andrew@ajolnet.com /mnt/vps_backup/full_system_backup_improved/backup_improved.sh /Backup_Data
+
 ```
 
 ## Conclusion

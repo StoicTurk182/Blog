@@ -94,7 +94,7 @@
                     
           
             
-            <span class="reading-time">• 11 min read</span>
+            <span class="reading-time">• 12 min read</span>
             
             
             <span class="post-category">System Administration</span>
@@ -332,6 +332,31 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e"># Streamlined Backup Script v3.0 - No manifest, better progress</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Exit on error</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function to send email report</span>
+</span></span><span style="display:flex;"><span>send_email_report<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    local email_address<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    local log_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    local backup_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$3<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$email_address<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>        local subject<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Backup Report - </span><span style="color:#66d9ef">$(</span>hostname<span style="color:#66d9ef">)</span><span style="color:#e6db74"> - </span><span style="color:#66d9ef">$(</span>date <span style="color:#e6db74">&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        local body<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Backup completed on </span><span style="color:#66d9ef">$(</span>date<span style="color:#66d9ef">)</span><span style="color:#e6db74">\n\n&#34;</span>
+</span></span><span style="display:flex;"><span>        body<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34;Backup file: </span>$backup_file<span style="color:#e6db74">\n&#34;</span>
+</span></span><span style="display:flex;"><span>        body<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34;Log file: </span>$log_file<span style="color:#e6db74">\n\n&#34;</span>
+</span></span><span style="display:flex;"><span>        body<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34;=== LAST 50 LINES OF LOG ===\n&#34;</span>
+</span></span><span style="display:flex;"><span>        body<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tail -50 <span style="color:#e6db74">&#34;</span>$log_file<span style="color:#e6db74">&#34;</span> 2&gt;/dev/null <span style="color:#f92672">||</span> echo <span style="color:#e6db74">&#39;Log file not available&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">\n&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        echo -e <span style="color:#e6db74">&#34;</span>$body<span style="color:#e6db74">&#34;</span> | mail -s <span style="color:#e6db74">&#34;</span>$subject<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$email_address<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>            log_message <span style="color:#e6db74">&#34;INFO&#34;</span> <span style="color:#e6db74">&#34;Email report sent to </span>$email_address<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            log_message <span style="color:#e6db74">&#34;ERROR&#34;</span> <span style="color:#e6db74">&#34;Failed to send email to </span>$email_address<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>set -e
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Configuration (can be overridden by environment variables)</span>
@@ -369,11 +394,11 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Show available mount points</span>
 </span></span><span style="display:flex;"><span>    show_mount_points
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Prompt user to select</span>
 </span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Enter mount point path (e.g., /Backup_Data or /mnt/vps_backup):&#34;</span>
 </span></span><span style="display:flex;"><span>    read -p <span style="color:#e6db74">&#34;Mount point: &#34;</span> MOUNT_POINT
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If empty, try default /dev/sdb1</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$MOUNT_POINT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>        MOUNT_POINT<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>findmnt -n -o TARGET /dev/sdb1 2&gt;/dev/null<span style="color:#66d9ef">)</span>
@@ -448,7 +473,7 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$AVAILABLE_SPACE<span style="color:#e6db74">&#34;</span> -lt <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$((</span>REQUIRED_SPACE <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>    log_message <span style="color:#e6db74">&#34;WARNING&#34;</span> <span style="color:#e6db74">&#34;Low disk space! Consider cleaning old backups first.&#34;</span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Offer to clean old backups</span>
 </span></span><span style="display:flex;"><span>    read -p <span style="color:#e6db74">&#34;Clean backups older than </span>$RETENTION_DAYS<span style="color:#e6db74"> days? (yes/no): &#34;</span> clean_now
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$clean_now<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;yes&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
@@ -552,7 +577,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$VERIFY_BACKUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> true <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>    log_message <span style="color:#e6db74">&#34;INFO&#34;</span> <span style="color:#e6db74">&#34;Performing quick verification...&#34;</span>
 </span></span><span style="display:flex;"><span>    VERIFY_ERRORS<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Quick check of critical files</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> check_file in etc/hostname etc/passwd etc/fstab; <span style="color:#66d9ef">do</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -f <span style="color:#e6db74">&#34;</span>$BACKUP_DIR<span style="color:#e6db74">/system/</span>$check_file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -f <span style="color:#e6db74">&#34;/</span>$check_file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
@@ -560,7 +585,7 @@
 </span></span><span style="display:flex;"><span>            <span style="color:#f92672">((</span>VERIFY_ERRORS++<span style="color:#f92672">))</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">fi</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">done</span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $VERIFY_ERRORS -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>        log_message <span style="color:#e6db74">&#34;SUCCESS&#34;</span> <span style="color:#e6db74">&#34;Backup verification passed&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
@@ -572,7 +597,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$COMPRESS_BACKUP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> true <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>    log_message <span style="color:#e6db74">&#34;INFO&#34;</span> <span style="color:#e6db74">&#34;Starting compression with </span>$MAX_PARALLEL<span style="color:#e6db74"> threads...&#34;</span>
 </span></span><span style="display:flex;"><span>    COMPRESS_START<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date +%s<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> command -v pigz &gt;/dev/null 2&gt;&amp;1; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Use pigz for parallel compression with progress</span>
 </span></span><span style="display:flex;"><span>        log_message <span style="color:#e6db74">&#34;INFO&#34;</span> <span style="color:#e6db74">&#34;Using pigz for parallel compression...&#34;</span>
@@ -584,7 +609,7 @@
 </span></span><span style="display:flex;"><span>        log_message <span style="color:#e6db74">&#34;INFO&#34;</span> <span style="color:#e6db74">&#34;Using tar with verbose output...&#34;</span>
 </span></span><span style="display:flex;"><span>        tar czvf <span style="color:#e6db74">&#34;</span>$BACKUP_DIR<span style="color:#e6db74">.tar.gz&#34;</span> -C <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>dirname $BACKUP_DIR<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename $BACKUP_DIR<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 2&gt;&amp;<span style="color:#ae81ff">1</span> | tee -a <span style="color:#e6db74">&#34;</span>$LOG_FILE<span style="color:#e6db74">&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $? -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
 </span></span><span style="display:flex;"><span>        COMPRESSED_SIZE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>du -sh <span style="color:#e6db74">&#34;</span>$BACKUP_DIR<span style="color:#e6db74">.tar.gz&#34;</span> | cut -f1<span style="color:#66d9ef">)</span>
 </span></span><span style="display:flex;"><span>        COMPRESSION_RATIO<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo <span style="color:#e6db74">&#34;scale=2; </span><span style="color:#66d9ef">$(</span>du -s <span style="color:#e6db74">&#34;</span>$BACKUP_DIR<span style="color:#e6db74">.tar.gz&#34;</span> | cut -f1<span style="color:#66d9ef">)</span><span style="color:#e6db74"> * 100 / </span><span style="color:#66d9ef">$(</span>du -s <span style="color:#e6db74">&#34;</span>$BACKUP_DIR<span style="color:#e6db74">&#34;</span> | cut -f1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> | bc<span style="color:#66d9ef">)</span>
@@ -595,7 +620,7 @@
 </span></span><span style="display:flex;"><span>        log_message <span style="color:#e6db74">&#34;ERROR&#34;</span> <span style="color:#e6db74">&#34;Compression failed, keeping uncompressed backup&#34;</span>
 </span></span><span style="display:flex;"><span>        BACKUP_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$BACKUP_DIR<span style="color:#e6db74">&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    COMPRESS_END<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date +%s<span style="color:#66d9ef">)</span>
 </span></span><span style="display:flex;"><span>    log_message <span style="color:#e6db74">&#34;INFO&#34;</span> <span style="color:#e6db74">&#34;Compression took </span><span style="color:#66d9ef">$((</span><span style="color:#f92672">(</span>$COMPRESS_END <span style="color:#f92672">-</span> $COMPRESS_START<span style="color:#f92672">)/</span><span style="color:#ae81ff">60</span><span style="color:#66d9ef">))</span><span style="color:#e6db74"> minutes&#34;</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
@@ -627,7 +652,7 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">1. Full System Restore:
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   # Extract backup (if compressed)
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   tar xzf $BACKUP_FILE -C /
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   # Or use rsync for uncompressed
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">   rsync -av $BACKUP_FILE/system/ /
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
@@ -645,8 +670,16 @@
 </span></span><span style="display:flex;"><span>log_message <span style="color:#e6db74">&#34;SUCCESS&#34;</span> <span style="color:#e6db74">&#34;Log file: </span>$LOG_FILE<span style="color:#e6db74">&#34;</span>
 </span></span><span style="display:flex;"><span>log_message <span style="color:#e6db74">&#34;SUCCESS&#34;</span> <span style="color:#e6db74">&#34;=========================================&#34;</span>
 </span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Send email report if email address is configured</span>
+</span></span><span style="display:flex;"><span>send_email_report <span style="color:#e6db74">&#34;</span>$EMAIL_REPORT<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$LOG_FILE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$BACKUP_FILE<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$RSYNC_EXIT<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Exit with appropriate code</span>
 </span></span><span style="display:flex;"><span>exit $RSYNC_EXIT
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Cron Job I personally use: (Perfect for general use and if you are low on space)</span>
+</span></span><span style="display:flex;"><span>sudo RETENTION_DAYS<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span> EMAIL_REPORT<span style="color:#f92672">=</span>andrew@ajolnet.com /mnt/vps_backup/full_system_backup_improved/backup_improved.sh /Backup_Data
 </span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
 <p>This guide provides comprehensive coverage of the improved backup script&rsquo;s capabilities, from basic usage to advanced automation and troubleshooting. The script&rsquo;s enhanced features make it suitable for both personal use and enterprise backup strategies. By following these examples and best practices, you can implement a robust backup solution that ensures data safety and business continuity.</p>
 
