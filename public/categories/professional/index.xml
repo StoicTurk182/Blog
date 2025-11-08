@@ -1,31 +1,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Andy J Blog - Trials of an IT Engineer</title>
-        <link>http://localhost:65239/</link>
+        <link>http://localhost:1313/</link>
         <description>Personal Projects</description>
         <generator>Hugo</generator>
         <language>en-us</language>
         <copyright>© 2025 Andrew Jones. All rights reserved.</copyright>
         <lastBuildDate>Thu, 30 Oct 2025 14:53:39 +0000</lastBuildDate>
-        <atom:link href="http://localhost:65239/categories/professional/" rel="self" type="application/rss+xml" />
-        
-        <item>
-            <title>Improved Backup Script Usage Guide</title>
-            <link>http://localhost:65239/posts/your-new-guide/</link>
-            <pubDate>Sat, 08 Nov 2025 10:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/posts/your-new-guide/</guid>
-            <description>&lt;h1 id=&#34;improved-backup-script-usage-guide&#34;&gt;Improved Backup Script Usage Guide&lt;/h1&gt;
-&lt;p&gt;This comprehensive guide covers the enhanced backup script with advanced features like compression, incremental backups, and automated reporting. Whether you&amp;rsquo;re a system administrator or a developer managing server backups, this guide will help you implement reliable backup strategies with performance optimization and verification capabilities.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:65239/images/posts/improved-backup-script/image-1.jpg&#34; alt=&#34;Backup script workflow visualization&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;The improved backup script provides enterprise-grade backup capabilities with enhanced features for modern system administration needs. Built on robust technologies like rsync and tar with optional parallel compression, it offers both full system backups and space-efficient incremental backups while maintaining data integrity through verification processes.&lt;/p&gt;</description>
-        </item>
+        <atom:link href="http://localhost:1313/categories/professional/" rel="self" type="application/rss+xml" />
         
         <item>
             <title>NEWS</title>
-            <link>http://localhost:65239/tech-newsletter/weekly-update-1/</link>
+            <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
-            <guid>http://localhost:65239/tech-newsletter/weekly-update-1/</guid>
+            <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
             <description>&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
 &lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;
@@ -49,9 +37,9 @@
         
         <item>
             <title>My Role at GMA: A Professional Journey on the Helpdesk</title>
-            <link>http://localhost:65239/posts/my-professional-journey/</link>
+            <link>http://localhost:1313/posts/my-professional-journey/</link>
             <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
-            <guid>http://localhost:65239/posts/my-professional-journey/</guid>
+            <guid>http://localhost:1313/posts/my-professional-journey/</guid>
             <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.&lt;/p&gt;
 &lt;h2 id=&#34;the-company-and-my-role&#34;&gt;The Company and My Role&lt;/h2&gt;
@@ -61,25 +49,25 @@
         
         <item>
             <title>Self Hosting a New Blog</title>
-            <link>http://localhost:65239/posts/my-it-journey-begins/</link>
+            <link>http://localhost:1313/posts/my-it-journey-begins/</link>
             <pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate>
-            <guid>http://localhost:65239/posts/my-it-journey-begins/</guid>
+            <guid>http://localhost:1313/posts/my-it-journey-begins/</guid>
             <description>&lt;p&gt;Welcome to my new blog! After years working in IT, I&amp;rsquo;ve decided to document my journey, share what I&amp;rsquo;m learning, and create a resource for others in the technology field.&lt;/p&gt;</description>
         </item>
         
         <item>
             <title>My Current Custom PC Build - 2025</title>
-            <link>http://localhost:65239/posts/current-workstation-custom-built/</link>
+            <link>http://localhost:1313/posts/current-workstation-custom-built/</link>
             <pubDate>Thu, 30 Oct 2025 10:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/posts/current-workstation-custom-built/</guid>
+            <guid>http://localhost:1313/posts/current-workstation-custom-built/</guid>
             <description></description>
         </item>
         
         <item>
             <title>Contact Me</title>
-            <link>http://localhost:65239/contact/</link>
+            <link>http://localhost:1313/contact/</link>
             <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/contact/</guid>
+            <guid>http://localhost:1313/contact/</guid>
             <description>&lt;h2 id=&#34;email--phone&#34;&gt;Email &amp;amp; Phone&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; &lt;a href=&#34;mailto:Stoicturk182@protonmail.com&#34;&gt;Stoicturk182@protonmail.com&lt;/a&gt;
 &lt;strong&gt;Phone:&lt;/strong&gt; (44) 07990338386
@@ -108,18 +96,10 @@
         </item>
         
         <item>
-            <title></title>
-            <link>http://localhost:65239/posts/important-news/</link>
-            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/posts/important-news/</guid>
-            <description></description>
-        </item>
-        
-        <item>
             <title>Dark Reader</title>
-            <link>http://localhost:65239/tools/dark-reader/</link>
+            <link>http://localhost:1313/tools/dark-reader/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/tools/dark-reader/</guid>
+            <guid>http://localhost:1313/tools/dark-reader/</guid>
             <description>&lt;h1 id=&#34;dark-reader&#34;&gt;Dark Reader&lt;/h1&gt;
 &lt;p&gt;Dark Reader is an open-source browser extension that inverts bright website colors into high-contrast, easy-to-read dark themes. It reduces eyestrain during night and daily browsing by applying dark modes to websites on the fly.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
@@ -128,9 +108,9 @@
         
         <item>
             <title>iVentoy PXE Server</title>
-            <link>http://localhost:65239/tools/iventoy-pxe-server/</link>
+            <link>http://localhost:1313/tools/iventoy-pxe-server/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/tools/iventoy-pxe-server/</guid>
+            <guid>http://localhost:1313/tools/iventoy-pxe-server/</guid>
             <description>&lt;h1 id=&#34;iventoy-pxe-server&#34;&gt;iVentoy PXE Server&lt;/h1&gt;
 &lt;p&gt;iVentoy is an enhanced PXE server that allows you to boot and install multiple operating systems simultaneously over the network directly from ISO files, eliminating the need for individual bootable USB drives.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
@@ -139,9 +119,9 @@
         
         <item>
             <title>Process Lasso</title>
-            <link>http://localhost:65239/tools/process-lasso/</link>
+            <link>http://localhost:1313/tools/process-lasso/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/tools/process-lasso/</guid>
+            <guid>http://localhost:1313/tools/process-lasso/</guid>
             <description>&lt;h1 id=&#34;process-lasso&#34;&gt;Process Lasso&lt;/h1&gt;
 &lt;p&gt;Process Lasso is an innovative system optimization and automation software that improves PC performance, responsiveness, and stability through process priority optimization, CPU affinity management, and proactive system monitoring.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
@@ -150,9 +130,9 @@
         
         <item>
             <title>Sysinternals Suite</title>
-            <link>http://localhost:65239/tools/sysinterals-suit/</link>
+            <link>http://localhost:1313/tools/sysinterals-suit/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/tools/sysinterals-suit/</guid>
+            <guid>http://localhost:1313/tools/sysinterals-suit/</guid>
             <description>&lt;h1 id=&#34;sysinternals-suite&#34;&gt;Sysinternals Suite&lt;/h1&gt;
 &lt;p&gt;The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft.&lt;/p&gt;
 &lt;h2 id=&#34;key-featured-utilities&#34;&gt;Key Featured Utilities&lt;/h2&gt;
@@ -161,9 +141,9 @@
         
         <item>
             <title>YUMI Multiboot USB Creator</title>
-            <link>http://localhost:65239/tools/yumi-multiboot-usb-creator/</link>
+            <link>http://localhost:1313/tools/yumi-multiboot-usb-creator/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/tools/yumi-multiboot-usb-creator/</guid>
+            <guid>http://localhost:1313/tools/yumi-multiboot-usb-creator/</guid>
             <description>&lt;h1 id=&#34;yumi-multiboot-usb-creator&#34;&gt;YUMI Multiboot USB Creator&lt;/h1&gt;
 &lt;p&gt;YUMI (Your Universal Multiboot Integrator) is a powerful tool that allows you to create a bootable USB drive containing multiple operating systems, antivirus utilities, disc cloning, diagnostic tools, and more.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;

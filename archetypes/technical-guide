@@ -1,7 +1,7 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-draft: true
+draft: false
 description: "Complete guide to [TOPIC] with practical examples, best practices, and troubleshooting tips"
 categories: ["System Administration"]
 tags: ["tutorial", "how-to", "automation", "linux", "bash"]
@@ -13,9 +13,6 @@ author: "{{ .Site.Author.name }}"
 authorImage: "/images/authors/{{ .Site.Author.name | urlize }}.jpg"
 authorBio: "{{ .Site.Author.bio }}"
 socialShare: true
-series: []
-aliases: []
-weight: 0
 ---
 
 # {{ replace .Name "-" " " | title }}
