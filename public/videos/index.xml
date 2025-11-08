@@ -11,9 +11,9 @@
         
         <item>
             <title>Improved Backup Script Usage Guide</title>
-            <link>http://localhost:65239/posts/your-new-guide/</link>
+            <link>http://localhost:65239/posts/improved-backup-script-usage-guide/</link>
             <pubDate>Sat, 08 Nov 2025 10:00:00 +0000</pubDate>
-            <guid>http://localhost:65239/posts/your-new-guide/</guid>
+            <guid>http://localhost:65239/posts/improved-backup-script-usage-guide/</guid>
             <description>&lt;h1 id=&#34;improved-backup-script-usage-guide&#34;&gt;Improved Backup Script Usage Guide&lt;/h1&gt;
 &lt;p&gt;This comprehensive guide covers the enhanced backup script with advanced features like compression, incremental backups, and automated reporting. Whether you&amp;rsquo;re a system administrator or a developer managing server backups, this guide will help you implement reliable backup strategies with performance optimization and verification capabilities.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;

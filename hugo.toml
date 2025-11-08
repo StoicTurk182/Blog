@@ -31,11 +31,11 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   [params.sidebar]
     # Enable sidebar on different page types
     home = true
-    single = true  
-    list = true
+    single = false 
+    list = false
 
     # Widgets configuration
-    widgets = ["recent", "categories", "social", "taglist"]
+    widgets = ["recent", "categories", "social","taglist"]
 
      [params.social]
     youtube = "https://www.youtube.com/@saraf01"
