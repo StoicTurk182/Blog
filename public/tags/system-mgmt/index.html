@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=65239&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>System MGMT - Andy J Blog - Trials of an IT Engineer</title>
@@ -99,51 +99,55 @@
 
     
     <div class="list-controls">
-        <div class="controls-left">
-            <span class="results-count">1 articles</span>
-        </div>
-        
-        <div class="controls-right">
-            <select class="category-filter" onchange="location = this.value;">
-                <option value="/tags/">All Categories</option>
-                
-                <option value="/categories/tools/" >
-                    Tools (5)
-                </option>
-                
-                <option value="/categories/audio-visual/" >
-                    Audio Visual (1)
-                </option>
-                
-                <option value="/categories/getting-started-server-deployment---debian-vps/" >
-                    Getting Started Server Deployment - Debian VPS (1)
-                </option>
-                
-                <option value="/categories/hardware/" >
-                    Hardware (1)
-                </option>
-                
-                <option value="/categories/newsletter/" >
-                    Newsletter (1)
-                </option>
-                
-                <option value="/categories/professional/" >
-                    Professional (1)
-                </option>
-                
-                <option value="/categories/system-administration/" >
-                    System Administration (1)
-                </option>
-                
-                <option value="/categories/useful-tools-and-applications/" >
-                    Useful Tools and Applications (1)
-                </option>
-                
-            </select>
-        </div>
-        
+    <div class="controls-left">
+        <span class="results-count">1 articles</span>
     </div>
-
+    
+    <div class="controls-right">
+        <div class="custom-dropdown" tabindex="0">
+            <button class="dropdown-selected category-filter" id="dropdownBtn">
+                All Categories
+            </button>
+            <div class="dropdown-list" id="dropdownList">
+                <a href="/tags/" class="dropdown-item">All Categories</a>
+                
+                <a href="/categories/tools/" class="dropdown-item">
+                    Tools (5)
+                </a>
+                
+                <a href="/categories/audio-visual/" class="dropdown-item">
+                    Audio Visual (1)
+                </a>
+                
+                <a href="/categories/getting-started-server-deployment---debian-vps/" class="dropdown-item">
+                    Getting Started Server Deployment - Debian VPS (1)
+                </a>
+                
+                <a href="/categories/hardware/" class="dropdown-item">
+                    Hardware (1)
+                </a>
+                
+                <a href="/categories/newsletter/" class="dropdown-item">
+                    Newsletter (1)
+                </a>
+                
+                <a href="/categories/professional/" class="dropdown-item">
+                    Professional (1)
+                </a>
+                
+                <a href="/categories/system-administration/" class="dropdown-item">
+                    System Administration (1)
+                </a>
+                
+                <a href="/categories/useful-tools-and-applications/" class="dropdown-item">
+                    Useful Tools and Applications (1)
+                </a>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
     
     <div class="articles-list">
         
@@ -254,23 +258,66 @@
 
 .category-filter {
     padding: 0.5rem 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #bfc7d1;
     border-radius: 6px;
     background: white;
-    color: #4a5568;
-    font-size: 0.9rem;
+    color: #222;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.2s;
 }
-
-.category-filter:hover {
-    border-color: #c53030;
+.category-filter:hover,
+.category-filter:focus {
+    border-color: #888;
+    outline: none;
+    box-shadow: 0 0 0 2px #e2e8f0;
 }
 
 .category-filter:focus {
     outline: none;
     border-color: #e53e3e;
     box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+ 
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+.dropdown-selected {
+    width: 100%;
+    text-align: left;
+}
+.dropdown-list {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #bfc7d1;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 10;
+}
+.dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #222;
+    text-decoration: none;
+    border-bottom: 1px solid #f7fafc;
+    transition: background 0.2s;
+}
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+.dropdown-item:hover {
+    background: #f7fafc;
+    color: #e53e3e;
+}
+.custom-dropdown.open .dropdown-list {
+    display: block;
 }
 
  
@@ -292,6 +339,7 @@
 
 .article-item:last-child {
     border-bottom: none;
+    
 }
 
  
@@ -484,6 +532,24 @@
         padding: 0 0.5rem;
     }
 
+    @media (max-width: 768px) {
+    .list-controls {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    .controls-right {
+        width: 100%;
+    }
+    .category-filter {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        border-radius: 6px;
+        outline: none;
+    }
+}
+
     .page-header {
         padding: 2rem 0 1.5rem;
     }
@@ -492,11 +558,6 @@
         font-size: 2rem;
     }
 
-    .list-controls {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
 
     .article-item {
         padding: 1.5rem 0;

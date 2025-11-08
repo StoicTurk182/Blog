@@ -10,6 +10,17 @@
         <atom:link href="http://localhost:1313/categories/useful-tools-and-applications/" rel="self" type="application/rss+xml" />
         
         <item>
+            <title>Improved Backup Script Usage Guide</title>
+            <link>http://localhost:1313/posts/improved-backup-script-usage-guide/</link>
+            <pubDate>Sat, 08 Nov 2025 10:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/improved-backup-script-usage-guide/</guid>
+            <description>&lt;h1 id=&#34;improved-backup-script-usage-guide&#34;&gt;Improved Backup Script Usage Guide&lt;/h1&gt;
+&lt;p&gt;This comprehensive guide covers the enhanced backup script with advanced features like compression, incremental backups, and automated reporting. Whether you&amp;rsquo;re a system administrator or a developer managing server backups, this guide will help you implement reliable backup strategies with performance optimization and verification capabilities.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The improved backup script provides good backup capabilities with enhanced features for modern system administration needs. Built on robust technologies like rsync and tar with optional parallel compression, it offers both full system backups and space-efficient incremental backups while maintaining data integrity through verification processes.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
             <title>NEWS</title>
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>

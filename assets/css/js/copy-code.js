@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
         copyButton.className = 'copy-code-btn';
         copyButton.innerHTML = '📋 Copy';
         copyButton.title = 'Copy code to clipboard';
+
+        // Check for browser support before enabling
+if (document.startViewTransition) {
+    document.startViewTransition(() => {
+        // The browser will automatically capture the new page state
+    });
+}
         
         // Style for Mainroad theme
         copyButton.style.cssText = `
@@ -75,5 +82,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         highlight.appendChild(copyButton);
+    });
+});
+
+
+// Simple dropdown toggle for multiple dropdowns
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.custom-dropdown').forEach(function(dropdown) {
+        var btn = dropdown.querySelector('.dropdown-selected');
+        var list = dropdown.querySelector('.dropdown-list');
+
+        if (btn && list) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Close other open dropdowns
+                document.querySelectorAll('.custom-dropdown.open').forEach(function(openDropdown) {
+                    if (openDropdown !== dropdown) openDropdown.classList.remove('open');
+                });
+                dropdown.classList.toggle('open');
+            });
+
+            // Optional: close on ESC
+            dropdown.addEventListener('keydown', function(e) {
+                if (e.key === "Escape") dropdown.classList.remove('open');
+            });
+        }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.custom-dropdown.open').forEach(function(dropdown) {
+            dropdown.classList.remove('open');
+        });
     });
 });
