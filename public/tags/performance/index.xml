@@ -28,7 +28,17 @@
             <description>&lt;br&gt;
 &lt;h1 id=&#34;remote-penetration-testing-guide-kali-linux&#34;&gt;Remote Penetration Testing Guide: Kali Linux&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Hacking your own infrastructure with Kali Linux.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;This is an example of a script I created for very basic testing to practice my Linux scripting and to make sure my VPS server remain secure. It is not an in-depth attempt to break things but it is an attempt to gain more experience with a side of IT I have a little to no experience in beyond some basic Stenography I did in university. Even then that was not related to pen testing but to cryptography. The simple truth is I am lazy and so instead of spending ages collection all of the commands needed to mount an attach /vulnerability scan i can save a lot of time automation the process the below is the result. It work well for basic applications, if you have an open port it will find it etc.&lt;/p&gt;</description>
+&lt;p&gt;This is an example of a script I created for very basic testing to practice my Linux scripting and to make sure my VPS servers remain secure. It is not an in-depth attempt to break things, but it is an attempt to gain more experience with a side of IT that I have little, to no experience in beyond some basic Steganography, which I did in university. Even then that was not related to pen testing but to cryptography. The simple truth is I am lazy and so instead of spending ages collecting all the commands needed to mount an attack / vulnerability scan. I can save a lot of time by automating this process, the below shell script is the result. It works when testing and has given me some ideas. But please be advised it is on the extreme end of simple.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Network Topology Report Generator</title>
+            <link>http://localhost:1313/posts/network-topology-report-generator/</link>
+            <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/network-topology-report-generator/</guid>
+            <description>&lt;h1 id=&#34;network-topology-report-generator&#34;&gt;Network Topology Report Generator&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Brief introduction:&lt;/strong&gt; The Network Topology Report Generator is a comprehensive bash script that automatically documents your entire network infrastructure. Whether you&amp;rsquo;re managing VPS servers, home labs, or enterprise networks, this tool creates detailed reports covering interfaces, routing, VPN connections, firewall rules, Docker networks, and active services. Perfect for troubleshooting, documentation, compliance audits, or understanding inherited infrastructure.&lt;/p&gt;
+&lt;p&gt;I created this as a vanity project as I really like seeing changes in my network and I had the idea to create it, I am unsure as to it utility outside of my use case but I did have a lot of fun troubleshooting it.&lt;/p&gt;</description>
         </item>
         
         <item>
@@ -97,6 +107,7 @@
 &lt;h2 id=&#34;social-media&#34;&gt;Social Media&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/StoicTurk182&#34;&gt;StoicTurk182&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;LinkedIn: &lt;a href=&#34;https://www.linkedin.com/in/andrew-john-j-780177300&#34;&gt;Andrew Jones&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;contact-form&#34;&gt;Contact Form&lt;/h2&gt;
 &lt;p&gt;You can also reach me using the form below:&lt;/p&gt;

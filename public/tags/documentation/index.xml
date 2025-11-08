@@ -38,9 +38,7 @@
             <guid>http://localhost:1313/posts/network-topology-report-generator/</guid>
             <description>&lt;h1 id=&#34;network-topology-report-generator&#34;&gt;Network Topology Report Generator&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Brief introduction:&lt;/strong&gt; The Network Topology Report Generator is a comprehensive bash script that automatically documents your entire network infrastructure. Whether you&amp;rsquo;re managing VPS servers, home labs, or enterprise networks, this tool creates detailed reports covering interfaces, routing, VPN connections, firewall rules, Docker networks, and active services. Perfect for troubleshooting, documentation, compliance audits, or understanding inherited infrastructure.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/posts/network-topology-report/overview.jpg&#34; alt=&#34;Network topology visualization&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;The Network Topology Report Generator is a single bash script that collects and organizes comprehensive network configuration data from Linux systems. It produces human-readable reports that include visual ASCII diagrams, making complex network setups easy to understand at a glance.&lt;/p&gt;</description>
+&lt;p&gt;I created this as a vanity project as I really like seeing changes in my network and I had the idea to create it, I am unsure as to it utility outside of my use case but I did have a lot of fun troubleshooting it.&lt;/p&gt;</description>
         </item>
         
         <item>
