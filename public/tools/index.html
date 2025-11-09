@@ -552,18 +552,20 @@
     gap: 1rem;
 }
 
-.card-footer .read-more {
+.read-more {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     color: #e53e3e;
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    border-bottom: 2px dotted transparent;
 }
 
-.card-footer .read-more:hover {
+.read-more:hover {
     color: #c53030;
+    border-bottom: 2px dotted #c53030;
 }
 
 .card-footer .read-more svg {

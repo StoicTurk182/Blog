@@ -6,6 +6,7 @@ categories: ["Tools"]
 tags: ["Applications","System MGMT"]
 layout: "tools-single"
 download_url: "https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite"
+tool_image: "sys.png"
 ---
 # Sysinternals Suite
 

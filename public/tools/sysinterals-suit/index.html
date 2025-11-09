@@ -88,11 +88,9 @@
                         
 <div class="tool-single-page">
     
-
     <section class="tool-hero">
         
         <div class="hero-content">
-           
             <div class="tool-header">
                 <span class="tool-badge">Tool</span>
                 
@@ -105,15 +103,24 @@
             
         </div>
     </section>
-
+<a href="/Tools/" class="read-more back-button" style="float: right; margin: 2rem 0;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z"></path>
+        </svg>
+        Back to Tools
+    </a>
     
     <section class="tool-content-section">
         <div class="tool-actions">
-           
-            
-            <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite" class="btn-secondary">Download</a>
-            
-            <a href="/tools/" class="btn-secondary">← Back to Tools</a>
+        
+
+            <div class="post-nav-right">
+    
+    <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite" class="tool-image-link">
+        <img src="/images/posts/sys.png" alt="Sysinternals Suite logo" class="tool-image">
+    </a>
+    
+</div>
         </div>
 
         
@@ -220,9 +227,77 @@
             
         </div>
     </section>
+
+    <a href="/Tools/" class="read-more back-button" style="float: right; margin: 2rem 0;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z"></path>
+        </svg>
+        Back to Tools
+    </a>
 </div>
 
+
 <style>
+
+ 
+ 
+ 
+.tool-image {
+    height: 250px !important;
+    width: auto !important;
+    display: block !important;
+    border: none !important;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+.tool-image-link {
+    display: inline-block !important;
+    text-decoration: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.tool-image-link:hover .tool-image {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+ 
+@media (max-width: 768px) {
+    .tool-image {
+        height: 200px !important;
+    }
+}
+
+.tool-actions .btn-secondary {
+    display: none;
+}    
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #e53e3e;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-bottom: 2px dotted transparent;
+}
+
+.read-more:hover {
+    color: #c53030;
+    border-bottom: 2px dotted #c53030;
+}
+
+.read-more svg {
+    transition: transform 0.2s ease;
+}
+
+.read-more:hover svg {
+    transform: translateX(-7px);
+}
+    
 .reading-time {
     color: #64748b;
     font-size: 0.9rem;
@@ -434,15 +509,16 @@
 .btn-secondary {
     background: transparent;
     color: #374151;
-    padding: 0.75rem 1rem;
+    padding: 0.375rem 0.625rem;  
     text-decoration: none;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border-radius: 4px;  
     font-weight: 500;
     transition: all 0.2s;
-    display: block;
+    display: inline-block;  
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    line-height: 1;  
 }
 
 .btn-secondary:hover {

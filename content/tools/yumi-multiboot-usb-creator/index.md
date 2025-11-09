@@ -7,6 +7,7 @@ tags: ["Applications","USB OS Installation"]
 layout: "tools-single"
 demo_url: "https://pendrivelinux.com/yumi-multiboot-usb-creator/"
 download_url: "https://pendrivelinux.com/downloads/YUMI/YUMI-2.0.9.exe"
+tool_image: "YUMI.png"
 ---
 
 # YUMI Multiboot USB Creator

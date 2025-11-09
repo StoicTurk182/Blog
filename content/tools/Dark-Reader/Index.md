@@ -6,7 +6,7 @@ categories: ["Tools"]
 tags: ["dark-mode", "accessibility", "eye-care", "browser-extension"]
 layout: "tools-single"
 download_url: "https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh"
-buy_url: ""
+tool_image: "/darkreader.png"
 ---
 
 # Dark Reader
@@ -101,9 +101,3 @@ This eye-care extension enables night mode by creating dark themes for websites 
 ---
 
 *Dark Reader is an open-source project maintained by Alexander Shutov and contributors. [Help and Documentation](https://darkreader.org/help/en/)*
-
-<a href="https://darkreader.org/help/en/">
-  <img src="/images/posts/darkreader.png" 
-       alt="Dark Reader Interface" 
-       style="max-width: 100%; height: auto;">
-</a>
