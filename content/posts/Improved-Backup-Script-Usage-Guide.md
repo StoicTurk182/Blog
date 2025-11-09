@@ -8,6 +8,7 @@ tags: ["backup", "bash", "automation"]
 featuredImageAlt: "Backup script workflow diagram showing compression and incremental backup process"
 author: "Andrew Jones"
 readingTime: true
+toc: true
 ---
 
 # Improved Backup Script Usage Guide

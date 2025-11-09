@@ -107,6 +107,8 @@
         </div>
     </header>
 
+    
+
     <span><div class="post-nav-right">
     <a href="/posts/" class="read-more back-button">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -118,6 +120,32 @@
 
     
     
+
+    
+  <aside class="toc">
+    <h2>Table of Contents</h2>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#installation--setup">Installation &amp; Setup</a></li>
+    <li><a href="#configuration-options">Configuration Options</a></li>
+    <li><a href="#usage-examples">Usage Examples</a></li>
+    <li><a href="#automation--scheduling">Automation &amp; Scheduling</a></li>
+    <li><a href="#best-practices">Best Practices</a></li>
+    <li><a href="#performance-optimization">Performance Optimization</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+    <li><a href="#security-considerations">Security Considerations</a></li>
+    <li><a href="#integration-with-other-tools">Integration with Other Tools</a></li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#real-world-examples">Real-World Examples</a></li>
+    <li><a href="#additional-resources">Additional Resources</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+  </aside>
+  
 
     
     <div class="post-content">
@@ -369,8 +397,9 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">timers.target</span>
-</span></span></code></pre></div><p>Enable and start the timer:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Enable the timer</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Enable and start the timer:</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Enable the timer</span>
 </span></span><span style="display:flex;"><span>sudo systemctl daemon-reload
 </span></span><span style="display:flex;"><span>sudo systemctl enable network-report.timer
 </span></span><span style="display:flex;"><span>sudo systemctl start network-report.timer
@@ -1300,7 +1329,74 @@
     </a>
 </div></span>
 
+
+
+<section class="author-section">
+    <div class="authorbox clearfix">
+        
+        <figure class="authorbox__avatar">
+            <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
+        </figure>
+        
+        <div class="authorbox__content">
+            <h3 class="authorbox__name">Andrew Jones</h3>
+            <p class="authorbox__bio">IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p>
+        </div>
+    </div>
+</section>
+
+
+
+
 <style>
+
+.toc {
+  background: none;
+  border-left: 3px solid #dc143c;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  width: fit-content;
+}
+
+.toc h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.toc nav > ol,
+.toc nav > ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.toc ol, .toc ul {
+  line-height: 1.8;
+}
+
+.toc li {
+  margin: 0.4rem 0;
+}
+
+.toc a {
+  
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: #dc143c;
+}    
+
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
 
 .post-nav-right {
     display: flex;

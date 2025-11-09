@@ -7,6 +7,7 @@ tags: ["professional-development"]
 description: "Reflecting on my time as IT engineer at GMA - challenges, achievements, and lessons learned."
 author: "Andrew Jones"
 featuredImage: "/images/posts/logo-min.png"
+toc: true
 ---
 
 ## Introduction

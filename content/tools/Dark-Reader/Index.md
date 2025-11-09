@@ -100,4 +100,5 @@ This eye-care extension enables night mode by creating dark themes for websites 
 
 ---
 
-*Dark Reader is an open-source project maintained by Alexander Shutov and contributors. [Help and Documentation](https://darkreader.org/help/en/)*
+*Dark Reader is an open-source project maintained by Alexander Shutov and contributors.  
+[Help and Documentation](https://darkreader.org/help/en/)*

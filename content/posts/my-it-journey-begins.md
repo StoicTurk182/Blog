@@ -7,6 +7,7 @@ tags: ["Blog"]
 categories: ['Getting Started Server Deployment - Debian VPS']
 featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
 description: "My IT journey Continues - insights from Andrew Jones, IT Engineer in London, UK"
+toc: true
 ---
 
 Welcome to my new blog! After years working in IT, I've decided to document my journey, share what I'm learning, and create a resource for others in the technology field.

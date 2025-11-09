@@ -358,9 +358,11 @@ Persistent=true
 
 [Install]
 WantedBy=timers.target
-```
 
 Enable and start the timer:
+```
+
+
 
 ```bash
 # Enable the timer

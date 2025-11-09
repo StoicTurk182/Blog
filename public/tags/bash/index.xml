@@ -42,6 +42,30 @@
         </item>
         
         <item>
+            <title>Veeam Application Introduction</title>
+            <link>http://localhost:1313/posts/veeam/</link>
+            <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/posts/veeam/</guid>
+            <description>&lt;hr&gt;
+&lt;h1 id=&#34;comprehensive-guide-veeam-agent-level-backups-with-user-self-service&#34;&gt;Comprehensive Guide: Veeam Agent-Level Backups with User Self-Service&lt;/h1&gt;
+&lt;h2 id=&#34;linux-vms--windows-workstations&#34;&gt;Linux VMs &amp;amp; Windows Workstations&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This guide covers implementing Veeam agent-level backups for Linux VMs and Windows workstations with user self-service capabilities, allowing remote users to initiate and manage their own backups while maintaining centralized control.&lt;/p&gt;
+&lt;h3 id=&#34;key-capabilities&#34;&gt;Key Capabilities&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Centralized Management&lt;/strong&gt;: Manage agents from Veeam Backup &amp;amp; Replication console&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;User Self-Service&lt;/strong&gt;: Users can initiate backups from their machines&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flexible Control&lt;/strong&gt;: Choose between full control and read-only modes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross-Platform&lt;/strong&gt;: Unified approach for Linux and Windows systems&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;architecture--concepts&#34;&gt;Architecture &amp;amp; Concepts&lt;/h2&gt;
+&lt;h3 id=&#34;agent-operation-modes&#34;&gt;Agent Operation Modes&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1. Standalone Mode&lt;/strong&gt;&lt;/p&gt;</description>
+        </item>
+        
+        <item>
             <title>NEWS</title>
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>

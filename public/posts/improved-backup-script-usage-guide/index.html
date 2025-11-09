@@ -107,6 +107,8 @@
         </div>
     </header>
 
+    
+
     <span><div class="post-nav-right">
     <a href="/posts/" class="read-more back-button">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -118,6 +120,28 @@
 
     
     
+
+    
+  <aside class="toc">
+    <h2>Table of Contents</h2>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#key-features">Key Features</a></li>
+    <li><a href="#configuration-options">Configuration Options</a></li>
+    <li><a href="#usage-examples">Usage Examples</a></li>
+    <li><a href="#quick-commands">Quick Commands</a></li>
+    <li><a href="#restoration-process">Restoration Process</a></li>
+    <li><a href="#output-example">Output Example</a></li>
+    <li><a href="#performance-tips">Performance Tips</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+    <li><a href="#installation--setup">Installation &amp; Setup</a></li>
+    <li><a href="#full-script-code">Full Script Code</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</nav>
+  </aside>
+  
 
     
     <div class="post-content">
@@ -714,7 +738,74 @@
     </a>
 </div></span>
 
+
+
+<section class="author-section">
+    <div class="authorbox clearfix">
+        
+        <figure class="authorbox__avatar">
+            <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
+        </figure>
+        
+        <div class="authorbox__content">
+            <h3 class="authorbox__name">Andrew Jones</h3>
+            <p class="authorbox__bio">IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p>
+        </div>
+    </div>
+</section>
+
+
+
+
 <style>
+
+.toc {
+  background: none;
+  border-left: 3px solid #dc143c;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  width: fit-content;
+}
+
+.toc h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.toc nav > ol,
+.toc nav > ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.toc ol, .toc ul {
+  line-height: 1.8;
+}
+
+.toc li {
+  margin: 0.4rem 0;
+}
+
+.toc a {
+  
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: #dc143c;
+}    
+
+
+@media (max-width: 1024px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
 
 .post-nav-right {
     display: flex;

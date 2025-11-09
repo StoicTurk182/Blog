@@ -15,7 +15,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   readingTime = true
   post_meta = ["author", "date", "categories","readingtime"] 
   author = "Andrew Jones"
-  authorbio = "IT Technical Engineer and technology enthusiast with 20+ years of experience in gaming and content creation. Passionate about cybersecurity, networking, and sharing knowledge through technical writing and video production."
+  authorbio = "IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible."
   authoravatar = "/images/posts/Andrew.png"
 
   [params.logo]
@@ -79,7 +79,11 @@ weight = 20
     [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true    
+      unsafe = true
+       [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 2
+    ordered = true    
 
    [params.comments]
   utterances = true
