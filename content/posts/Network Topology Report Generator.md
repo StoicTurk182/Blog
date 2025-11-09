@@ -130,7 +130,7 @@ cat test_report.txt | head -20
 ## Configuration Options
 
 The script accepts minimal command-line options to keep it simple:
-
+```bash
 | Option | Description | Default | Example |
 |--------|------------|---------|---------|
 | `filename` | Output filename | `network_topology_report_HOSTNAME_TIMESTAMP.txt` | `my_network.txt` |

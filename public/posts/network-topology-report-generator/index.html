@@ -189,33 +189,17 @@
 </span></span><span style="display:flex;"><span>cat test_report.txt | head -20
 </span></span></code></pre></div><h2 id="configuration-options">Configuration Options</h2>
 <p>The script accepts minimal command-line options to keep it simple:</p>
-<table>
-  <thead>
-      <tr>
-          <th>Option</th>
-          <th>Description</th>
-          <th>Default</th>
-          <th>Example</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><code>filename</code></td>
-          <td>Output filename</td>
-          <td><code>network_topology_report_HOSTNAME_TIMESTAMP.txt</code></td>
-          <td><code>my_network.txt</code></td>
-      </tr>
-      <tr>
-          <td><code>--help</code></td>
-          <td>Show usage information</td>
-          <td>N/A</td>
-          <td><code>./script.sh --help</code></td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="environment-variables">Environment Variables</h3>
-<p>You can customize behavior via environment variables:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Disable color output</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>| Option | Description | Default | Example |
+</span></span><span style="display:flex;"><span>|--------|------------|---------|---------|
+</span></span><span style="display:flex;"><span>| <span style="color:#e6db74">`</span>filename<span style="color:#e6db74">`</span> | Output filename | <span style="color:#e6db74">`</span>network_topology_report_HOSTNAME_TIMESTAMP.txt<span style="color:#e6db74">`</span> | <span style="color:#e6db74">`</span>my_network.txt<span style="color:#e6db74">`</span> |
+</span></span><span style="display:flex;"><span>| <span style="color:#e6db74">`</span>--help<span style="color:#e6db74">`</span> | Show usage information | N/A | <span style="color:#e6db74">`</span>./script.sh --help<span style="color:#e6db74">`</span> |
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">### Environment Variables</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>You can customize behavior via environment variables:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">```</span>bash
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disable color output</span>
 </span></span><span style="display:flex;"><span>export NO_COLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Change default output directory</span>
@@ -865,7 +849,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Find specific services</span>
 </span></span><span style="display:flex;"><span>grep -i <span style="color:#e6db74">&#34;port.*80\|port.*443&#34;</span> report.txt
 </span></span><span style="display:flex;"><span>grep -i <span style="color:#e6db74">&#34;docker&#34;</span> report.txt
-</span></span></code></pre></div><h3 id="environment-variables-1">Environment Variables</h3>
+</span></span></code></pre></div><h3 id="environment-variables">Environment Variables</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Disable colored output</span>
 </span></span><span style="display:flex;"><span>export NO_COLOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>

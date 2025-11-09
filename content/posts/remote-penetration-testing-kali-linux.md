@@ -25,7 +25,11 @@ But if you have an open port, it will find it and report what when why how, etc.
 I will be doing a post on Steganography at some point but it is a complex subject to talk about, if hacking is about picking locks and gaining access then Steganography is about the opposite. 
 
 
-It is tested working muck like my automatons for my back up jobs this is something I do a lot combined with a application called <a href="https://cisofy.com/lynis/" class="external-link" target="_blank" rel="noopener">Lynis</a> you can make a real attempt at keeping yourself somewhat safe. I will do a real deep dive on Lynis as I use it a lot when I update applications or daemons as it give you a very good set of marks to hit. It is hard to get 100%. 
+The script has been tested inside a VM and within a devcontainer—it's always recommended to test automation before letting it run loose in a production environment. I used different containers because I wanted to test some of the flags by removing various APT packages and see if they would be picked up and print warnings about the missing dependencies.
+
+ > <a href="https://cisofy.com/lynis/" class="external-link" target="_blank" rel="noopener">Lynis</a> Please use this link to explore Lynis and run you own audits. 
+
+Taking these kinds of precautions is how you can make a real attempt at keeping yourself somewhat safe. I'll do a real deep dive on Lynis later, as I use it a lot when I update applications or daemons. It gives you good view on the current state of you endpoint security, though it's hard to get 100%, even if you could the restriction on the system would, in my opinion, make it hard to interact with as an administrator.  
 
 # Overview
 
