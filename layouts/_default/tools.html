@@ -67,8 +67,13 @@
                 {{ end }}
 
                 <div class="card-footer">
-                    <a href="{{ .RelPermalink }}" class="card-link">View Details →</a>
-                </div>
+    <a href="{{ .RelPermalink }}" class="read-more">
+        View Details
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"></path>
+        </svg>
+    </a>
+</div>
             </article>
             {{ else }}
             <div class="no-tools">
@@ -250,17 +255,26 @@
     gap: 1rem;
 }
 
-.tool-card .card-link {
-    color: #dc2626;
+.card-footer .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #e53e3e;
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-    white-space: nowrap;
+    transition: color 0.2s ease;
 }
 
-.tool-card .card-link:hover {
-    text-decoration: underline;
+.card-footer .read-more:hover {
+    color: #c53030;
+}
+
+.card-footer .read-more svg {
+    transition: transform 0.2s ease;
+}
+
+.card-footer .read-more:hover svg {
+    transform: translateX(4px);
 }
 
 /* Tool Actions */

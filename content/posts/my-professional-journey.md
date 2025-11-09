@@ -40,11 +40,12 @@ These skills were tested and honed daily. After solo completion of 1,161 tickets
 
 During my tenure, I significantly advanced my expertise in:
 
-- **Skill Category 1**: Telephony - 3CX
-- **Skill Category 2**: Linux server deployment (working in my own time to create this blog and a lot of other Web based services)
-- **Skill Category 3**: Soft Skills (Intense customer focused experience)
-- **Skill Category 3**: O365 management + some Intune experience (remote build deployment)
-- **Tools and Technologies**: Powershell 
+- **Telephony - 3CX**: Telephony - 3CX
+- **Linux server deployment**: Linux server deployment (working in my own time to create this blog and a lot of other Web based services)
+- **Soft Skills**:(Intense customer focused experience) Soft Skills (Intense customer focused experience)
+- **O365 management + some Intune experience (remote build deployment)**: O365 management + some Intune experience (remote build deployment)
+- **Tools and Technologies**: Powershell & Bash scripting (work in progress) 
+- **Networking**:(Heavy focus here in the context of enterprise)   
 
 ### Soft Skills
 

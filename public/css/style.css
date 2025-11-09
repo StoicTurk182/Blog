@@ -1165,19 +1165,19 @@ textarea {
 }
 
 .widget__counter--bubble {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-width: 24px;
-	height: 24px;
-	padding: 0 8px;
+	display: inline;
 	font-size: 11px;
 	font-weight: 600;
-	color: #212121;
-	background: var(--accent-primary);
-	border-radius: 12px;
-	margin-left: 8px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	color: var(--accent-primary);
+	margin-left: 4px;
+}
+
+.widget__counter--bubble::before {
+	content: "(";
+}
+
+.widget__counter--bubble::after {
+	content: ")";
 }
 
 /* Search widget */
