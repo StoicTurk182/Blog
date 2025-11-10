@@ -25,8 +25,7 @@
             <link>http://localhost:1313/posts/remote-penetration-testing-kali-linux/</link>
             <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
             <guid>http://localhost:1313/posts/remote-penetration-testing-kali-linux/</guid>
-            <description>&lt;br&gt;
-&lt;h1 id=&#34;remote-penetration-testing-guide-kali-linux&#34;&gt;Remote Penetration Testing Guide: Kali Linux&lt;/h1&gt;
+            <description>&lt;h1 id=&#34;remote-penetration-testing-guide-kali-linux&#34;&gt;Remote Penetration Testing Guide: Kali Linux&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Hacking your own infrastructure with Kali Linux.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;This is an example of a script I created for very basic testing to practice my Linux scripting and to make sure my VPS servers remain secure. It is not an in-depth attempt to break things, but it is an attempt to gain more experience with a side of IT that I have little, to no experience in beyond some basic Steganography, which I did in university. Even then that was not related to pen testing but to cryptography. The simple truth is I am lazy and so instead of spending ages collecting all the commands needed to mount an attack / vulnerability scan. I can save a lot of time by automating this process, the below shell script is the result. It works when testing and has given me some ideas. But please be advised it is on the extreme end of simple.&lt;/p&gt;</description>
         </item>

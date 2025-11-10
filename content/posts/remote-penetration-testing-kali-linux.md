@@ -13,7 +13,6 @@ authorImage: "/images/authors/security-team.jpg"
 authorBio: "Cybersecurity professionals with 10+ years of experience in penetration testing and ethical hacking"
 socialShare: true
 ---
-<br>
 
 # Remote Penetration Testing Guide: Kali Linux
 
@@ -31,7 +30,7 @@ The script has been tested inside a VM and within a devcontainer—it's always r
 
 Taking these kinds of precautions is how you can make a real attempt at keeping yourself somewhat safe. I'll do a real deep dive on Lynis later, as I use it a lot when I update applications or daemons. It gives you a good view on the current state of you endpoint security, though it's hard to get 100%, even if you could the restriction on the system would, in my opinion, make it hard to interact with as an administrator.  
 
-# Overview
+## Overview
 
 Remote penetration testing is the process of evaluating the security of computer systems, networks, and applications from an external perspective. Kali Linux provides the ultimate toolkit for security professionals to identify vulnerabilities before malicious actors can exploit them.
 
