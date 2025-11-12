@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Remote-Desktop - Andy J Blog - Trials of an IT Engineer</title>
@@ -19,6 +20,10 @@
                 
 </head>
 <body class="body">
+    <div id="particles-js"></div>
+    
+
+
         <div class="container container--outer">
                 <header class="header">
 	<div class="container header__container">
@@ -675,6 +680,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
 <style>
 .highlight {
     position: relative;
@@ -685,6 +691,32 @@ document.addEventListener('DOMContentLoaded', function() {
     background: rgba(255,255,255,1) !important;
     border-color: #0366d6 !important;
     transform: translateY(-1px);
+}
+
+.body {
+       background: 
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    min-height: 100vh;
+    animation: textureMove 60s linear infinite;
+}
+
+@keyframes textureMove {
+    0% { background-position: 0 5px, 10px 0px, 0px 10px, 10px 5px, 0 0, 0 0; }
+    100% { background-position: 100px 5px, 110px 0px, 100px 10px, 110px 5px, 100px 0, 100px 0; }
+
+    
+.container.container--outer {
+    background: rgba(19, 19, 19, 0.92);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
 }
 
 @media (max-width: 768px) {
