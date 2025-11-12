@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tools &amp; Applications - Andy J Blog - Trials of an IT Engineer</title>
@@ -12,13 +13,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
         <link rel="stylesheet" href="/css/style.css">
-        
+        <link rel="stylesheet" href="/css/custom.css">
         <link rel="alternate" type="application/rss+xml" href="/tools/index.xml" title="Andy J Blog - Trials of an IT Engineer">
 
         <link rel="shortcut icon" href="/favicon.ico">
                 
 </head>
 <body class="body">
+    <div id="particles-js"></div>
+    
+
+
         <div class="container container--outer">
                 <header class="header">
 	<div class="container header__container">
@@ -265,6 +270,60 @@
 
                 <div class="card-footer">
     <a href="/tools/process-lasso/" class="read-more">
+        View Details
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"></path>
+        </svg>
+    </a>
+</div>
+            </article>
+            
+            <article class="tool-card">
+                <div class="card-header">
+                    <span class="card-badge">
+                        Application
+                    </span>
+                    
+                    <span class="card-version">v6.x</span>
+                    
+                </div>
+                
+                <h3 class="card-title">
+                    <a href="/tools/royal-ts/">Royal TS</a>
+                </h3>
+                
+                
+                <p class="card-description">Comprehensive remote management solution for Windows supporting RDP, VNC, SSH, web-based interfaces and more</p>
+                
+
+                
+                
+                <div class="tool-meta">
+                    
+                    <div class="tool-category">
+                        
+                        <span class="category-tag">Tools</span>
+                        
+                        <span class="category-tag">Remote Management</span>
+                        
+                    </div>
+                    
+                    
+                    
+                    <div class="tool-tags">
+                        
+                        <span class="tag">remote-desktop</span>
+                        
+                        <span class="tag">rdp</span>
+                        
+                        
+                    </div>
+                    
+                </div>
+                
+
+                <div class="card-footer">
+    <a href="/tools/royal-ts/" class="read-more">
         View Details
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"></path>
@@ -870,6 +929,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
 <style>
 .highlight {
     position: relative;
@@ -882,6 +942,32 @@ document.addEventListener('DOMContentLoaded', function() {
     transform: translateY(-1px);
 }
 
+.body {
+       background: 
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    min-height: 100vh;
+    animation: textureMove 60s linear infinite;
+}
+
+@keyframes textureMove {
+    0% { background-position: 0 5px, 10px 0px, 0px 10px, 10px 5px, 0 0, 0 0; }
+    100% { background-position: 100px 5px, 110px 0px, 100px 10px, 110px 5px, 100px 0, 100px 0; }
+
+    
+.container.container--outer {
+    background: rgba(19, 19, 19, 0.92);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
 @media (max-width: 768px) {
     .copy-code-btn {
         opacity: 1 !important;
@@ -889,6 +975,8 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 3px 8px;
     }
 }
+
+
 </style>
 
 </body>

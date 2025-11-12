@@ -152,6 +152,14 @@
   </url><url>
     <loc>http://localhost:1313/tags/pxe/</loc>
   </url><url>
+    <loc>http://localhost:1313/tags/rdp/</loc>
+  </url><url>
+    <loc>http://localhost:1313/categories/remote-management/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tags/remote-desktop/</loc>
+  </url><url>
+    <loc>http://localhost:1313/tools/royal-ts/</loc>
+  </url><url>
     <loc>http://localhost:1313/tools/sysinterals-suit/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/system-mgmt/</loc>

@@ -2,6 +2,7 @@
 <html class="no-js" lang="en">
 <head>
 	<meta name="generator" content="Hugo 0.152.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Andy J Blog - Trials of an IT Engineer</title>
@@ -13,13 +14,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
         <link rel="stylesheet" href="/css/style.css">
-        
+        <link rel="stylesheet" href="/css/custom.css">
         <link rel="alternate" type="application/rss+xml" href="/index.xml" title="Andy J Blog - Trials of an IT Engineer">
 
         <link rel="shortcut icon" href="/favicon.ico">
                 
 </head>
 <body class="body">
+    <div id="particles-js"></div>
+    
+
+
         <div class="container container--outer">
                 <header class="header">
 	<div class="container header__container">
@@ -259,7 +264,7 @@
                         </svg>
                     </a>
                     <span class="reading-time">
-                        2 min read
+                        3 min read
                     </span>
                 </div>
             </article>
@@ -596,6 +601,10 @@
 				<span class="widget__counter widget__counter--bubble">1</span>
 				</li>
 			<li class="widget__item">
+				<a class="widget__link" href="/categories/remote-management/">Remote Management</a>&nbsp;
+				<span class="widget__counter widget__counter--bubble">1</span>
+				</li>
+			<li class="widget__item">
 				<a class="widget__link" href="/categories/security/">Security</a>&nbsp;
 				<span class="widget__counter widget__counter--bubble">2</span>
 				</li>
@@ -605,7 +614,7 @@
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/tools/">Tools</a>&nbsp;
-				<span class="widget__counter widget__counter--bubble">5</span>
+				<span class="widget__counter widget__counter--bubble">6</span>
 				</li>
 			<li class="widget__item">
 				<a class="widget__link" href="/categories/useful-tools-and-applications/">Useful Tools and Applications</a>&nbsp;
@@ -622,11 +631,11 @@
 		<a class="widget-taglist__link widget__link btn" href="/tags/applications/" title="Applications">Applications (3)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/automation/" title="Automation">Automation (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/backup/" title="Backup">Backup (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/bash/" title="Bash">Bash (4)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash/" title="Bash">Bash (3)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/blog/" title="Blog">Blog (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/browser-extension/" title="Browser-Extension">Browser-Extension (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/custom-build/" title="Custom Build">Custom Build (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/cybersecurity/" title="Cybersecurity">Cybersecurity (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cybersecurity/" title="Cybersecurity">Cybersecurity (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/dark-mode/" title="Dark-Mode">Dark-Mode (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/documentation/" title="Documentation">Documentation (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/eye-care/" title="Eye-Care">Eye-Care (1)</a>
@@ -638,10 +647,12 @@
 		<a class="widget-taglist__link widget__link btn" href="/tags/networking/" title="Networking">Networking (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/os-deployment/" title="Os-Deployment">Os-Deployment (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/pc-build/" title="PC Build">PC Build (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/pentesting/" title="Pentesting">Pentesting (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pentesting/" title="Pentesting">Pentesting (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/performance/" title="Performance">Performance (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/professional-development/" title="Professional-Development">Professional-Development (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/pxe/" title="Pxe">Pxe (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rdp/" title="Rdp">Rdp (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/remote-desktop/" title="Remote-Desktop">Remote-Desktop (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/security/" title="Security">Security (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/system-mgmt/" title="System MGMT">System MGMT (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/tools/" title="Tools">Tools (1)</a>
@@ -734,6 +745,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
 <style>
 .highlight {
     position: relative;
@@ -746,6 +758,32 @@ document.addEventListener('DOMContentLoaded', function() {
     transform: translateY(-1px);
 }
 
+.body {
+       background: 
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    min-height: 100vh;
+    animation: textureMove 60s linear infinite;
+}
+
+@keyframes textureMove {
+    0% { background-position: 0 5px, 10px 0px, 0px 10px, 10px 5px, 0 0, 0 0; }
+    100% { background-position: 100px 5px, 110px 0px, 100px 10px, 110px 5px, 100px 0, 100px 0; }
+
+    
+.container.container--outer {
+    background: rgba(19, 19, 19, 0.92);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
 @media (max-width: 768px) {
     .copy-code-btn {
         opacity: 1 !important;
@@ -753,6 +791,8 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 3px 8px;
     }
 }
+
+
 </style>
 
 </body>

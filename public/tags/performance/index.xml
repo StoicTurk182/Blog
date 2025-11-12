@@ -25,8 +25,7 @@
             <link>http://localhost:1313/posts/remote-penetration-testing-kali-linux/</link>
             <pubDate>Sat, 08 Nov 2025 00:00:00 +0000</pubDate>
             <guid>http://localhost:1313/posts/remote-penetration-testing-kali-linux/</guid>
-            <description>&lt;br&gt;
-&lt;h1 id=&#34;remote-penetration-testing-guide-kali-linux&#34;&gt;Remote Penetration Testing Guide: Kali Linux&lt;/h1&gt;
+            <description>&lt;h1 id=&#34;remote-penetration-testing-guide-kali-linux&#34;&gt;Remote Penetration Testing Guide: Kali Linux&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;Hacking your own infrastructure with Kali Linux.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;This is an example of a script I created for very basic testing to practice my Linux scripting and to make sure my VPS servers remain secure. It is not an in-depth attempt to break things, but it is an attempt to gain more experience with a side of IT that I have little, to no experience in beyond some basic Steganography, which I did in university. Even then that was not related to pen testing but to cryptography. The simple truth is I am lazy and so instead of spending ages collecting all the commands needed to mount an attack / vulnerability scan. I can save a lot of time by automating this process, the below shell script is the result. It works when testing and has given me some ideas. But please be advised it is on the extreme end of simple.&lt;/p&gt;</description>
         </item>
@@ -50,22 +49,19 @@
 &lt;h1 id=&#34;comprehensive-guide-veeam-agent-level-backups-with-user-self-service&#34;&gt;Comprehensive Guide: Veeam Agent-Level Backups with User Self-Service&lt;/h1&gt;
 &lt;h2 id=&#34;linux-vms--windows-workstations&#34;&gt;Linux VMs &amp;amp; Windows Workstations&lt;/h2&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;#overview&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#architecture--concepts&#34;&gt;Architecture &amp;amp; Concepts&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#prerequisites&#34;&gt;Prerequisites&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#installation--deployment&#34;&gt;Installation &amp;amp; Deployment&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#user-permissions--roles&#34;&gt;User Permissions &amp;amp; Roles&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#self-service-configuration&#34;&gt;Self-Service Configuration&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#operating-modes-explained&#34;&gt;Operating Modes Explained&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#step-by-step-implementation&#34;&gt;Step-by-Step Implementation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#best-practices&#34;&gt;Best Practices&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#troubleshooting&#34;&gt;Troubleshooting&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;hr&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;This guide covers implementing Veeam agent-level backups for Linux VMs and Windows workstations with user self-service capabilities, allowing remote users to initiate and manage their own backups while maintaining centralized control.&lt;/p&gt;</description>
+&lt;p&gt;This guide covers implementing Veeam agent-level backups for Linux VMs and Windows workstations with user self-service capabilities, allowing remote users to initiate and manage their own backups while maintaining centralized control.&lt;/p&gt;
+&lt;h3 id=&#34;key-capabilities&#34;&gt;Key Capabilities&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Centralized Management&lt;/strong&gt;: Manage agents from Veeam Backup &amp;amp; Replication console&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;User Self-Service&lt;/strong&gt;: Users can initiate backups from their machines&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Flexible Control&lt;/strong&gt;: Choose between full control and read-only modes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross-Platform&lt;/strong&gt;: Unified approach for Linux and Windows systems&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;architecture--concepts&#34;&gt;Architecture &amp;amp; Concepts&lt;/h2&gt;
+&lt;h3 id=&#34;agent-operation-modes&#34;&gt;Agent Operation Modes&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;1. Standalone Mode&lt;/strong&gt;&lt;/p&gt;</description>
         </item>
         
         <item>
@@ -73,25 +69,16 @@
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
             <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
-            <description>&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
-&lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;
-&lt;h3 id=&#34;key-details&#34;&gt;Key Details&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;CVSS Score:&lt;/strong&gt; 9.8/10 (Critical)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Affected Systems:&lt;/strong&gt; Windows 10, 11, Server 2019/2022&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Attack Vector:&lt;/strong&gt; Remote code execution via malicious Office documents&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Status:&lt;/strong&gt; Active exploitation in 47 countries&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;immediate-actions-required&#34;&gt;Immediate Actions Required&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Apply KB5037851&lt;/strong&gt; emergency security update immediately&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Block Office macros&lt;/strong&gt; from the internet zone&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Enable Attack Surface Reduction&lt;/strong&gt; rules&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Monitor for suspicious PowerShell and MSHTA activity&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;impact-assessment&#34;&gt;Impact Assessment&lt;/h3&gt;
-&lt;p&gt;Successful exploitation allows full system compromise without user interaction. Multiple ransomware groups including LockBit and BlackCat have weaponized this vulnerability.&lt;/p&gt;</description>
+            <description>&lt;h2 id=&#34;featured-content-gamers-nexus&#34;&gt;Featured Content: Gamers Nexus&lt;/h2&gt;
+&lt;p&gt;Check out this excellent technical analysis from &lt;strong&gt;Gamers Nexus&lt;/strong&gt; - one of the most trusted sources for in-depth hardware reviews and performance testing.
+They are getting very involved with investigative journalism and I would also highly recommend following  them on their secondary channel: &lt;a href=&#34;https://www.youtube.com/@GNCAInvestigates&#34;&gt;GNCA - GamersNexus Consumer Advocacy&lt;/a&gt;
+This also comes highly recommended, truly amazing content.&lt;/p&gt;
+&lt;p&gt;&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/1H3xQaf7BFI?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
+    &lt;/div&gt;
+
+&lt;br&gt;
+&lt;strong&gt;About Gamers Nexus&lt;/strong&gt;&lt;/p&gt;</description>
         </item>
         
         <item>
@@ -185,6 +172,17 @@
 &lt;p&gt;Process Lasso is an innovative system optimization and automation software that improves PC performance, responsiveness, and stability through process priority optimization, CPU affinity management, and proactive system monitoring.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Process Lasso works in the background to optimize your system&amp;rsquo;s process scheduling, ensuring that important applications get the CPU resources they need while preventing background processes from degrading system responsiveness. It&amp;rsquo;s particularly effective for gamers, content creators, and power users who demand maximum system performance.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Royal TS</title>
+            <link>http://localhost:1313/tools/royal-ts/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/royal-ts/</guid>
+            <description>&lt;h1 id=&#34;royal-ts&#34;&gt;Royal TS&lt;/h1&gt;
+&lt;p&gt;Royal TS is a powerful remote management solution for Windows that provides unified access to various remote connections including RDP, VNC, SSH, web pages, and more through a single, tabbed interface.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This professional-grade remote management tool consolidates multiple connection types into one intuitive application, eliminating the need for separate tools for different protocols. Royal TS offers both free and paid versions with enterprise-grade features for IT professionals, system administrators, and power users.&lt;/p&gt;</description>
         </item>
         
         <item>

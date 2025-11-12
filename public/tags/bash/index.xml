@@ -69,25 +69,16 @@
             <link>http://localhost:1313/tech-newsletter/weekly-update-1/</link>
             <pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate>
             <guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid>
-            <description>&lt;h2 id=&#34;-critical-security-alert-windows-zero-day-exploit&#34;&gt;🔴 Critical Security Alert: Windows Zero-Day Exploit&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;CVE-2025-26701&lt;/strong&gt; - Emergency patch required for all Windows systems&lt;/p&gt;
-&lt;p&gt;Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.&lt;/p&gt;
-&lt;h3 id=&#34;key-details&#34;&gt;Key Details&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;CVSS Score:&lt;/strong&gt; 9.8/10 (Critical)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Affected Systems:&lt;/strong&gt; Windows 10, 11, Server 2019/2022&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Attack Vector:&lt;/strong&gt; Remote code execution via malicious Office documents&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Status:&lt;/strong&gt; Active exploitation in 47 countries&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;immediate-actions-required&#34;&gt;Immediate Actions Required&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Apply KB5037851&lt;/strong&gt; emergency security update immediately&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Block Office macros&lt;/strong&gt; from the internet zone&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Enable Attack Surface Reduction&lt;/strong&gt; rules&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Monitor for suspicious PowerShell and MSHTA activity&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;impact-assessment&#34;&gt;Impact Assessment&lt;/h3&gt;
-&lt;p&gt;Successful exploitation allows full system compromise without user interaction. Multiple ransomware groups including LockBit and BlackCat have weaponized this vulnerability.&lt;/p&gt;</description>
+            <description>&lt;h2 id=&#34;featured-content-gamers-nexus&#34;&gt;Featured Content: Gamers Nexus&lt;/h2&gt;
+&lt;p&gt;Check out this excellent technical analysis from &lt;strong&gt;Gamers Nexus&lt;/strong&gt; - one of the most trusted sources for in-depth hardware reviews and performance testing.
+They are getting very involved with investigative journalism and I would also highly recommend following  them on their secondary channel: &lt;a href=&#34;https://www.youtube.com/@GNCAInvestigates&#34;&gt;GNCA - GamersNexus Consumer Advocacy&lt;/a&gt;
+This also comes highly recommended, truly amazing content.&lt;/p&gt;
+&lt;p&gt;&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen&#34; loading=&#34;eager&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/1H3xQaf7BFI?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
+    &lt;/div&gt;
+
+&lt;br&gt;
+&lt;strong&gt;About Gamers Nexus&lt;/strong&gt;&lt;/p&gt;</description>
         </item>
         
         <item>
@@ -181,6 +172,17 @@
 &lt;p&gt;Process Lasso is an innovative system optimization and automation software that improves PC performance, responsiveness, and stability through process priority optimization, CPU affinity management, and proactive system monitoring.&lt;/p&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;Process Lasso works in the background to optimize your system&amp;rsquo;s process scheduling, ensuring that important applications get the CPU resources they need while preventing background processes from degrading system responsiveness. It&amp;rsquo;s particularly effective for gamers, content creators, and power users who demand maximum system performance.&lt;/p&gt;</description>
+        </item>
+        
+        <item>
+            <title>Royal TS</title>
+            <link>http://localhost:1313/tools/royal-ts/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>http://localhost:1313/tools/royal-ts/</guid>
+            <description>&lt;h1 id=&#34;royal-ts&#34;&gt;Royal TS&lt;/h1&gt;
+&lt;p&gt;Royal TS is a powerful remote management solution for Windows that provides unified access to various remote connections including RDP, VNC, SSH, web pages, and more through a single, tabbed interface.&lt;/p&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This professional-grade remote management tool consolidates multiple connection types into one intuitive application, eliminating the need for separate tools for different protocols. Royal TS offers both free and paid versions with enterprise-grade features for IT professionals, system administrators, and power users.&lt;/p&gt;</description>
         </item>
         
         <item>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>NEWS - Andy J Blog - Trials of an IT Engineer</title>
@@ -12,12 +13,16 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
         <link rel="stylesheet" href="/css/style.css">
-        
+        <link rel="stylesheet" href="/css/custom.css">
 
         <link rel="shortcut icon" href="/favicon.ico">
                 
 </head>
 <body class="body">
+    <div id="particles-js"></div>
+    
+
+
         <div class="container container--outer">
                 <header class="header">
 	<div class="container header__container">
@@ -93,7 +98,7 @@
             <span class="post-date">November 4, 2025</span>
 
             
-        <span class="reading-time">• 2 min read</span>
+        <span class="reading-time">• 3 min read</span>
 
             <span class="post-category">Newsletter</span>
         </div>
@@ -105,11 +110,43 @@
     </header>
 
     
+       
+  <aside class="toc">
+    <h2>Table of Contents</h2>
+    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#featured-content-gamers-nexus">Featured Content: Gamers Nexus</a></li>
+    <li><a href="#-critical-security-alert-windows-zero-day-exploit">🔴 Critical Security Alert: Windows Zero-Day Exploit</a></li>
+    <li><a href="#tool-recommendation-tailscale-mesh-vpn">Tool Recommendation: Tailscale Mesh VPN</a></li>
+    <li><a href="#emerging-threats">Emerging Threats</a></li>
+  </ol>
+</nav>
+  </aside>
+  
+
+    
     
 
     
     <div class="post-content">
-        <h2 id="-critical-security-alert-windows-zero-day-exploit">🔴 Critical Security Alert: Windows Zero-Day Exploit</h2>
+        <h2 id="featured-content-gamers-nexus">Featured Content: Gamers Nexus</h2>
+<p>Check out this excellent technical analysis from <strong>Gamers Nexus</strong> - one of the most trusted sources for in-depth hardware reviews and performance testing.
+They are getting very involved with investigative journalism and I would also highly recommend following  them on their secondary channel: <a href="https://www.youtube.com/@GNCAInvestigates">GNCA - GamersNexus Consumer Advocacy</a>
+This also comes highly recommended, truly amazing content.</p>
+<p><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/1H3xQaf7BFI?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<br>
+<strong>About Gamers Nexus</strong></p>
+<ul>
+<li><strong>Channel:</strong> <a href="https://www.youtube.com/gamersnexus">Gamers Nexus YouTube</a></li>
+<li><strong>Website:</strong> <a href="https://gamersnexus.net">Gamers Nexus Official Site</a></li>
+<li><strong>Content:</strong> Detailed hardware testing, thermal analysis, and technical deep dives</li>
+</ul>
+<p>Their rigorous testing methodology and technical expertise make them an invaluable resource for IT professionals and hardware enthusiasts alike.</p>
+<hr>
+<h2 id="-critical-security-alert-windows-zero-day-exploit">🔴 Critical Security Alert: Windows Zero-Day Exploit</h2>
 <p><strong>CVE-2025-26701</strong> - Emergency patch required for all Windows systems</p>
 <p>Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.</p>
 <h3 id="key-details">Key Details</h3>
@@ -208,7 +245,65 @@
     
 </article>
 
+
+
+<section class="author-section">
+    <div class="authorbox clearfix">
+        
+        <figure class="authorbox__avatar">
+            <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
+        </figure>
+        
+        <div class="authorbox__content">
+            <h3 class="authorbox__name">Andrew Jones</h3>
+            <p class="authorbox__bio">IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p>
+        </div>
+    </div>
+</section>
+
+
 <style>
+
+.toc {
+  background: none;
+  border-left: 3px solid #dc143c;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  width: fit-content;
+}
+
+.toc h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.toc nav > ol,
+.toc nav > ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.toc ol, .toc ul {
+  line-height: 1.8;
+}
+
+.toc li {
+  margin: 0.4rem 0;
+}
+
+.toc a {
+  
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: #dc143c;
+}       
 
 .reading-time {
     color: #64748b;
@@ -467,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
 <style>
 .highlight {
     position: relative;
@@ -479,6 +575,32 @@ document.addEventListener('DOMContentLoaded', function() {
     transform: translateY(-1px);
 }
 
+.body {
+       background: 
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    min-height: 100vh;
+    animation: textureMove 60s linear infinite;
+}
+
+@keyframes textureMove {
+    0% { background-position: 0 5px, 10px 0px, 0px 10px, 10px 5px, 0 0, 0 0; }
+    100% { background-position: 100px 5px, 110px 0px, 100px 10px, 110px 5px, 100px 0, 100px 0; }
+
+    
+.container.container--outer {
+    background: rgba(19, 19, 19, 0.92);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
 @media (max-width: 768px) {
     .copy-code-btn {
         opacity: 1 !important;
@@ -486,6 +608,8 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 3px 8px;
     }
 }
+
+
 </style>
 
 </body>

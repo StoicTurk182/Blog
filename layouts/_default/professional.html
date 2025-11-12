@@ -17,6 +17,14 @@
         </div>
     </header>
 
+    
+       {{ if .Params.toc }}
+  <aside class="toc">
+    <h2>Table of Contents</h2>
+    {{ .TableOfContents }}
+  </aside>
+  {{ end }}
+
     <!-- Featured Image -->
     {{ if .Params.featuredImage }}
     <div class="featured-image">
@@ -65,7 +73,65 @@
     {{ end }}
 </article>
 
+<!-- Author Bio Section -->
+{{ if and (.Site.Params.author) (.Site.Params.authorbio) }}
+<section class="author-section">
+    <div class="authorbox clearfix">
+        {{ if and (.Site.Params.authoravatar) (fileExists (printf "static/%s" .Site.Params.authoravatar)) }}
+        <figure class="authorbox__avatar">
+            <img alt="{{ .Site.Params.author }} avatar" src="{{ .Site.Params.authoravatar | relURL }}" class="avatar" height="90" width="90">
+        </figure>
+        {{ end }}
+        <div class="authorbox__content">
+            <h3 class="authorbox__name">{{ .Site.Params.author }}</h3>
+            <p class="authorbox__bio">{{ .Site.Params.authorbio }}</p>
+        </div>
+    </div>
+</section>
+{{ end }}
+
 <style>
+
+.toc {
+  background: none;
+  border-left: 3px solid #dc143c;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  width: fit-content;
+}
+
+.toc h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.toc nav > ol,
+.toc nav > ul {
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.toc ol, .toc ul {
+  line-height: 1.8;
+}
+
+.toc li {
+  margin: 0.4rem 0;
+}
+
+.toc a {
+  
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.toc a:hover {
+  color: #dc143c;
+}       
 
 .reading-time {
     color: #64748b;

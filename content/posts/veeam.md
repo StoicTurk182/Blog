@@ -4,7 +4,7 @@ date: 2025-11-08
 draft: false
 description: "Simple introduction to the industry standard backup and recovery software"
 categories: ["Security", "Penetration Testing"]
-tags: ["kali-linux", "pentesting", "cybersecurity", "automation", "bash"]
+tags: ["kali-linux", "automation"]
 featuredImage: "/images/posts/hero_veeam_backup-v2.jpg"
 readingTime: true
 toc: true
