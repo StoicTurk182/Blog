@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ .Site.Language.Lang }}">
 <head>
+     <style>
+    /* Prevent white flash - load this FIRST */
+    html {
+      background-color: #181a1b !important;
+    }
+    body {
+      background-color: #181a1b !important;
+    }
+  </style>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,10 +57,7 @@
         {{- end }}
 </head>
 <body class="body">
-    <div id="particles-js"></div>
     
-
-
         <div class="container container--outer">
                 {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
                 <div class="wrapper flex">
@@ -147,6 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <style>
+
+    
 .highlight {
     position: relative;
     margin: 1rem 0;
@@ -154,29 +162,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .copy-code-btn:hover {
     background: rgba(255,255,255,1) !important;
-    border-color: #0366d6 !important;
+    border-color: #ff0000 !important;
     transform: translateY(-1px);
+}
+    
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .body {
-       background: 
-        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-    background-color: #000000;
-    background-size: 20px 20px;
-    min-height: 100vh;
-
+  background: 
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+  background-color: #0a0a0a;
+  background-size: 15px 15px;
+  background-attachment: fixed; /* Keeps pattern fixed while scrolling */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
-    
+
 .container.container--outer {
-    background: rgba(19, 19, 19, 0.92);
-    backdrop-filter: blur(12px);
-    border-left: 1px solid rgba(255,255,255,0.05);
-    border-right: 1px solid rgba(255,255,255,0.05);
+  background: rgba(24, 26, 27, 0.95); /* Slightly more opaque */
+  backdrop-filter: blur(16px); /* Stronger blur */
+  -webkit-backdrop-filter: blur(16px); /* Safari support */
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 1px rgba(255, 255, 255, 0.1); /* Subtle edge glow */
+  margin-top: 0; /* Remove any top margin */
+  margin-bottom: 0; /* Remove any bottom margin */
+}
+
+/* Better visual depth */
+.wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
@@ -186,6 +214,36 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 3px 8px;
     }
 }
+
+@media screen and (max-width: 766px) {
+    .js .menu__list {
+        position: absolute;
+        z-index: 9999;
+        width: 100%;
+        left: 0;
+        top: 100%;
+    }
+    
+    .js .menu__list--active {
+        visibility: visible !important;
+        transform: scaleY(1) !important;
+        -webkit-transform: scaleY(1) !important;
+        display: block !important;
+        opacity: 1 !important;
+    }
+    
+    .menu__list--active .menu__item,
+    .menu__list--active .menu__link {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+.menu {
+    position: relative;
+}
+
+
 
 
 </style>

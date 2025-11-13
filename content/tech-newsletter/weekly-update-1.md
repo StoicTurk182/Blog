@@ -34,7 +34,7 @@ Their rigorous testing methodology and technical expertise make them an invaluab
 
 ---
 
-## 🔴 Critical Security Alert: Windows Zero-Day Exploit
+##  Critical Security Alert: Windows Zero-Day Exploit
 
 **CVE-2025-26701** - Emergency patch required for all Windows systems
 

@@ -102,6 +102,32 @@
 
 <style>
 
+    /* Code blocks - black background */
+pre,
+pre[style],
+code,
+.highlight pre {
+  background-color: #000000 !important;
+  background: #000000 !important;
+}
+
+/* Inline code */
+code[class*="language-"] {
+  background-color: #000000 !important;
+}
+
+/* Code block container */
+.highlight,
+div[class*="highlight"] {
+  background-color: #000000 !important;
+}
+
+/* Override inline styles */
+pre[style*="background-color"] {
+  background-color: #000000 !important;
+}
+
+
 .toc {
   background: none;
   border-left: 3px solid #dc143c;
@@ -112,6 +138,7 @@
   border-radius: 8px;
   margin: 2rem 0;
   width: fit-content;
+  color: black;
 }
 
 .toc h2 {
@@ -131,6 +158,7 @@
 
 .toc li {
   margin: 0.4rem 0;
+ color: black;
 }
 
 .toc a {
@@ -160,7 +188,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #e53e3e;
+    color: #000000;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.2s ease;
@@ -168,7 +196,7 @@
 }
 
 .read-more:hover {
-    color: #c53030;
+    color: #ff0000;
     border-bottom: 2px dotted #c53030;
 }
 
@@ -181,7 +209,7 @@
 }
 
 .reading-time {
-    color: #a0aec0;
+    color: #000000;
     font-size: 0.9rem;
     white-space: nowrap;
 }
@@ -207,30 +235,31 @@
 }
 
 .post-date {
-    color: #6b7280;
+    color: #000000;
     font-size: 0.9rem;
     font-weight: 500;
+
 }
 
 /* READING TIME STYLES - STANDALONE */
 .reading-time {
-    color: #6b7280;
+    color: #000000;
     font-size: 0.9rem;
     font-weight: 500;
 }
 
 .post-category {
     background: #f3f4f6;
-    color: #374151;
+    color: #000000;
     padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    border-radius: 0px;
     font-size: 0.8rem;
     font-weight: 500;
 }
 
 .post-title {
     font-size: 2.5rem;
-    color: #1f2937;
+    color: #000000;
     margin: 0 0 1rem 0;
     font-weight: 300;
     line-height: 1.2;
@@ -238,7 +267,7 @@
 
 .post-description {
     font-size: 1.2rem;
-    color: #6b7280;
+    color: #000000;
     margin-bottom: 1.5rem;
     line-height: 1.6;
 }
@@ -250,25 +279,25 @@
 }
 
 .author {
-    color: #6b7280;
+    color: #000000;
     font-size: 0.9rem;
 }
 
 .post-content {
     line-height: 1.7;
-    color: #374151;
+    color: #000000;
     font-size: 1.1rem;
 }
 
 .post-content h2 {
-    color: #1f2937;
+    color: #000000;
     font-weight: 400;
     margin: 2rem 0 1rem 0;
     font-size: 1.8rem;
 }
 
 .post-content h3 {
-    color: #374151;
+    color: #000000;
     font-weight: 500;
     margin: 1.5rem 0 0.75rem 0;
     font-size: 1.4rem;

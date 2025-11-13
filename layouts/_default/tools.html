@@ -13,12 +13,6 @@
         </div>
     </section>
 
-    <!-- Tools Grid Section -->
-    <section class="tools-section">
-        <div class="section-header">
-            <h2>Tools & Applications</h2>
-            <p>Collection of utilities and resources</p>
-        </div>
 
         <div class="tools-grid">
             {{ range .Pages }}
@@ -89,14 +83,19 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    background-color: #ffffff78;
+    padding: 2rem;
+    border-radius: 0px;
+
 }
 
 /* Tools Hero Section */
 .tools-hero {
-    text-align: center;
+    text-align: left;
     padding: 3rem 0 2rem 0;
     border-bottom: 1px solid #ff0000;
     margin-bottom: 3rem;
+    
 }
 
 .tools-hero .hero-title {
@@ -104,19 +103,20 @@
     color: #000000;
     margin: 0 0 1rem 0;
     font-weight: 300;
+    
 }
 
 .tools-hero .hero-description {
     font-size: 1.3rem;
-    color: #6b7280;
+    color: #000000;
     margin-bottom: 1.5rem;
 }
 
 .tools-description {
     max-width: 600px;
-    margin: 0 auto;
-    color: #1e1e1e;
+    color: #000000;
     line-height: 1.6;
+    text-align: left;
 }
 
 /* Tools Grid */
@@ -124,15 +124,10 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
-    background: linear-gradient(to bottom, 
-        rgba(255, 255, 255, 0) 0%, 
-        rgba(245, 245, 245, 1) 10%, 
-        rgba(230, 230, 230, 1) 50%, 
-        rgba(245, 245, 245, 1) 90%,
-        rgba(255, 255, 255, 0) 100%);
+    background-color: #ffffff00;
     padding: 2rem;
     border-radius: 0px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
 }
 
 .tools-grid {
@@ -142,7 +137,7 @@
 }
 
 .tool-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.639);
     border: 1px solid #cbcbcb;
     border-radius: 0px;
     padding: 1.5rem;
@@ -167,15 +162,15 @@
 
 .tool-card .card-badge {
     background: #f0f9ff;
-    color: #0369a1;
+    color: #000000;
     padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    border-radius: 0px;
     font-size: 0.8rem;
     font-weight: 500;
 }
 
 .card-version {
-    color: #6b7280;
+    color: #000000;
     font-size: 0.8rem;
     font-family: monospace;
 }
@@ -187,7 +182,7 @@
 }
 
 .tool-card .card-title a {
-    color: #1f2937;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -196,7 +191,7 @@
 }
 
 .tool-card .card-description {
-    color: #6b7280;
+    color: #000000;
     line-height: 1.5;
     margin: 0 0 1.5rem 0;
     flex-grow: 1;
@@ -221,25 +216,25 @@
     background: #fef2f2;
     color: #dc2626;
     padding: 0.25rem 0.75rem;
-    border-radius: 12px;
+    border-radius: 0px;
     font-size: 0.8rem;
     font-weight: 500;
 }
 
 .tag {
     background: #f3f4f6;
-    color: #374151;
+    color: #000000;
     padding: 0.2rem 0.6rem;
-    border-radius: 8px;
+    border-radius: 0px;
     font-size: 0.75rem;
     border: 1px solid #e5e7eb;
 }
 
 .tag-more {
     background: #f9fafb;
-    color: #6b7280;
+    color: #000000;
     padding: 0.2rem 0.6rem;
-    border-radius: 8px;
+    border-radius: 0px;
     font-size: 0.75rem;
     border: 1px solid #e5e7eb;
 }
@@ -259,7 +254,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #e53e3e;
+    color: #000000;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.2s ease;
@@ -267,8 +262,8 @@
 }
 
 .read-more:hover {
-    color: #c53030;
-    border-bottom: 2px dotted #c53030;
+    color: #ff0000;
+    border-bottom: 2px dotted #ff0000;
 }
 
 .card-footer .read-more svg {
@@ -288,7 +283,6 @@
 
 .action-link {
     padding: 0.4rem 0.8rem;
-    border-radius: 6px;
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: 500;
@@ -320,7 +314,6 @@
     color: white;
     padding: 0.75rem 1.5rem;
     text-decoration: none;
-    border-radius: 6px;
     font-weight: 500;
     transition: background-color 0.2s;
     display: inline-block;
@@ -341,7 +334,6 @@
     padding: 0.75rem 1.5rem;
     text-decoration: none;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
     font-weight: 500;
     transition: all 0.2s;
     display: inline-block;

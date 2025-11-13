@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+     <style>
+     
+    html {
+      background-color: #181a1b !important;
+    }
+    body {
+      background-color: #181a1b !important;
+    }
+  </style>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,10 +28,7 @@
                 
 </head>
 <body class="body">
-    <div id="particles-js"></div>
     
-
-
         <div class="container container--outer">
                 <header class="header">
 	<div class="container header__container">
@@ -164,15 +170,10 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
-    background: linear-gradient(to bottom, 
-        rgba(255, 255, 255, 0) 0%, 
-        rgba(245, 245, 245, 1) 10%, 
-        rgba(230, 230, 230, 1) 50%, 
-        rgba(245, 245, 245, 1) 90%,
-        rgba(255, 255, 255, 0) 100%);
+    background: #ffffff;
     padding: 2rem;
     border-radius: 0px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
 }
 
 .contact-header {
@@ -192,7 +193,7 @@
 
 .contact-subtitle {
     font-size: 1.2rem;
-     color: #6b7280;
+     color: #000000;
     margin-top: 0.5rem;
     font-style: italic;
 }
@@ -283,7 +284,7 @@
     padding: 0.75rem 1.5rem;
     text-decoration: none;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border-radius: 0px;
     font-weight: 500;
     transition: all 0.2s;
 }
@@ -419,6 +420,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <style>
+
+    
 .highlight {
     position: relative;
     margin: 1rem 0;
@@ -426,34 +429,49 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .copy-code-btn:hover {
     background: rgba(255,255,255,1) !important;
-    border-color: #0366d6 !important;
+    border-color: #ff0000 !important;
     transform: translateY(-1px);
+}
+    
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .body {
-       background: 
-        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-    background-color: #131313;
-    background-size: 20px 20px;
-    min-height: 100vh;
-    animation: textureMove 60s linear infinite;
+  background: 
+    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+  background-color: #0a0a0a;
+  background-size: 15px 15px;
+  background-attachment: fixed;  
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes textureMove {
-    0% { background-position: 0 5px, 10px 0px, 0px 10px, 10px 5px, 0 0, 0 0; }
-    100% { background-position: 100px 5px, 110px 0px, 100px 10px, 110px 5px, 100px 0, 100px 0; }
-
-    
 .container.container--outer {
-    background: rgba(19, 19, 19, 0.92);
-    backdrop-filter: blur(12px);
-    border-left: 1px solid rgba(255,255,255,0.05);
-    border-right: 1px solid rgba(255,255,255,0.05);
+  background: rgba(24, 26, 27, 0.95);  
+  backdrop-filter: blur(16px);  
+  -webkit-backdrop-filter: blur(16px);  
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 1px rgba(255, 255, 255, 0.1);  
+  margin-top: 0;  
+  margin-bottom: 0;  
+}
+
+ 
+.wrapper {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
@@ -463,6 +481,36 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 3px 8px;
     }
 }
+
+@media screen and (max-width: 766px) {
+    .js .menu__list {
+        position: absolute;
+        z-index: 9999;
+        width: 100%;
+        left: 0;
+        top: 100%;
+    }
+    
+    .js .menu__list--active {
+        visibility: visible !important;
+        transform: scaleY(1) !important;
+        -webkit-transform: scaleY(1) !important;
+        display: block !important;
+        opacity: 1 !important;
+    }
+    
+    .menu__list--active .menu__item,
+    .menu__list--active .menu__link {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+.menu {
+    position: relative;
+}
+
+
 
 
 </style>
