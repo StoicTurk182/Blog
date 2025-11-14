@@ -1002,6 +1002,84 @@ html, body {
     position: relative;
 }
 
+ 
+.header {
+    position: sticky;   
+    top: 0;
+    z-index: 1000;   
+    background: rgba(24, 26, 27, 0.95);   
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);   
+}
+
+.menu {
+    position: relative;   
+}
+
+ 
+.header {
+    position: sticky;   
+    top: 0;
+    z-index: 1000;   
+    background: rgba(24, 26, 27, 0.98);   
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);   
+    padding: 1rem 0;   
+}
+
+.menu {
+    position: relative;   
+}
+
+ 
+.header a,
+.header h1,
+.header h2 {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+ 
+.menu__link,
+.menu__item {
+    color: #ffffff !important;
+}
+
+.menu__link:hover {
+    color: #e0e0e0 !important;
+    transition: all 0.2s ease;
+}
+
+ 
+.logo__title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+ 
+@media (max-width: 768px) {
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(24, 26, 27, 0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+}
+
+ 
+@media (max-width: 480px) {
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(24, 26, 27, 0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        padding: 0.75rem 0;
+    }
+}
 
 </style>
 

@@ -470,6 +470,84 @@ html, body {
     position: relative;
 }
 
+/* ===== FLOATING STICKY HEADER/MENU ===== */
+.header {
+    position: sticky;  /* NEW: Makes header stick to top while scrolling */
+    top: 0;
+    z-index: 1000;  /* NEW: Ensures it stays above content */
+    background: rgba(24, 26, 27, 0.95);  /* Match your body background */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);  /* Subtle shadow */
+}
+
+.menu {
+    position: relative;  /* Keep as is */
+}
+
+/* ===== FLOATING STICKY HEADER/MENU ===== */
+.header {
+    position: sticky;  /* Makes header stick to top while scrolling */
+    top: 0;
+    z-index: 1000;  /* Ensures it stays above content */
+    background: rgba(24, 26, 27, 0.98);  /* CHANGED: More opaque for better text visibility */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);  /* CHANGED: Stronger shadow for visual separation */
+    padding: 1rem 0;  /* NEW: Add padding for breathing room */
+}
+
+.menu {
+    position: relative;  /* Keep as is */
+}
+
+/* ===== HEADER TEXT STYLING ===== */
+.header a,
+.header h1,
+.header h2 {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ===== HEADER MENU ITEMS ===== */
+.menu__link,
+.menu__item {
+    color: #ffffff !important;
+}
+
+.menu__link:hover {
+    color: #e0e0e0 !important;
+    transition: all 0.2s ease;
+}
+
+/* ===== LOGO/TITLE TEXT - MAKE WHITE ===== */
+.logo__title {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* ===== TABLET ADJUSTMENT ===== */
+@media (max-width: 768px) {
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(24, 26, 27, 0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* ===== MOBILE ADJUSTMENT ===== */
+@media (max-width: 480px) {
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(24, 26, 27, 0.98);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        padding: 0.75rem 0;
+    }
+}
 
 </style>
 
