@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="{{ .Site.Language.Lang }}">
+    
 <head>
      <style>
     /* Prevent white flash - load this FIRST */
@@ -56,24 +57,36 @@
                 {{ template "_internal/google_analytics.html" . }}
         {{- end }}
 </head>
+
 <body class="body">
     
         <div class="container container--outer">
-                {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
-                <div class="wrapper flex">
-                        <div class="primary">
-                        {{ block "main" . }}
-                                {{ with .Content }}
-                                <div class="content main__content clearfix">
-                                        {{ . }}
-                                </div>
-                                {{ end }}
-                        {{ end }}
+    {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
+    
+    <!-- Barba.js REQUIRED structure -->
+    <div id="barba-wrapper">
+        <div class="barba-container" data-barba="container">
+            <div class="wrapper flex">
+                <div class="primary">
+
+                    <!-- SINGLE main block definition -->
+                    {{ block "main" . }}
+                        {{ with .Content }}
+                        <div class="content main__content clearfix">
+                            {{ . }}
                         </div>
-                        {{ block "sidebar" . }}{{ partial "sidebar.html" . }}{{ end }}
+                        {{ end }}
+                    {{ end }}
                 </div>
-                {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
+                {{ block "sidebar" . }}{{ partial "sidebar.html" . }}{{ end }}
+            </div>
         </div>
+    </div>
+    
+    {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
+</div>
+
+<!-- ALL OTHER SCRIPTS FIRST -->
 <script async defer src="{{ "js/menu.js" | relURL }}"></script>
 {{ range .Site.Params.customJS -}}
 <script src="{{ . | relURL }}"></script>
@@ -151,7 +164,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- BARBA PARTIAL - ABSOLUTELY LAST -->
+{{ partial "barba-transitions.html" . }}
 
+</body>
+</html>
 <style>
 
     
