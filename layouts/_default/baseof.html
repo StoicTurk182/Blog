@@ -332,11 +332,12 @@ window.addEventListener('load', preloadImages);
     border-bottom: 2px solid #ffffff;
 }
 
-/* Mobile responsiveness */
+/* ===== TABLET RESPONSIVENESS (768px and below) ===== */
 @media (max-width: 768px) {
     .hero {
         min-height: 300px;
         padding: 2rem 0 1.5rem;
+        transition: background-image 0s;  /* NEW: Disable transition on tablet to prevent lag */
     }
 
     .hero > * {
@@ -355,10 +356,12 @@ window.addEventListener('load', preloadImages);
     }
 }
 
+/* ===== MOBILE RESPONSIVENESS (480px and below) ===== */
 @media (max-width: 480px) {
     .hero {
         min-height: 250px;
         padding: 1.5rem 0 1rem;
+        transition: background-image 0s;  /* NEW: Disable transition on mobile to prevent lag */
     }
 
     .hero > * {
@@ -384,8 +387,6 @@ window.addEventListener('load', preloadImages);
         padding: 0.5rem 1rem;
     }
 }
-
-
 
 
 
