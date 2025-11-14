@@ -7,42 +7,47 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
 
 [params]
   description = "Personal Projects"
-  readmore = true          # Show "Read more" button in lists
-  authorbox = true         # Show author box at bottom of pages
-  pager = true             # Show prev/next navigation (this is showPostNav)
-  toc = true               # Enable Table of Contents
-  mathjax = true           # Enable MathJax (math equations)
+  readmore = true
+  authorbox = true
+  pager = true
+  toc = true
+  mathjax = true
   readingTime = true
-  post_meta = ["author", "date", "categories","readingtime"] 
+  post_meta = ["author", "date", "categories", "readingtime"]
   author = "Andrew Jones"
   authorbio = "IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible."
   authoravatar = "/images/posts/Andrew.png"
-
-    customCSS = ["css/custom.css"]
 
   [params.logo]
     title = "Projects 2025"
     subtitle = "Information Technology Musings"
 
- [params.style]
-  # Check theme documentation for available variables
-  background = "#1a1a1a"
-  text = "#e0e0e0"
+  [params.style]
+    background = "#1a1a1a"
+    text = "#e0e0e0"
 
-  # CORRECT WIDGET CONFIGURATION
   [params.sidebar]
-    # Enable sidebar on different page types
     home = true
-    single = false 
+    single = false
     list = false
-
-    # Widgets configuration
     widgets = ["recent", "categories", "social"]
 
-     [params.social]
+  [params.social]
     youtube = "https://www.youtube.com/@saraf01"
 
-# ADD MAIN MENU ITEM
+  [params.widgets]
+    recent_num = 5
+    categories_counter = true
+    tags_counter = true
+
+  [params.comments]
+    utterances = true
+    utterancesRepo = "StoicTurk182/Blog"
+    utterancesIssueTerm = "pathname"
+    utterancesTheme = "github-dark"
+
+# REMOVED the problematic customCSS line that was causing skipping
+
 [[menu.main]]
   name = "Home"
   url = "/"
@@ -54,74 +59,57 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   weight = 2
 
 [[menu.main]]
-  name = "Videos"
-  url = "/Videos/"
-  weight = 3
+  name = "Tech News"
+  url = "/tech-newsletter/weekly-update-1/"
+  weight = 10
 
 [[menu.main]]
-    name = "Contact Me"
-    url = "/contact/"
-    weight = 100
-
-    [[menu.main]]
-name = "Tech News"
-url = "/tech-newsletter/weekly-update-1/"
-weight = 10
+  name = "Tools"
+  url = "/tools/"
+  weight = 20
 
 [[menu.main]]
-name = "Tools"
-url = "/tools/"
-weight = 20
+  name = "Videos"  # ← ADD THIS LINE
+  url = "/videos/" # ← ADD THIS LINE  
+  weight = 30      # ← ADD THIS LINE
 
-  [params.widgets]
-  recent_num = 5
-  categories_counter = true
-  tags_counter = true
-
-    [markup]
+[markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-       [markup.tableOfContents]
+  [markup.tableOfContents]
     startLevel = 2
     endLevel = 2
-    ordered = true    
-
-   [params.comments]
-  utterances = true
-  utterancesRepo = "StoicTurk182/Blog"
-  utterancesIssueTerm = "pathname"
-  utterancesTheme = "github-dark"
+    ordered = true
 
 [[module.mounts]]
-    source = 'content'
-    target = 'content'
+  source = 'content'
+  target = 'content'
 
-  [[module.mounts]]
-    source = 'data'
-    target = 'data'
+[[module.mounts]]
+  source = 'data'
+  target = 'data'
 
-  [[module.mounts]]
-    source = 'layouts'
-    target = 'layouts'
+[[module.mounts]]
+  source = 'layouts'
+  target = 'layouts'
 
-  [[module.mounts]]
-    source = 'i18n'
-    target = 'i18n'
+[[module.mounts]]
+  source = 'i18n'
+  target = 'i18n'
 
-  [[module.mounts]]
-    source = 'archetypes'
-    target = 'archetypes'
+[[module.mounts]]
+  source = 'archetypes'
+  target = 'archetypes'
 
-  [[module.mounts]]
-    source = 'assets'
-    target = 'assets'
+[[module.mounts]]
+  source = 'assets'
+  target = 'assets'
 
-  [[module.mounts]]
-    source = 'static'
-    target = 'static'
+[[module.mounts]]
+  source = 'static'
+  target = 'static'
 
-  # ADD THIS MOUNT FOR THEME ASSETS:
-  [[module.mounts]]
-    source = 'themes/mainroad/assets'
-    target = 'assets'
+[[module.mounts]]
+  source = 'themes/mainroad/assets'
+  target = 'assets'

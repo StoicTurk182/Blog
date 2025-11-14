@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/videos/</loc>
+    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/automation/</loc>
     <lastmod>2025-11-08T10:00:00+00:00</lastmod>
   </url><url>
@@ -112,15 +115,6 @@
   </url><url>
     <loc>http://localhost:1313/tags/pc-build/</loc>
     <lastmod>2025-10-30T10:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/audio-visual/</loc>
-    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/videos/</loc>
-    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/videos/</loc>
-    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2023-10-20T00:00:00+00:00</lastmod>

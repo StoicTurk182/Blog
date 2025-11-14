@@ -120,26 +120,6 @@
         </div>
     </section>
 
-    <!-- Author Bio Section -->
-    {{ if and (.Site.Params.author) (.Site.Params.authorbio) }}
-    <section class="author-section">
-        <div class="authorbox clearfix">
-            {{ if and (.Site.Params.authoravatar) (fileExists (printf "static/%s" .Site.Params.authoravatar)) }}
-            <figure class="authorbox__avatar">
-                <img alt="{{ .Site.Params.author }} avatar" src="{{ .Site.Params.authoravatar | relURL }}" class="avatar" height="90" width="90">
-            </figure>
-            {{ end }}
-            <div class="authorbox__header">
-                <span class="authorbox__name">About {{ .Site.Params.author }}</span>
-            </div>
-            <div class="authorbox__description">
-                <p>Projects 2025 Blog</p>
-                <p>Information Technology Enthusiast</p>
-            </div>
-        </div>
-    </section>
-    {{ end }}
-
     <!-- Comments Section -->
     {{ if .Site.Params.comments.utterances }}
     <section class="comments-section">
@@ -455,61 +435,6 @@
 .timeline-content p {
     color: #ffffff;
     margin: 0;
-}
-
-/* Author Section */
-.author-section {
-    margin: 4rem 0;
-}
-
-.authorbox {
-    margin: 0;
-    padding: 2rem;
-    border: 1px solid #374151;
-    background: rgba(255, 255, 255, 0.02);
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.authorbox::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #dc2626, transparent);
-}
-
-.authorbox__avatar {
-    float: left;
-    margin: 0 1.5rem 1rem 0;
-}
-
-.authorbox__avatar img {
-    border-radius: 4px;
-    border: 1px solid #374151;
-}
-
-.authorbox__header {
-    margin-bottom: 1rem;
-}
-
-.authorbox__name {
-    font-size: 1.2em;
-    font-weight: 500;
-    color: #ff0000;
-}
-
-.authorbox__description {
-    font-size: 0.9em;
-    color: #ffffff;
-    line-height: 1.1;
-}
-
-.authorbox__description p {
-    margin: 0.2em 0;
 }
 
 /* Comments Section */

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+    
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
      <style>
      
@@ -22,16 +23,17 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
         <link rel="stylesheet" href="/css/style.css">
-        <link rel="stylesheet" href="/css/custom.css">
+        
         <link rel="alternate" type="application/rss+xml" href="/tags/professional-development/index.xml" title="Andy J Blog - Trials of an IT Engineer">
 
         <link rel="shortcut icon" href="/favicon.ico">
                 
 </head>
+
 <body class="body">
     
         <div class="container container--outer">
-                <header class="header">
+    <header class="header">
 	<div class="container header__container">
 		
 	<div class="logo">
@@ -63,13 +65,6 @@
 			</a>
 		</li>
 		<li class="menu__item">
-			<a class="menu__link" href="/videos/">
-				
-				<span class="menu__text">Videos</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
 			<a class="menu__link" href="/tech-newsletter/weekly-update-1/">
 				
 				<span class="menu__text">Tech News</span>
@@ -84,9 +79,9 @@
 			</a>
 		</li>
 		<li class="menu__item">
-			<a class="menu__link" href="/contact/">
+			<a class="menu__link" href="/videos/">
 				
-				<span class="menu__text">Contact Me</span>
+				<span class="menu__text">Videos</span>
 				
 			</a>
 		</li>
@@ -95,9 +90,15 @@
 
 	</div>
 </header>
-                <div class="wrapper flex">
-                        <div class="primary">
-                        
+    
+    
+    <div id="barba-wrapper">
+        <div class="barba-container" data-barba="container">
+            <div class="wrapper flex">
+                <div class="primary">
+
+                    
+                    
 <div class="list-page">
     
     <header class="page-header">
@@ -133,10 +134,6 @@
             
             <option value="/categories/system-administration/" >
                 System Administration (2)
-            </option>
-            
-            <option value="/categories/audio-visual/" >
-                Audio Visual (1)
             </option>
             
             <option value="/categories/getting-started-server-deployment---debian-vps/" >
@@ -597,11 +594,14 @@
 }
 </style>
 
-                        </div>
-                        
-
                 </div>
-                <footer class="footer">
+                
+
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
 	<div class="container footer__container flex">
 		
 		<div class="footer__copyright">
@@ -610,7 +610,9 @@
 		</div>
 	</div>
 </footer>
-        </div>
+</div>
+
+
 <script async defer src="/js/menu.js"></script>
 
 <script>
@@ -684,6 +686,61 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
+<script src="https://unpkg.com/@barba/core"></script>
+<script>
+
+window.addEventListener('load', function() {
+    console.log('🚀 Page fully loaded, initializing Barba...');
+    initializeBarba();
+});
+
+function initializeBarba() {
+    const wrapper = document.getElementById('barba-wrapper');
+    const container = document.querySelector('[data-barba="container"]');
+    
+    console.log('🔍 Checking for Barba elements:');
+    console.log(' - barba-wrapper:', wrapper);
+    console.log(' - barba-container:', container);
+    
+    if (!wrapper) {
+        console.error('❌ ERROR: No element with id="barba-wrapper" found');
+        return;
+    }
+    
+    if (!container) {
+        console.error('❌ ERROR: No element with data-barba="container" found');
+        return;
+    }
+
+    
+    barba.init({
+        transitions: [{
+            async leave(data) {
+                data.current.container.style.opacity = 0;
+                data.current.container.style.transition = 'opacity 0.3s ease';
+                await new Promise(r => setTimeout(r, 300));
+            },
+            async enter(data) {
+                data.next.container.style.opacity = 1;
+                data.next.container.style.transition = 'opacity 0.3s ease';
+                await new Promise(r => setTimeout(r, 300));
+                window.scrollTo(0, 0);
+            }
+        }],
+        prevent: ({ el }) => el.href.includes('://') || el.target === '_blank'
+    });
+    
+    console.log('✅ Barba.js successfully initialized!');
+}
+</script>
+
+<style>
+#barba-wrapper { position: relative; min-height: 60vh; }
+.barba-container { opacity: 1; }
+</style>
+
+</body>
+</html>
 <style>
 
     
