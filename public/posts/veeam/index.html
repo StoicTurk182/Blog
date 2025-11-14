@@ -1,647 +1,85 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-    
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-
-     <style>
-
-         
-
-    html,
-body,
-* {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}    
-     
-    html {
-      background-color: #181a1b !important;
-    }
-    body {
-      background-color: #181a1b !important;
-    }
-  </style>
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Veeam Application Introduction - Andy J Blog - Trials of an IT Engineer</title>
-        <script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-        <meta name="description" content="Simple introduction to the industry standard backup and recovery software">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="dns-prefetch" href="//fonts.googleapis.com">
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
-
-        <link rel="stylesheet" href="/css/style.css">
-        
-
-        <link rel="shortcut icon" href="/favicon.ico">
-                
-
-        
-</head>
-
-<body class="body">
-    
-        <div class="container container--outer">
-    <header class="header">
-	<div class="container header__container">
-		
-	<div class="logo">
-		<a class="logo__link" href="/" title="Projects 2025" rel="home">
-			<div class="logo__item logo__text">
-					<div class="logo__title">Projects 2025</div>
-					<div class="logo__tagline">Information Technology Musings</div>
-				</div>
-		</a>
-	</div>
-		
-<nav class="menu">
-	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
-		<span class="menu__btn-title" tabindex="-1">Menu</span>
-	</button>
-	<ul class="menu__list">
-		<li class="menu__item">
-			<a class="menu__link" href="/">
-				
-				<span class="menu__text">Home</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/posts/">
-				
-				<span class="menu__text">Posts</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/tech-newsletter/weekly-update-1/">
-				
-				<span class="menu__text">Tech News</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/tools/">
-				
-				<span class="menu__text">Tools</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/contact/">
-				
-				<span class="menu__text">Contact</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/videos/">
-				
-				<span class="menu__text">Videos</span>
-				
-			</a>
-		</li>
-	</ul>
-</nav>
-
-	</div>
-</header>
-    
-    <div class="wrapper flex">
-        <div class="primary">
-
-            
-            
-<article class="professional-post">
-    
-    <header class="professional-header">
-        <div class="post-meta">
-            <span class="post-date">November 8, 2025</span>
-                    
-          
-            
-            <span class="reading-time">• 17 min read</span>
-            
-            
-            
-            <span class="post-category">Security</span>
-        </div>
-        <h1 class="post-title">Veeam Application Introduction</h1>
-        <p class="post-description">Simple introduction to the industry standard backup and recovery software</p>
-        <div class="author-info">
-            <span class="author">By Andrew Jones</span>
-        </div>
-    </header>
-
-    
-
-    <span><div class="post-nav-right">
-    <a href="/posts/" class="read-more back-button">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z"></path>
-        </svg>
-        Back to Posts
-    </a>
-</div></span>
-
-    
-    
-    <div class="featured-image">
-        <img src="/images/posts/hero_veeam_backup-v2.jpg" alt="Veeam Application Introduction" />
-    </div>
-    
-
-    
-  <aside class="toc">
-    <h2>Table of Contents</h2>
-    <nav id="TableOfContents">
-  <ol>
-    <li><a href="#linux-vms--windows-workstations">Linux VMs &amp; Windows Workstations</a></li>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#architecture--concepts">Architecture &amp; Concepts</a></li>
-    <li><a href="#prerequisites">Prerequisites</a></li>
-    <li><a href="#installation--deployment">Installation &amp; Deployment</a></li>
-    <li><a href="#user-permissions--roles">User Permissions &amp; Roles</a></li>
-    <li><a href="#self-service-configuration">Self-Service Configuration</a></li>
-    <li><a href="#operating-modes-explained">Operating Modes Explained</a></li>
-    <li><a href="#step-by-step-implementation">Step-by-Step Implementation</a></li>
-    <li><a href="#best-practices">Best Practices</a></li>
-    <li><a href="#troubleshooting">Troubleshooting</a></li>
-    <li><a href="#appendix-a-command-reference">Appendix A: Command Reference</a></li>
-    <li><a href="#appendix-b-quick-reference-tables">Appendix B: Quick Reference Tables</a></li>
-    <li><a href="#appendix-c-sample-scripts">Appendix C: Sample Scripts</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-  </ol>
-</nav>
-  </aside>
-  
-
-    
-    <div class="post-content">
-        <hr>
-<h1 id="comprehensive-guide-veeam-agent-level-backups-with-user-self-service">Comprehensive Guide: Veeam Agent-Level Backups with User Self-Service</h1>
-<h2 id="linux-vms--windows-workstations">Linux VMs &amp; Windows Workstations</h2>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>This guide covers implementing Veeam agent-level backups for Linux VMs and Windows workstations with user self-service capabilities, allowing remote users to initiate and manage their own backups while maintaining centralized control.</p>
-<h3 id="key-capabilities">Key Capabilities</h3>
-<ul>
-<li><strong>Centralized Management</strong>: Manage agents from Veeam Backup &amp; Replication console</li>
-<li><strong>User Self-Service</strong>: Users can initiate backups from their machines</li>
-<li><strong>Flexible Control</strong>: Choose between full control and read-only modes</li>
-<li><strong>Cross-Platform</strong>: Unified approach for Linux and Windows systems</li>
-</ul>
-<hr>
-<h2 id="architecture--concepts">Architecture &amp; Concepts</h2>
-<h3 id="agent-operation-modes">Agent Operation Modes</h3>
-<p><strong>1. Standalone Mode</strong></p>
-<ul>
-<li>Agent operates independently on the endpoint</li>
-<li>User has full control via local interface</li>
-<li>Can still backup to Veeam-managed repositories</li>
-<li>Best for: Power users, administrators, remote workers</li>
-</ul>
-<p><strong>2. Managed Mode (via Veeam B&amp;R)</strong></p>
-<ul>
-<li>Centrally managed from Veeam Backup &amp; Replication</li>
-<li>Two sub-modes:
-<ul>
-<li><strong>Backup Job (Server-managed)</strong>: Backups orchestrated from Veeam server</li>
-<li><strong>Backup Policy (Agent-managed)</strong>: Backups run on endpoints using centrally-defined policies</li>
-</ul>
-</li>
-</ul>
-<p><strong>3. Read-Only vs Full Access</strong></p>
-<ul>
-<li><strong>Read-Only Mode</strong>: Users can view status, run manual backups, restore files</li>
-<li><strong>Full Access Mode</strong>: Users can modify job settings, change schedules, configure backups</li>
-</ul>
-<h3 id="management-components">Management Components</h3>
-<p><strong>Protection Groups</strong></p>
-<ul>
-<li>Container for organizing computers by type, location, or policy</li>
-<li>Types:
-<ul>
-<li>Individual computers</li>
-<li>Active Directory objects (domains, OUs, groups)</li>
-<li>CSV file imports</li>
-<li>Pre-installed agents</li>
-<li>Cloud machines (Azure VM, AWS EC2)</li>
-</ul>
-</li>
-</ul>
-<p><strong>Backup Jobs vs Backup Policies</strong></p>
-<ul>
-<li><strong>Backup Job (Managed by Server)</strong>: Runs from Veeam server, pulls data from agents</li>
-<li><strong>Backup Policy (Managed by Agent)</strong>: Configuration template pushed to agents; agents execute backups locally</li>
-</ul>
-<hr>
-<h2 id="prerequisites">Prerequisites</h2>
-<h3 id="veeam-backup--replication-server">Veeam Backup &amp; Replication Server</h3>
-<ul>
-<li>Veeam Backup &amp; Replication 12.0 or later</li>
-<li>Appropriate licensing (see Licensing Requirements below)</li>
-<li>Network connectivity to agent endpoints</li>
-<li>Backup repository configured</li>
-</ul>
-<h3 id="linux-vms-requirements">Linux VMs Requirements</h3>
-<p><strong>Supported Distributions</strong> (as of v6.0):</p>
-<ul>
-<li>RHEL/CentOS/Rocky Linux/AlmaLinux 7-9</li>
-<li>Ubuntu 18.04-24.04 LTS</li>
-<li>Debian 9-12</li>
-<li>SLES 12 SP5, 15 SP2-SP6</li>
-<li>Oracle Linux 7-9</li>
-</ul>
-<p><strong>System Requirements</strong>:</p>
-<ul>
-<li>CPU: x86-64 or ARM64</li>
-<li>Memory: 512 MB minimum, 2 GB recommended</li>
-<li>Disk: 200 MB for agent installation</li>
-<li>Kernel: 2.6.32 or later (RHEL 6), 3.10.0 or later (RHEL 7+)</li>
-</ul>
-<p><strong>Required Packages</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># For RHEL/CentOS</span>
-</span></span><span style="display:flex;"><span>- dkms <span style="color:#f92672">(</span>from EPEL<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>- kernel-devel
-</span></span><span style="display:flex;"><span>- gcc, make
-</span></span><span style="display:flex;"><span>- perl
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># For Debian/Ubuntu</span>
-</span></span><span style="display:flex;"><span>- dkms
-</span></span><span style="display:flex;"><span>- linux-headers-<span style="color:#66d9ef">$(</span>uname -r<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>- build-essential
-</span></span></code></pre></div><h3 id="windows-workstations-requirements">Windows Workstations Requirements</h3>
-<p><strong>Supported OS</strong>:</p>
-<ul>
-<li>Windows 11 (22H2, 23H2, 24H2)</li>
-<li>Windows 10 (1809 and later)</li>
-<li>Windows Server 2025, 2022, 2019, 2016</li>
-</ul>
-<p><strong>System Requirements</strong>:</p>
-<ul>
-<li>CPU: x86-64 processor</li>
-<li>Memory: 2 GB RAM minimum</li>
-<li>Disk: 200 MB for installation</li>
-<li>.NET Framework 4.5.2 or later (auto-installed if missing)</li>
-</ul>
-<h3 id="network-requirements">Network Requirements</h3>
-<ul>
-<li>Port 6160/TCP: Veeam Installer Service</li>
-<li>Port 2500-3300/TCP: Data transmission</li>
-<li>Port 10005-10007/TCP: Agent communication</li>
-<li>DNS resolution between server and agents</li>
-</ul>
-<h3 id="licensing-requirements">Licensing Requirements</h3>
-<p><strong>License Types</strong>:</p>
-<ol>
-<li><strong>Per-Instance License</strong>: Based on number of protected machines</li>
-<li><strong>Per-Socket License</strong>: Up to 6 instances for agent protection</li>
-<li><strong>Community Edition</strong>: Limited free functionality</li>
-</ol>
-<p><strong>Agent Editions</strong>:</p>
-<ul>
-<li><strong>Server Edition</strong>: Full functionality for servers</li>
-<li><strong>Workstation Edition</strong>: For desktops/laptops with some limitations</li>
-<li><strong>Free Edition</strong>: Basic functionality, single backup job</li>
-</ul>
-<p><strong>Key Limitations</strong>:</p>
-<ul>
-<li>Workstation Edition: Limited to 1 job to local/network/repository + unlimited Cloud Connect jobs</li>
-<li>Free Edition: 1 job total, no Cloud Connect, no database processing</li>
-</ul>
-<hr>
-<h2 id="installation--deployment">Installation &amp; Deployment</h2>
-<h3 id="method-1-automatic-deployment-recommended">Method 1: Automatic Deployment (Recommended)</h3>
-<h4 id="step-1-create-protection-group">Step 1: Create Protection Group</h4>
-<ol>
-<li>In Veeam B&amp;R console, go to <strong>Inventory</strong> → <strong>Physical Infrastructure</strong></li>
-<li>Right-click → <strong>Add Protection Group</strong></li>
-<li>Choose type:
-<ul>
-<li><strong>Individual computers</strong>: Enter IP addresses/hostnames</li>
-<li><strong>Microsoft Active Directory</strong>: Select domain, OUs, or computers</li>
-<li><strong>CSV file</strong>: Import computer list</li>
-<li><strong>Pre-installed agents</strong>: For manual/GPO deployment</li>
-</ul>
-</li>
-</ol>
-<h4 id="step-2-configure-protection-group-settings">Step 2: Configure Protection Group Settings</h4>
-<p><strong>For Active Directory Objects</strong>:</p>
-<pre tabindex="0"><code>Name: Linux-VMs-Production
+<!doctype html><html class=no-js lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><style>html,body,*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}html{background-color:#181a1b!important}body{background-color:#181a1b!important}</style><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Veeam Application Introduction - Andy J Blog - Trials of an IT Engineer</title><script>(function(e,t){e[t]=e[t].replace("no-js","js")})(document.documentElement,"className")</script><meta name=description content="Simple introduction to the industry standard backup and recovery software"><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class=logo><a class=logo__link href=/ title="Projects 2025" rel=home><div class="logo__item logo__text"><div class=logo__title>Projects 2025</div><div class=logo__tagline>Information Technology Musings</div></div></a></div><nav class=menu><button class=menu__btn aria-haspopup=true aria-expanded=false tabindex=0>
+<span class=menu__btn-title tabindex=-1>Menu</span></button><ul class=menu__list><li class=menu__item><a class=menu__link href=/><span class=menu__text>Home</span></a></li><li class=menu__item><a class=menu__link href=/posts/><span class=menu__text>Posts</span></a></li><li class=menu__item><a class=menu__link href=/tech-newsletter/weekly-update-1/><span class=menu__text>Tech News</span></a></li><li class=menu__item><a class=menu__link href=/tools/><span class=menu__text>Tools</span></a></li><li class=menu__item><a class=menu__link href=/contact/><span class=menu__text>Contact</span></a></li><li class=menu__item><a class=menu__link href=/videos/><span class=menu__text>Videos</span></a></li></ul></nav></div></header><div class="wrapper flex"><div class=primary><article class=professional-post><header class=professional-header><div class=post-meta><span class=post-date>November 8, 2025</span>
+<span class=reading-time>• 17 min read</span>
+<span class=post-category>Security</span></div><h1 class=post-title>Veeam Application Introduction</h1><p class=post-description>Simple introduction to the industry standard backup and recovery software</p><div class=author-info><span class=author>By Andrew Jones</span></div></header><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/hero_veeam_backup-v2.jpg alt="Veeam Application Introduction"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#linux-vms--windows-workstations>Linux VMs & Windows Workstations</a></li><li><a href=#overview>Overview</a></li><li><a href=#architecture--concepts>Architecture & Concepts</a></li><li><a href=#prerequisites>Prerequisites</a></li><li><a href=#installation--deployment>Installation & Deployment</a></li><li><a href=#user-permissions--roles>User Permissions & Roles</a></li><li><a href=#self-service-configuration>Self-Service Configuration</a></li><li><a href=#operating-modes-explained>Operating Modes Explained</a></li><li><a href=#step-by-step-implementation>Step-by-Step Implementation</a></li><li><a href=#best-practices>Best Practices</a></li><li><a href=#troubleshooting>Troubleshooting</a></li><li><a href=#appendix-a-command-reference>Appendix A: Command Reference</a></li><li><a href=#appendix-b-quick-reference-tables>Appendix B: Quick Reference Tables</a></li><li><a href=#appendix-c-sample-scripts>Appendix C: Sample Scripts</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></aside><div class=post-content><hr><h1 id=comprehensive-guide-veeam-agent-level-backups-with-user-self-service>Comprehensive Guide: Veeam Agent-Level Backups with User Self-Service</h1><h2 id=linux-vms--windows-workstations>Linux VMs & Windows Workstations</h2><hr><h2 id=overview>Overview</h2><p>This guide covers implementing Veeam agent-level backups for Linux VMs and Windows workstations with user self-service capabilities, allowing remote users to initiate and manage their own backups while maintaining centralized control.</p><h3 id=key-capabilities>Key Capabilities</h3><ul><li><strong>Centralized Management</strong>: Manage agents from Veeam Backup & Replication console</li><li><strong>User Self-Service</strong>: Users can initiate backups from their machines</li><li><strong>Flexible Control</strong>: Choose between full control and read-only modes</li><li><strong>Cross-Platform</strong>: Unified approach for Linux and Windows systems</li></ul><hr><h2 id=architecture--concepts>Architecture & Concepts</h2><h3 id=agent-operation-modes>Agent Operation Modes</h3><p><strong>1. Standalone Mode</strong></p><ul><li>Agent operates independently on the endpoint</li><li>User has full control via local interface</li><li>Can still backup to Veeam-managed repositories</li><li>Best for: Power users, administrators, remote workers</li></ul><p><strong>2. Managed Mode (via Veeam B&amp;R)</strong></p><ul><li>Centrally managed from Veeam Backup & Replication</li><li>Two sub-modes:<ul><li><strong>Backup Job (Server-managed)</strong>: Backups orchestrated from Veeam server</li><li><strong>Backup Policy (Agent-managed)</strong>: Backups run on endpoints using centrally-defined policies</li></ul></li></ul><p><strong>3. Read-Only vs Full Access</strong></p><ul><li><strong>Read-Only Mode</strong>: Users can view status, run manual backups, restore files</li><li><strong>Full Access Mode</strong>: Users can modify job settings, change schedules, configure backups</li></ul><h3 id=management-components>Management Components</h3><p><strong>Protection Groups</strong></p><ul><li>Container for organizing computers by type, location, or policy</li><li>Types:<ul><li>Individual computers</li><li>Active Directory objects (domains, OUs, groups)</li><li>CSV file imports</li><li>Pre-installed agents</li><li>Cloud machines (Azure VM, AWS EC2)</li></ul></li></ul><p><strong>Backup Jobs vs Backup Policies</strong></p><ul><li><strong>Backup Job (Managed by Server)</strong>: Runs from Veeam server, pulls data from agents</li><li><strong>Backup Policy (Managed by Agent)</strong>: Configuration template pushed to agents; agents execute backups locally</li></ul><hr><h2 id=prerequisites>Prerequisites</h2><h3 id=veeam-backup--replication-server>Veeam Backup & Replication Server</h3><ul><li>Veeam Backup & Replication 12.0 or later</li><li>Appropriate licensing (see Licensing Requirements below)</li><li>Network connectivity to agent endpoints</li><li>Backup repository configured</li></ul><h3 id=linux-vms-requirements>Linux VMs Requirements</h3><p><strong>Supported Distributions</strong> (as of v6.0):</p><ul><li>RHEL/CentOS/Rocky Linux/AlmaLinux 7-9</li><li>Ubuntu 18.04-24.04 LTS</li><li>Debian 9-12</li><li>SLES 12 SP5, 15 SP2-SP6</li><li>Oracle Linux 7-9</li></ul><p><strong>System Requirements</strong>:</p><ul><li>CPU: x86-64 or ARM64</li><li>Memory: 512 MB minimum, 2 GB recommended</li><li>Disk: 200 MB for agent installation</li><li>Kernel: 2.6.32 or later (RHEL 6), 3.10.0 or later (RHEL 7+)</li></ul><p><strong>Required Packages</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># For RHEL/CentOS</span>
+</span></span><span style=display:flex><span>- dkms <span style=color:#f92672>(</span>from EPEL<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>- kernel-devel
+</span></span><span style=display:flex><span>- gcc, make
+</span></span><span style=display:flex><span>- perl
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># For Debian/Ubuntu</span>
+</span></span><span style=display:flex><span>- dkms
+</span></span><span style=display:flex><span>- linux-headers-<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>- build-essential
+</span></span></code></pre></div><h3 id=windows-workstations-requirements>Windows Workstations Requirements</h3><p><strong>Supported OS</strong>:</p><ul><li>Windows 11 (22H2, 23H2, 24H2)</li><li>Windows 10 (1809 and later)</li><li>Windows Server 2025, 2022, 2019, 2016</li></ul><p><strong>System Requirements</strong>:</p><ul><li>CPU: x86-64 processor</li><li>Memory: 2 GB RAM minimum</li><li>Disk: 200 MB for installation</li><li>.NET Framework 4.5.2 or later (auto-installed if missing)</li></ul><h3 id=network-requirements>Network Requirements</h3><ul><li>Port 6160/TCP: Veeam Installer Service</li><li>Port 2500-3300/TCP: Data transmission</li><li>Port 10005-10007/TCP: Agent communication</li><li>DNS resolution between server and agents</li></ul><h3 id=licensing-requirements>Licensing Requirements</h3><p><strong>License Types</strong>:</p><ol><li><strong>Per-Instance License</strong>: Based on number of protected machines</li><li><strong>Per-Socket License</strong>: Up to 6 instances for agent protection</li><li><strong>Community Edition</strong>: Limited free functionality</li></ol><p><strong>Agent Editions</strong>:</p><ul><li><strong>Server Edition</strong>: Full functionality for servers</li><li><strong>Workstation Edition</strong>: For desktops/laptops with some limitations</li><li><strong>Free Edition</strong>: Basic functionality, single backup job</li></ul><p><strong>Key Limitations</strong>:</p><ul><li>Workstation Edition: Limited to 1 job to local/network/repository + unlimited Cloud Connect jobs</li><li>Free Edition: 1 job total, no Cloud Connect, no database processing</li></ul><hr><h2 id=installation--deployment>Installation & Deployment</h2><h3 id=method-1-automatic-deployment-recommended>Method 1: Automatic Deployment (Recommended)</h3><h4 id=step-1-create-protection-group>Step 1: Create Protection Group</h4><ol><li>In Veeam B&amp;R console, go to <strong>Inventory</strong> → <strong>Physical Infrastructure</strong></li><li>Right-click → <strong>Add Protection Group</strong></li><li>Choose type:<ul><li><strong>Individual computers</strong>: Enter IP addresses/hostnames</li><li><strong>Microsoft Active Directory</strong>: Select domain, OUs, or computers</li><li><strong>CSV file</strong>: Import computer list</li><li><strong>Pre-installed agents</strong>: For manual/GPO deployment</li></ul></li></ol><h4 id=step-2-configure-protection-group-settings>Step 2: Configure Protection Group Settings</h4><p><strong>For Active Directory Objects</strong>:</p><pre tabindex=0><code>Name: Linux-VMs-Production
 Type: Microsoft Active Directory objects
 Scope: OU=LinuxServers,DC=company,DC=local
 Credentials: DOMAIN\VeeamAgentInstaller (with local admin rights)
-</code></pre><p><strong>Discovery Options</strong>:</p>
-<ul>
-<li><strong>Automatic discovery schedule</strong>: Daily at 2:00 AM</li>
-<li><strong>Install backup agent automatically</strong>: Enabled</li>
-<li><strong>Automatic upgrade</strong>: Enabled</li>
-<li><strong>Distribution server</strong>: Select closest Veeam proxy/repository</li>
-</ul>
-<h4 id="step-3-credentials-configuration">Step 3: Credentials Configuration</h4>
-<p>For Linux systems:</p>
-<pre tabindex="0"><code>Account: root or sudo user
+</code></pre><p><strong>Discovery Options</strong>:</p><ul><li><strong>Automatic discovery schedule</strong>: Daily at 2:00 AM</li><li><strong>Install backup agent automatically</strong>: Enabled</li><li><strong>Automatic upgrade</strong>: Enabled</li><li><strong>Distribution server</strong>: Select closest Veeam proxy/repository</li></ul><h4 id=step-3-credentials-configuration>Step 3: Credentials Configuration</h4><p>For Linux systems:</p><pre tabindex=0><code>Account: root or sudo user
 Authentication: SSH key-based (recommended) or password
-</code></pre><p>For Windows systems:</p>
-<pre tabindex="0"><code>Account: DOMAIN\AgentInstaller
+</code></pre><p>For Windows systems:</p><pre tabindex=0><code>Account: DOMAIN\AgentInstaller
 Requirements: Local Administrator group membership
-</code></pre><h3 id="method-2-manual-installation-linux">Method 2: Manual Installation (Linux)</h3>
-<h4 id="for-rhelcentosrockyalmalinux">For RHEL/CentOS/Rocky/AlmaLinux:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Add Veeam repository (RHEL 8 example)</span>
-</span></span><span style="display:flex;"><span>sudo yum install http://repository.veeam.com/backup/linux/agent/rpm/el/8/x86_64/veeam-release-el8-1.0.7-1.x86_64.rpm
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install dependencies (if needed)</span>
-</span></span><span style="display:flex;"><span>sudo yum install epel-release
-</span></span><span style="display:flex;"><span>sudo yum install dkms kernel-devel gcc make perl
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install Veeam Agent</span>
-</span></span><span style="display:flex;"><span>sudo yum install veeam
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Start configuration</span>
-</span></span><span style="display:flex;"><span>sudo veeam
-</span></span></code></pre></div><h4 id="for-debianubuntu">For Debian/Ubuntu:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Download repository package</span>
-</span></span><span style="display:flex;"><span>wget https://repository.veeam.com/backup/linux/agent/dpkg/debian/public/pool/veeam/v/veeam-release-deb/veeam-release-deb_1.0.9_amd64.deb
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install repository</span>
-</span></span><span style="display:flex;"><span>sudo dpkg -i veeam-release-deb_1.0.9_amd64.deb
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update package list</span>
-</span></span><span style="display:flex;"><span>sudo apt-get update
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install dependencies</span>
-</span></span><span style="display:flex;"><span>sudo apt-get install dkms linux-headers-<span style="color:#66d9ef">$(</span>uname -r<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install Veeam Agent</span>
-</span></span><span style="display:flex;"><span>sudo apt-get install veeam
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Start configuration</span>
-</span></span><span style="display:flex;"><span>sudo veeam
-</span></span></code></pre></div><h4 id="configure-agent-for-management">Configure Agent for Management:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Apply configuration from Veeam B&amp;R</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig setup --cfg /path/to/config.xml
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or manually configure connection</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig vbrserver add <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --address veeam-server.company.local <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --port <span style="color:#ae81ff">10002</span> <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --login DOMAIN<span style="color:#ae81ff">\\</span>veeamagent <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --password &lt;password&gt;
-</span></span></code></pre></div><h3 id="method-3-manual-installation-windows">Method 3: Manual Installation (Windows)</h3>
-<h4 id="silent-installation">Silent Installation:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Download installer from Veeam</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run silent install with configuration</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>.\VeeamAgentWindows_6.3.exe /silent /accepteula /acceptthirdparty
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or MSI-based installation</span>
-</span></span><span style="display:flex;"><span>msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=<span style="color:#ae81ff">1</span> ACCEPT_THIRDPARTY_LICENSES=<span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><h4 id="configure-via-command-line">Configure via Command Line:</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Import configuration from Veeam B&amp;R</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style="color:#e6db74">&#34;\\server\share\config.xml&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or configure manually</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /server.add /address<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;veeam-server.company.local&#34;</span> /port<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">10002</span> /login<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;DOMAIN\user&#34;</span> /password<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;password&#34;</span>
-</span></span></code></pre></div><h4 id="group-policy-deployment-enterprise">Group Policy Deployment (Enterprise):</h4>
-<ol>
-<li>
-<p><strong>Prepare Installation Package</strong>:</p>
-<ul>
-<li>Place installer in network share: <code>\\server\share\Veeam\</code></li>
-<li>Create config file: <code>config.xml</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Create GPO</strong>:</p>
-<ul>
-<li>Computer Configuration → Policies → Software Settings</li>
-<li>Software Installation → New → Package</li>
-<li>Select <code>VeeamAgentWindows.msi</code></li>
-</ul>
-</li>
-<li>
-<p><strong>Add Startup Script</strong> (for configuration):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-batch" data-lang="batch"><span style="display:flex;"><span>@<span style="color:#66d9ef">echo</span> off
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style="color:#e6db74">&#34;\\server\share\Veeam\config.xml&#34;</span>
-</span></span></code></pre></div></li>
-</ol>
-<hr>
-<h2 id="user-permissions--roles">User Permissions &amp; Roles</h2>
-<h3 id="veeam-backup--replication-roles">Veeam Backup &amp; Replication Roles</h3>
-<p><strong>Built-in Roles</strong>:</p>
-<ol>
-<li>
-<p><strong>Veeam Backup Administrator</strong></p>
-<ul>
-<li>Full control over all operations</li>
-<li>Can create/modify/delete all objects</li>
-<li>Manage licenses and infrastructure</li>
-</ul>
-</li>
-<li>
-<p><strong>Veeam Backup Operator</strong></p>
-<ul>
-<li>Start/stop backup jobs</li>
-<li>Perform restores</li>
-<li>View job statistics</li>
-<li>Cannot modify infrastructure</li>
-</ul>
-</li>
-<li>
-<p><strong>Veeam Restore Operator</strong></p>
-<ul>
-<li>Perform restore operations only</li>
-<li>View backup files</li>
-<li>Cannot run backups</li>
-</ul>
-</li>
-<li>
-<p><strong>Custom Roles</strong></p>
-<ul>
-<li>Create tailored permission sets</li>
-<li>Scope to specific jobs/computers</li>
-</ul>
-</li>
-</ol>
-<h3 id="configuring-user-roles">Configuring User Roles</h3>
-<h4 id="add-users-to-veeam-console">Add Users to Veeam Console:</h4>
-<ol>
-<li>In Veeam B&amp;R console: <strong>Users and Roles</strong> → <strong>Security</strong></li>
-<li>Click <strong>Add</strong></li>
-<li>Select <strong>Active Directory Object</strong> or <strong>Local User/Group</strong></li>
-<li>Enter user/group: <code>DOMAIN\Username</code> or <code>DOMAIN\BackupOperators</code></li>
-<li>Assign role:
-<ul>
-<li><strong>Veeam Backup Operator</strong> (recommended for most users)</li>
-<li><strong>Custom Role</strong> (for fine-grained control)</li>
-</ul>
-</li>
-</ol>
-<h4 id="create-custom-role">Create Custom Role:</h4>
-<ol>
-<li>
-<p><strong>Users and Roles</strong> → <strong>Roles</strong></p>
-</li>
-<li>
-<p>Click <strong>Add</strong></p>
-</li>
-<li>
-<p>Name: &ldquo;Agent Backup User&rdquo;</p>
-</li>
-<li>
-<p>Grant permissions:</p>
-<ul>
-<li>✅ Start backup jobs</li>
-<li>✅ Stop backup jobs</li>
-<li>✅ View job sessions</li>
-<li>✅ Restore files</li>
-<li>❌ Modify jobs</li>
-<li>❌ Delete backups</li>
-<li>❌ Modify infrastructure</li>
-</ul>
-</li>
-<li>
-<p><strong>Scope Objects</strong> tab:</p>
-<ul>
-<li>Select specific protection groups</li>
-<li>Select individual backup jobs</li>
-<li>Restrict to only their computers</li>
-</ul>
-</li>
-</ol>
-<h3 id="local-agent-permissions">Local Agent Permissions</h3>
-<p><strong>For Users to Control Agents Locally</strong>:</p>
-<p><strong>Windows</strong>:</p>
-<ul>
-<li>User must be local Administrator on their workstation</li>
-<li>OR add user to &ldquo;Veeam Endpoint Users&rdquo; local group (if using full access mode)</li>
-</ul>
-<p><strong>Linux</strong>:</p>
-<ul>
-<li>User must be root or in sudo group</li>
-<li>Veeam commands require elevation:
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo veeam
-</span></span><span style="display:flex;"><span>sudo veeamconfig
-</span></span></code></pre></div></li>
-</ul>
-<hr>
-<h2 id="self-service-configuration">Self-Service Configuration</h2>
-<h3 id="configuration-options">Configuration Options</h3>
-<h4 id="option-1-full-agent-control-standalone-like">Option 1: Full Agent Control (Standalone-like)</h4>
-<p><strong>When to Use</strong>:</p>
-<ul>
-<li>Power users who understand backup concepts</li>
-<li>Remote workers with limited connectivity</li>
-<li>Users who need schedule flexibility</li>
-</ul>
-<p><strong>Setup</strong>:</p>
-<ol>
-<li>Create Protection Group</li>
-<li>Create Backup Policy (not Backup Job)</li>
-<li>Set <strong>Read-Only Mode</strong> to <strong>OFF</strong></li>
-<li>Users get full control via local agent interface</li>
-</ol>
-<p><strong>User Capabilities</strong>:</p>
-<ul>
-<li>Create/modify backup jobs</li>
-<li>Change schedules</li>
-<li>Select backup locations</li>
-<li>Initiate manual backups</li>
-<li>Perform restores</li>
-</ul>
-<h4 id="option-2-limited-self-service-read-only-mode">Option 2: Limited Self-Service (Read-Only Mode)</h4>
-<p><strong>When to Use</strong>:</p>
-<ul>
-<li>Standard users needing occasional manual backups</li>
-<li>Compliance requirements for change control</li>
-<li>Centralized backup management preferred</li>
-</ul>
-<p><strong>Setup</strong>:</p>
-<ol>
-<li>Create Protection Group</li>
-<li>Create Backup Job OR Backup Policy</li>
-<li>Enable <strong>Read-Only Mode</strong></li>
-<li>Users can only:
-<ul>
-<li>Run manual backup (using existing schedule/config)</li>
-<li>View backup status</li>
-<li>Restore individual files</li>
-</ul>
-</li>
-</ol>
-<p><strong>Configuration Steps</strong>:</p>
-<p>For Agents managed by Veeam B&amp;R:</p>
-<pre tabindex="0"><code>1. Inventory → Physical Infrastructure → Protection Group
+</code></pre><h3 id=method-2-manual-installation-linux>Method 2: Manual Installation (Linux)</h3><h4 id=for-rhelcentosrockyalmalinux>For RHEL/CentOS/Rocky/AlmaLinux:</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Add Veeam repository (RHEL 8 example)</span>
+</span></span><span style=display:flex><span>sudo yum install http://repository.veeam.com/backup/linux/agent/rpm/el/8/x86_64/veeam-release-el8-1.0.7-1.x86_64.rpm
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Install dependencies (if needed)</span>
+</span></span><span style=display:flex><span>sudo yum install epel-release
+</span></span><span style=display:flex><span>sudo yum install dkms kernel-devel gcc make perl
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Install Veeam Agent</span>
+</span></span><span style=display:flex><span>sudo yum install veeam
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Start configuration</span>
+</span></span><span style=display:flex><span>sudo veeam
+</span></span></code></pre></div><h4 id=for-debianubuntu>For Debian/Ubuntu:</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Download repository package</span>
+</span></span><span style=display:flex><span>wget https://repository.veeam.com/backup/linux/agent/dpkg/debian/public/pool/veeam/v/veeam-release-deb/veeam-release-deb_1.0.9_amd64.deb
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Install repository</span>
+</span></span><span style=display:flex><span>sudo dpkg -i veeam-release-deb_1.0.9_amd64.deb
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Update package list</span>
+</span></span><span style=display:flex><span>sudo apt-get update
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Install dependencies</span>
+</span></span><span style=display:flex><span>sudo apt-get install dkms linux-headers-<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Install Veeam Agent</span>
+</span></span><span style=display:flex><span>sudo apt-get install veeam
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Start configuration</span>
+</span></span><span style=display:flex><span>sudo veeam
+</span></span></code></pre></div><h4 id=configure-agent-for-management>Configure Agent for Management:</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Apply configuration from Veeam B&amp;R</span>
+</span></span><span style=display:flex><span>sudo veeamconfig setup --cfg /path/to/config.xml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Or manually configure connection</span>
+</span></span><span style=display:flex><span>sudo veeamconfig vbrserver add <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --address veeam-server.company.local <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --port <span style=color:#ae81ff>10002</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --login DOMAIN<span style=color:#ae81ff>\\</span>veeamagent <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --password &lt;password&gt;
+</span></span></code></pre></div><h3 id=method-3-manual-installation-windows>Method 3: Manual Installation (Windows)</h3><h4 id=silent-installation>Silent Installation:</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Download installer from Veeam</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Run silent install with configuration</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.\VeeamAgentWindows_6.3.exe /silent /accepteula /acceptthirdparty
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Or MSI-based installation</span>
+</span></span><span style=display:flex><span>msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=<span style=color:#ae81ff>1</span> ACCEPT_THIRDPARTY_LICENSES=<span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><h4 id=configure-via-command-line>Configure via Command Line:</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Import configuration from Veeam B&amp;R</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style=color:#e6db74>&#34;\\server\share\config.xml&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Or configure manually</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /server.add /address<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;veeam-server.company.local&#34;</span> /port<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>10002</span> /login<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;DOMAIN\user&#34;</span> /password<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;password&#34;</span>
+</span></span></code></pre></div><h4 id=group-policy-deployment-enterprise>Group Policy Deployment (Enterprise):</h4><ol><li><p><strong>Prepare Installation Package</strong>:</p><ul><li>Place installer in network share: <code>\\server\share\Veeam\</code></li><li>Create config file: <code>config.xml</code></li></ul></li><li><p><strong>Create GPO</strong>:</p><ul><li>Computer Configuration → Policies → Software Settings</li><li>Software Installation → New → Package</li><li>Select <code>VeeamAgentWindows.msi</code></li></ul></li><li><p><strong>Add Startup Script</strong> (for configuration):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-batch data-lang=batch><span style=display:flex><span>@<span style=color:#66d9ef>echo</span> off
+</span></span><span style=display:flex><span><span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style=color:#e6db74>&#34;\\server\share\Veeam\config.xml&#34;</span>
+</span></span></code></pre></div></li></ol><hr><h2 id=user-permissions--roles>User Permissions & Roles</h2><h3 id=veeam-backup--replication-roles>Veeam Backup & Replication Roles</h3><p><strong>Built-in Roles</strong>:</p><ol><li><p><strong>Veeam Backup Administrator</strong></p><ul><li>Full control over all operations</li><li>Can create/modify/delete all objects</li><li>Manage licenses and infrastructure</li></ul></li><li><p><strong>Veeam Backup Operator</strong></p><ul><li>Start/stop backup jobs</li><li>Perform restores</li><li>View job statistics</li><li>Cannot modify infrastructure</li></ul></li><li><p><strong>Veeam Restore Operator</strong></p><ul><li>Perform restore operations only</li><li>View backup files</li><li>Cannot run backups</li></ul></li><li><p><strong>Custom Roles</strong></p><ul><li>Create tailored permission sets</li><li>Scope to specific jobs/computers</li></ul></li></ol><h3 id=configuring-user-roles>Configuring User Roles</h3><h4 id=add-users-to-veeam-console>Add Users to Veeam Console:</h4><ol><li>In Veeam B&amp;R console: <strong>Users and Roles</strong> → <strong>Security</strong></li><li>Click <strong>Add</strong></li><li>Select <strong>Active Directory Object</strong> or <strong>Local User/Group</strong></li><li>Enter user/group: <code>DOMAIN\Username</code> or <code>DOMAIN\BackupOperators</code></li><li>Assign role:<ul><li><strong>Veeam Backup Operator</strong> (recommended for most users)</li><li><strong>Custom Role</strong> (for fine-grained control)</li></ul></li></ol><h4 id=create-custom-role>Create Custom Role:</h4><ol><li><p><strong>Users and Roles</strong> → <strong>Roles</strong></p></li><li><p>Click <strong>Add</strong></p></li><li><p>Name: &ldquo;Agent Backup User&rdquo;</p></li><li><p>Grant permissions:</p><ul><li>✅ Start backup jobs</li><li>✅ Stop backup jobs</li><li>✅ View job sessions</li><li>✅ Restore files</li><li>❌ Modify jobs</li><li>❌ Delete backups</li><li>❌ Modify infrastructure</li></ul></li><li><p><strong>Scope Objects</strong> tab:</p><ul><li>Select specific protection groups</li><li>Select individual backup jobs</li><li>Restrict to only their computers</li></ul></li></ol><h3 id=local-agent-permissions>Local Agent Permissions</h3><p><strong>For Users to Control Agents Locally</strong>:</p><p><strong>Windows</strong>:</p><ul><li>User must be local Administrator on their workstation</li><li>OR add user to &ldquo;Veeam Endpoint Users&rdquo; local group (if using full access mode)</li></ul><p><strong>Linux</strong>:</p><ul><li>User must be root or in sudo group</li><li>Veeam commands require elevation:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo veeam
+</span></span><span style=display:flex><span>sudo veeamconfig
+</span></span></code></pre></div></li></ul><hr><h2 id=self-service-configuration>Self-Service Configuration</h2><h3 id=configuration-options>Configuration Options</h3><h4 id=option-1-full-agent-control-standalone-like>Option 1: Full Agent Control (Standalone-like)</h4><p><strong>When to Use</strong>:</p><ul><li>Power users who understand backup concepts</li><li>Remote workers with limited connectivity</li><li>Users who need schedule flexibility</li></ul><p><strong>Setup</strong>:</p><ol><li>Create Protection Group</li><li>Create Backup Policy (not Backup Job)</li><li>Set <strong>Read-Only Mode</strong> to <strong>OFF</strong></li><li>Users get full control via local agent interface</li></ol><p><strong>User Capabilities</strong>:</p><ul><li>Create/modify backup jobs</li><li>Change schedules</li><li>Select backup locations</li><li>Initiate manual backups</li><li>Perform restores</li></ul><h4 id=option-2-limited-self-service-read-only-mode>Option 2: Limited Self-Service (Read-Only Mode)</h4><p><strong>When to Use</strong>:</p><ul><li>Standard users needing occasional manual backups</li><li>Compliance requirements for change control</li><li>Centralized backup management preferred</li></ul><p><strong>Setup</strong>:</p><ol><li>Create Protection Group</li><li>Create Backup Job OR Backup Policy</li><li>Enable <strong>Read-Only Mode</strong></li><li>Users can only:<ul><li>Run manual backup (using existing schedule/config)</li><li>View backup status</li><li>Restore individual files</li></ul></li></ol><p><strong>Configuration Steps</strong>:</p><p>For Agents managed by Veeam B&amp;R:</p><pre tabindex=0><code>1. Inventory → Physical Infrastructure → Protection Group
 2. Right-click agent computer → Properties
 3. Options → Access Mode → Read-only
-</code></pre><p>Or set during Protection Group creation:</p>
-<pre tabindex="0"><code>Protection Group wizard → Options step →
+</code></pre><p>Or set during Protection Group creation:</p><pre tabindex=0><code>Protection Group wizard → Options step →
 ☑ Enable read-only access mode for backup agents
-</code></pre><h4 id="option-3-hybrid-approach-backup-policies">Option 3: Hybrid Approach (Backup Policies)</h4>
-<p><strong>Best for</strong>: Most enterprise environments</p>
-<p><strong>Configuration</strong>:</p>
-<ol>
-<li>Use Backup Policies (agent-managed jobs)</li>
-<li>Define backup configuration centrally</li>
-<li>Agents execute backups locally on schedule</li>
-<li>Users can manually trigger between scheduled runs (read-only) OR modify locally (full access)</li>
-</ol>
-<hr>
-<h2 id="operating-modes-explained">Operating Modes Explained</h2>
-<h3 id="backup-job-vs-backup-policy">Backup Job vs Backup Policy</h3>
-<table>
-  <thead>
-      <tr>
-          <th>Feature</th>
-          <th>Backup Job (Server-Managed)</th>
-          <th>Backup Policy (Agent-Managed)</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>Execution</strong></td>
-          <td>Runs from Veeam server</td>
-          <td>Runs on agent computer</td>
-      </tr>
-      <tr>
-          <td><strong>Data Transfer</strong></td>
-          <td>Pulled from agents</td>
-          <td>Agent pushes to repository</td>
-      </tr>
-      <tr>
-          <td><strong>Network Requirements</strong></td>
-          <td>Constant connectivity</td>
-          <td>Periodic sync (6 hours)</td>
-      </tr>
-      <tr>
-          <td><strong>Best For</strong></td>
-          <td>Servers, stable network</td>
-          <td>Workstations, roaming laptops</td>
-      </tr>
-      <tr>
-          <td><strong>User Control</strong></td>
-          <td>None (server-side job)</td>
-          <td>Full or read-only (agent-side)</td>
-      </tr>
-      <tr>
-          <td><strong>Backup Target</strong></td>
-          <td>Veeam repository only</td>
-          <td>Repository, Cloud Connect, local, network share</td>
-      </tr>
-      <tr>
-          <td><strong>Multiple Jobs</strong></td>
-          <td>Servers: unlimited, Workstations: limited</td>
-          <td>Per licensing edition</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="creating-backup-jobs-server-managed">Creating Backup Jobs (Server-Managed)</h3>
-<p><strong>Use Case</strong>: Linux VMs in datacenter, stable connectivity</p>
-<pre tabindex="0"><code>1. Backup → Agent Backup → Add Agent Backup Job
+</code></pre><h4 id=option-3-hybrid-approach-backup-policies>Option 3: Hybrid Approach (Backup Policies)</h4><p><strong>Best for</strong>: Most enterprise environments</p><p><strong>Configuration</strong>:</p><ol><li>Use Backup Policies (agent-managed jobs)</li><li>Define backup configuration centrally</li><li>Agents execute backups locally on schedule</li><li>Users can manually trigger between scheduled runs (read-only) OR modify locally (full access)</li></ol><hr><h2 id=operating-modes-explained>Operating Modes Explained</h2><h3 id=backup-job-vs-backup-policy>Backup Job vs Backup Policy</h3><table><thead><tr><th>Feature</th><th>Backup Job (Server-Managed)</th><th>Backup Policy (Agent-Managed)</th></tr></thead><tbody><tr><td><strong>Execution</strong></td><td>Runs from Veeam server</td><td>Runs on agent computer</td></tr><tr><td><strong>Data Transfer</strong></td><td>Pulled from agents</td><td>Agent pushes to repository</td></tr><tr><td><strong>Network Requirements</strong></td><td>Constant connectivity</td><td>Periodic sync (6 hours)</td></tr><tr><td><strong>Best For</strong></td><td>Servers, stable network</td><td>Workstations, roaming laptops</td></tr><tr><td><strong>User Control</strong></td><td>None (server-side job)</td><td>Full or read-only (agent-side)</td></tr><tr><td><strong>Backup Target</strong></td><td>Veeam repository only</td><td>Repository, Cloud Connect, local, network share</td></tr><tr><td><strong>Multiple Jobs</strong></td><td>Servers: unlimited, Workstations: limited</td><td>Per licensing edition</td></tr></tbody></table><h3 id=creating-backup-jobs-server-managed>Creating Backup Jobs (Server-Managed)</h3><p><strong>Use Case</strong>: Linux VMs in datacenter, stable connectivity</p><pre tabindex=0><code>1. Backup → Agent Backup → Add Agent Backup Job
 2. Job Mode: Managed by backup server
 3. Name: Linux-VMs-Daily
 4. Add protection groups or individual computers
@@ -656,9 +94,7 @@ Requirements: Local Administrator group membership
    - Retention: 14 restore points
    - Encryption: Enable if required
    - Notifications: Email on failures
-</code></pre><h3 id="creating-backup-policies-agent-managed">Creating Backup Policies (Agent-Managed)</h3>
-<p><strong>Use Case</strong>: Windows workstations, laptops, remote workers</p>
-<pre tabindex="0"><code>1. Backup → Agent Backup → Add Agent Backup Job
+</code></pre><h3 id=creating-backup-policies-agent-managed>Creating Backup Policies (Agent-Managed)</h3><p><strong>Use Case</strong>: Windows workstations, laptops, remote workers</p><pre tabindex=0><code>1. Backup → Agent Backup → Add Agent Backup Job
 2. Job Mode: Managed by agent
 3. Name: Workstations-Policy
 4. Add protection groups or individual computers
@@ -679,43 +115,18 @@ Requirements: Local Administrator group membership
    - Backup window: 6 PM - 10 PM
    - Pre-/post-job scripts (optional)
    - Application-aware processing
-</code></pre><p><strong>Policy Application</strong>:</p>
-<ul>
-<li>Policy pushed to agents immediately upon creation</li>
-<li>Agents sync every 6 hours for updates</li>
-<li>Manual sync:
-<ul>
-<li>Linux: <code>sudo veeamconfig job sync</code></li>
-<li>Windows: Right-click agent tray icon → <strong>Synchronize with Veeam Backup &amp; Replication</strong></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="step-by-step-implementation">Step-by-Step Implementation</h2>
-<h3 id="scenario-1-linux-vms-with-full-user-control">Scenario 1: Linux VMs with Full User Control</h3>
-<p><strong>Environment</strong>: 50 Linux VMs in production, sysadmins need backup flexibility</p>
-<p><strong>Implementation</strong>:</p>
-<ol>
-<li>
-<p><strong>Create Protection Group</strong>:</p>
-<pre tabindex="0"><code>Name: Linux-Production-Servers
+</code></pre><p><strong>Policy Application</strong>:</p><ul><li>Policy pushed to agents immediately upon creation</li><li>Agents sync every 6 hours for updates</li><li>Manual sync:<ul><li>Linux: <code>sudo veeamconfig job sync</code></li><li>Windows: Right-click agent tray icon → <strong>Synchronize with Veeam Backup & Replication</strong></li></ul></li></ul><hr><h2 id=step-by-step-implementation>Step-by-Step Implementation</h2><h3 id=scenario-1-linux-vms-with-full-user-control>Scenario 1: Linux VMs with Full User Control</h3><p><strong>Environment</strong>: 50 Linux VMs in production, sysadmins need backup flexibility</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Protection Group</strong>:</p><pre tabindex=0><code>Name: Linux-Production-Servers
 Type: CSV file import
 File: \\veeam\config\linux-servers.csv
 Credentials: root (SSH key)
 Discovery: Daily at 1 AM
 Auto-install: Yes
 Auto-upgrade: Yes
-</code></pre></li>
-<li>
-<p><strong>CSV File Format</strong> (<code>linux-servers.csv</code>):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csv" data-lang="csv"><span style="display:flex;"><span><span style="color:#e6db74">Name</span>,<span style="color:#e6db74">IP</span>,<span style="color:#e6db74">Description</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">web01</span>,<span style="color:#e6db74">192.168.1.10</span>,<span style="color:#e6db74">Web Server</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">db01</span>,<span style="color:#e6db74">192.168.1.20</span>,<span style="color:#e6db74">Database Server</span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">app01</span>,<span style="color:#e6db74">192.168.1.30</span>,<span style="color:#e6db74">Application Server</span>
-</span></span></code></pre></div></li>
-<li>
-<p><strong>Create Backup Policy</strong>:</p>
-<pre tabindex="0"><code>Name: Linux-Servers-Policy
+</code></pre></li><li><p><strong>CSV File Format</strong> (<code>linux-servers.csv</code>):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csv data-lang=csv><span style=display:flex><span><span style=color:#e6db74>Name</span>,<span style=color:#e6db74>IP</span>,<span style=color:#e6db74>Description</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>web01</span>,<span style=color:#e6db74>192.168.1.10</span>,<span style=color:#e6db74>Web Server</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>db01</span>,<span style=color:#e6db74>192.168.1.20</span>,<span style=color:#e6db74>Database Server</span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>app01</span>,<span style=color:#e6db74>192.168.1.30</span>,<span style=color:#e6db74>Application Server</span>
+</span></span></code></pre></div></li><li><p><strong>Create Backup Policy</strong>:</p><pre tabindex=0><code>Name: Linux-Servers-Policy
 Mode: Managed by agent
 Protection Groups: Linux-Production-Servers
 Backup Mode: Entire computer
@@ -723,40 +134,17 @@ Target: Veeam Repository (linux-backups)
 Schedule: Daily at 11 PM
 Retention: 14 restore points
 Read-Only Mode: Disabled (users have full control)
-</code></pre></li>
-<li>
-<p><strong>Configure User Permissions</strong>:</p>
-<pre tabindex="0"><code>Add AD Group: DOMAIN\LinuxAdmins
+</code></pre></li><li><p><strong>Configure User Permissions</strong>:</p><pre tabindex=0><code>Add AD Group: DOMAIN\LinuxAdmins
 Role: Veeam Backup Operator
 Scope: Linux-Production-Servers protection group
-</code></pre></li>
-<li>
-<p><strong>User Access Setup</strong>:</p>
-<ul>
-<li>Users SSH to their Linux VMs</li>
-<li>Run: <code>sudo veeam</code> for interactive TUI</li>
-<li>Or: <code>sudo veeamconfig</code> for CLI management</li>
-<li>Can modify job settings, run manual backups, perform restores</li>
-</ul>
-</li>
-</ol>
-<h3 id="scenario-2-windows-workstations-with-read-only-mode">Scenario 2: Windows Workstations with Read-Only Mode</h3>
-<p><strong>Environment</strong>: 200 Windows 10/11 laptops, users need manual backup initiation only</p>
-<p><strong>Implementation</strong>:</p>
-<ol>
-<li>
-<p><strong>Create Protection Group</strong>:</p>
-<pre tabindex="0"><code>Name: Corporate-Workstations
+</code></pre></li><li><p><strong>User Access Setup</strong>:</p><ul><li>Users SSH to their Linux VMs</li><li>Run: <code>sudo veeam</code> for interactive TUI</li><li>Or: <code>sudo veeamconfig</code> for CLI management</li><li>Can modify job settings, run manual backups, perform restores</li></ul></li></ol><h3 id=scenario-2-windows-workstations-with-read-only-mode>Scenario 2: Windows Workstations with Read-Only Mode</h3><p><strong>Environment</strong>: 200 Windows 10/11 laptops, users need manual backup initiation only</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Protection Group</strong>:</p><pre tabindex=0><code>Name: Corporate-Workstations
 Type: Active Directory Objects
 Scope: OU=Workstations,OU=Computers,DC=company,DC=local
 Exclude: OU=Kiosks (optional)
 Credentials: DOMAIN\VeeamAgentDeployer
 Discovery: Every 4 hours
 Auto-install: Yes
-</code></pre></li>
-<li>
-<p><strong>Create Backup Policy</strong>:</p>
-<pre tabindex="0"><code>Name: Workstation-Daily-Backup
+</code></pre></li><li><p><strong>Create Backup Policy</strong>:</p><pre tabindex=0><code>Name: Workstation-Daily-Backup
 Mode: Managed by agent
 Protection Groups: Corporate-Workstations
 Backup Mode: Entire computer
@@ -767,10 +155,7 @@ Schedule:
   - Allow backup on battery (laptops)
 Retention: 7 restore points
 Read-Only Mode: ENABLED
-</code></pre></li>
-<li>
-<p><strong>Configure Permissions</strong>:</p>
-<pre tabindex="0"><code>Add AD Group: DOMAIN\Domain Users
+</code></pre></li><li><p><strong>Configure Permissions</strong>:</p><pre tabindex=0><code>Add AD Group: DOMAIN\Domain Users
 Role: Custom &#34;Workstation Backup Users&#34;
 Permissions:
   - View backup jobs: Yes
@@ -778,325 +163,132 @@ Permissions:
   - Restore files: Yes
   - Modify settings: No
 Scope: Corporate-Workstations
-</code></pre></li>
-<li>
-<p><strong>User Workflow</strong>:</p>
-<ul>
-<li>User sees Veeam icon in system tray</li>
-<li>Right-click → <strong>Backup Now</strong> (runs configured policy)</li>
-<li>View status: <strong>Control Panel</strong> (read-only view)</li>
-<li>Restore: <strong>Control Panel</strong> → <strong>Restore</strong> → <strong>File-level restore</strong></li>
-</ul>
-</li>
-</ol>
-<h3 id="scenario-3-mixed-environment-linux--windows">Scenario 3: Mixed Environment (Linux + Windows)</h3>
-<p><strong>Environment</strong>: 30 Linux servers, 100 Windows workstations, different policies</p>
-<p><strong>Implementation</strong>:</p>
-<ol>
-<li>
-<p><strong>Create Multiple Protection Groups</strong>:</p>
-<p><strong>Linux Servers</strong>:</p>
-<pre tabindex="0"><code>Name: Linux-Servers
+</code></pre></li><li><p><strong>User Workflow</strong>:</p><ul><li>User sees Veeam icon in system tray</li><li>Right-click → <strong>Backup Now</strong> (runs configured policy)</li><li>View status: <strong>Control Panel</strong> (read-only view)</li><li>Restore: <strong>Control Panel</strong> → <strong>Restore</strong> → <strong>File-level restore</strong></li></ul></li></ol><h3 id=scenario-3-mixed-environment-linux--windows>Scenario 3: Mixed Environment (Linux + Windows)</h3><p><strong>Environment</strong>: 30 Linux servers, 100 Windows workstations, different policies</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Multiple Protection Groups</strong>:</p><p><strong>Linux Servers</strong>:</p><pre tabindex=0><code>Name: Linux-Servers
 Type: Individual computers (manually added)
 Computers: [linux01, linux02, ..., linux30]
 Credentials: root (SSH key)
 Auto-install: Yes
-</code></pre><p><strong>Windows Workstations</strong>:</p>
-<pre tabindex="0"><code>Name: Windows-Workstations
+</code></pre><p><strong>Windows Workstations</strong>:</p><pre tabindex=0><code>Name: Windows-Workstations
 Type: Active Directory (OU)
 Credentials: DOMAIN\AgentInstaller
 Auto-install: Yes
-</code></pre></li>
-<li>
-<p><strong>Create Separate Backup Policies</strong>:</p>
-<p><strong>Linux Policy</strong>:</p>
-<pre tabindex="0"><code>Name: Linux-Backup-Job
+</code></pre></li><li><p><strong>Create Separate Backup Policies</strong>:</p><p><strong>Linux Policy</strong>:</p><pre tabindex=0><code>Name: Linux-Backup-Job
 Mode: Managed by agent
 Computers: Linux-Servers
 Type: Volume-level (system volumes only)
 Target: Veeam Repository
 Schedule: Daily 2 AM
 Read-Only: Disabled
-</code></pre><p><strong>Windows Policy</strong>:</p>
-<pre tabindex="0"><code>Name: Workstation-Policy
+</code></pre><p><strong>Windows Policy</strong>:</p><pre tabindex=0><code>Name: Workstation-Policy
 Mode: Managed by agent
 Computers: Windows-Workstations
 Type: Entire computer
 Target: Network Share
 Schedule: Daily 7 PM
 Read-Only: Enabled
-</code></pre></li>
-<li>
-<p><strong>Role Assignments</strong>:</p>
-<ul>
-<li>Linux Admins → Full control on Linux-Servers group</li>
-<li>Windows Users → Read-only on Windows-Workstations group</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="best-practices">Best Practices</h2>
-<h3 id="security">Security</h3>
-<ol>
-<li>
-<p><strong>Credential Management</strong>:</p>
-<ul>
-<li>Use service accounts for agent deployment</li>
-<li>Implement least privilege principle</li>
-<li>Rotate passwords regularly</li>
-<li>Use SSH keys for Linux (not passwords)</li>
-</ul>
-</li>
-<li>
-<p><strong>Network Security</strong>:</p>
-<ul>
-<li>Segment backup traffic (VLAN)</li>
-<li>Use TLS for agent communication</li>
-<li>Firewall rules: only allow Veeam server → agents</li>
-<li>VPN for remote agents</li>
-</ul>
-</li>
-<li>
-<p><strong>Backup Repository Security</strong>:</p>
-<ul>
-<li>Immutability where possible</li>
-<li>Access control on shares</li>
-<li>Encryption at rest and in transit</li>
-<li>Air-gapped copies for critical data</li>
-</ul>
-</li>
-</ol>
-<h3 id="performance">Performance</h3>
-<ol>
-<li>
-<p><strong>Scheduling</strong>:</p>
-<ul>
-<li>Stagger backup windows across protection groups</li>
-<li>Linux servers: 10 PM - 6 AM</li>
-<li>Workstations: 7 PM - 10 PM (when online)</li>
-<li>Avoid peak business hours</li>
-</ul>
-</li>
-<li>
-<p><strong>Resource Management</strong>:</p>
-<ul>
-<li>Set concurrent tasks limits</li>
-<li>Throttle network bandwidth if needed</li>
-<li>Enable CBT (Changed Block Tracking) for faster incrementals</li>
-<li>Use appropriate block size for repositories</li>
-</ul>
-</li>
-<li>
-<p><strong>Repository Configuration</strong>:</p>
-<ul>
-<li>Deduplicated storage for workstations</li>
-<li>Fast storage tier for active backups</li>
-<li>Archive tier for long-term retention</li>
-<li>Per-VM backup files for granular management</li>
-</ul>
-</li>
-</ol>
-<h3 id="monitoring">Monitoring</h3>
-<ol>
-<li>
-<p><strong>Configure Notifications</strong>:</p>
-<pre tabindex="0"><code>Email notifications:
+</code></pre></li><li><p><strong>Role Assignments</strong>:</p><ul><li>Linux Admins → Full control on Linux-Servers group</li><li>Windows Users → Read-only on Windows-Workstations group</li></ul></li></ol><hr><h2 id=best-practices>Best Practices</h2><h3 id=security>Security</h3><ol><li><p><strong>Credential Management</strong>:</p><ul><li>Use service accounts for agent deployment</li><li>Implement least privilege principle</li><li>Rotate passwords regularly</li><li>Use SSH keys for Linux (not passwords)</li></ul></li><li><p><strong>Network Security</strong>:</p><ul><li>Segment backup traffic (VLAN)</li><li>Use TLS for agent communication</li><li>Firewall rules: only allow Veeam server → agents</li><li>VPN for remote agents</li></ul></li><li><p><strong>Backup Repository Security</strong>:</p><ul><li>Immutability where possible</li><li>Access control on shares</li><li>Encryption at rest and in transit</li><li>Air-gapped copies for critical data</li></ul></li></ol><h3 id=performance>Performance</h3><ol><li><p><strong>Scheduling</strong>:</p><ul><li>Stagger backup windows across protection groups</li><li>Linux servers: 10 PM - 6 AM</li><li>Workstations: 7 PM - 10 PM (when online)</li><li>Avoid peak business hours</li></ul></li><li><p><strong>Resource Management</strong>:</p><ul><li>Set concurrent tasks limits</li><li>Throttle network bandwidth if needed</li><li>Enable CBT (Changed Block Tracking) for faster incrementals</li><li>Use appropriate block size for repositories</li></ul></li><li><p><strong>Repository Configuration</strong>:</p><ul><li>Deduplicated storage for workstations</li><li>Fast storage tier for active backups</li><li>Archive tier for long-term retention</li><li>Per-VM backup files for granular management</li></ul></li></ol><h3 id=monitoring>Monitoring</h3><ol><li><p><strong>Configure Notifications</strong>:</p><pre tabindex=0><code>Email notifications:
 - Failed jobs → Administrators
 - Successful jobs → Log only
 - Warnings → Daily digest
-</code></pre></li>
-<li>
-<p><strong>Reporting</strong>:</p>
-<ul>
-<li>Weekly backup status reports</li>
-<li>Capacity planning reports</li>
-<li>License usage tracking</li>
-<li>Agent health checks</li>
-</ul>
-</li>
-<li>
-<p><strong>Health Checks</strong>:</p>
-<ul>
-<li>Daily: Check failed jobs</li>
-<li>Weekly: Review agent connectivity</li>
-<li>Monthly: Validate restore capability</li>
-<li>Quarterly: Test DR procedures</li>
-</ul>
-</li>
-</ol>
-<h3 id="maintenance">Maintenance</h3>
-<ol>
-<li>
-<p><strong>Regular Tasks</strong>:</p>
-<ul>
-<li>Update agents (automatic or scheduled)</li>
-<li>Review and adjust retention</li>
-<li>Clean up old/orphaned jobs</li>
-<li>Archive to tape/cloud for long-term</li>
-</ul>
-</li>
-<li>
-<p><strong>Documentation</strong>:</p>
-<ul>
-<li>Protection group inventory</li>
-<li>User access matrix</li>
-<li>Network diagram</li>
-<li>Runbook for common tasks</li>
-</ul>
-</li>
-<li>
-<p><strong>Training</strong>:</p>
-<ul>
-<li>User guides for self-service</li>
-<li>Admin training for troubleshooting</li>
-<li>Documentation of custom configurations</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="common-issues">Common Issues</h3>
-<h4 id="agent-installation-failures">Agent Installation Failures</h4>
-<p><strong>Linux - Missing Dependencies</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Problem: dkms not found</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Solution:</span>
-</span></span><span style="display:flex;"><span>sudo yum install epel-release
-</span></span><span style="display:flex;"><span>sudo yum install dkms kernel-devel
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Problem: Kernel module compilation fails</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Solution: Install matching kernel headers</span>
-</span></span><span style="display:flex;"><span>sudo yum install kernel-devel-<span style="color:#66d9ef">$(</span>uname -r<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rebuild Veeam modules</span>
-</span></span><span style="display:flex;"><span>sudo dkms install veeamsnap/<span style="color:#66d9ef">$(</span>rpm -q --qf <span style="color:#e6db74">&#39;%{VERSION}&#39;</span> veeamsnap<span style="color:#66d9ef">)</span>
-</span></span></code></pre></div><p><strong>Windows - Installation Hangs</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Check Windows Installer service</span>
-</span></span><span style="display:flex;"><span>Get-Service msiserver | Restart-Service
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Clear temp files</span>
-</span></span><span style="display:flex;"><span>Remove-Item -Path <span style="color:#e6db74">&#34;</span>$env:TEMP<span style="color:#e6db74">\*&#34;</span> -Recurse -Force
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disable antivirus temporarily during install</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add Veeam directories to exclusions:</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># C:\Program Files\Veeam\Endpoint Backup\</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># C:\ProgramData\Veeam\Endpoint\</span>
-</span></span></code></pre></div><h4 id="connectivity-issues">Connectivity Issues</h4>
-<p><strong>Agent Cannot Connect to Veeam Server</strong>:</p>
-<p>Linux:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Test connectivity</span>
-</span></span><span style="display:flex;"><span>telnet veeam-server.company.local <span style="color:#ae81ff">10002</span>
-</span></span><span style="display:flex;"><span>nc -zv veeam-server.company.local <span style="color:#ae81ff">10002</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check agent status</span>
-</span></span><span style="display:flex;"><span>sudo systemctl status veeamservice
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># View logs</span>
-</span></span><span style="display:flex;"><span>sudo cat /var/log/veeam/veeamservice.log
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Manual sync</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig vbrserver sync
-</span></span></code></pre></div><p>Windows:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Test connectivity</span>
-</span></span><span style="display:flex;"><span>Test-NetConnection -ComputerName veeam-server.company.local -Port <span style="color:#ae81ff">10002</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check service</span>
-</span></span><span style="display:flex;"><span>Get-Service VeeamEndpointBackupSvc | Restart-Service
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># View logs</span>
-</span></span><span style="display:flex;"><span>Get-EventLog -LogName <span style="color:#e6db74">&#34;Veeam Agent&#34;</span> -Newest <span style="color:#ae81ff">50</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Manual sync</span>
-</span></span><span style="display:flex;"><span>&amp; <span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /server.sync
-</span></span></code></pre></div><p><strong>Firewall Issues</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Linux - Allow Veeam ports (firewalld)</span>
-</span></span><span style="display:flex;"><span>sudo firewall-cmd --permanent --add-port<span style="color:#f92672">=</span>2500-3300/tcp
-</span></span><span style="display:flex;"><span>sudo firewall-cmd --permanent --add-port<span style="color:#f92672">=</span>6160/tcp
-</span></span><span style="display:flex;"><span>sudo firewall-cmd --reload
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Linux - Allow Veeam ports (iptables)</span>
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport 2500:3300 -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">6160</span> -j ACCEPT
-</span></span><span style="display:flex;"><span>sudo service iptables save
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Windows - Allow Veeam through firewall</span>
-</span></span><span style="display:flex;"><span>New-NetFirewallRule -DisplayName <span style="color:#e6db74">&#34;Veeam Agent&#34;</span> -Direction Inbound -Protocol TCP -LocalPort <span style="color:#ae81ff">2500</span>-<span style="color:#ae81ff">3300</span>,<span style="color:#ae81ff">6160</span>,<span style="color:#ae81ff">10005</span>-<span style="color:#ae81ff">10007</span> -Action Allow
-</span></span></code></pre></div><h4 id="backup-job-failures">Backup Job Failures</h4>
-<p><strong>Insufficient Permissions</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Linux - Grant Veeam access to volumes</span>
-</span></span><span style="display:flex;"><span>sudo usermod -aG disk veeam
-</span></span><span style="display:flex;"><span>sudo usermod -aG veeam veeam
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check mount points are accessible</span>
-</span></span><span style="display:flex;"><span>ls -la /mnt /media
-</span></span></code></pre></div><p><strong>Snapshot Failures (Linux)</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check available space for snapshots</span>
-</span></span><span style="display:flex;"><span>df -h /
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verify snapshot store location</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig snapshot info
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Change snapshot location if needed</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig snapshot set --path /var/veeam/snapshots
-</span></span></code></pre></div><p><strong>Volume Shadow Copy Service Issues (Windows)</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Check VSS writers</span>
-</span></span><span style="display:flex;"><span>vssadmin list writers
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Restart VSS service</span>
-</span></span><span style="display:flex;"><span>Restart-Service VSS
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Clear old shadow copies</span>
-</span></span><span style="display:flex;"><span>vssadmin delete shadows /all /quiet
-</span></span></code></pre></div><h4 id="read-only-mode-not-working">Read-Only Mode Not Working</h4>
-<p><strong>Issue</strong>: Users can still modify backup settings despite read-only mode enabled</p>
-<p><strong>Solution</strong>:</p>
-<ol>
-<li>
-<p>Verify mode in Veeam console:</p>
-<pre tabindex="0"><code>Inventory → Computer → Properties → Options → Access Mode
-</code></pre></li>
-<li>
-<p>Force policy sync:</p>
-<pre tabindex="0"><code>Protection Group → Rescan
-</code></pre></li>
-<li>
-<p>Check agent local permissions:</p>
-<ul>
-<li>Windows: Remove user from local Administrators</li>
-<li>Linux: Revoke sudo access for veeam commands</li>
-</ul>
-</li>
-</ol>
-<h4 id="performance-issues">Performance Issues</h4>
-<p><strong>Slow Backups</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check network throughput</span>
-</span></span><span style="display:flex;"><span>iperf3 -c veeam-server.company.local
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Linux - Monitor I/O</span>
-</span></span><span style="display:flex;"><span>iostat -x <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">10</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check if compression/deduplication is bottleneck</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disable in job settings if CPU-constrained</span>
-</span></span></code></pre></div><p><strong>High CPU Usage During Backup</strong>:</p>
-<ul>
-<li>Reduce compression level (job settings)</li>
-<li>Enable application-aware processing only if needed</li>
-<li>Stagger backup schedules more</li>
-<li>Add processing cores to agents</li>
-</ul>
-<h3 id="log-locations">Log Locations</h3>
-<p><strong>Linux</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Main service log</span>
-</span></span><span style="display:flex;"><span>/var/log/veeam/veeamservice.log
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Job logs</span>
-</span></span><span style="display:flex;"><span>/var/log/veeam/Backup/
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configuration</span>
-</span></span><span style="display:flex;"><span>/etc/veeam/
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Database</span>
-</span></span><span style="display:flex;"><span>/var/lib/veeam/
-</span></span></code></pre></div><p><strong>Windows</strong>:</p>
-<pre tabindex="0"><code># Event Viewer
+</code></pre></li><li><p><strong>Reporting</strong>:</p><ul><li>Weekly backup status reports</li><li>Capacity planning reports</li><li>License usage tracking</li><li>Agent health checks</li></ul></li><li><p><strong>Health Checks</strong>:</p><ul><li>Daily: Check failed jobs</li><li>Weekly: Review agent connectivity</li><li>Monthly: Validate restore capability</li><li>Quarterly: Test DR procedures</li></ul></li></ol><h3 id=maintenance>Maintenance</h3><ol><li><p><strong>Regular Tasks</strong>:</p><ul><li>Update agents (automatic or scheduled)</li><li>Review and adjust retention</li><li>Clean up old/orphaned jobs</li><li>Archive to tape/cloud for long-term</li></ul></li><li><p><strong>Documentation</strong>:</p><ul><li>Protection group inventory</li><li>User access matrix</li><li>Network diagram</li><li>Runbook for common tasks</li></ul></li><li><p><strong>Training</strong>:</p><ul><li>User guides for self-service</li><li>Admin training for troubleshooting</li><li>Documentation of custom configurations</li></ul></li></ol><hr><h2 id=troubleshooting>Troubleshooting</h2><h3 id=common-issues>Common Issues</h3><h4 id=agent-installation-failures>Agent Installation Failures</h4><p><strong>Linux - Missing Dependencies</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Problem: dkms not found</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Solution:</span>
+</span></span><span style=display:flex><span>sudo yum install epel-release
+</span></span><span style=display:flex><span>sudo yum install dkms kernel-devel
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Problem: Kernel module compilation fails</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Solution: Install matching kernel headers</span>
+</span></span><span style=display:flex><span>sudo yum install kernel-devel-<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Rebuild Veeam modules</span>
+</span></span><span style=display:flex><span>sudo dkms install veeamsnap/<span style=color:#66d9ef>$(</span>rpm -q --qf <span style=color:#e6db74>&#39;%{VERSION}&#39;</span> veeamsnap<span style=color:#66d9ef>)</span>
+</span></span></code></pre></div><p><strong>Windows - Installation Hangs</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Check Windows Installer service</span>
+</span></span><span style=display:flex><span>Get-Service msiserver | Restart-Service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Clear temp files</span>
+</span></span><span style=display:flex><span>Remove-Item -Path <span style=color:#e6db74>&#34;</span>$env:TEMP<span style=color:#e6db74>\*&#34;</span> -Recurse -Force
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Disable antivirus temporarily during install</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Add Veeam directories to exclusions:</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># C:\Program Files\Veeam\Endpoint Backup\</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># C:\ProgramData\Veeam\Endpoint\</span>
+</span></span></code></pre></div><h4 id=connectivity-issues>Connectivity Issues</h4><p><strong>Agent Cannot Connect to Veeam Server</strong>:</p><p>Linux:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Test connectivity</span>
+</span></span><span style=display:flex><span>telnet veeam-server.company.local <span style=color:#ae81ff>10002</span>
+</span></span><span style=display:flex><span>nc -zv veeam-server.company.local <span style=color:#ae81ff>10002</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check agent status</span>
+</span></span><span style=display:flex><span>sudo systemctl status veeamservice
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># View logs</span>
+</span></span><span style=display:flex><span>sudo cat /var/log/veeam/veeamservice.log
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Manual sync</span>
+</span></span><span style=display:flex><span>sudo veeamconfig vbrserver sync
+</span></span></code></pre></div><p>Windows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Test connectivity</span>
+</span></span><span style=display:flex><span>Test-NetConnection -ComputerName veeam-server.company.local -Port <span style=color:#ae81ff>10002</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check service</span>
+</span></span><span style=display:flex><span>Get-Service VeeamEndpointBackupSvc | Restart-Service
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># View logs</span>
+</span></span><span style=display:flex><span>Get-EventLog -LogName <span style=color:#e6db74>&#34;Veeam Agent&#34;</span> -Newest <span style=color:#ae81ff>50</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Manual sync</span>
+</span></span><span style=display:flex><span>&amp; <span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /server.sync
+</span></span></code></pre></div><p><strong>Firewall Issues</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Linux - Allow Veeam ports (firewalld)</span>
+</span></span><span style=display:flex><span>sudo firewall-cmd --permanent --add-port<span style=color:#f92672>=</span>2500-3300/tcp
+</span></span><span style=display:flex><span>sudo firewall-cmd --permanent --add-port<span style=color:#f92672>=</span>6160/tcp
+</span></span><span style=display:flex><span>sudo firewall-cmd --reload
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Linux - Allow Veeam ports (iptables)</span>
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp --dport 2500:3300 -j ACCEPT
+</span></span><span style=display:flex><span>sudo iptables -A INPUT -p tcp --dport <span style=color:#ae81ff>6160</span> -j ACCEPT
+</span></span><span style=display:flex><span>sudo service iptables save
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Windows - Allow Veeam through firewall</span>
+</span></span><span style=display:flex><span>New-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Veeam Agent&#34;</span> -Direction Inbound -Protocol TCP -LocalPort <span style=color:#ae81ff>2500</span>-<span style=color:#ae81ff>3300</span>,<span style=color:#ae81ff>6160</span>,<span style=color:#ae81ff>10005</span>-<span style=color:#ae81ff>10007</span> -Action Allow
+</span></span></code></pre></div><h4 id=backup-job-failures>Backup Job Failures</h4><p><strong>Insufficient Permissions</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Linux - Grant Veeam access to volumes</span>
+</span></span><span style=display:flex><span>sudo usermod -aG disk veeam
+</span></span><span style=display:flex><span>sudo usermod -aG veeam veeam
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check mount points are accessible</span>
+</span></span><span style=display:flex><span>ls -la /mnt /media
+</span></span></code></pre></div><p><strong>Snapshot Failures (Linux)</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Check available space for snapshots</span>
+</span></span><span style=display:flex><span>df -h /
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Verify snapshot store location</span>
+</span></span><span style=display:flex><span>sudo veeamconfig snapshot info
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Change snapshot location if needed</span>
+</span></span><span style=display:flex><span>sudo veeamconfig snapshot set --path /var/veeam/snapshots
+</span></span></code></pre></div><p><strong>Volume Shadow Copy Service Issues (Windows)</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Check VSS writers</span>
+</span></span><span style=display:flex><span>vssadmin list writers
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Restart VSS service</span>
+</span></span><span style=display:flex><span>Restart-Service VSS
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Clear old shadow copies</span>
+</span></span><span style=display:flex><span>vssadmin delete shadows /all /quiet
+</span></span></code></pre></div><h4 id=read-only-mode-not-working>Read-Only Mode Not Working</h4><p><strong>Issue</strong>: Users can still modify backup settings despite read-only mode enabled</p><p><strong>Solution</strong>:</p><ol><li><p>Verify mode in Veeam console:</p><pre tabindex=0><code>Inventory → Computer → Properties → Options → Access Mode
+</code></pre></li><li><p>Force policy sync:</p><pre tabindex=0><code>Protection Group → Rescan
+</code></pre></li><li><p>Check agent local permissions:</p><ul><li>Windows: Remove user from local Administrators</li><li>Linux: Revoke sudo access for veeam commands</li></ul></li></ol><h4 id=performance-issues>Performance Issues</h4><p><strong>Slow Backups</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Check network throughput</span>
+</span></span><span style=display:flex><span>iperf3 -c veeam-server.company.local
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Linux - Monitor I/O</span>
+</span></span><span style=display:flex><span>iostat -x <span style=color:#ae81ff>5</span> <span style=color:#ae81ff>10</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check if compression/deduplication is bottleneck</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Disable in job settings if CPU-constrained</span>
+</span></span></code></pre></div><p><strong>High CPU Usage During Backup</strong>:</p><ul><li>Reduce compression level (job settings)</li><li>Enable application-aware processing only if needed</li><li>Stagger backup schedules more</li><li>Add processing cores to agents</li></ul><h3 id=log-locations>Log Locations</h3><p><strong>Linux</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Main service log</span>
+</span></span><span style=display:flex><span>/var/log/veeam/veeamservice.log
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Job logs</span>
+</span></span><span style=display:flex><span>/var/log/veeam/Backup/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Configuration</span>
+</span></span><span style=display:flex><span>/etc/veeam/
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Database</span>
+</span></span><span style=display:flex><span>/var/lib/veeam/
+</span></span></code></pre></div><p><strong>Windows</strong>:</p><pre tabindex=0><code># Event Viewer
 Applications and Services Logs → Veeam Agent
 
 # File logs
@@ -1104,653 +296,196 @@ C:\ProgramData\Veeam\Endpoint\Logs\
 
 # Configuration
 C:\ProgramData\Veeam\Endpoint\
-</code></pre><h3 id="support-commands">Support Commands</h3>
-<p><strong>Linux Diagnostic Bundle</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Generate support bundle</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig support export --path /tmp/veeam-support.zip
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Include system info</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig support export --path /tmp/veeam-support.zip --include-system-info
-</span></span></code></pre></div><p><strong>Windows Diagnostic Bundle</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Generate support bundle</span>
-</span></span><span style="display:flex;"><span>&amp; <span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /createSupportBundle /file<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;C:\Temp\veeam-support.zip&#34;</span>
-</span></span></code></pre></div><hr>
-<h2 id="appendix-a-command-reference">Appendix A: Command Reference</h2>
-<h3 id="linux-veeamconfig">Linux (veeamconfig)</h3>
-<p><strong>General</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Show version</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig --version
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Show license info</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig license show
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># View all jobs</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job list
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># View job details</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job info --name <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span></code></pre></div><p><strong>Job Management</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Start job manually</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job start --name <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Stop running job</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job stop --name <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable/disable job</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job enable --name <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job disable --name <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Delete job</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig job delete --name <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span></code></pre></div><p><strong>Backup Server Connection</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Add Veeam server</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig vbrserver add --address veeam.company.local --port <span style="color:#ae81ff">10002</span> --login <span style="color:#e6db74">&#34;DOMAIN\user&#34;</span> --password <span style="color:#e6db74">&#34;pass&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># List configured servers</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig vbrserver list
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sync with server</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig vbrserver sync
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove server</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig vbrserver remove --id <span style="color:#ae81ff">1</span>
-</span></span></code></pre></div><p><strong>Recovery</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List restore points</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig recovery list --job <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Mount restore point (file-level recovery)</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig recovery mount --session <span style="color:#e6db74">&#34;Session01&#34;</span> --mountpoint /mnt/backup
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Unmount</span>
-</span></span><span style="display:flex;"><span>sudo veeamconfig recovery unmount --mountpoint /mnt/backup
-</span></span></code></pre></div><h3 id="windows-veeamagentconfiguratorexe">Windows (Veeam.Agent.Configurator.exe)</h3>
-<p><strong>General</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$veeam = <span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Show configuration</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /list
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Show license</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /info
-</span></span></code></pre></div><p><strong>Job Management</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Start backup</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /start <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Stop backup</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /stop <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable/disable job</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /enable <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /disable <span style="color:#e6db74">&#34;Backup Job&#34;</span>
-</span></span></code></pre></div><p><strong>Configuration Export/Import</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Export configuration</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /export /file<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;C:\Temp\config.xml&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Import configuration</span>
-</span></span><span style="display:flex;"><span>&amp; $veeam /import /file<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#e6db74">&#34;C:\Temp\config.xml&#34;</span>
-</span></span></code></pre></div><hr>
-<h2 id="appendix-b-quick-reference-tables">Appendix B: Quick Reference Tables</h2>
-<h3 id="port-requirements">Port Requirements</h3>
-<table>
-  <thead>
-      <tr>
-          <th>Port</th>
-          <th>Protocol</th>
-          <th>Direction</th>
-          <th>Purpose</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>2500-3300</td>
-          <td>TCP</td>
-          <td>Bidirectional</td>
-          <td>Data transfer</td>
-      </tr>
-      <tr>
-          <td>6160</td>
-          <td>TCP</td>
-          <td>Inbound to agent</td>
-          <td>Installer service</td>
-      </tr>
-      <tr>
-          <td>10002</td>
-          <td>TCP</td>
-          <td>Outbound from agent</td>
-          <td>Agent management</td>
-      </tr>
-      <tr>
-          <td>10005-10007</td>
-          <td>TCP</td>
-          <td>Bidirectional</td>
-          <td>Control channel</td>
-      </tr>
-      <tr>
-          <td>22</td>
-          <td>TCP</td>
-          <td>Inbound to Linux</td>
-          <td>SSH (deployment)</td>
-      </tr>
-      <tr>
-          <td>445</td>
-          <td>TCP</td>
-          <td>Outbound to repository</td>
-          <td>SMB shares</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="backup-modes-comparison">Backup Modes Comparison</h3>
-<table>
-  <thead>
-      <tr>
-          <th>Mode</th>
-          <th>Description</th>
-          <th>Use Case</th>
-          <th>Restore Granularity</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>Entire Computer</strong></td>
-          <td>Full system image</td>
-          <td>Bare-metal DR</td>
-          <td>Full system, volumes, files</td>
-      </tr>
-      <tr>
-          <td><strong>Volume Level</strong></td>
-          <td>Selected volumes only</td>
-          <td>Partial system backup</td>
-          <td>Volumes, files</td>
-      </tr>
-      <tr>
-          <td><strong>File Level</strong></td>
-          <td>Specific files/folders</td>
-          <td>User data only</td>
-          <td>Individual files</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="retention-policy-examples">Retention Policy Examples</h3>
-<table>
-  <thead>
-      <tr>
-          <th>Scenario</th>
-          <th>Configuration</th>
-          <th>Result</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>Daily Backups</strong></td>
-          <td>14 restore points</td>
-          <td>2 weeks of daily backups</td>
-      </tr>
-      <tr>
-          <td><strong>Weekly Fulls</strong></td>
-          <td>4 full backups</td>
-          <td>1 month of weekly fulls</td>
-      </tr>
-      <tr>
-          <td><strong>GFS</strong></td>
-          <td>7 daily, 4 weekly, 12 monthly, 5 yearly</td>
-          <td>Comprehensive long-term</td>
-      </tr>
-      <tr>
-          <td><strong>Simple</strong></td>
-          <td>7 restore points</td>
-          <td>1 week (quick recovery)</td>
-      </tr>
-  </tbody>
-</table>
-<hr>
-<h2 id="appendix-c-sample-scripts">Appendix C: Sample Scripts</h2>
-<h3 id="powershell-deploy-agents-to-multiple-windows-machines">PowerShell: Deploy Agents to Multiple Windows Machines</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Deploy-VeeamAgent.ps1</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Deploys Veeam Agent to computers in a CSV file</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">param</span>(
-</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">string</span>]$ComputerListCSV = <span style="color:#e6db74">&#34;C:\Scripts\computers.csv&#34;</span>,
-</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">string</span>]$InstallerPath = <span style="color:#e6db74">&#34;\\server\share\VeeamAgentWindows_6.3.exe&#34;</span>,
-</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">string</span>]$ConfigPath = <span style="color:#e6db74">&#34;\\server\share\config.xml&#34;</span>,
-</span></span><span style="display:flex;"><span>    [<span style="color:#66d9ef">PSCredential</span>]$Credential
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$computers = Import-Csv $ComputerListCSV
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($computer <span style="color:#66d9ef">in</span> $computers) {
-</span></span><span style="display:flex;"><span>    $computerName = $computer.Name
-</span></span><span style="display:flex;"><span>    Write-Host <span style="color:#e6db74">&#34;Deploying to </span>$computerName<span style="color:#e6db74">...&#34;</span> -ForegroundColor Cyan
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Copy installer</span>
-</span></span><span style="display:flex;"><span>        $session = New-PSSession -ComputerName $computerName -Credential $Credential
-</span></span><span style="display:flex;"><span>        Copy-Item -Path $InstallerPath -Destination <span style="color:#e6db74">&#34;C:\Temp\&#34;</span> -ToSession $session
-</span></span><span style="display:flex;"><span>        Copy-Item -Path $ConfigPath -Destination <span style="color:#e6db74">&#34;C:\Temp\&#34;</span> -ToSession $session
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Install agent</span>
-</span></span><span style="display:flex;"><span>        Invoke-Command -Session $session -ScriptBlock {
-</span></span><span style="display:flex;"><span>            Start-Process <span style="color:#e6db74">&#34;C:\Temp\VeeamAgentWindows_6.3.exe&#34;</span> -ArgumentList <span style="color:#e6db74">&#34;/silent /accepteula /acceptthirdparty&#34;</span> -Wait
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Apply configuration</span>
-</span></span><span style="display:flex;"><span>            Start-Sleep -Seconds <span style="color:#ae81ff">30</span>
-</span></span><span style="display:flex;"><span>            &amp; <span style="color:#e6db74">&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style="color:#e6db74">&#34;C:\Temp\config.xml&#34;</span>
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        Remove-PSSession $session
-</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;✓ Completed: </span>$computerName<span style="color:#e6db74">&#34;</span> -ForegroundColor Green
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> {
-</span></span><span style="display:flex;"><span>        Write-Host <span style="color:#e6db74">&#34;✗ Failed: </span>$computerName<span style="color:#e6db74"> - </span>$($_.Exception.Message)<span style="color:#e6db74">&#34;</span> -ForegroundColor Red
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="bash-deploy-agents-to-multiple-linux-machines">Bash: Deploy Agents to Multiple Linux Machines</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e"># deploy-veeam-linux.sh</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Deploys Veeam Agent to Linux servers via SSH</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>COMPUTER_LIST<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;servers.txt&#34;</span>
-</span></span><span style="display:flex;"><span>SSH_KEY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;~/.ssh/veeam_deployment_key&#34;</span>
-</span></span><span style="display:flex;"><span>CONFIG_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;config.xml&#34;</span>
-</span></span><span style="display:flex;"><span>VEEAM_SERVER<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;veeam-server.company.local&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> IFS<span style="color:#f92672">=</span> read -r server; <span style="color:#66d9ef">do</span>
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Deploying to </span>$server<span style="color:#e6db74">...&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Install agent</span>
-</span></span><span style="display:flex;"><span>    ssh -i <span style="color:#e6db74">&#34;</span>$SSH_KEY<span style="color:#e6db74">&#34;</span> root@<span style="color:#e6db74">&#34;</span>$server<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        # Detect OS
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        if [ -f /etc/redhat-release ]; then
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            # RHEL/CentOS
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            yum install -y epel-release
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            yum install -y http://repository.veeam.com/backup/linux/agent/rpm/el/8/x86_64/veeam-release-el8-1.0.7-1.x86_64.rpm
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            yum install -y veeam
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        elif [ -f /etc/debian_version ]; then
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            # Debian/Ubuntu
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            wget https://repository.veeam.com/backup/linux/agent/dpkg/debian/public/pool/veeam/v/veeam-release-deb/veeam-release-deb_1.0.9_amd64.deb
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            dpkg -i veeam-release-deb_1.0.9_amd64.deb
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            apt-get update
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            apt-get install -y veeam
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        fi
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        # Start service
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        systemctl enable veeamservice
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        systemctl start veeamservice
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Copy config and apply</span>
-</span></span><span style="display:flex;"><span>    scp -i <span style="color:#e6db74">&#34;</span>$SSH_KEY<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$CONFIG_FILE<span style="color:#e6db74">&#34;</span> root@<span style="color:#e6db74">&#34;</span>$server<span style="color:#e6db74">&#34;</span>:/tmp/
-</span></span><span style="display:flex;"><span>    ssh -i <span style="color:#e6db74">&#34;</span>$SSH_KEY<span style="color:#e6db74">&#34;</span> root@<span style="color:#e6db74">&#34;</span>$server<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;veeamconfig setup --cfg /tmp/</span>$CONFIG_FILE<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;✓ Completed: </span>$server<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span> &lt; <span style="color:#e6db74">&#34;</span>$COMPUTER_LIST<span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Deployment complete!&#34;</span>
-</span></span></code></pre></div><h3 id="powershell-check-agent-status-report">PowerShell: Check Agent Status Report</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Get-VeeamAgentStatus.ps1</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generates report of all agent statuses</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$veeamServer = <span style="color:#e6db74">&#34;veeam-server.company.local&#34;</span>
-</span></span><span style="display:flex;"><span>Connect-VBRServer -Server $veeamServer
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$report = @()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$protectionGroups = Get-VBRComputerProtectionGroup
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> ($group <span style="color:#66d9ef">in</span> $protectionGroups) {
-</span></span><span style="display:flex;"><span>    $computers = Get-VBRComputerProtectionGroupMember -ProtectionGroup $group
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">foreach</span> ($computer <span style="color:#66d9ef">in</span> $computers) {
-</span></span><span style="display:flex;"><span>        $jobs = Get-VBRComputerBackupJob | Where-Object { $_.Objects <span style="color:#f92672">-contains</span> $computer }
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> ($job <span style="color:#66d9ef">in</span> $jobs) {
-</span></span><span style="display:flex;"><span>            $lastSession = Get-VBRBackupSession -Job $job | Sort-Object EndTime -Descending | Select-Object -First <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>            
-</span></span><span style="display:flex;"><span>            $report += [<span style="color:#66d9ef">PSCustomObject</span>]@{
-</span></span><span style="display:flex;"><span>                ProtectionGroup = $group.Name
-</span></span><span style="display:flex;"><span>                Computer = $computer.Name
-</span></span><span style="display:flex;"><span>                AgentVersion = $computer.Version
-</span></span><span style="display:flex;"><span>                OS = $computer.OSPlatform
-</span></span><span style="display:flex;"><span>                JobName = $job.Name
-</span></span><span style="display:flex;"><span>                LastBackup = $lastSession.EndTime
-</span></span><span style="display:flex;"><span>                Status = $lastSession.Result
-</span></span><span style="display:flex;"><span>                Size = [<span style="color:#66d9ef">math</span>]::Round($lastSession.BackupTotalSize / <span style="color:#ae81ff">1</span>GB, <span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$report | Export-Csv <span style="color:#e6db74">&#34;VeeamAgentStatus-</span>$(Get-Date -Format <span style="color:#e6db74">&#39;yyyy-MM-dd&#39;</span>)<span style="color:#e6db74">.csv&#34;</span> -NoTypeInformation
-</span></span><span style="display:flex;"><span>$report | Format-Table -AutoSize
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Disconnect-VBRServer
-</span></span></code></pre></div><hr>
-<h2 id="conclusion">Conclusion</h2>
-<p>This guide provides a comprehensive framework for implementing Veeam agent-level backups with user self-service capabilities for both Linux VMs and Windows workstations. Key takeaways:</p>
-<ul>
-<li><strong>Flexible Deployment</strong>: Choose between automatic (AD/CSV) or manual deployment methods</li>
-<li><strong>User Empowerment</strong>: Grant appropriate self-service capabilities via full access or read-only modes</li>
-<li><strong>Centralized Control</strong>: Maintain oversight through protection groups and policies</li>
-<li><strong>Platform Support</strong>: Unified approach for both Linux and Windows environments</li>
-<li><strong>Scalability</strong>: From small deployments to enterprise-wide implementations</li>
-</ul>
-<p>For ongoing support:</p>
-<ul>
-<li>Veeam Help Center: <a href="https://helpcenter.veeam.com">https://helpcenter.veeam.com</a></li>
-<li>Community Forums: <a href="https://forums.veeam.com">https://forums.veeam.com</a></li>
-<li>Technical Support: Contact your Veeam representative</li>
-</ul>
-<hr>
-<blockquote>
-<p><strong>Document Version</strong>: 1.0<br>
-<strong>Last Updated</strong>: 21:47pm - 0911/2025</p>
-</blockquote>
-
-    </div>
-
-    
-    
-
-    
-    
-
-    
-    
-</article>
-
- <span><div class="post-nav-right">
-    <a href="/posts/" class="read-more back-button">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z"></path>
-        </svg>
-        Back to Posts
-    </a>
-</div></span>
-
-
-
-<section class="author-section">
-    <div class="authorbox clearfix">
-        
-        <figure class="authorbox__avatar">
-            <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
-        </figure>
-        
-        <div class="authorbox__content">
-            <h3 class="authorbox__name">Andrew Jones</h3>
-            <p class="authorbox__bio">IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p>
-        </div>
-    </div>
-</section>
-
-
-
-
-<style>
-
-     
-pre,
-pre[style],
-code,
-.highlight pre {
-  background-color: #000000 !important;
-  background: #000000 !important;
-}
-
- 
-code[class*="language-"] {
-  background-color: #000000 !important;
-}
-
- 
-.highlight,
-div[class*="highlight"] {
-  background-color: #000000 !important;
-}
-
- 
-pre[style*="background-color"] {
-  background-color: #000000 !important;
-}
-
-
-.toc {
-  background: none;
-  border-left: 3px solid #dc143c;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin: 2rem 0;
-  width: fit-content;
-  color: black;
-}
-
-.toc h2 {
-  margin-top: 0;
-  font-size: 1.1rem;
-}
-
-.toc nav > ol,
-.toc nav > ul {
-  padding-left: 1.2rem;
-  margin: 0;
-}
-
-.toc ol, .toc ul {
-  line-height: 1.8;
-}
-
-.toc li {
-  margin: 0.4rem 0;
- color: black;
-}
-
-.toc a {
-  
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.toc a:hover {
-  color: #ff0033;
-}    
-
-
-@media (max-width: 1024px) {
-  .content-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-.post-nav-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 2rem;
-}
-
-.read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #000000;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-bottom: 2px dotted transparent;
-}
-
-.read-more:hover {
-    color: #ff0000;
-    border-bottom: 2px dotted #c53030;
-}
-
-.read-more svg {
-    transition: transform 0.2s ease;
-}
-
-.read-more:hover svg {
-    transform: translateX(-7px);
-}
-
-.reading-time {
-    color: #000000;
-    font-size: 0.9rem;
-    white-space: nowrap;
-}
-
-.professional-post {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-.professional-header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #ff0000;
-    padding-bottom: 1.5rem;
-}
-
-.post-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-}
-
-.post-date {
-    color: #000000;
-    font-size: 0.9rem;
-    font-weight: 500;
-
-}
-
- 
-.reading-time {
-    color: #000000;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.post-category {
-    background: #f3f4f6;
-    color: #000000;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.post-title {
-    font-size: 2.5rem;
-    color: #000000;
-    margin: 0 0 1rem 0;
-    font-weight: 300;
-    line-height: 1.2;
-}
-
-.post-description {
-    font-size: 1.2rem;
-    color: #000000;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.author-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.author {
-    color: #000000;
-    font-size: 0.9rem;
-}
-
-.post-content {
-    line-height: 1.7;
-    color: #000000;
-    font-size: 1.1rem;
-}
-
-.post-content h2 {
-    color: #000000;
-    font-weight: 400;
-    margin: 2rem 0 1rem 0;
-    font-size: 1.8rem;
-}
-
-.post-content h3 {
-    color: #000000;
-    font-weight: 500;
-    margin: 1.5rem 0 0.75rem 0;
-    font-size: 1.4rem;
-}
-
-.post-content p {
-    margin-bottom: 1.5rem;
-}
-
-.post-content ul, .post-content ol {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-}
-
-.post-content li {
-    margin-bottom: 0.5rem;
-}
-
- 
-@media (max-width: 768px) {
-    .professional-post {
-        padding: 1rem 0.5rem;
-    }
-    
-    .post-title {
-        font-size: 2rem;
-    }
-    
-    .post-meta {
-        gap: 0.75rem;
-    }
-}
-
-
-</style>
-
-        </div>
-        
-    </div>
-    
-    <footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2025 Andy J Blog - Trials of an IT Engineer.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-</div>
-
-
-<script async defer src="/js/menu.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.highlight').forEach(function(highlight) {
-        if (highlight.querySelector('.copy-code-btn')) return;
-        
-        const copyButton = document.createElement('button');
-        copyButton.className = 'copy-code-btn';
-        copyButton.innerHTML = '📋 Copy';
-        copyButton.title = 'Copy code to clipboard';
-        
-        copyButton.style.cssText = `
+</code></pre><h3 id=support-commands>Support Commands</h3><p><strong>Linux Diagnostic Bundle</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Generate support bundle</span>
+</span></span><span style=display:flex><span>sudo veeamconfig support export --path /tmp/veeam-support.zip
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Include system info</span>
+</span></span><span style=display:flex><span>sudo veeamconfig support export --path /tmp/veeam-support.zip --include-system-info
+</span></span></code></pre></div><p><strong>Windows Diagnostic Bundle</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Generate support bundle</span>
+</span></span><span style=display:flex><span>&amp; <span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /createSupportBundle /file<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;C:\Temp\veeam-support.zip&#34;</span>
+</span></span></code></pre></div><hr><h2 id=appendix-a-command-reference>Appendix A: Command Reference</h2><h3 id=linux-veeamconfig>Linux (veeamconfig)</h3><p><strong>General</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Show version</span>
+</span></span><span style=display:flex><span>sudo veeamconfig --version
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Show license info</span>
+</span></span><span style=display:flex><span>sudo veeamconfig license show
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># View all jobs</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># View job details</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job info --name <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span></code></pre></div><p><strong>Job Management</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Start job manually</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job start --name <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Stop running job</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job stop --name <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Enable/disable job</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job enable --name <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job disable --name <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Delete job</span>
+</span></span><span style=display:flex><span>sudo veeamconfig job delete --name <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span></code></pre></div><p><strong>Backup Server Connection</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Add Veeam server</span>
+</span></span><span style=display:flex><span>sudo veeamconfig vbrserver add --address veeam.company.local --port <span style=color:#ae81ff>10002</span> --login <span style=color:#e6db74>&#34;DOMAIN\user&#34;</span> --password <span style=color:#e6db74>&#34;pass&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># List configured servers</span>
+</span></span><span style=display:flex><span>sudo veeamconfig vbrserver list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Sync with server</span>
+</span></span><span style=display:flex><span>sudo veeamconfig vbrserver sync
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Remove server</span>
+</span></span><span style=display:flex><span>sudo veeamconfig vbrserver remove --id <span style=color:#ae81ff>1</span>
+</span></span></code></pre></div><p><strong>Recovery</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># List restore points</span>
+</span></span><span style=display:flex><span>sudo veeamconfig recovery list --job <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Mount restore point (file-level recovery)</span>
+</span></span><span style=display:flex><span>sudo veeamconfig recovery mount --session <span style=color:#e6db74>&#34;Session01&#34;</span> --mountpoint /mnt/backup
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Unmount</span>
+</span></span><span style=display:flex><span>sudo veeamconfig recovery unmount --mountpoint /mnt/backup
+</span></span></code></pre></div><h3 id=windows-veeamagentconfiguratorexe>Windows (Veeam.Agent.Configurator.exe)</h3><p><strong>General</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>$veeam = <span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Show configuration</span>
+</span></span><span style=display:flex><span>&amp; $veeam /list
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Show license</span>
+</span></span><span style=display:flex><span>&amp; $veeam /info
+</span></span></code></pre></div><p><strong>Job Management</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Start backup</span>
+</span></span><span style=display:flex><span>&amp; $veeam /start <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Stop backup</span>
+</span></span><span style=display:flex><span>&amp; $veeam /stop <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Enable/disable job</span>
+</span></span><span style=display:flex><span>&amp; $veeam /enable <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span><span style=display:flex><span>&amp; $veeam /disable <span style=color:#e6db74>&#34;Backup Job&#34;</span>
+</span></span></code></pre></div><p><strong>Configuration Export/Import</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Export configuration</span>
+</span></span><span style=display:flex><span>&amp; $veeam /export /file<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;C:\Temp\config.xml&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Import configuration</span>
+</span></span><span style=display:flex><span>&amp; $veeam /import /file<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;C:\Temp\config.xml&#34;</span>
+</span></span></code></pre></div><hr><h2 id=appendix-b-quick-reference-tables>Appendix B: Quick Reference Tables</h2><h3 id=port-requirements>Port Requirements</h3><table><thead><tr><th>Port</th><th>Protocol</th><th>Direction</th><th>Purpose</th></tr></thead><tbody><tr><td>2500-3300</td><td>TCP</td><td>Bidirectional</td><td>Data transfer</td></tr><tr><td>6160</td><td>TCP</td><td>Inbound to agent</td><td>Installer service</td></tr><tr><td>10002</td><td>TCP</td><td>Outbound from agent</td><td>Agent management</td></tr><tr><td>10005-10007</td><td>TCP</td><td>Bidirectional</td><td>Control channel</td></tr><tr><td>22</td><td>TCP</td><td>Inbound to Linux</td><td>SSH (deployment)</td></tr><tr><td>445</td><td>TCP</td><td>Outbound to repository</td><td>SMB shares</td></tr></tbody></table><h3 id=backup-modes-comparison>Backup Modes Comparison</h3><table><thead><tr><th>Mode</th><th>Description</th><th>Use Case</th><th>Restore Granularity</th></tr></thead><tbody><tr><td><strong>Entire Computer</strong></td><td>Full system image</td><td>Bare-metal DR</td><td>Full system, volumes, files</td></tr><tr><td><strong>Volume Level</strong></td><td>Selected volumes only</td><td>Partial system backup</td><td>Volumes, files</td></tr><tr><td><strong>File Level</strong></td><td>Specific files/folders</td><td>User data only</td><td>Individual files</td></tr></tbody></table><h3 id=retention-policy-examples>Retention Policy Examples</h3><table><thead><tr><th>Scenario</th><th>Configuration</th><th>Result</th></tr></thead><tbody><tr><td><strong>Daily Backups</strong></td><td>14 restore points</td><td>2 weeks of daily backups</td></tr><tr><td><strong>Weekly Fulls</strong></td><td>4 full backups</td><td>1 month of weekly fulls</td></tr><tr><td><strong>GFS</strong></td><td>7 daily, 4 weekly, 12 monthly, 5 yearly</td><td>Comprehensive long-term</td></tr><tr><td><strong>Simple</strong></td><td>7 restore points</td><td>1 week (quick recovery)</td></tr></tbody></table><hr><h2 id=appendix-c-sample-scripts>Appendix C: Sample Scripts</h2><h3 id=powershell-deploy-agents-to-multiple-windows-machines>PowerShell: Deploy Agents to Multiple Windows Machines</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Deploy-VeeamAgent.ps1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Deploys Veeam Agent to computers in a CSV file</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>param</span>(
+</span></span><span style=display:flex><span>    [<span style=color:#66d9ef>string</span>]$ComputerListCSV = <span style=color:#e6db74>&#34;C:\Scripts\computers.csv&#34;</span>,
+</span></span><span style=display:flex><span>    [<span style=color:#66d9ef>string</span>]$InstallerPath = <span style=color:#e6db74>&#34;\\server\share\VeeamAgentWindows_6.3.exe&#34;</span>,
+</span></span><span style=display:flex><span>    [<span style=color:#66d9ef>string</span>]$ConfigPath = <span style=color:#e6db74>&#34;\\server\share\config.xml&#34;</span>,
+</span></span><span style=display:flex><span>    [<span style=color:#66d9ef>PSCredential</span>]$Credential
+</span></span><span style=display:flex><span>)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$computers = Import-Csv $ComputerListCSV
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>foreach</span> ($computer <span style=color:#66d9ef>in</span> $computers) {
+</span></span><span style=display:flex><span>    $computerName = $computer.Name
+</span></span><span style=display:flex><span>    Write-Host <span style=color:#e6db74>&#34;Deploying to </span>$computerName<span style=color:#e6db74>...&#34;</span> -ForegroundColor Cyan
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Copy installer</span>
+</span></span><span style=display:flex><span>        $session = New-PSSession -ComputerName $computerName -Credential $Credential
+</span></span><span style=display:flex><span>        Copy-Item -Path $InstallerPath -Destination <span style=color:#e6db74>&#34;C:\Temp\&#34;</span> -ToSession $session
+</span></span><span style=display:flex><span>        Copy-Item -Path $ConfigPath -Destination <span style=color:#e6db74>&#34;C:\Temp\&#34;</span> -ToSession $session
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Install agent</span>
+</span></span><span style=display:flex><span>        Invoke-Command -Session $session -ScriptBlock {
+</span></span><span style=display:flex><span>            Start-Process <span style=color:#e6db74>&#34;C:\Temp\VeeamAgentWindows_6.3.exe&#34;</span> -ArgumentList <span style=color:#e6db74>&#34;/silent /accepteula /acceptthirdparty&#34;</span> -Wait
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e># Apply configuration</span>
+</span></span><span style=display:flex><span>            Start-Sleep -Seconds <span style=color:#ae81ff>30</span>
+</span></span><span style=display:flex><span>            &amp; <span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style=color:#e6db74>&#34;C:\Temp\config.xml&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        Remove-PSSession $session
+</span></span><span style=display:flex><span>        Write-Host <span style=color:#e6db74>&#34;✓ Completed: </span>$computerName<span style=color:#e6db74>&#34;</span> -ForegroundColor Green
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>    } <span style=color:#66d9ef>catch</span> {
+</span></span><span style=display:flex><span>        Write-Host <span style=color:#e6db74>&#34;✗ Failed: </span>$computerName<span style=color:#e6db74> - </span>$($_.Exception.Message)<span style=color:#e6db74>&#34;</span> -ForegroundColor Red
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h3 id=bash-deploy-agents-to-multiple-linux-machines>Bash: Deploy Agents to Multiple Linux Machines</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e># deploy-veeam-linux.sh</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Deploys Veeam Agent to Linux servers via SSH</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>COMPUTER_LIST<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;servers.txt&#34;</span>
+</span></span><span style=display:flex><span>SSH_KEY<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;~/.ssh/veeam_deployment_key&#34;</span>
+</span></span><span style=display:flex><span>CONFIG_FILE<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;config.xml&#34;</span>
+</span></span><span style=display:flex><span>VEEAM_SERVER<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;veeam-server.company.local&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>while</span> IFS<span style=color:#f92672>=</span> read -r server; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;Deploying to </span>$server<span style=color:#e6db74>...&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Install agent</span>
+</span></span><span style=display:flex><span>    ssh -i <span style=color:#e6db74>&#34;</span>$SSH_KEY<span style=color:#e6db74>&#34;</span> root@<span style=color:#e6db74>&#34;</span>$server<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        # Detect OS
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        if [ -f /etc/redhat-release ]; then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            # RHEL/CentOS
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            yum install -y epel-release
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            yum install -y http://repository.veeam.com/backup/linux/agent/rpm/el/8/x86_64/veeam-release-el8-1.0.7-1.x86_64.rpm
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            yum install -y veeam
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        elif [ -f /etc/debian_version ]; then
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            # Debian/Ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            wget https://repository.veeam.com/backup/linux/agent/dpkg/debian/public/pool/veeam/v/veeam-release-deb/veeam-release-deb_1.0.9_amd64.deb
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            dpkg -i veeam-release-deb_1.0.9_amd64.deb
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            apt-get update
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            apt-get install -y veeam
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        fi
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        # Start service
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        systemctl enable veeamservice
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        systemctl start veeamservice
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Copy config and apply</span>
+</span></span><span style=display:flex><span>    scp -i <span style=color:#e6db74>&#34;</span>$SSH_KEY<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$CONFIG_FILE<span style=color:#e6db74>&#34;</span> root@<span style=color:#e6db74>&#34;</span>$server<span style=color:#e6db74>&#34;</span>:/tmp/
+</span></span><span style=display:flex><span>    ssh -i <span style=color:#e6db74>&#34;</span>$SSH_KEY<span style=color:#e6db74>&#34;</span> root@<span style=color:#e6db74>&#34;</span>$server<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;veeamconfig setup --cfg /tmp/</span>$CONFIG_FILE<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;✓ Completed: </span>$server<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span><span style=color:#66d9ef>done</span> &lt; <span style=color:#e6db74>&#34;</span>$COMPUTER_LIST<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;Deployment complete!&#34;</span>
+</span></span></code></pre></div><h3 id=powershell-check-agent-status-report>PowerShell: Check Agent Status Report</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Get-VeeamAgentStatus.ps1</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Generates report of all agent statuses</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$veeamServer = <span style=color:#e6db74>&#34;veeam-server.company.local&#34;</span>
+</span></span><span style=display:flex><span>Connect-VBRServer -Server $veeamServer
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$report = @()
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$protectionGroups = Get-VBRComputerProtectionGroup
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>foreach</span> ($group <span style=color:#66d9ef>in</span> $protectionGroups) {
+</span></span><span style=display:flex><span>    $computers = Get-VBRComputerProtectionGroupMember -ProtectionGroup $group
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>foreach</span> ($computer <span style=color:#66d9ef>in</span> $computers) {
+</span></span><span style=display:flex><span>        $jobs = Get-VBRComputerBackupJob | Where-Object { $_.Objects <span style=color:#f92672>-contains</span> $computer }
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>foreach</span> ($job <span style=color:#66d9ef>in</span> $jobs) {
+</span></span><span style=display:flex><span>            $lastSession = Get-VBRBackupSession -Job $job | Sort-Object EndTime -Descending | Select-Object -First <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            $report += [<span style=color:#66d9ef>PSCustomObject</span>]@{
+</span></span><span style=display:flex><span>                ProtectionGroup = $group.Name
+</span></span><span style=display:flex><span>                Computer = $computer.Name
+</span></span><span style=display:flex><span>                AgentVersion = $computer.Version
+</span></span><span style=display:flex><span>                OS = $computer.OSPlatform
+</span></span><span style=display:flex><span>                JobName = $job.Name
+</span></span><span style=display:flex><span>                LastBackup = $lastSession.EndTime
+</span></span><span style=display:flex><span>                Status = $lastSession.Result
+</span></span><span style=display:flex><span>                Size = [<span style=color:#66d9ef>math</span>]::Round($lastSession.BackupTotalSize / <span style=color:#ae81ff>1</span>GB, <span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$report | Export-Csv <span style=color:#e6db74>&#34;VeeamAgentStatus-</span>$(Get-Date -Format <span style=color:#e6db74>&#39;yyyy-MM-dd&#39;</span>)<span style=color:#e6db74>.csv&#34;</span> -NoTypeInformation
+</span></span><span style=display:flex><span>$report | Format-Table -AutoSize
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Disconnect-VBRServer
+</span></span></code></pre></div><hr><h2 id=conclusion>Conclusion</h2><p>This guide provides a comprehensive framework for implementing Veeam agent-level backups with user self-service capabilities for both Linux VMs and Windows workstations. Key takeaways:</p><ul><li><strong>Flexible Deployment</strong>: Choose between automatic (AD/CSV) or manual deployment methods</li><li><strong>User Empowerment</strong>: Grant appropriate self-service capabilities via full access or read-only modes</li><li><strong>Centralized Control</strong>: Maintain oversight through protection groups and policies</li><li><strong>Platform Support</strong>: Unified approach for both Linux and Windows environments</li><li><strong>Scalability</strong>: From small deployments to enterprise-wide implementations</li></ul><p>For ongoing support:</p><ul><li>Veeam Help Center: <a href=https://helpcenter.veeam.com>https://helpcenter.veeam.com</a></li><li>Community Forums: <a href=https://forums.veeam.com>https://forums.veeam.com</a></li><li>Technical Support: Contact your Veeam representative</li></ul><hr><blockquote><p><strong>Document Version</strong>: 1.0<br><strong>Last Updated</strong>: 21:47pm - 0911/2025</p></blockquote></div></article><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+Back to Posts</a></div></span><section class=author-section><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Andrew Jones avatar" src=/images/posts/Andrew.png class=avatar height=90 width=90></figure><div class=authorbox__content><h3 class=authorbox__name>Andrew Jones</h3><p class=authorbox__bio>IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p></div></div></section><style>pre,pre[style],code,.highlight pre{background-color:#000!important;background:#000!important}code[class*=language-]{background-color:#000!important}.highlight,div[class*=highlight]{background-color:#000!important}pre[style*=background-color]{background-color:#000!important}.toc{background:0 0;border-left:3px solid #dc143c;border-top:none;border-right:none;border-bottom:none;padding:1.5rem;border-radius:8px;margin:2rem 0;width:fit-content;color:#000}.toc h2{margin-top:0;font-size:1.1rem}.toc nav>ol,.toc nav>ul{padding-left:1.2rem;margin:0}.toc ol,.toc ul{line-height:1.8}.toc li{margin:.4rem 0;color:#000}.toc a{text-decoration:none;transition:color .2s}.toc a:hover{color:#f03}@media(max-width:1024px){.content-wrapper{grid-template-columns:1fr}}.post-nav-right{display:flex;justify-content:flex-end;margin-bottom:2rem}.read-more{display:inline-flex;align-items:center;gap:.5rem;color:#000;text-decoration:none;font-weight:500;transition:all .2s ease;border-bottom:2px dotted transparent}.read-more:hover{color:red;border-bottom:2px dotted #c53030}.read-more svg{transition:transform .2s ease}.read-more:hover svg{transform:translateX(-7px)}.reading-time{color:#000;font-size:.9rem;white-space:nowrap}.professional-post{max-width:800px;margin:0 auto;padding:2rem 1rem}.professional-header{margin-bottom:2rem;border-bottom:1px solid red;padding-bottom:1.5rem}.post-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}.post-date{color:#000;font-size:.9rem;font-weight:500}.reading-time{color:#000;font-size:.9rem;font-weight:500}.post-category{background:#f3f4f6;color:#000;padding:.25rem .75rem;border-radius:0;font-size:.8rem;font-weight:500}.post-title{font-size:2.5rem;color:#000;margin:0 0 1rem;font-weight:300;line-height:1.2}.post-description{font-size:1.2rem;color:#000;margin-bottom:1.5rem;line-height:1.6}.author-info{display:flex;align-items:center;gap:.5rem}.author{color:#000;font-size:.9rem}.post-content{line-height:1.7;color:#000;font-size:1.1rem}.post-content h2{color:#000;font-weight:400;margin:2rem 0 1rem;font-size:1.8rem}.post-content h3{color:#000;font-weight:500;margin:1.5rem 0 .75rem;font-size:1.4rem}.post-content p{margin-bottom:1.5rem}.post-content ul,.post-content ol{margin-bottom:1.5rem;padding-left:1.5rem}.post-content li{margin-bottom:.5rem}@media(max-width:768px){.professional-post{padding:1rem .5rem}.post-title{font-size:2rem}.post-meta{gap:.75rem}}</style></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2025 Andy J Blog - Trials of an IT Engineer.
+<span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script><script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".highlight").forEach(function(e){if(e.querySelector(".copy-code-btn"))return;const t=document.createElement("button");t.className="copy-code-btn",t.innerHTML="📋 Copy",t.title="Copy code to clipboard",t.style.cssText=`
             position: absolute;
             top: 8px;
             right: 8px;
@@ -1765,429 +500,4 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 10;
             font-family: system-ui, -apple-system, sans-serif;
             color: #24292e;
-        `;
-        
-        highlight.style.position = 'relative';
-        
-        highlight.addEventListener('mouseenter', function() {
-            copyButton.style.opacity = '1';
-        });
-        
-        highlight.addEventListener('mouseleave', function() {
-            copyButton.style.opacity = '0';
-        });
-        
-        copyButton.addEventListener('click', async function() {
-            const code = highlight.querySelector('code')?.textContent || highlight.textContent;
-            try {
-                await navigator.clipboard.writeText(code);
-                copyButton.innerHTML = '✅ Copied!';
-                copyButton.style.background = '#d4edda';
-                copyButton.style.borderColor = '#c3e6cb';
-                copyButton.style.color = '#155724';
-                setTimeout(() => {
-                    copyButton.innerHTML = '📋 Copy';
-                    copyButton.style.background = 'rgba(255,255,255,0.9)';
-                    copyButton.style.borderColor = '#e1e4e8';
-                    copyButton.style.color = '#24292e';
-                }, 2000);
-            } catch (err) {
-                const textArea = document.createElement('textarea');
-                textArea.value = code;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                copyButton.innerHTML = '✅ Copied!';
-                setTimeout(() => {
-                    copyButton.innerHTML = '📋 Copy';
-                }, 2000);
-            }
-        });
-        
-        highlight.appendChild(copyButton);
-    });
-});
-</script>
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.opacity = '1';
-    document.body.style.transition = 'opacity 0.3s ease';
-});
-
-
-document.addEventListener('click', function(e) {
-    const link = e.target.closest('a');
-    if (link && !link.href.includes('://') && link.target !== '_blank') {
-        document.body.style.opacity = '0';
-    }
-});
-</script>
-
-
-<script>
-const heroImages = [
-    '/images/posts/pexels-pixabay-159304.jpg',
-    '/images/posts/pexels-luis-gomes-166706-546819.jpg',
-    '/images/posts/pexels-kevin-ku-92347-577585.jpg',
-    '/images/posts/pexels-johnpet-2115257.jpg'
-];
-
-let currentIndex = 0;
-const hero = document.querySelector('.hero');
-
-if (hero) {
-    console.log('Hero element found, initializing carousel...');
-    
-    updateHeroImage();
-    
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % heroImages.length;
-        console.log('Switching to image:', heroImages[currentIndex]);
-        updateHeroImage();
-    }, 6000);
-}
-
-function updateHeroImage() {
-    const img = heroImages[currentIndex];
-    console.log('Setting background image:', img);
-    hero.style.backgroundImage = `url('${img}')`;
-}
-
-
-function preloadImages() {
-    heroImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-        img.onerror = () => console.warn('Failed to load image:', src);
-    });
-}
-
-window.addEventListener('load', preloadImages);
-</script>
-
-</body>
-</html>
-
-<style>
-
-.hero {
-    position: relative;
-    padding: 4rem 0 3rem;
-    border: 1px solid rgb(0, 0, 0);
-    margin-bottom: 3rem;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-    background-attachment: scroll;
-    transition: background-image 0.8s ease-in-out;   
-    overflow: hidden;
-    color: #ffffff;
-}
-
- 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    background-attachment: scroll;
-    filter: blur(0px) brightness(0.5);
-    z-index: 0;
-}
-
- 
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(24, 26, 27, 0.7) 0%, rgba(24, 26, 27, 0.5) 50%, rgba(24, 26, 27, 0.7) 100%);
-    z-index: 1;
-}
-
- 
-.hero > * {
-    position: relative;
-    z-index: 2;
-    color: #ffffff;
-    padding: 1.5rem 2.5rem;
-    max-width: 90%;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-}
-
- 
-.hero h1,
-.hero h2,
-.hero h3,
-.hero p,
-.hero a {
-    color: #ffffff;
-    padding: 1rem 2rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-    letter-spacing: 0.5px;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
-}
-
-.hero p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    font-weight: 500;
-}
-
-.hero a {
-    text-decoration: underline;
-    transition: all 0.2s ease;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-}
-
-.hero a:hover {
-    color: #e0e0e0;
-    border-bottom: 2px solid #ffffff;
-}
-
- 
-@media (max-width: 768px) {
-    .hero {
-        min-height: 300px;
-        padding: 2rem 0 1.5rem;
-        transition: background-image 0.8s ease-in-out;   
-    }
-
-    .hero > * {
-        padding: 1rem 1.5rem;
-        max-width: 95%;
-    }
-
-    .hero h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .hero p {
-        font-size: 0.95rem;
-        line-height: 1.5;
-    }
-}
-
- 
-@media (max-width: 480px) {
-    .hero {
-        min-height: 250px;
-        padding: 1.5rem 0 1rem;
-        transition: background-image 0.8s ease-in-out;   
-    }
-
-    .hero > * {
-        padding: 0.75rem 1rem;
-        max-width: 98%;
-    }
-
-    .hero h1 {
-        font-size: 1.4rem;
-        margin-bottom: 0.25rem;
-    }
-
-    .hero p {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-
-    .hero h1,
-    .hero h2,
-    .hero h3,
-    .hero p,
-    .hero a {
-        padding: 0.5rem 1rem;
-    }
-}
-
- 
-.copy-code-btn:hover {
-    background: rgba(255,255,255,1) !important;
-    border-color: #ff0000 !important;
-    transform: translateY(-1px);
-}
-    
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  
-}
-
-.body {
-  background: 
-    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-  background-color: #0a0a0a;
-  background-size: 15px 15px;
-  background-attachment: fixed;  
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-.container.container--outer {
-  background: rgba(24, 26, 27, 0.95);  
-  backdrop-filter: blur(16px);  
-  -webkit-backdrop-filter: blur(16px);  
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 1px rgba(255, 255, 255, 0.1);  
-  margin-top: 0;  
-  margin-bottom: 0;  
-}
-
- 
-.wrapper {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 768px) {
-    .copy-code-btn {
-        opacity: 1 !important;
-        font-size: 11px;
-        padding: 3px 8px;
-    }
-}
-
-@media screen and (max-width: 766px) {
-    .js .menu__list {
-        position: absolute;
-        z-index: 9999;
-        width: 100%;
-        left: 0;
-        top: 100%;
-    }
-    
-    .js .menu__list--active {
-        visibility: visible !important;
-        transform: scaleY(1) !important;
-        -webkit-transform: scaleY(1) !important;
-        display: block !important;
-        opacity: 1 !important;
-    }
-    
-    .menu__list--active .menu__item,
-    .menu__list--active .menu__link {
-        display: block !important;
-        visibility: visible !important;
-    }
-}
-
-.menu {
-    position: relative;
-}
-
- 
-.header {
-    position: sticky;   
-    top: 0;
-    z-index: 1000;   
-    background: rgba(24, 26, 27, 0.95);   
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);   
-}
-
-.menu {
-    position: relative;   
-}
-
- 
-.header {
-    position: sticky;   
-    top: 0;
-    z-index: 1000;   
-    background: rgba(24, 26, 27, 0.98);   
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);   
-    padding: 1rem 0;   
-}
-
-.menu {
-    position: relative;   
-}
-
- 
-.header a,
-.header h1,
-.header h2 {
-    color: #ffffff !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
- 
-.menu__link,
-.menu__item {
-    color: #ffffff !important;
-}
-
-.menu__link:hover {
-    color: #e0e0e0 !important;
-    transition: all 0.2s ease;
-}
-
- 
-.logo__title {
-    color: #ffffff !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
-}
-
- 
-@media (max-width: 768px) {
-    .header {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(24, 26, 27, 0.98);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    }
-}
-
- 
-@media (max-width: 480px) {
-    .header {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(24, 26, 27, 0.98);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        padding: 0.75rem 0;
-    }
-}
-
-</style>
-
-</body>
-</html>
+        `,e.style.position="relative",e.addEventListener("mouseenter",function(){t.style.opacity="1"}),e.addEventListener("mouseleave",function(){t.style.opacity="0"}),t.addEventListener("click",async function(){const n=e.querySelector("code")?.textContent||e.textContent;try{await navigator.clipboard.writeText(n),t.innerHTML="✅ Copied!",t.style.background="#d4edda",t.style.borderColor="#c3e6cb",t.style.color="#155724",setTimeout(()=>{t.innerHTML="📋 Copy",t.style.background="rgba(255,255,255,0.9)",t.style.borderColor="#e1e4e8",t.style.color="#24292e"},2e3)}catch{const e=document.createElement("textarea");e.value=n,document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),t.innerHTML="✅ Copied!",setTimeout(()=>{t.innerHTML="📋 Copy"},2e3)}}),e.appendChild(t)})})</script><script>document.addEventListener("DOMContentLoaded",function(){document.body.style.opacity="1",document.body.style.transition="opacity 0.3s ease"}),document.addEventListener("click",function(e){const t=e.target.closest("a");t&&!t.href.includes("://")&&t.target!=="_blank"&&(document.body.style.opacity="0")})</script><script>const heroImages=["/images/posts/pexels-pixabay-159304.jpg","/images/posts/pexels-luis-gomes-166706-546819.jpg","/images/posts/pexels-kevin-ku-92347-577585.jpg","/images/posts/pexels-johnpet-2115257.jpg"];let currentIndex=0;const hero=document.querySelector(".hero");hero&&(console.log("Hero element found, initializing carousel..."),updateHeroImage(),setInterval(()=>{currentIndex=(currentIndex+1)%heroImages.length,console.log("Switching to image:",heroImages[currentIndex]),updateHeroImage()},6e3));function updateHeroImage(){const e=heroImages[currentIndex];console.log("Setting background image:",e),hero.style.backgroundImage=`url('${e}')`}function preloadImages(){heroImages.forEach(e=>{const t=new Image;t.src=e,t.onerror=()=>console.warn("Failed to load image:",e)})}window.addEventListener("load",preloadImages)</script></body></html><style>.hero{position:relative;padding:4rem 0 3rem;border:1px solid #000;margin-bottom:3rem;min-height:400px;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:50%;background-attachment:scroll;transition:background-image .8s ease-in-out;overflow:hidden;color:#fff}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:50%;background-attachment:scroll;filter:blur(0)brightness(.5);z-index:0}.hero::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(24,26,27,.7) 0%,rgba(24,26,27,.5) 50%,rgba(24,26,27,.7) 100%);z-index:1}.hero>*{position:relative;z-index:2;color:#fff;padding:1.5rem 2.5rem;max-width:90%;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.8)}.hero h1,.hero h2,.hero h3,.hero p,.hero a{color:#fff;padding:1rem 2rem;text-shadow:0 2px 8px rgba(0,0,0,.8);letter-spacing:.5px}.hero h1{font-size:2.5rem;margin-bottom:1rem;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,.9)}.hero p{font-size:1.1rem;line-height:1.6;font-weight:500}.hero a{text-decoration:underline;transition:all .2s ease;border-bottom:2px solid rgba(255,255,255,.5)}.hero a:hover{color:#e0e0e0;border-bottom:2px solid #fff}@media(max-width:768px){.hero{min-height:300px;padding:2rem 0 1.5rem;transition:background-image .8s ease-in-out}.hero>*{padding:1rem 1.5rem;max-width:95%}.hero h1{font-size:1.8rem;margin-bottom:.5rem}.hero p{font-size:.95rem;line-height:1.5}}@media(max-width:480px){.hero{min-height:250px;padding:1.5rem 0 1rem;transition:background-image .8s ease-in-out}.hero>*{padding:.75rem 1rem;max-width:98%}.hero h1{font-size:1.4rem;margin-bottom:.25rem}.hero p{font-size:.85rem;line-height:1.4}.hero h1,.hero h2,.hero h3,.hero p,.hero a{padding:.5rem 1rem}}.copy-code-btn:hover{background:#fff!important;border-color:red!important;transform:translateY(-1px)}html,body{margin:0;padding:0;min-height:100vh;opacity:1;transition:opacity .3s ease}.body{background:linear-gradient(27deg,#151515 5px,transparent 5px)0 5px,linear-gradient(207deg,#151515 5px,transparent 5px)10px 0,linear-gradient(27deg,#222 5px,transparent 5px)0 10px,linear-gradient(207deg,#222 5px,transparent 5px)10px 5px,linear-gradient(90deg,#1b1b1b 10px,transparent 10px),linear-gradient(#1d1d1d 25%,#1a1a1a 25%,#1a1a1a 50%,transparent 50%,transparent 75%,#242424 75%,#242424);background-color:#0a0a0a;background-size:15px 15px;background-attachment:fixed;min-height:100vh;margin:0;padding:0}.container.container--outer{background:rgba(24,26,27,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid rgba(255,255,255,8%);border-right:1px solid rgba(255,255,255,8%);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 1px rgba(255,255,255,.1);margin-top:0;margin-bottom:0}.wrapper{position:relative;z-index:1}@media(max-width:768px){.copy-code-btn{opacity:1!important;font-size:11px;padding:3px 8px}}@media screen and (max-width:766px){.js .menu__list{position:absolute;z-index:9999;width:100%;left:0;top:100%}.js .menu__list--active{visibility:visible!important;transform:scaleY(1)!important;-webkit-transform:scaleY(1)!important;display:block!important;opacity:1!important}.menu__list--active .menu__item,.menu__list--active .menu__link{display:block!important;visibility:visible!important}}.menu{position:relative}.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 2px 8px rgba(0,0,0,.3)}.menu{position:relative}.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 4px 12px rgba(0,0,0,.5);padding:1rem 0}.menu{position:relative}.header a,.header h1,.header h2{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.8)}.menu__link,.menu__item{color:#fff!important}.menu__link:hover{color:#e0e0e0!important;transition:all .2s ease}.logo__title{color:#fff!important;text-shadow:0 2px 4px rgba(0,0,0,.9)}@media(max-width:768px){.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);box-shadow:0 4px 12px rgba(0,0,0,.5)}}@media(max-width:480px){.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);box-shadow:0 4px 12px rgba(0,0,0,.5);padding:.75rem 0}}</style></body></html>

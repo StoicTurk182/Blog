@@ -119,3 +119,18 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
 [[module.mounts]]
   source = 'themes/mainroad/assets'
   target = 'assets'
+
+# ===== MINIFICATION & OPTIMIZATION =====
+[build]
+  writeStats = true
+
+[minify]
+  minifyOutput = true
+
+[minify.tdewolff]
+  [minify.tdewolff.html]
+    keepWhitespace = false
+  [minify.tdewolff.css]
+    keepWhitespace = false
+  [minify.tdewolff.js]
+    keepWhitespace = false  

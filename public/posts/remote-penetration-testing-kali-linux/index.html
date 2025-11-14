@@ -1,875 +1,310 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-    
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-
-    
-
-
-
-
-     <style>
-
-         
-
-    html,
-body,
-* {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}    
-     
-    html {
-      background-color: #181a1b !important;
-    }
-    body {
-      background-color: #181a1b !important;
-    }
-  </style>
-
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Basic Penetration Testing Kali Linux - Andy J Blog - Trials of an IT Engineer</title>
-        <script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-        <meta name="description" content="A very basic automation for testing VPS security externally">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="dns-prefetch" href="//fonts.googleapis.com">
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
-
-        <link rel="stylesheet" href="/css/style.css">
-        
-
-        <link rel="shortcut icon" href="/favicon.ico">
-                
-
-        <script src="/js/hero-carousel.js"></script>
-</head>
-
-<body class="body">
-    
-        <div class="container container--outer">
-    <header class="header">
-	<div class="container header__container">
-		
-	<div class="logo">
-		<a class="logo__link" href="/" title="Projects 2025" rel="home">
-			<div class="logo__item logo__text">
-					<div class="logo__title">Projects 2025</div>
-					<div class="logo__tagline">Information Technology Musings</div>
-				</div>
-		</a>
-	</div>
-		
-<nav class="menu">
-	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
-		<span class="menu__btn-title" tabindex="-1">Menu</span>
-	</button>
-	<ul class="menu__list">
-		<li class="menu__item">
-			<a class="menu__link" href="/">
-				
-				<span class="menu__text">Home</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/posts/">
-				
-				<span class="menu__text">Posts</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/tech-newsletter/weekly-update-1/">
-				
-				<span class="menu__text">Tech News</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/tools/">
-				
-				<span class="menu__text">Tools</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/contact/">
-				
-				<span class="menu__text">Contact</span>
-				
-			</a>
-		</li>
-		<li class="menu__item">
-			<a class="menu__link" href="/videos/">
-				
-				<span class="menu__text">Videos</span>
-				
-			</a>
-		</li>
-	</ul>
-</nav>
-
-	</div>
-</header>
-    
-    <div class="wrapper flex">
-        <div class="primary">
-
-            
-            
-<article class="professional-post">
-    
-    <header class="professional-header">
-        <div class="post-meta">
-            <span class="post-date">November 8, 2025</span>
-                    
-          
-            
-            <span class="reading-time">• 9 min read</span>
-            
-            
-            
-            <span class="post-category">Security</span>
-        </div>
-        <h1 class="post-title">Basic Penetration Testing Kali Linux</h1>
-        <p class="post-description">A very basic automation for testing VPS security externally</p>
-        <div class="author-info">
-            <span class="author">By Andrew Jones</span>
-        </div>
-    </header>
-
-    
-
-    <span><div class="post-nav-right">
-    <a href="/posts/" class="read-more back-button">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z"></path>
-        </svg>
-        Back to Posts
-    </a>
-</div></span>
-
-    
-    
-    <div class="featured-image">
-        <img src="/images/posts/kali-linux-os-red-5s4vyt83m0scbaq7.webp" alt="Basic Penetration Testing Kali Linux" />
-    </div>
-    
-
-    
-  <aside class="toc">
-    <h2>Table of Contents</h2>
-    <nav id="TableOfContents">
-  <ol>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#prerequisites">Prerequisites</a></li>
-    <li><a href="#instalation">Instalation</a></li>
-    <li><a href="#additional-resources">Additional Resources</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
-  </ol>
-</nav>
-  </aside>
-  
-
-    
-    <div class="post-content">
-        <h1 id="remote-penetration-testing-guide-kali-linux">Remote Penetration Testing Guide: Kali Linux</h1>
-<p><strong>Hacking your own infrastructure with Kali Linux.</strong></p>
-<p>This is an example of a script I created for very basic testing to practice my Linux scripting and to make sure my VPS servers remain secure. It is not an in-depth attempt to break things, but it is an attempt to gain more experience with a side of IT that I have little, to no experience in beyond some basic Steganography, which I did in university. Even then that was not related to pen testing but to cryptography. The simple truth is I am lazy and so instead of spending ages collecting all the commands needed to mount an attack / vulnerability scan. I can save a lot of time by automating this process, the below shell script is the result. It works when testing and has given me some ideas. But please be advised it is on the extreme end of simple.</p>
-<p>But if you have an open port, it will find it and report what when why how, etc.
-I will be doing a post on Steganography at some point but it is a complex subject to talk about, if hacking is about picking locks and gaining access then Steganography is about the opposite.</p>
-<p>The script has been tested inside a VM and within a devcontainer—it&rsquo;s always recommended to test automation before letting it run loose in a production environment. I used different containers because I wanted to test some of the flags by removing various APT packages and see if they would be picked up and print warnings about the missing dependencies.</p>
-<blockquote>
-<p><a href="https://cisofy.com/lynis/" class="external-link" target="_blank" rel="noopener">Lynis</a> Please use this link to explore Lynis and run your own audits.</p>
-</blockquote>
-<p>Taking these kinds of precautions is how you can make a real attempt at keeping yourself somewhat safe. I&rsquo;ll do a real deep dive on Lynis later, as I use it a lot when I update applications or daemons. It gives you a good view on the current state of you endpoint security, though it&rsquo;s hard to get 100%, even if you could the restriction on the system would, in my opinion, make it hard to interact with as an administrator.</p>
-<h2 id="overview">Overview</h2>
-<p>Remote penetration testing is the process of evaluating the security of computer systems, networks, and applications from an external perspective. Kali Linux provides the ultimate toolkit for security professionals to identify vulnerabilities before malicious actors can exploit them.</p>
-<h3 id="why-use-kali-linux-for-penetration-testing">Why Use Kali Linux for Penetration Testing?</h3>
-<ul>
-<li><strong>Comprehensive Toolset</strong>: 600+ pre-installed security tools</li>
-<li><strong>Professional Framework</strong>: Industry-standard methodologies and workflows</li>
-<li><strong>Regular Updates</strong>: Continuous security tool updates and maintenance</li>
-<li><strong>Community Support</strong>: Active community and extensive documentation</li>
-</ul>
-<h2 id="prerequisites">Prerequisites</h2>
-<p>Before you begin, ensure you have the following:</p>
-<ul>
-<li>Kali Linux 2023.x or newer installed</li>
-<li>Legal authorization to test the target systems</li>
-<li>Basic understanding of networking and Linux commands</li>
-<li>Proper scope definition and rules of engagement</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Automated Penetration Testing Script</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Usage: ./scan.sh &lt;target_ip&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> $# -eq <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;Usage: </span>$0<span style="color:#e6db74"> &lt;target_ip&gt;&#34;</span>
-</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>TARGET<span style="color:#f92672">=</span>$1
-</span></span><span style="display:flex;"><span>TIMESTAMP<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date +%Y%m%d_%H%M%S<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>OUTPUT_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pentest_</span><span style="color:#e6db74">${</span>TARGET<span style="color:#e6db74">}</span><span style="color:#e6db74">_</span><span style="color:#e6db74">${</span>TIMESTAMP<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Colors</span>
-</span></span><span style="display:flex;"><span>RED<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\033[0;31m&#39;</span>
-</span></span><span style="display:flex;"><span>GREEN<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\033[0;32m&#39;</span>
-</span></span><span style="display:flex;"><span>YELLOW<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\033[1;33m&#39;</span>
-</span></span><span style="display:flex;"><span>NC<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\033[0m&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create output directory with absolute path</span>
-</span></span><span style="display:flex;"><span>OUTPUT_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">/</span><span style="color:#e6db74">${</span>OUTPUT_DIR<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>REPORT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>OUTPUT_DIR<span style="color:#e6db74">}</span><span style="color:#e6db74">/REPORT.txt&#34;</span>
-</span></span><span style="display:flex;"><span>mkdir -p $OUTPUT_DIR
-</span></span><span style="display:flex;"><span>cd $OUTPUT_DIR
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[*] Starting automated penetration test</span><span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[*] Target: </span>$TARGET<span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[*] Output: </span>$OUTPUT_DIR<span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Initialize report</span>
-</span></span><span style="display:flex;"><span>cat &gt; $REPORT <span style="color:#e6db74">&lt;&lt; EOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">===============================================
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">PENETRATION TEST REPORT
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">===============================================
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Target: $TARGET
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Date: $(date)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Tester: $(whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">===============================================
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function to log</span>
-</span></span><span style="display:flex;"><span>log_section<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;\n</span>$1<span style="color:#e6db74">\n&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;===============================================&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function to run command and log</span>
-</span></span><span style="display:flex;"><span>run_and_log<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    local cmd<span style="color:#f92672">=</span>$1
-</span></span><span style="display:flex;"><span>    local desc<span style="color:#f92672">=</span>$2
-</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>YELLOW<span style="color:#e6db74">}</span><span style="color:#e6db74">[+] </span>$desc<span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;\n## </span>$desc<span style="color:#e6db74">\n&#34;</span> &gt;&gt; $REPORT
-</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;\$ </span>$cmd<span style="color:#e6db74">&#34;</span> &gt;&gt; $REPORT
-</span></span><span style="display:flex;"><span>    eval $cmd &gt;&gt; $REPORT 2&gt;&amp;<span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[✓] Complete</span><span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. RECONNAISSANCE</span>
-</span></span><span style="display:flex;"><span>log_section <span style="color:#e6db74">&#34;PHASE 1: RECONNAISSANCE&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>run_and_log <span style="color:#e6db74">&#34;ping -c 3 </span>$TARGET<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;Host Reachability&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>run_and_log <span style="color:#e6db74">&#34;nmap -sn </span>$TARGET<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;Host Discovery&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>run_and_log <span style="color:#e6db74">&#34;nmap -sS -p- --min-rate=1000 -T4 </span>$TARGET<span style="color:#e6db74"> -oN nmap_full_scan.txt&#34;</span> <span style="color:#e6db74">&#34;Full Port Scan&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Extract open ports</span>
-</span></span><span style="display:flex;"><span>OPEN_PORTS<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>grep <span style="color:#e6db74">&#34;open&#34;</span> nmap_full_scan.txt | cut -d<span style="color:#e6db74">&#39;/&#39;</span> -f1 | paste -sd,<span style="color:#66d9ef">)</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Open ports: </span>$OPEN_PORTS<span style="color:#e6db74">&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -z <span style="color:#e6db74">&#34;</span>$OPEN_PORTS<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nmap -sV -sC -p</span>$OPEN_PORTS<span style="color:#e6db74"> </span>$TARGET<span style="color:#e6db74"> -oN nmap_detailed.txt&#34;</span> <span style="color:#e6db74">&#34;Service Enumeration&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nmap -O </span>$TARGET<span style="color:#e6db74"> -oN nmap_os_detection.txt&#34;</span> <span style="color:#e6db74">&#34;OS Detection&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. VULNERABILITY SCANNING</span>
-</span></span><span style="display:flex;"><span>log_section <span style="color:#e6db74">&#34;PHASE 2: VULNERABILITY SCANNING&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>run_and_log <span style="color:#e6db74">&#34;nmap --script vuln -p</span>$OPEN_PORTS<span style="color:#e6db74"> </span>$TARGET<span style="color:#e6db74"> -oN nmap_vuln_scan.txt&#34;</span> <span style="color:#e6db74">&#34;Nmap Vulnerability Scripts&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>run_and_log <span style="color:#e6db74">&#34;nmap --script ssl-enum-ciphers -p 443,8443 </span>$TARGET<span style="color:#e6db74"> -oN ssl_scan.txt&#34;</span> <span style="color:#e6db74">&#34;SSL/TLS Analysis&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. WEB ENUMERATION</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> echo $OPEN_PORTS | grep -qE <span style="color:#e6db74">&#34;80|443|8080|8443&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    log_section <span style="color:#e6db74">&#34;PHASE 3: WEB APPLICATION TESTING&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Determine protocol</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> echo $OPEN_PORTS | grep -q <span style="color:#e6db74">&#34;443\|8443&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>        PROTO<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>        PROTO<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    TARGET_URL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PROTO<span style="color:#e6db74">}</span><span style="color:#e6db74">://</span><span style="color:#e6db74">${</span>TARGET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;whatweb </span>$TARGET_URL<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;Web Technology Detection&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nikto -h </span>$TARGET_URL<span style="color:#e6db74"> -o nikto_scan.txt&#34;</span> <span style="color:#e6db74">&#34;Nikto Web Scan&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;gobuster dir -u </span>$TARGET_URL<span style="color:#e6db74"> -w /usr/share/wordlists/dirb/common.txt -o gobuster_scan.txt -q&#34;</span> <span style="color:#e6db74">&#34;Directory Enumeration&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Nuclei scan if installed</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> command -v nuclei &amp;&gt; /dev/null; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>        run_and_log <span style="color:#e6db74">&#34;nuclei -u </span>$TARGET_URL<span style="color:#e6db74"> -severity critical,high,medium -o nuclei_scan.txt&#34;</span> <span style="color:#e6db74">&#34;Nuclei Vulnerability Scan&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check for common CMS</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> grep -qi <span style="color:#e6db74">&#34;wordpress&#34;</span> whatweb_output.txt 2&gt;/dev/null <span style="color:#f92672">||</span> curl -s $TARGET_URL | grep -qi <span style="color:#e6db74">&#34;wp-content&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>        run_and_log <span style="color:#e6db74">&#34;wpscan --url </span>$TARGET_URL<span style="color:#e6db74"> --enumerate vp,vt,u --no-banner -o wpscan.txt&#34;</span> <span style="color:#e6db74">&#34;WordPress Scan&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. SERVICE-SPECIFIC TESTS</span>
-</span></span><span style="display:flex;"><span>log_section <span style="color:#e6db74">&#34;PHASE 4: SERVICE-SPECIFIC ENUMERATION&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># SSH</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> echo $OPEN_PORTS | grep -q <span style="color:#e6db74">&#34;22&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nmap --script ssh2-enum-algos,ssh-auth-methods -p 22 </span>$TARGET<span style="color:#e6db74"> -oN ssh_enum.txt&#34;</span> <span style="color:#e6db74">&#34;SSH Enumeration&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># FTP</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> echo $OPEN_PORTS | grep -q <span style="color:#e6db74">&#34;21&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-syst -p 21 </span>$TARGET<span style="color:#e6db74"> -oN ftp_enum.txt&#34;</span> <span style="color:#e6db74">&#34;FTP Enumeration&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># SMB</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> echo $OPEN_PORTS | grep -qE <span style="color:#e6db74">&#34;139|445&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nmap --script smb-enum-shares,smb-enum-users,smb-os-discovery -p 139,445 </span>$TARGET<span style="color:#e6db74"> -oN smb_enum.txt&#34;</span> <span style="color:#e6db74">&#34;SMB Enumeration&#34;</span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> command -v enum4linux &amp;&gt; /dev/null; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>        run_and_log <span style="color:#e6db74">&#34;enum4linux -a </span>$TARGET<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;Enum4linux Scan&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># MySQL</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> echo $OPEN_PORTS | grep -q <span style="color:#e6db74">&#34;3306&#34;</span>; <span style="color:#66d9ef">then</span>
-</span></span><span style="display:flex;"><span>    run_and_log <span style="color:#e6db74">&#34;nmap --script mysql-info,mysql-enum -p 3306 </span>$TARGET<span style="color:#e6db74"> -oN mysql_enum.txt&#34;</span> <span style="color:#e6db74">&#34;MySQL Enumeration&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. GENERATE SUMMARY</span>
-</span></span><span style="display:flex;"><span>log_section <span style="color:#e6db74">&#34;PHASE 5: SUMMARY AND FINDINGS&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Scan Statistics:&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;- Open Ports: </span><span style="color:#66d9ef">$(</span>echo $OPEN_PORTS | tr <span style="color:#e6db74">&#39;,&#39;</span> <span style="color:#e6db74">&#39; &#39;</span> | wc -w<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;- Services Identified: </span><span style="color:#66d9ef">$(</span>grep -c <span style="color:#e6db74">&#34;open&#34;</span> nmap_detailed.txt 2&gt;/dev/null <span style="color:#f92672">||</span> echo 0<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Critical Findings:&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>grep -i <span style="color:#e6db74">&#34;VULNERABLE\|CVE-\|critical\|high&#34;</span> *.txt 2&gt;/dev/null | head -20 | tee -a $REPORT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;All scan outputs saved to: </span>$OUTPUT_DIR<span style="color:#e6db74">&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Main report: </span>$REPORT<span style="color:#e6db74">&#34;</span> | tee -a $REPORT
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create HTML summary</span>
-</span></span><span style="display:flex;"><span>cat &gt; summary.html <span style="color:#e6db74">&lt;&lt; HTMLEOF
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;!DOCTYPE html&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;html&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;head&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;title&gt;Pentest Report - $TARGET&lt;/title&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;style&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        h1 { color: #333; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        h2 { color: #666; margin-top: 30px; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        .info { background: #e8f5e9; padding: 15px; border-left: 4px solid #4CAF50; margin: 20px 0; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        .warning { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        .critical { background: #f8d7da; padding: 15px; border-left: 4px solid #dc3545; margin: 20px 0; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        pre { background: #f8f9fa; padding: 15px; border-radius: 4px; overflow-x: auto; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        .port { display: inline-block; background: #007bff; color: white; padding: 5px 10px; margin: 5px; border-radius: 3px; }
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/style&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;/head&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;body&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;div class=&#34;container&#34;&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;h1&gt;Penetration Test Report&lt;/h1&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;div class=&#34;info&#34;&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;strong&gt;Target:&lt;/strong&gt; $TARGET&lt;br&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;strong&gt;Date:&lt;/strong&gt; $(date)&lt;br&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;strong&gt;Tester:&lt;/strong&gt; $(whoami)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;h2&gt;Open Ports&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">$(for port in $(echo $OPEN_PORTS | tr &#39;,&#39; &#39; &#39;); do echo &#34;&lt;span class=&#39;port&#39;&gt;$port&lt;/span&gt;&#34;; done)
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;h2&gt;Services Detected&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;pre&gt;$(grep &#34;open&#34; nmap_detailed.txt 2&gt;/dev/null | head -20)&lt;/pre&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;h2&gt;Vulnerabilities&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;div class=&#34;critical&#34;&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;pre&gt;$(grep -i &#34;VULNERABLE\|CVE-&#34; *.txt 2&gt;/dev/null | head -20)&lt;/pre&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;h2&gt;Full Report&lt;/h2&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;p&gt;See &lt;strong&gt;REPORT.txt&lt;/strong&gt; for complete details and command outputs.&lt;/p&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &lt;/div&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;/body&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&lt;/html&gt;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">HTMLEOF</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[✓] Scan Complete!</span><span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[*] HTML Report: </span><span style="color:#e6db74">${</span>OUTPUT_DIR<span style="color:#e6db74">}</span><span style="color:#e6db74">/summary.html</span><span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>GREEN<span style="color:#e6db74">}</span><span style="color:#e6db74">[*] Text Report: </span><span style="color:#e6db74">${</span>OUTPUT_DIR<span style="color:#e6db74">}</span><span style="color:#e6db74">/REPORT.txt</span><span style="color:#e6db74">${</span>NC<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;&#34;</span>
-</span></span></code></pre></div><h2 id="instalation">Instalation</h2>
-<ul>
-<li>See the below for command list (Kali comes out of the box with all of what you need)</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> upgrade -y <span style="color:#f92672">[</span>post update should update all tools<span style="color:#f92672">]</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verify Kali Linux version</span>
-</span></span><span style="display:flex;"><span>cat /etc/os-release
-</span></span><span style="display:flex;"><span>lsb_release -a
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check essential tools</span>
-</span></span><span style="display:flex;"><span>which nmap
-</span></span><span style="display:flex;"><span>which nikto
-</span></span><span style="display:flex;"><span>which gobuster
-</span></span><span style="display:flex;"><span>Key Features
-</span></span><span style="display:flex;"><span>Automated Reconnaissance
-</span></span><span style="display:flex;"><span>Comprehensive host discovery, port scanning, and service enumeration using industry-standard tools like Nmap.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Vulnerability Assessment
-</span></span><span style="display:flex;"><span>Automated and manual vulnerability identification using specialized scanners and custom scripts.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Web Application Testing
-</span></span><span style="display:flex;"><span>Specialized tools <span style="color:#66d9ef">for</span> web application security testing, including directory brute-forcing and vulnerability scanning.
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">## Installation &amp; Setup ##</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Step 1: Update Kali Linux
-</span></span><span style="display:flex;"><span>bash
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update system and tools</span>
-</span></span><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
-</span></span><span style="display:flex;"><span>sudo apt full-upgrade -y
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install additional tools (if needed)</span>
-</span></span><span style="display:flex;"><span>sudo apt install seclists gobuster nikto wpscan sqlmap -y
-</span></span><span style="display:flex;"><span>Step 2: Prepare Testing Environment
-</span></span><span style="display:flex;"><span>bash
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create working directory</span>
-</span></span><span style="display:flex;"><span>mkdir -p ~/pentesting/projects
-</span></span><span style="display:flex;"><span>cd ~/pentesting/projects
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set up project structure</span>
-</span></span><span style="display:flex;"><span>mkdir <span style="color:#f92672">{</span>reconnaissance,vulnerability,exploitation,reporting<span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>Step 3: Verify Tools Installation
-</span></span><span style="display:flex;"><span>bash
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check critical tools</span>
-</span></span><span style="display:flex;"><span>nmap --version
-</span></span><span style="display:flex;"><span>nikto -Version
-</span></span><span style="display:flex;"><span>gobuster version
-</span></span><span style="display:flex;"><span>Configuration Options
-</span></span><span style="display:flex;"><span>Option	Description	Default	Example
-</span></span><span style="display:flex;"><span>Scan Intensity	Aggressiveness of scans	-T4	-T5
-</span></span><span style="display:flex;"><span>Port Range	Ports to scan	--top-ports 1000	-p- <span style="color:#f92672">(</span>all ports<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Wordlists	Directory/file wordlists	common.txt	directory-list-2.3-medium.txt
-</span></span><span style="display:flex;"><span>Output Format	Report formats	-oN <span style="color:#f92672">(</span>normal<span style="color:#f92672">)</span>	-oA <span style="color:#f92672">(</span>all formats<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>Configuration File Example
-</span></span><span style="display:flex;"><span>bash
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># pentest_config.conf</span>
-</span></span><span style="display:flex;"><span>TARGET_RANGE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.1.0/24&#34;</span>
-</span></span><span style="display:flex;"><span>SCAN_INTENSITY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;T4&#34;</span>
-</span></span><span style="display:flex;"><span>TOP_PORTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1000&#34;</span>
-</span></span><span style="display:flex;"><span>WORDLIST_DIR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/share/wordlists/dirbuster&#34;</span>
-</span></span><span style="display:flex;"><span>OUTPUT_FORMATS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-oA&#34;</span>
-</span></span><span style="display:flex;"><span>Usage Examples
-</span></span><span style="display:flex;"><span>Basic Usage
-</span></span><span style="display:flex;"><span>Start with the automated penetration testing script:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>bash
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Make script executable</span>
-</span></span><span style="display:flex;"><span>chmod +x scan.sh
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run basic scan</span>
-</span></span><span style="display:flex;"><span>./scan.sh 192.168.1.100
-</span></span><span style="display:flex;"><span>Expected output:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>text
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Starting automated penetration test
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Target: 192.168.1.100
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Output: /home/kali/pentest_192.168.1.100_20251108_1430
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Host Reachability
-</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>✓<span style="color:#f92672">]</span> Complete
-</span></span><span style="display:flex;"><span>Intermediate Usage
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Built-in help</span>
-</span></span><span style="display:flex;"><span>nmap --help
-</span></span><span style="display:flex;"><span>man nmap
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tool documentation</span>
-</span></span><span style="display:flex;"><span>nikto -H
-</span></span><span style="display:flex;"><span>gobuster --help
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Online resources</span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">[</span>Kali Linux Documentation<span style="color:#f92672">](</span>https://www.kali.org/docs/<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">[</span>Nmap Reference Guide<span style="color:#f92672">](</span>https://nmap.org/book/man.html<span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">[</span>OWASP Testing Guide<span style="color:#f92672">](</span>https://owasp.org/www-project-web-security-testing-guide/<span style="color:#f92672">)</span> 
-</span></span></code></pre></div><h2 id="additional-resources">Additional Resources</h2>
-<h3 id="official-documentation">Official Documentation</h3>
-<ul>
-<li><a href="https://www.kali.org/docs/">Kali Linux Official Docs</a></li>
-<li><a href="https://nmap.org/book/">Nmap Reference Guide</a></li>
-<li><a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP Testing Guide</a></li>
-</ul>
-<h3 id="community-resources">Community Resources</h3>
-<ul>
-<li><a href="https://forums.kali.org/">Kali Linux Forums</a></li>
-<li><a href="https://reddit.com/r/netsec">Reddit r/netsec</a></li>
-<li><a href="https://stackoverflow.com/questions/tagged/security">Stack Overflow Security</a></li>
-</ul>
-<h3 id="related-tools">Related Tools</h3>
-<ul>
-<li><strong>Nessus</strong>: Comprehensive vulnerability scanner</li>
-<li><strong>Burp Suite Professional</strong>: Advanced web application testing</li>
-<li><strong>Metasploit Pro</strong>: Commercial penetration testing platform</li>
-</ul>
-<h3 id="further-reading">Further Reading</h3>
-<ul>
-<li><a href="http://www.pentest-standard.org/">Penetration Testing Execution Standard</a></li>
-<li><a href="https://www.nist.gov/cyberframework">NIST Cybersecurity Framework</a></li>
-<li><a href="https://www.sans.org/cyber-security-courses/penetration-testing/">SANS Penetration Testing Resources</a></li>
-</ul>
-<h2 id="conclusion">Conclusion</h2>
-<p>This comprehensive guide has equipped you with the knowledge and tools to conduct professional remote penetration tests using Kali Linux. From automated reconnaissance to detailed vulnerability assessment, you now have a complete methodology for identifying and documenting security weaknesses.</p>
-<h3 id="whats-next">What&rsquo;s Next?</h3>
-<ul>
-<li>Explore advanced exploitation techniques with Metasploit</li>
-<li>Learn web application security testing in depth</li>
-<li>Study network forensics and incident response</li>
-<li>Pursue professional certifications like OSCP or CEH</li>
-</ul>
-<hr>
-<p><em>Last updated: 2025-11-08</em></p>
-<p><em>Found an error or have a suggestion? <a href="https://github.com/StoicTurk182/Blog">Please open an issue</a> or submit a pull request.</em></p>
-<hr>
-<h3 id="notes-for-content-creators">Notes for Content Creators</h3>
-<p><strong>Testing &amp; Compatibility:</strong></p>
-<ul>
-<li>All commands have been tested on Kali Linux 2023.3</li>
-<li>Script assumes standard Kali tool locations</li>
-<li>Always verify authorization before running scans</li>
-<li>Consider organizational policies and compliance requirements</li>
-<li>Update wordlist paths based on your Kali installation</li>
-</ul>
-<p><strong>SEO Considerations:</strong></p>
-<ul>
-<li>Primary keyword: &ldquo;Kali Linux penetration testing&rdquo;</li>
-<li>Secondary keywords: &ldquo;remote security assessment&rdquo;, &ldquo;automated penetration testing&rdquo;</li>
-<li>Meta description optimized for security professionals</li>
-</ul>
-<p><strong>Master the art of ethical hacking with this comprehensive guide to remote penetration testing using Kali Linux.</strong> This guide provides security professionals, system administrators, and ethical hackers with a complete methodology for assessing remote system security, complete with automated scripts and real-world examples.</p>
-<blockquote>
-<p>⚠️ <strong>IMPORTANT SECURITY DISCLAIMER</strong></p>
-<p>This guide is for <strong>educational and authorized testing purposes only</strong>. Unauthorized scanning and testing may be <strong>illegal in your jurisdiction</strong>. Always obtain <strong>proper written permissions</strong> and follow <strong>ethical hacking guidelines</strong> before conducting any security assessments.</p>
-</blockquote>
-
-    </div>
-
-    
-    
-
-    
-    
-
-    
-    
-</article>
-
- <span><div class="post-nav-right">
-    <a href="/posts/" class="read-more back-button">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 0L9.41 1.41L3.83 7H16V9H3.83L9.41 14.59L8 16L0 8L8 0Z"></path>
-        </svg>
-        Back to Posts
-    </a>
-</div></span>
-
-
-
-<section class="author-section">
-    <div class="authorbox clearfix">
-        
-        <figure class="authorbox__avatar">
-            <img alt="Andrew Jones avatar" src="/images/posts/Andrew.png" class="avatar" height="90" width="90">
-        </figure>
-        
-        <div class="authorbox__content">
-            <h3 class="authorbox__name">Andrew Jones</h3>
-            <p class="authorbox__bio">IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p>
-        </div>
-    </div>
-</section>
-
-
-
-
-<style>
-
-     
-pre,
-pre[style],
-code,
-.highlight pre {
-  background-color: #000000 !important;
-  background: #000000 !important;
-}
-
- 
-code[class*="language-"] {
-  background-color: #000000 !important;
-}
-
- 
-.highlight,
-div[class*="highlight"] {
-  background-color: #000000 !important;
-}
-
- 
-pre[style*="background-color"] {
-  background-color: #000000 !important;
-}
-
-
-.toc {
-  background: none;
-  border-left: 3px solid #dc143c;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin: 2rem 0;
-  width: fit-content;
-  color: black;
-}
-
-.toc h2 {
-  margin-top: 0;
-  font-size: 1.1rem;
-}
-
-.toc nav > ol,
-.toc nav > ul {
-  padding-left: 1.2rem;
-  margin: 0;
-}
-
-.toc ol, .toc ul {
-  line-height: 1.8;
-}
-
-.toc li {
-  margin: 0.4rem 0;
- color: black;
-}
-
-.toc a {
-  
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.toc a:hover {
-  color: #ff0033;
-}    
-
-
-@media (max-width: 1024px) {
-  .content-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-.post-nav-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 2rem;
-}
-
-.read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #000000;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-bottom: 2px dotted transparent;
-}
-
-.read-more:hover {
-    color: #ff0000;
-    border-bottom: 2px dotted #c53030;
-}
-
-.read-more svg {
-    transition: transform 0.2s ease;
-}
-
-.read-more:hover svg {
-    transform: translateX(-7px);
-}
-
-.reading-time {
-    color: #000000;
-    font-size: 0.9rem;
-    white-space: nowrap;
-}
-
-.professional-post {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-}
-
-.professional-header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #ff0000;
-    padding-bottom: 1.5rem;
-}
-
-.post-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-}
-
-.post-date {
-    color: #000000;
-    font-size: 0.9rem;
-    font-weight: 500;
-
-}
-
- 
-.reading-time {
-    color: #000000;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.post-category {
-    background: #f3f4f6;
-    color: #000000;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0px;
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.post-title {
-    font-size: 2.5rem;
-    color: #000000;
-    margin: 0 0 1rem 0;
-    font-weight: 300;
-    line-height: 1.2;
-}
-
-.post-description {
-    font-size: 1.2rem;
-    color: #000000;
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.author-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.author {
-    color: #000000;
-    font-size: 0.9rem;
-}
-
-.post-content {
-    line-height: 1.7;
-    color: #000000;
-    font-size: 1.1rem;
-}
-
-.post-content h2 {
-    color: #000000;
-    font-weight: 400;
-    margin: 2rem 0 1rem 0;
-    font-size: 1.8rem;
-}
-
-.post-content h3 {
-    color: #000000;
-    font-weight: 500;
-    margin: 1.5rem 0 0.75rem 0;
-    font-size: 1.4rem;
-}
-
-.post-content p {
-    margin-bottom: 1.5rem;
-}
-
-.post-content ul, .post-content ol {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-}
-
-.post-content li {
-    margin-bottom: 0.5rem;
-}
-
- 
-@media (max-width: 768px) {
-    .professional-post {
-        padding: 1rem 0.5rem;
-    }
-    
-    .post-title {
-        font-size: 2rem;
-    }
-    
-    .post-meta {
-        gap: 0.75rem;
-    }
-}
-
-
-</style>
-
-        </div>
-        
-    </div>
-    
-    <footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2025 Andy J Blog - Trials of an IT Engineer.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-</div>
-
-
-<script async defer src="/js/menu.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.highlight').forEach(function(highlight) {
-        if (highlight.querySelector('.copy-code-btn')) return;
-        
-        const copyButton = document.createElement('button');
-        copyButton.className = 'copy-code-btn';
-        copyButton.innerHTML = '📋 Copy';
-        copyButton.title = 'Copy code to clipboard';
-        
-        copyButton.style.cssText = `
+<!doctype html><html class=no-js lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><style>html,body,*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}html{background-color:#181a1b!important}body{background-color:#181a1b!important}</style><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Basic Penetration Testing Kali Linux - Andy J Blog - Trials of an IT Engineer</title><script>(function(e,t){e[t]=e[t].replace("no-js","js")})(document.documentElement,"className")</script><meta name=description content="A very basic automation for testing VPS security externally"><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class=logo><a class=logo__link href=/ title="Projects 2025" rel=home><div class="logo__item logo__text"><div class=logo__title>Projects 2025</div><div class=logo__tagline>Information Technology Musings</div></div></a></div><nav class=menu><button class=menu__btn aria-haspopup=true aria-expanded=false tabindex=0>
+<span class=menu__btn-title tabindex=-1>Menu</span></button><ul class=menu__list><li class=menu__item><a class=menu__link href=/><span class=menu__text>Home</span></a></li><li class=menu__item><a class=menu__link href=/posts/><span class=menu__text>Posts</span></a></li><li class=menu__item><a class=menu__link href=/tech-newsletter/weekly-update-1/><span class=menu__text>Tech News</span></a></li><li class=menu__item><a class=menu__link href=/tools/><span class=menu__text>Tools</span></a></li><li class=menu__item><a class=menu__link href=/contact/><span class=menu__text>Contact</span></a></li><li class=menu__item><a class=menu__link href=/videos/><span class=menu__text>Videos</span></a></li></ul></nav></div></header><div class="wrapper flex"><div class=primary><article class=professional-post><header class=professional-header><div class=post-meta><span class=post-date>November 8, 2025</span>
+<span class=reading-time>• 9 min read</span>
+<span class=post-category>Security</span></div><h1 class=post-title>Basic Penetration Testing Kali Linux</h1><p class=post-description>A very basic automation for testing VPS security externally</p><div class=author-info><span class=author>By Andrew Jones</span></div></header><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/kali-linux-os-red-5s4vyt83m0scbaq7.webp alt="Basic Penetration Testing Kali Linux"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#overview>Overview</a></li><li><a href=#prerequisites>Prerequisites</a></li><li><a href=#instalation>Instalation</a></li><li><a href=#additional-resources>Additional Resources</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></aside><div class=post-content><h1 id=remote-penetration-testing-guide-kali-linux>Remote Penetration Testing Guide: Kali Linux</h1><p><strong>Hacking your own infrastructure with Kali Linux.</strong></p><p>This is an example of a script I created for very basic testing to practice my Linux scripting and to make sure my VPS servers remain secure. It is not an in-depth attempt to break things, but it is an attempt to gain more experience with a side of IT that I have little, to no experience in beyond some basic Steganography, which I did in university. Even then that was not related to pen testing but to cryptography. The simple truth is I am lazy and so instead of spending ages collecting all the commands needed to mount an attack / vulnerability scan. I can save a lot of time by automating this process, the below shell script is the result. It works when testing and has given me some ideas. But please be advised it is on the extreme end of simple.</p><p>But if you have an open port, it will find it and report what when why how, etc.
+I will be doing a post on Steganography at some point but it is a complex subject to talk about, if hacking is about picking locks and gaining access then Steganography is about the opposite.</p><p>The script has been tested inside a VM and within a devcontainer—it&rsquo;s always recommended to test automation before letting it run loose in a production environment. I used different containers because I wanted to test some of the flags by removing various APT packages and see if they would be picked up and print warnings about the missing dependencies.</p><blockquote><p><a href=https://cisofy.com/lynis/ class=external-link target=_blank rel=noopener>Lynis</a> Please use this link to explore Lynis and run your own audits.</p></blockquote><p>Taking these kinds of precautions is how you can make a real attempt at keeping yourself somewhat safe. I&rsquo;ll do a real deep dive on Lynis later, as I use it a lot when I update applications or daemons. It gives you a good view on the current state of you endpoint security, though it&rsquo;s hard to get 100%, even if you could the restriction on the system would, in my opinion, make it hard to interact with as an administrator.</p><h2 id=overview>Overview</h2><p>Remote penetration testing is the process of evaluating the security of computer systems, networks, and applications from an external perspective. Kali Linux provides the ultimate toolkit for security professionals to identify vulnerabilities before malicious actors can exploit them.</p><h3 id=why-use-kali-linux-for-penetration-testing>Why Use Kali Linux for Penetration Testing?</h3><ul><li><strong>Comprehensive Toolset</strong>: 600+ pre-installed security tools</li><li><strong>Professional Framework</strong>: Industry-standard methodologies and workflows</li><li><strong>Regular Updates</strong>: Continuous security tool updates and maintenance</li><li><strong>Community Support</strong>: Active community and extensive documentation</li></ul><h2 id=prerequisites>Prerequisites</h2><p>Before you begin, ensure you have the following:</p><ul><li>Kali Linux 2023.x or newer installed</li><li>Legal authorization to test the target systems</li><li>Basic understanding of networking and Linux commands</li><li>Proper scope definition and rules of engagement</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Automated Penetration Testing Script</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Usage: ./scan.sh &lt;target_ip&gt;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> $# -eq <span style=color:#ae81ff>0</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;Usage: </span>$0<span style=color:#e6db74> &lt;target_ip&gt;&#34;</span>
+</span></span><span style=display:flex><span>    exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>TARGET<span style=color:#f92672>=</span>$1
+</span></span><span style=display:flex><span>TIMESTAMP<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>date +%Y%m%d_%H%M%S<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>OUTPUT_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;pentest_</span><span style=color:#e6db74>${</span>TARGET<span style=color:#e6db74>}</span><span style=color:#e6db74>_</span><span style=color:#e6db74>${</span>TIMESTAMP<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Colors</span>
+</span></span><span style=display:flex><span>RED<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0;31m&#39;</span>
+</span></span><span style=display:flex><span>GREEN<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0;32m&#39;</span>
+</span></span><span style=display:flex><span>YELLOW<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[1;33m&#39;</span>
+</span></span><span style=display:flex><span>NC<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0m&#39;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Create output directory with absolute path</span>
+</span></span><span style=display:flex><span>OUTPUT_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>pwd<span style=color:#66d9ef>)</span><span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>OUTPUT_DIR<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>REPORT<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>OUTPUT_DIR<span style=color:#e6db74>}</span><span style=color:#e6db74>/REPORT.txt&#34;</span>
+</span></span><span style=display:flex><span>mkdir -p $OUTPUT_DIR
+</span></span><span style=display:flex><span>cd $OUTPUT_DIR
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[*] Starting automated penetration test</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[*] Target: </span>$TARGET<span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[*] Output: </span>$OUTPUT_DIR<span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Initialize report</span>
+</span></span><span style=display:flex><span>cat &gt; $REPORT <span style=color:#e6db74>&lt;&lt; EOF
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>===============================================
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PENETRATION TEST REPORT
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>===============================================
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Target: $TARGET
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Date: $(date)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Tester: $(whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>===============================================
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Function to log</span>
+</span></span><span style=display:flex><span>log_section<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;\n</span>$1<span style=color:#e6db74>\n&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;===============================================&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Function to run command and log</span>
+</span></span><span style=display:flex><span>run_and_log<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local cmd<span style=color:#f92672>=</span>$1
+</span></span><span style=display:flex><span>    local desc<span style=color:#f92672>=</span>$2
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>YELLOW<span style=color:#e6db74>}</span><span style=color:#e6db74>[+] </span>$desc<span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;\n## </span>$desc<span style=color:#e6db74>\n&#34;</span> &gt;&gt; $REPORT
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;\$ </span>$cmd<span style=color:#e6db74>&#34;</span> &gt;&gt; $REPORT
+</span></span><span style=display:flex><span>    eval $cmd &gt;&gt; $REPORT 2&gt;&amp;<span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[✓] Complete</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 1. RECONNAISSANCE</span>
+</span></span><span style=display:flex><span>log_section <span style=color:#e6db74>&#34;PHASE 1: RECONNAISSANCE&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>run_and_log <span style=color:#e6db74>&#34;ping -c 3 </span>$TARGET<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;Host Reachability&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>run_and_log <span style=color:#e6db74>&#34;nmap -sn </span>$TARGET<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;Host Discovery&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>run_and_log <span style=color:#e6db74>&#34;nmap -sS -p- --min-rate=1000 -T4 </span>$TARGET<span style=color:#e6db74> -oN nmap_full_scan.txt&#34;</span> <span style=color:#e6db74>&#34;Full Port Scan&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Extract open ports</span>
+</span></span><span style=display:flex><span>OPEN_PORTS<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>grep <span style=color:#e6db74>&#34;open&#34;</span> nmap_full_scan.txt | cut -d<span style=color:#e6db74>&#39;/&#39;</span> -f1 | paste -sd,<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;Open ports: </span>$OPEN_PORTS<span style=color:#e6db74>&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -z <span style=color:#e6db74>&#34;</span>$OPEN_PORTS<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nmap -sV -sC -p</span>$OPEN_PORTS<span style=color:#e6db74> </span>$TARGET<span style=color:#e6db74> -oN nmap_detailed.txt&#34;</span> <span style=color:#e6db74>&#34;Service Enumeration&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nmap -O </span>$TARGET<span style=color:#e6db74> -oN nmap_os_detection.txt&#34;</span> <span style=color:#e6db74>&#34;OS Detection&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 2. VULNERABILITY SCANNING</span>
+</span></span><span style=display:flex><span>log_section <span style=color:#e6db74>&#34;PHASE 2: VULNERABILITY SCANNING&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>run_and_log <span style=color:#e6db74>&#34;nmap --script vuln -p</span>$OPEN_PORTS<span style=color:#e6db74> </span>$TARGET<span style=color:#e6db74> -oN nmap_vuln_scan.txt&#34;</span> <span style=color:#e6db74>&#34;Nmap Vulnerability Scripts&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>run_and_log <span style=color:#e6db74>&#34;nmap --script ssl-enum-ciphers -p 443,8443 </span>$TARGET<span style=color:#e6db74> -oN ssl_scan.txt&#34;</span> <span style=color:#e6db74>&#34;SSL/TLS Analysis&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 3. WEB ENUMERATION</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> echo $OPEN_PORTS | grep -qE <span style=color:#e6db74>&#34;80|443|8080|8443&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    log_section <span style=color:#e6db74>&#34;PHASE 3: WEB APPLICATION TESTING&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Determine protocol</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> echo $OPEN_PORTS | grep -q <span style=color:#e6db74>&#34;443\|8443&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        PROTO<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;https&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>        PROTO<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    TARGET_URL<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>PROTO<span style=color:#e6db74>}</span><span style=color:#e6db74>://</span><span style=color:#e6db74>${</span>TARGET<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;whatweb </span>$TARGET_URL<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;Web Technology Detection&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nikto -h </span>$TARGET_URL<span style=color:#e6db74> -o nikto_scan.txt&#34;</span> <span style=color:#e6db74>&#34;Nikto Web Scan&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;gobuster dir -u </span>$TARGET_URL<span style=color:#e6db74> -w /usr/share/wordlists/dirb/common.txt -o gobuster_scan.txt -q&#34;</span> <span style=color:#e6db74>&#34;Directory Enumeration&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Nuclei scan if installed</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> command -v nuclei &amp;&gt; /dev/null; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        run_and_log <span style=color:#e6db74>&#34;nuclei -u </span>$TARGET_URL<span style=color:#e6db74> -severity critical,high,medium -o nuclei_scan.txt&#34;</span> <span style=color:#e6db74>&#34;Nuclei Vulnerability Scan&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Check for common CMS</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> grep -qi <span style=color:#e6db74>&#34;wordpress&#34;</span> whatweb_output.txt 2&gt;/dev/null <span style=color:#f92672>||</span> curl -s $TARGET_URL | grep -qi <span style=color:#e6db74>&#34;wp-content&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        run_and_log <span style=color:#e6db74>&#34;wpscan --url </span>$TARGET_URL<span style=color:#e6db74> --enumerate vp,vt,u --no-banner -o wpscan.txt&#34;</span> <span style=color:#e6db74>&#34;WordPress Scan&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 4. SERVICE-SPECIFIC TESTS</span>
+</span></span><span style=display:flex><span>log_section <span style=color:#e6db74>&#34;PHASE 4: SERVICE-SPECIFIC ENUMERATION&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># SSH</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> echo $OPEN_PORTS | grep -q <span style=color:#e6db74>&#34;22&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nmap --script ssh2-enum-algos,ssh-auth-methods -p 22 </span>$TARGET<span style=color:#e6db74> -oN ssh_enum.txt&#34;</span> <span style=color:#e6db74>&#34;SSH Enumeration&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># FTP</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> echo $OPEN_PORTS | grep -q <span style=color:#e6db74>&#34;21&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-syst -p 21 </span>$TARGET<span style=color:#e6db74> -oN ftp_enum.txt&#34;</span> <span style=color:#e6db74>&#34;FTP Enumeration&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># SMB</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> echo $OPEN_PORTS | grep -qE <span style=color:#e6db74>&#34;139|445&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nmap --script smb-enum-shares,smb-enum-users,smb-os-discovery -p 139,445 </span>$TARGET<span style=color:#e6db74> -oN smb_enum.txt&#34;</span> <span style=color:#e6db74>&#34;SMB Enumeration&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> command -v enum4linux &amp;&gt; /dev/null; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        run_and_log <span style=color:#e6db74>&#34;enum4linux -a </span>$TARGET<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;Enum4linux Scan&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># MySQL</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> echo $OPEN_PORTS | grep -q <span style=color:#e6db74>&#34;3306&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>    run_and_log <span style=color:#e6db74>&#34;nmap --script mysql-info,mysql-enum -p 3306 </span>$TARGET<span style=color:#e6db74> -oN mysql_enum.txt&#34;</span> <span style=color:#e6db74>&#34;MySQL Enumeration&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 5. GENERATE SUMMARY</span>
+</span></span><span style=display:flex><span>log_section <span style=color:#e6db74>&#34;PHASE 5: SUMMARY AND FINDINGS&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;Scan Statistics:&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;- Open Ports: </span><span style=color:#66d9ef>$(</span>echo $OPEN_PORTS | tr <span style=color:#e6db74>&#39;,&#39;</span> <span style=color:#e6db74>&#39; &#39;</span> | wc -w<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;- Services Identified: </span><span style=color:#66d9ef>$(</span>grep -c <span style=color:#e6db74>&#34;open&#34;</span> nmap_detailed.txt 2&gt;/dev/null <span style=color:#f92672>||</span> echo 0<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;Critical Findings:&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>grep -i <span style=color:#e6db74>&#34;VULNERABLE\|CVE-\|critical\|high&#34;</span> *.txt 2&gt;/dev/null | head -20 | tee -a $REPORT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;All scan outputs saved to: </span>$OUTPUT_DIR<span style=color:#e6db74>&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;Main report: </span>$REPORT<span style=color:#e6db74>&#34;</span> | tee -a $REPORT
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Create HTML summary</span>
+</span></span><span style=display:flex><span>cat &gt; summary.html <span style=color:#e6db74>&lt;&lt; HTMLEOF
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;!DOCTYPE html&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;html&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;head&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &lt;title&gt;Pentest Report - $TARGET&lt;/title&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &lt;style&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f4f4; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        h1 { color: #333; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        h2 { color: #666; margin-top: 30px; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        .info { background: #e8f5e9; padding: 15px; border-left: 4px solid #4CAF50; margin: 20px 0; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        .warning { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        .critical { background: #f8d7da; padding: 15px; border-left: 4px solid #dc3545; margin: 20px 0; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        pre { background: #f8f9fa; padding: 15px; border-radius: 4px; overflow-x: auto; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        .port { display: inline-block; background: #007bff; color: white; padding: 5px 10px; margin: 5px; border-radius: 3px; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &lt;/style&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;/head&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;body&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &lt;div class=&#34;container&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;h1&gt;Penetration Test Report&lt;/h1&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;div class=&#34;info&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;strong&gt;Target:&lt;/strong&gt; $TARGET&lt;br&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;strong&gt;Date:&lt;/strong&gt; $(date)&lt;br&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>            &lt;strong&gt;Tester:&lt;/strong&gt; $(whoami)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;/div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;h2&gt;Open Ports&lt;/h2&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>$(for port in $(echo $OPEN_PORTS | tr &#39;,&#39; &#39; &#39;); do echo &#34;&lt;span class=&#39;port&#39;&gt;$port&lt;/span&gt;&#34;; done)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;/div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;h2&gt;Services Detected&lt;/h2&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;pre&gt;$(grep &#34;open&#34; nmap_detailed.txt 2&gt;/dev/null | head -20)&lt;/pre&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;h2&gt;Vulnerabilities&lt;/h2&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;div class=&#34;critical&#34;&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;pre&gt;$(grep -i &#34;VULNERABLE\|CVE-&#34; *.txt 2&gt;/dev/null | head -20)&lt;/pre&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;/div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;h2&gt;Full Report&lt;/h2&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &lt;p&gt;See &lt;strong&gt;REPORT.txt&lt;/strong&gt; for complete details and command outputs.&lt;/p&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    &lt;/div&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;/body&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>&lt;/html&gt;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>HTMLEOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[✓] Scan Complete!</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[*] HTML Report: </span><span style=color:#e6db74>${</span>OUTPUT_DIR<span style=color:#e6db74>}</span><span style=color:#e6db74>/summary.html</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[*] Text Report: </span><span style=color:#e6db74>${</span>OUTPUT_DIR<span style=color:#e6db74>}</span><span style=color:#e6db74>/REPORT.txt</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span></code></pre></div><h2 id=instalation>Instalation</h2><ul><li>See the below for command list (Kali comes out of the box with all of what you need)</li></ul><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo apt update <span style=color:#f92672>&amp;&amp;</span> upgrade -y <span style=color:#f92672>[</span>post update should update all tools<span style=color:#f92672>]</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Verify Kali Linux version</span>
+</span></span><span style=display:flex><span>cat /etc/os-release
+</span></span><span style=display:flex><span>lsb_release -a
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check essential tools</span>
+</span></span><span style=display:flex><span>which nmap
+</span></span><span style=display:flex><span>which nikto
+</span></span><span style=display:flex><span>which gobuster
+</span></span><span style=display:flex><span>Key Features
+</span></span><span style=display:flex><span>Automated Reconnaissance
+</span></span><span style=display:flex><span>Comprehensive host discovery, port scanning, and service enumeration using industry-standard tools like Nmap.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Vulnerability Assessment
+</span></span><span style=display:flex><span>Automated and manual vulnerability identification using specialized scanners and custom scripts.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Web Application Testing
+</span></span><span style=display:flex><span>Specialized tools <span style=color:#66d9ef>for</span> web application security testing, including directory brute-forcing and vulnerability scanning.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>## Installation &amp; Setup ##</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Step 1: Update Kali Linux
+</span></span><span style=display:flex><span>bash
+</span></span><span style=display:flex><span><span style=color:#75715e># Update system and tools</span>
+</span></span><span style=display:flex><span>sudo apt update <span style=color:#f92672>&amp;&amp;</span> sudo apt upgrade -y
+</span></span><span style=display:flex><span>sudo apt full-upgrade -y
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Install additional tools (if needed)</span>
+</span></span><span style=display:flex><span>sudo apt install seclists gobuster nikto wpscan sqlmap -y
+</span></span><span style=display:flex><span>Step 2: Prepare Testing Environment
+</span></span><span style=display:flex><span>bash
+</span></span><span style=display:flex><span><span style=color:#75715e># Create working directory</span>
+</span></span><span style=display:flex><span>mkdir -p ~/pentesting/projects
+</span></span><span style=display:flex><span>cd ~/pentesting/projects
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Set up project structure</span>
+</span></span><span style=display:flex><span>mkdir <span style=color:#f92672>{</span>reconnaissance,vulnerability,exploitation,reporting<span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>Step 3: Verify Tools Installation
+</span></span><span style=display:flex><span>bash
+</span></span><span style=display:flex><span><span style=color:#75715e># Check critical tools</span>
+</span></span><span style=display:flex><span>nmap --version
+</span></span><span style=display:flex><span>nikto -Version
+</span></span><span style=display:flex><span>gobuster version
+</span></span><span style=display:flex><span>Configuration Options
+</span></span><span style=display:flex><span>Option	Description	Default	Example
+</span></span><span style=display:flex><span>Scan Intensity	Aggressiveness of scans	-T4	-T5
+</span></span><span style=display:flex><span>Port Range	Ports to scan	--top-ports 1000	-p- <span style=color:#f92672>(</span>all ports<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Wordlists	Directory/file wordlists	common.txt	directory-list-2.3-medium.txt
+</span></span><span style=display:flex><span>Output Format	Report formats	-oN <span style=color:#f92672>(</span>normal<span style=color:#f92672>)</span>	-oA <span style=color:#f92672>(</span>all formats<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Configuration File Example
+</span></span><span style=display:flex><span>bash
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># pentest_config.conf</span>
+</span></span><span style=display:flex><span>TARGET_RANGE<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;192.168.1.0/24&#34;</span>
+</span></span><span style=display:flex><span>SCAN_INTENSITY<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;T4&#34;</span>
+</span></span><span style=display:flex><span>TOP_PORTS<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;1000&#34;</span>
+</span></span><span style=display:flex><span>WORDLIST_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/usr/share/wordlists/dirbuster&#34;</span>
+</span></span><span style=display:flex><span>OUTPUT_FORMATS<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;-oA&#34;</span>
+</span></span><span style=display:flex><span>Usage Examples
+</span></span><span style=display:flex><span>Basic Usage
+</span></span><span style=display:flex><span>Start with the automated penetration testing script:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>bash
+</span></span><span style=display:flex><span><span style=color:#75715e># Make script executable</span>
+</span></span><span style=display:flex><span>chmod +x scan.sh
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Run basic scan</span>
+</span></span><span style=display:flex><span>./scan.sh 192.168.1.100
+</span></span><span style=display:flex><span>Expected output:
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>text
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Starting automated penetration test
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Target: 192.168.1.100
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>*<span style=color:#f92672>]</span> Output: /home/kali/pentest_192.168.1.100_20251108_1430
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>+<span style=color:#f92672>]</span> Host Reachability
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>✓<span style=color:#f92672>]</span> Complete
+</span></span><span style=display:flex><span>Intermediate Usage
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Built-in help</span>
+</span></span><span style=display:flex><span>nmap --help
+</span></span><span style=display:flex><span>man nmap
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Tool documentation</span>
+</span></span><span style=display:flex><span>nikto -H
+</span></span><span style=display:flex><span>gobuster --help
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Online resources</span>
+</span></span><span style=display:flex><span>- <span style=color:#f92672>[</span>Kali Linux Documentation<span style=color:#f92672>](</span>https://www.kali.org/docs/<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>- <span style=color:#f92672>[</span>Nmap Reference Guide<span style=color:#f92672>](</span>https://nmap.org/book/man.html<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>- <span style=color:#f92672>[</span>OWASP Testing Guide<span style=color:#f92672>](</span>https://owasp.org/www-project-web-security-testing-guide/<span style=color:#f92672>)</span> 
+</span></span></code></pre></div><h2 id=additional-resources>Additional Resources</h2><h3 id=official-documentation>Official Documentation</h3><ul><li><a href=https://www.kali.org/docs/>Kali Linux Official Docs</a></li><li><a href=https://nmap.org/book/>Nmap Reference Guide</a></li><li><a href=https://owasp.org/www-project-web-security-testing-guide/>OWASP Testing Guide</a></li></ul><h3 id=community-resources>Community Resources</h3><ul><li><a href=https://forums.kali.org/>Kali Linux Forums</a></li><li><a href=https://reddit.com/r/netsec>Reddit r/netsec</a></li><li><a href=https://stackoverflow.com/questions/tagged/security>Stack Overflow Security</a></li></ul><h3 id=related-tools>Related Tools</h3><ul><li><strong>Nessus</strong>: Comprehensive vulnerability scanner</li><li><strong>Burp Suite Professional</strong>: Advanced web application testing</li><li><strong>Metasploit Pro</strong>: Commercial penetration testing platform</li></ul><h3 id=further-reading>Further Reading</h3><ul><li><a href=http://www.pentest-standard.org/>Penetration Testing Execution Standard</a></li><li><a href=https://www.nist.gov/cyberframework>NIST Cybersecurity Framework</a></li><li><a href=https://www.sans.org/cyber-security-courses/penetration-testing/>SANS Penetration Testing Resources</a></li></ul><h2 id=conclusion>Conclusion</h2><p>This comprehensive guide has equipped you with the knowledge and tools to conduct professional remote penetration tests using Kali Linux. From automated reconnaissance to detailed vulnerability assessment, you now have a complete methodology for identifying and documenting security weaknesses.</p><h3 id=whats-next>What&rsquo;s Next?</h3><ul><li>Explore advanced exploitation techniques with Metasploit</li><li>Learn web application security testing in depth</li><li>Study network forensics and incident response</li><li>Pursue professional certifications like OSCP or CEH</li></ul><hr><p><em>Last updated: 2025-11-08</em></p><p><em>Found an error or have a suggestion? <a href=https://github.com/StoicTurk182/Blog>Please open an issue</a> or submit a pull request.</em></p><hr><h3 id=notes-for-content-creators>Notes for Content Creators</h3><p><strong>Testing & Compatibility:</strong></p><ul><li>All commands have been tested on Kali Linux 2023.3</li><li>Script assumes standard Kali tool locations</li><li>Always verify authorization before running scans</li><li>Consider organizational policies and compliance requirements</li><li>Update wordlist paths based on your Kali installation</li></ul><p><strong>SEO Considerations:</strong></p><ul><li>Primary keyword: &ldquo;Kali Linux penetration testing&rdquo;</li><li>Secondary keywords: &ldquo;remote security assessment&rdquo;, &ldquo;automated penetration testing&rdquo;</li><li>Meta description optimized for security professionals</li></ul><p><strong>Master the art of ethical hacking with this comprehensive guide to remote penetration testing using Kali Linux.</strong> This guide provides security professionals, system administrators, and ethical hackers with a complete methodology for assessing remote system security, complete with automated scripts and real-world examples.</p><blockquote><p>⚠️ <strong>IMPORTANT SECURITY DISCLAIMER</strong></p><p>This guide is for <strong>educational and authorized testing purposes only</strong>. Unauthorized scanning and testing may be <strong>illegal in your jurisdiction</strong>. Always obtain <strong>proper written permissions</strong> and follow <strong>ethical hacking guidelines</strong> before conducting any security assessments.</p></blockquote></div></article><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+Back to Posts</a></div></span><section class=author-section><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Andrew Jones avatar" src=/images/posts/Andrew.png class=avatar height=90 width=90></figure><div class=authorbox__content><h3 class=authorbox__name>Andrew Jones</h3><p class=authorbox__bio>IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p></div></div></section><style>pre,pre[style],code,.highlight pre{background-color:#000!important;background:#000!important}code[class*=language-]{background-color:#000!important}.highlight,div[class*=highlight]{background-color:#000!important}pre[style*=background-color]{background-color:#000!important}.toc{background:0 0;border-left:3px solid #dc143c;border-top:none;border-right:none;border-bottom:none;padding:1.5rem;border-radius:8px;margin:2rem 0;width:fit-content;color:#000}.toc h2{margin-top:0;font-size:1.1rem}.toc nav>ol,.toc nav>ul{padding-left:1.2rem;margin:0}.toc ol,.toc ul{line-height:1.8}.toc li{margin:.4rem 0;color:#000}.toc a{text-decoration:none;transition:color .2s}.toc a:hover{color:#f03}@media(max-width:1024px){.content-wrapper{grid-template-columns:1fr}}.post-nav-right{display:flex;justify-content:flex-end;margin-bottom:2rem}.read-more{display:inline-flex;align-items:center;gap:.5rem;color:#000;text-decoration:none;font-weight:500;transition:all .2s ease;border-bottom:2px dotted transparent}.read-more:hover{color:red;border-bottom:2px dotted #c53030}.read-more svg{transition:transform .2s ease}.read-more:hover svg{transform:translateX(-7px)}.reading-time{color:#000;font-size:.9rem;white-space:nowrap}.professional-post{max-width:800px;margin:0 auto;padding:2rem 1rem}.professional-header{margin-bottom:2rem;border-bottom:1px solid red;padding-bottom:1.5rem}.post-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}.post-date{color:#000;font-size:.9rem;font-weight:500}.reading-time{color:#000;font-size:.9rem;font-weight:500}.post-category{background:#f3f4f6;color:#000;padding:.25rem .75rem;border-radius:0;font-size:.8rem;font-weight:500}.post-title{font-size:2.5rem;color:#000;margin:0 0 1rem;font-weight:300;line-height:1.2}.post-description{font-size:1.2rem;color:#000;margin-bottom:1.5rem;line-height:1.6}.author-info{display:flex;align-items:center;gap:.5rem}.author{color:#000;font-size:.9rem}.post-content{line-height:1.7;color:#000;font-size:1.1rem}.post-content h2{color:#000;font-weight:400;margin:2rem 0 1rem;font-size:1.8rem}.post-content h3{color:#000;font-weight:500;margin:1.5rem 0 .75rem;font-size:1.4rem}.post-content p{margin-bottom:1.5rem}.post-content ul,.post-content ol{margin-bottom:1.5rem;padding-left:1.5rem}.post-content li{margin-bottom:.5rem}@media(max-width:768px){.professional-post{padding:1rem .5rem}.post-title{font-size:2rem}.post-meta{gap:.75rem}}</style></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2025 Andy J Blog - Trials of an IT Engineer.
+<span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script><script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".highlight").forEach(function(e){if(e.querySelector(".copy-code-btn"))return;const t=document.createElement("button");t.className="copy-code-btn",t.innerHTML="📋 Copy",t.title="Copy code to clipboard",t.style.cssText=`
             position: absolute;
             top: 8px;
             right: 8px;
@@ -884,214 +319,4 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 10;
             font-family: system-ui, -apple-system, sans-serif;
             color: #24292e;
-        `;
-        
-        highlight.style.position = 'relative';
-        
-        highlight.addEventListener('mouseenter', function() {
-            copyButton.style.opacity = '1';
-        });
-        
-        highlight.addEventListener('mouseleave', function() {
-            copyButton.style.opacity = '0';
-        });
-        
-        copyButton.addEventListener('click', async function() {
-            const code = highlight.querySelector('code')?.textContent || highlight.textContent;
-            try {
-                await navigator.clipboard.writeText(code);
-                copyButton.innerHTML = '✅ Copied!';
-                copyButton.style.background = '#d4edda';
-                copyButton.style.borderColor = '#c3e6cb';
-                copyButton.style.color = '#155724';
-                setTimeout(() => {
-                    copyButton.innerHTML = '📋 Copy';
-                    copyButton.style.background = 'rgba(255,255,255,0.9)';
-                    copyButton.style.borderColor = '#e1e4e8';
-                    copyButton.style.color = '#24292e';
-                }, 2000);
-            } catch (err) {
-                const textArea = document.createElement('textarea');
-                textArea.value = code;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                copyButton.innerHTML = '✅ Copied!';
-                setTimeout(() => {
-                    copyButton.innerHTML = '📋 Copy';
-                }, 2000);
-            }
-        });
-        
-        highlight.appendChild(copyButton);
-    });
-});
-</script>
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.opacity = '1';
-    document.body.style.transition = 'opacity 0.3s ease';
-});
-
-
-document.addEventListener('click', function(e) {
-    const link = e.target.closest('a');
-    if (link && !link.href.includes('://') && link.target !== '_blank') {
-        document.body.style.opacity = '0';
-    }
-});
-</script>
-
-</body>
-</html>
-
-<style>
-
-    
-.highlight {
-    position: relative;
-    margin: 1rem 0;
-}
-
-.copy-code-btn:hover {
-    background: rgba(255,255,255,1) !important;
-    border-color: #ff0000 !important;
-    transform: translateY(-1px);
-}
-    
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  
-}
-
-.body {
-  background: 
-    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-  background-color: #0a0a0a;
-  background-size: 15px 15px;
-  background-attachment: fixed;  
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-.container.container--outer {
-  background: rgba(24, 26, 27, 0.95);  
-  backdrop-filter: blur(16px);  
-  -webkit-backdrop-filter: blur(16px);  
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 1px rgba(255, 255, 255, 0.1);  
-  margin-top: 0;  
-  margin-bottom: 0;  
-}
-
- 
-.wrapper {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 768px) {
-    .copy-code-btn {
-        opacity: 1 !important;
-        font-size: 11px;
-        padding: 3px 8px;
-    }
-}
-
-@media screen and (max-width: 766px) {
-    .js .menu__list {
-        position: absolute;
-        z-index: 9999;
-        width: 100%;
-        left: 0;
-        top: 100%;
-    }
-    
-    .js .menu__list--active {
-        visibility: visible !important;
-        transform: scaleY(1) !important;
-        -webkit-transform: scaleY(1) !important;
-        display: block !important;
-        opacity: 1 !important;
-    }
-    
-    .menu__list--active .menu__item,
-    .menu__list--active .menu__link {
-        display: block !important;
-        visibility: visible !important;
-    }
-}
-
-.menu {
-    position: relative;
-}
-
-.hero {
-    position: relative;
-    padding: 4rem 0 3rem;
-    border-bottom: 1px solid rgb(255, 0, 0);
-    margin-bottom: 3rem;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    transition: background-image 0.8s ease-in-out;
-}
-
- 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    filter: blur(8px) brightness(0.6);
-    z-index: 0;
-}
-
- 
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(24, 26, 27, 0.5) 0%, rgba(24, 26, 27, 0.3) 50%, rgba(24, 26, 27, 0.5) 100%);
-    z-index: 1;
-}
-
- 
-.hero > * {
-    position: relative;
-    z-index: 2;
-}
-
-</style>
-
-</body>
-</html>
+        `,e.style.position="relative",e.addEventListener("mouseenter",function(){t.style.opacity="1"}),e.addEventListener("mouseleave",function(){t.style.opacity="0"}),t.addEventListener("click",async function(){const n=e.querySelector("code")?.textContent||e.textContent;try{await navigator.clipboard.writeText(n),t.innerHTML="✅ Copied!",t.style.background="#d4edda",t.style.borderColor="#c3e6cb",t.style.color="#155724",setTimeout(()=>{t.innerHTML="📋 Copy",t.style.background="rgba(255,255,255,0.9)",t.style.borderColor="#e1e4e8",t.style.color="#24292e"},2e3)}catch{const e=document.createElement("textarea");e.value=n,document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),t.innerHTML="✅ Copied!",setTimeout(()=>{t.innerHTML="📋 Copy"},2e3)}}),e.appendChild(t)})})</script><script>document.addEventListener("DOMContentLoaded",function(){document.body.style.opacity="1",document.body.style.transition="opacity 0.3s ease"}),document.addEventListener("click",function(e){const t=e.target.closest("a");t&&!t.href.includes("://")&&t.target!=="_blank"&&(document.body.style.opacity="0")})</script><script>const heroImages=["/images/posts/pexels-pixabay-159304.jpg","/images/posts/pexels-luis-gomes-166706-546819.jpg","/images/posts/pexels-kevin-ku-92347-577585.jpg","/images/posts/pexels-johnpet-2115257.jpg"];let currentIndex=0;const hero=document.querySelector(".hero");hero&&(console.log("Hero element found, initializing carousel..."),updateHeroImage(),setInterval(()=>{currentIndex=(currentIndex+1)%heroImages.length,console.log("Switching to image:",heroImages[currentIndex]),updateHeroImage()},6e3));function updateHeroImage(){const e=heroImages[currentIndex];console.log("Setting background image:",e),hero.style.backgroundImage=`url('${e}')`}function preloadImages(){heroImages.forEach(e=>{const t=new Image;t.src=e,t.onerror=()=>console.warn("Failed to load image:",e)})}window.addEventListener("load",preloadImages)</script></body></html><style>.hero{position:relative;padding:4rem 0 3rem;border:1px solid #000;margin-bottom:3rem;min-height:400px;display:flex;align-items:center;justify-content:center;background-size:cover;background-position:50%;background-attachment:scroll;transition:background-image .8s ease-in-out;overflow:hidden;color:#fff}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:50%;background-attachment:scroll;filter:blur(0)brightness(.5);z-index:0}.hero::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(24,26,27,.7) 0%,rgba(24,26,27,.5) 50%,rgba(24,26,27,.7) 100%);z-index:1}.hero>*{position:relative;z-index:2;color:#fff;padding:1.5rem 2.5rem;max-width:90%;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.8)}.hero h1,.hero h2,.hero h3,.hero p,.hero a{color:#fff;padding:1rem 2rem;text-shadow:0 2px 8px rgba(0,0,0,.8);letter-spacing:.5px}.hero h1{font-size:2.5rem;margin-bottom:1rem;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,.9)}.hero p{font-size:1.1rem;line-height:1.6;font-weight:500}.hero a{text-decoration:underline;transition:all .2s ease;border-bottom:2px solid rgba(255,255,255,.5)}.hero a:hover{color:#e0e0e0;border-bottom:2px solid #fff}@media(max-width:768px){.hero{min-height:300px;padding:2rem 0 1.5rem;transition:background-image .8s ease-in-out}.hero>*{padding:1rem 1.5rem;max-width:95%}.hero h1{font-size:1.8rem;margin-bottom:.5rem}.hero p{font-size:.95rem;line-height:1.5}}@media(max-width:480px){.hero{min-height:250px;padding:1.5rem 0 1rem;transition:background-image .8s ease-in-out}.hero>*{padding:.75rem 1rem;max-width:98%}.hero h1{font-size:1.4rem;margin-bottom:.25rem}.hero p{font-size:.85rem;line-height:1.4}.hero h1,.hero h2,.hero h3,.hero p,.hero a{padding:.5rem 1rem}}.copy-code-btn:hover{background:#fff!important;border-color:red!important;transform:translateY(-1px)}html,body{margin:0;padding:0;min-height:100vh;opacity:1;transition:opacity .3s ease}.body{background:linear-gradient(27deg,#151515 5px,transparent 5px)0 5px,linear-gradient(207deg,#151515 5px,transparent 5px)10px 0,linear-gradient(27deg,#222 5px,transparent 5px)0 10px,linear-gradient(207deg,#222 5px,transparent 5px)10px 5px,linear-gradient(90deg,#1b1b1b 10px,transparent 10px),linear-gradient(#1d1d1d 25%,#1a1a1a 25%,#1a1a1a 50%,transparent 50%,transparent 75%,#242424 75%,#242424);background-color:#0a0a0a;background-size:15px 15px;background-attachment:fixed;min-height:100vh;margin:0;padding:0}.container.container--outer{background:rgba(24,26,27,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid rgba(255,255,255,8%);border-right:1px solid rgba(255,255,255,8%);box-shadow:0 8px 32px rgba(0,0,0,.4),0 0 1px rgba(255,255,255,.1);margin-top:0;margin-bottom:0}.wrapper{position:relative;z-index:1}@media(max-width:768px){.copy-code-btn{opacity:1!important;font-size:11px;padding:3px 8px}}@media screen and (max-width:766px){.js .menu__list{position:absolute;z-index:9999;width:100%;left:0;top:100%}.js .menu__list--active{visibility:visible!important;transform:scaleY(1)!important;-webkit-transform:scaleY(1)!important;display:block!important;opacity:1!important}.menu__list--active .menu__item,.menu__list--active .menu__link{display:block!important;visibility:visible!important}}.menu{position:relative}.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 2px 8px rgba(0,0,0,.3)}.menu{position:relative}.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 4px 12px rgba(0,0,0,.5);padding:1rem 0}.menu{position:relative}.header a,.header h1,.header h2{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.8)}.menu__link,.menu__item{color:#fff!important}.menu__link:hover{color:#e0e0e0!important;transition:all .2s ease}.logo__title{color:#fff!important;text-shadow:0 2px 4px rgba(0,0,0,.9)}@media(max-width:768px){.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);box-shadow:0 4px 12px rgba(0,0,0,.5)}}@media(max-width:480px){.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);box-shadow:0 4px 12px rgba(0,0,0,.5);padding:.75rem 0}}</style></body></html>
