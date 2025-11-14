@@ -73,10 +73,16 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   url = "/videos/" # ← ADD THIS LINE  
   weight = 30      # ← ADD THIS LINE
 
+[[menu.main]]
+  name = "Contact"  # ← ADD THIS LINE
+  url = "/contact/" # ← ADD THIS LINE  
+  weight = 30      # ← ADD THIS LINE
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 2

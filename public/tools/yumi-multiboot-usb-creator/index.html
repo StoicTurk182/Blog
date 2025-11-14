@@ -2,7 +2,23 @@
 <html class="no-js" lang="en">
     
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
+    
+
+
+
+
      <style>
+
+         
+
+    html,
+body,
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}    
      
     html {
       background-color: #181a1b !important;
@@ -27,6 +43,8 @@
 
         <link rel="shortcut icon" href="/favicon.ico">
                 
+
+        <script src="/js/hero-carousel.js"></script>
 </head>
 
 <body class="body">
@@ -78,6 +96,13 @@
 			</a>
 		</li>
 		<li class="menu__item">
+			<a class="menu__link" href="/contact/">
+				
+				<span class="menu__text">Contact</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
 			<a class="menu__link" href="/videos/">
 				
 				<span class="menu__text">Videos</span>
@@ -90,14 +115,11 @@
 	</div>
 </header>
     
-    
-    <div id="barba-wrapper">
-        <div class="barba-container" data-barba="container">
-            <div class="wrapper flex">
-                <div class="primary">
+    <div class="wrapper flex">
+        <div class="primary">
 
-                    
-                    
+            
+            
 <div class="tool-single-page">
     
     <section class="tool-hero">
@@ -563,7 +585,7 @@
     padding: 0.75rem 1rem;
     text-decoration: none;
     border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border-radius: 0px;
     font-weight: 500;
     transition: all 0.2s;
     display: block;
@@ -694,10 +716,8 @@
 }
 </style>
 
-                </div>
-                
-            </div>
         </div>
+        
     </div>
     
     <footer class="footer">
@@ -787,61 +807,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<script src="https://unpkg.com/@barba/core"></script>
-<script>
 
-window.addEventListener('load', function() {
-    console.log('🚀 Page fully loaded, initializing Barba...');
-    initializeBarba();
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.opacity = '1';
+    document.body.style.transition = 'opacity 0.3s ease';
 });
 
-function initializeBarba() {
-    const wrapper = document.getElementById('barba-wrapper');
-    const container = document.querySelector('[data-barba="container"]');
-    
-    console.log('🔍 Checking for Barba elements:');
-    console.log(' - barba-wrapper:', wrapper);
-    console.log(' - barba-container:', container);
-    
-    if (!wrapper) {
-        console.error('❌ ERROR: No element with id="barba-wrapper" found');
-        return;
-    }
-    
-    if (!container) {
-        console.error('❌ ERROR: No element with data-barba="container" found');
-        return;
-    }
 
-    
-    barba.init({
-        transitions: [{
-            async leave(data) {
-                data.current.container.style.opacity = 0;
-                data.current.container.style.transition = 'opacity 0.3s ease';
-                await new Promise(r => setTimeout(r, 300));
-            },
-            async enter(data) {
-                data.next.container.style.opacity = 1;
-                data.next.container.style.transition = 'opacity 0.3s ease';
-                await new Promise(r => setTimeout(r, 300));
-                window.scrollTo(0, 0);
-            }
-        }],
-        prevent: ({ el }) => el.href.includes('://') || el.target === '_blank'
-    });
-    
-    console.log('✅ Barba.js successfully initialized!');
-}
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (link && !link.href.includes('://') && link.target !== '_blank') {
+        document.body.style.opacity = '0';
+    }
+});
 </script>
-
-<style>
-#barba-wrapper { position: relative; min-height: 60vh; }
-.barba-container { opacity: 1; }
-</style>
 
 </body>
 </html>
+
 <style>
 
     
@@ -860,6 +844,9 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  
 }
 
 .body {
@@ -933,8 +920,53 @@ html, body {
     position: relative;
 }
 
+.hero {
+    position: relative;
+    padding: 4rem 0 3rem;
+    border-bottom: 1px solid rgb(255, 0, 0);
+    margin-bottom: 3rem;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background-image 0.8s ease-in-out;
+}
 
+ 
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(8px) brightness(0.6);
+    z-index: 0;
+}
 
+ 
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(24, 26, 27, 0.5) 0%, rgba(24, 26, 27, 0.3) 50%, rgba(24, 26, 27, 0.5) 100%);
+    z-index: 1;
+}
+
+ 
+.hero > * {
+    position: relative;
+    z-index: 2;
+}
 
 </style>
 

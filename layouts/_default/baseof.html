@@ -2,7 +2,23 @@
 <html class="no-js" lang="{{ .Site.Language.Lang }}">
     
 <head>
+
+    
+
+
+
+
      <style>
+
+        /* Enable font anti-aliasing globally */
+
+    html,
+body,
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}    
     /* Prevent white flash - load this FIRST */
     html {
       background-color: #181a1b !important;
@@ -56,6 +72,8 @@
         {{- if not $server }}
                 {{ template "_internal/google_analytics.html" . }}
         {{- end }}
+
+        
 </head>
 
 <body class="body">
@@ -63,24 +81,19 @@
         <div class="container container--outer">
     {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
     
-    <!-- Barba.js REQUIRED structure -->
-    <div id="barba-wrapper">
-        <div class="barba-container" data-barba="container">
-            <div class="wrapper flex">
-                <div class="primary">
+    <div class="wrapper flex">
+        <div class="primary">
 
-                    <!-- SINGLE main block definition -->
-                    {{ block "main" . }}
-                        {{ with .Content }}
-                        <div class="content main__content clearfix">
-                            {{ . }}
-                        </div>
-                        {{ end }}
-                    {{ end }}
+            <!-- SINGLE main block definition -->
+            {{ block "main" . }}
+                {{ with .Content }}
+                <div class="content main__content clearfix">
+                    {{ . }}
                 </div>
-                {{ block "sidebar" . }}{{ partial "sidebar.html" . }}{{ end }}
-            </div>
+                {{ end }}
+            {{ end }}
         </div>
+        {{ block "sidebar" . }}{{ partial "sidebar.html" . }}{{ end }}
     </div>
     
     {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
@@ -164,17 +177,159 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- BARBA PARTIAL - ABSOLUTELY LAST -->
-{{ partial "barba-transitions.html" . }}
+
+<!-- Simple fade transition on page load -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.style.opacity = '1';
+    document.body.style.transition = 'opacity 0.3s ease';
+});
+
+// Fade out on link clicks (before navigation)
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (link && !link.href.includes('://') && link.target !== '_blank') {
+        document.body.style.opacity = '0';
+    }
+});
+</script>
+
+<!-- Hero Carousel Script -->
+<script>
+const heroImages = [
+    '/images/posts/pexels-pixabay-159304.jpg',
+    '/images/posts/pexels-luis-gomes-166706-546819.jpg',
+    '/images/posts/pexels-kevin-ku-92347-577585.jpg',
+    '/images/posts/pexels-johnpet-2115257.jpg'
+];
+
+let currentIndex = 0;
+const hero = document.querySelector('.hero');
+
+if (hero) {
+    console.log('Hero element found, initializing carousel...');
+    
+    updateHeroImage();
+    
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % heroImages.length;
+        console.log('Switching to image:', heroImages[currentIndex]);
+        updateHeroImage();
+    }, 6000);
+}
+
+function updateHeroImage() {
+    const img = heroImages[currentIndex];
+    console.log('Setting background image:', img);
+    hero.style.backgroundImage = `url('${img}')`;
+}
+
+// Preload images
+function preloadImages() {
+    heroImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        img.onerror = () => console.warn('Failed to load image:', src);
+    });
+}
+
+window.addEventListener('load', preloadImages);
+</script>
 
 </body>
 </html>
+
 <style>
 
-    
-.highlight {
+.hero {
     position: relative;
-    margin: 1rem 0;
+    padding: 4rem 0 3rem;
+    border: 1px solid rgb(0, 0, 0);
+    margin-bottom: 3rem;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background-image 0.8s ease-in-out;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+/* Blurred background image */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(0px) brightness(0.5);  /* Darker brightness */
+    z-index: 0;
+}
+
+/* Dark overlay for text readability */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(24, 26, 27, 0.7) 0%, rgba(24, 26, 27, 0.5) 50%, rgba(24, 26, 27, 0.7) 100%);  /* Darker overlay */
+    z-index: 1;
+}
+
+/* Ensure all content stays above layers */
+.hero > * {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    padding: 1.5rem 2.5rem;
+    max-width: 90%;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);  /* Text shadow for depth */
+}
+
+/* Make all headings and text white */
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero a {
+    color: #ffffff;
+    padding: 1rem 2rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);  /* Text shadow */
+    letter-spacing: 0.5px;  /* Slightly wider letter spacing */
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;  /* Bolder */
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);  /* Stronger shadow on headings */
+}
+
+.hero p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 500;  /* Slightly bolder */
+}
+
+.hero a {
+    text-decoration: underline;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.hero a:hover {
+    color: #e0e0e0;
+    border-bottom: 2px solid #ffffff;
 }
 
 .copy-code-btn:hover {
@@ -187,6 +342,9 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  
 }
 
 .body {
@@ -259,8 +417,6 @@ html, body {
 .menu {
     position: relative;
 }
-
-
 
 
 </style>

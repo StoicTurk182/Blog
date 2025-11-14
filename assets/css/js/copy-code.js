@@ -24,7 +24,7 @@ if (document.startViewTransition) {
             right: 8px;
             background: rgba(255,255,255,0.9);
             border: 1px solid #e1e4e8;
-            border-radius: 4px;
+            border-radius: 0px;
             padding: 4px 12px;
             font-size: 12px;
             cursor: pointer;
