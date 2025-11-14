@@ -670,7 +670,7 @@ window.addEventListener('load', preloadImages);
     justify-content: center;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: scroll;   
     transition: background-image 0.8s ease-in-out;
     overflow: hidden;
     color: #ffffff;
@@ -686,7 +686,7 @@ window.addEventListener('load', preloadImages);
     bottom: 0;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: scroll;   
     filter: blur(0px) brightness(0.5);   
     z-index: 0;
 }
@@ -750,6 +750,64 @@ window.addEventListener('load', preloadImages);
     border-bottom: 2px solid #ffffff;
 }
 
+ 
+@media (max-width: 768px) {
+    .hero {
+        min-height: 300px;
+        padding: 2rem 0 1.5rem;
+    }
+
+    .hero > * {
+        padding: 1rem 1.5rem;
+        max-width: 95%;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        min-height: 250px;
+        padding: 1.5rem 0 1rem;
+    }
+
+    .hero > * {
+        padding: 0.75rem 1rem;
+        max-width: 98%;
+    }
+
+    .hero h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .hero p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .hero h1,
+    .hero h2,
+    .hero h3,
+    .hero p,
+    .hero a {
+        padding: 0.5rem 1rem;
+    }
+}
+
+
+
+
+
+ 
 .copy-code-btn:hover {
     background: rgba(255,255,255,1) !important;
     border-color: #ff0000 !important;
