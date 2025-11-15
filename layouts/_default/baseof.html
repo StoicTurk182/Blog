@@ -2,12 +2,13 @@
 <html class="no-js" lang="{{ .Site.Language.Lang }}">
     
 <head>
+    <html style="background-color: #181a1b;"></html>
 
      <style>
 
         /* Enable font anti-aliasing globally */
 
-    html,
+html,
 body,
 * {
     -webkit-font-smoothing: antialiased;
@@ -442,63 +443,21 @@ html, body {
     }
 }
 
-@media screen and (max-width: 766px) {
-    .js .menu__list {
-        position: absolute;
-        z-index: 9999;
-        width: 100%;
-        left: 0;
-        top: 100%;
-    }
-    
-    .js .menu__list--active {
-        visibility: visible !important;
-        transform: scaleY(1) !important;
-        -webkit-transform: scaleY(1) !important;
-        display: block !important;
-        opacity: 1 !important;
-    }
-    
-    .menu__list--active .menu__item,
-    .menu__list--active .menu__link {
-        display: block !important;
-        visibility: visible !important;
-    }
+
+/* ===== FLOATING STICKY HEADER/MENU ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(24, 26, 27, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    padding: 1rem 0;
 }
 
 .menu {
     position: relative;
-}
-
-/* ===== FLOATING STICKY HEADER/MENU ===== */
-.header {
-    position: sticky;  /* NEW: Makes header stick to top while scrolling */
-    top: 0;
-    z-index: 1000;  /* NEW: Ensures it stays above content */
-    background: rgba(24, 26, 27, 0.95);  /* Match your body background */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);  /* Subtle shadow */
-}
-
-.menu {
-    position: relative;  /* Keep as is */
-}
-
-/* ===== FLOATING STICKY HEADER/MENU ===== */
-.header {
-    position: sticky;  /* Makes header stick to top while scrolling */
-    top: 0;
-    z-index: 1000;  /* Ensures it stays above content */
-    background: rgba(24, 26, 27, 0.98);  /* CHANGED: More opaque for better text visibility */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);  /* CHANGED: Stronger shadow for visual separation */
-    padding: 1rem 0;  /* NEW: Add padding for breathing room */
-}
-
-.menu {
-    position: relative;  /* Keep as is */
 }
 
 /* ===== HEADER TEXT STYLING ===== */
@@ -548,7 +507,6 @@ html, body {
         padding: 0.75rem 0;
     }
 }
-
 </style>
 
 </body>
