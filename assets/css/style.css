@@ -28,3 +28,9 @@
     }
 }
 
+@media print {
+    .no-print { display: none !important; }
+    body { font-size: 12pt; }
+    a { color: #000 !important; text-decoration: none !important; }
+    .container { max-width: 100% !important; }
+}

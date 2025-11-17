@@ -1,0 +1,112 @@
+<!-- layouts/shortcodes/cv-downloads.html -->
+<div class="cv-download-section">
+    <div class="download-buttons">
+        <a href="/downloads/Andrew_Jones_CV.pdf" class="download-btn pdf-btn" download>
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M10,17L8,13H9.5V10H14.5V13H16L13,17L10,17Z"/>
+            </svg>
+            <span>PDF Version</span>
+        </a>
+        <a href="/downloads/Andrew_Jones_CV.docx" class="download-btn docx-btn" download>
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M6,2H14L20,8V20A2,2 0 0,0 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M13,3.5V9H18.5L13,3.5M17,11H13V9H7V11L10,14L7,17V19H13V17H17L14,14L17,11Z"/>
+            </svg>
+            <span>Word Version</span>
+        </a>
+        <a href="/downloads/Andrew_Jones_CV.txt" class="download-btn txt-btn" download>
+            <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor" d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+            </svg>
+            <span>Text Version</span>
+        </a>
+    </div>
+    <p class="last-updated">Last updated: November 2025</p>
+</div>
+
+<style>
+/* CV Download Section - Glassmorphism Style */
+.cv-download-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(24, 26, 27, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
+
+.cv-download-section .download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.cv-download-section .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.cv-download-section .download-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cv-download-section .download-btn .icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.9;
+}
+
+.cv-download-section .pdf-btn:hover {
+    border-color: rgba(231, 76, 60, 0.6);
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.15), rgba(231, 76, 60, 0.08));
+}
+
+.cv-download-section .docx-btn:hover {
+    border-color: rgba(52, 152, 219, 0.6);
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.15), rgba(52, 152, 219, 0.08));
+}
+
+.cv-download-section .txt-btn:hover {
+    border-color: rgba(149, 165, 166, 0.6);
+    background: linear-gradient(135deg, rgba(149, 165, 166, 0.15), rgba(149, 165, 166, 0.08));
+}
+
+.cv-download-section .last-updated {
+    text-align: center;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+    .cv-download-section .download-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .cv-download-section .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+</style>
+

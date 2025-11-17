@@ -102,6 +102,43 @@
 
 <style>
 
+
+
+/* Create a scrollable wrapper effect without display: block */
+article table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+  border-collapse: collapse; /* Ensures clean borders */
+}
+
+/* Wrap tables in a scrollable container */
+article table {
+  display: block;
+  overflow-x: auto;
+}
+
+article table tbody,
+article table thead {
+  display: table; /* Keep table structure for body/head */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  article table {
+    font-size: 0.875rem;
+  }
+  
+  article table th,
+  article table td {
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+  }
+}
+
+
     /* Code blocks - black background */
 pre,
 pre[style],

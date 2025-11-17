@@ -153,7 +153,6 @@
       "menu__link",
       "menu__list",
       "menu__text",
-      "next-steps",
       "no-js",
       "page-content",
       "page-header",
@@ -245,11 +244,6 @@
       "wrapper"
     ],
     "ids": [
-      "-attack-metrics-summary",
-      "-defense-performance",
-      "-notable-attack-examples",
-      "-security-threat-surface-analysis",
-      "-traffic-analysis",
       "TableOfContents",
       "about-gma",
       "accessibility",
@@ -326,8 +320,6 @@
       "emerging-threats",
       "environment-variables",
       "essential-commands",
-      "essential-security-stack",
-      "essential-security-stack-",
       "essential-security-stack-for-learning",
       "everyday-computing",
       "example-1-production-vps-setup",
