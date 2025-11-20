@@ -1,8 +1,8 @@
 <!doctype html><html class=no-js lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><html style=background-color:#181a1b></html><style>html,body,*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}html{background-color:#181a1b!important}body{background-color:#181a1b!important}</style><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Building a Safe WireGuard Peer Management Script - Andy J Blog - Trials of an IT Engineer</title><script>(function(e,t){e[t]=e[t].replace("no-js","js")})(document.documentElement,"className")</script><meta name=description content="A comprehensive bash script for managing WireGuard VPN peers with automatic backups, split-tunnel support, and interactive mode for safe infrastructure management."><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel="shortcut icon" href=/favicon.ico></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class=logo><a class=logo__link href=/ title="Projects 2025" rel=home><div class="logo__item logo__text"><div class=logo__title>Projects 2025</div><div class=logo__tagline>Information Technology Musings</div></div></a></div><nav class=menu><button class=menu__btn aria-haspopup=true aria-expanded=false tabindex=0>
 <span class=menu__btn-title tabindex=-1>Menu</span></button><ul class=menu__list><li class=menu__item><a class=menu__link href=/><span class=menu__text>Home</span></a></li><li class=menu__item><a class=menu__link href=/posts/><span class=menu__text>Posts</span></a></li><li class=menu__item><a class=menu__link href=/tech-newsletter/weekly-update-1/><span class=menu__text>Tech News</span></a></li><li class=menu__item><a class=menu__link href=/tools/><span class=menu__text>Tools</span></a></li><li class=menu__item><a class=menu__link href=/contact/><span class=menu__text>Contact</span></a></li><li class=menu__item><a class=menu__link href=/videos/><span class=menu__text>Videos</span></a></li></ul></nav></div></header><div class="wrapper flex"><div class=primary><article class=professional-post><header class=professional-header><div class=post-meta><span class=post-date>November 20, 2025</span>
-<span class=reading-time>• 10 min read</span>
+<span class=reading-time>• 20 min read</span>
 <span class=post-category>Infrastructure</span></div><h1 class=post-title>Building a Safe WireGuard Peer Management Script</h1><p class=post-description>A comprehensive bash script for managing WireGuard VPN peers with automatic backups, split-tunnel support, and interactive mode for safe infrastructure management.</p><div class=author-info><span class=author>By Andrew Jones</span></div></header><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
-Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/wg.png alt="Building a Safe WireGuard Peer Management Script"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#the-problem-with-manual-wireguard-management>The Problem with Manual WireGuard Management</a></li><li><a href=#why-dns-configuration-breaks-split-tunnel-mode>Why DNS Configuration Breaks Split-Tunnel Mode</a></li><li><a href=#what-i-built>What I Built</a></li><li><a href=#key-features>Key Features</a></li><li><a href=#installation>Installation</a></li><li><a href=#usage-examples>Usage Examples</a></li><li><a href=#interactive-mode-walkthrough>Interactive Mode Walkthrough</a></li><li><a href=#technical-implementation-details>Technical Implementation Details</a></li><li><a href=#lessons-learned>Lessons Learned</a></li><li><a href=#use-cases>Use Cases</a></li><li><a href=#safety-checklist>Safety Checklist</a></li><li><a href=#future-enhancements>Future Enhancements</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></aside><div class=post-content><h2 id=the-problem-with-manual-wireguard-management>The Problem with Manual WireGuard Management</h2><hr><p>Managing WireGuard peers manually can be error-prone. After accidentally deleting an active peer with my old management script, I needed something better - a tool that would never overwrite existing configurations and always create backups before making changes. This makes adding new devices to my personal network much easier. Also it is worth mentioning that this allows you to set the parameters for you specific devices in accordance to the use case without the need to do this manually.</p><p>For example DNS traffic does not need to be passed through a device that is only operating in split tunnel mode. My mobile device is used for various remote management tasks but DNS is handled externally to the WireGuard interface this prevents issues like not being able to access the wider internet because 2 DNS servers are being called within the same network at the same time.</p><p>There can be only one primary DNS, for a more detailed explanation please review the sections below. I cannot overstate how frustrating this issue can be when you cannot identify the problem.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; Without WireGuard <span style=color:#f92672>(</span>Normal<span style=color:#f92672>)</span>:
+Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/wg.png alt="Building a Safe WireGuard Peer Management Script"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#the-problem-with-manual-wireguard-management>The Problem with Manual WireGuard Management</a></li><li><a href=#why-dns-configuration-breaks-split-tunnel-mode>Why DNS Configuration Breaks Split-Tunnel Mode</a></li><li><a href=#what-i-built>What I Built</a></li><li><a href=#key-features>Key Features</a></li><li><a href=#installation>Installation</a></li><li><a href=#usage-examples>Usage Examples</a></li><li><a href=#interactive-mode-walkthrough>Interactive Mode Walkthrough</a></li><li><a href=#technical-implementation-details>Technical Implementation Details</a></li><li><a href=#lessons-learned>Lessons Learned</a></li><li><a href=#use-cases>Use Cases</a></li><li><a href=#safety-checklist>Safety Checklist</a></li><li><a href=#future-enhancements>Future Enhancements</a></li><li><a href=#full-script>Full Script</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></aside><div class=post-content><h2 id=the-problem-with-manual-wireguard-management>The Problem with Manual WireGuard Management</h2><hr><p>Managing WireGuard peers manually can be error-prone. After accidentally deleting an active peer with my old management script, I needed something better - a tool that would never overwrite existing configurations and always create backups before making changes. This makes adding new devices to my personal network much easier. Also it is worth mentioning that this allows you to set the parameters for you specific devices in accordance to the use case without the need to do this manually.</p><p>For example DNS traffic does not need to be passed through a device that is only operating in split tunnel mode. My mobile device is used for various remote management tasks but DNS is handled externally to the WireGuard interface this prevents issues like not being able to access the wider internet because 2 DNS servers are being called within the same network at the same time.</p><p>There can be only one primary DNS, for a more detailed explanation please review the sections below. I cannot overstate how frustrating this issue can be when you cannot identify the problem.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>&gt; Without WireGuard <span style=color:#f92672>(</span>Normal<span style=color:#f92672>)</span>:
 </span></span><span style=display:flex><span>Primary Interface <span style=color:#f92672>(</span>WiFi/Ethernet<span style=color:#f92672>)</span>
 </span></span><span style=display:flex><span>├─ IP: 192.168.1.100
 </span></span><span style=display:flex><span>├─ Gateway: 192.168.1.1
@@ -129,7 +129,708 @@ while IP-based internal services work without any DNS requirements.</p><h2 id=wh
 </span></span></code></pre></div><p><code>wg syncconf</code> only adds and updates - it doesn&rsquo;t remove peers from the running configuration.</p><h2 id=use-cases>Use Cases</h2><h3 id=point-to-point-infrastructure>Point-to-Point Infrastructure</h3><p>Perfect for accessing internal services without routing internet traffic:</p><ul><li>RDP servers (3389)</li><li>SSH access to internal servers</li><li>Database connections</li><li>Internal APIs and web services</li><li>Service mesh between applications</li></ul><h3 id=full-vpn-solution>Full VPN Solution</h3><p>When you need complete privacy and security:</p><ul><li>Remote workers needing secure internet</li><li>Public WiFi protection</li><li>Geo-restriction bypass</li><li>Complete traffic encryption</li></ul><h2 id=safety-checklist>Safety Checklist</h2><p>Before deploying in production:</p><ol><li><p><strong>Verify peer count</strong> before and after operations:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo grep -c <span style=color:#e6db74>&#34;\[Peer\]&#34;</span> /etc/wireguard/wg0.conf
 </span></span></code></pre></div></li><li><p><strong>Test backup restoration</strong> in a dev environment first</p></li><li><p><strong>Keep manual backups</strong> before major changes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo cp /etc/wireguard/wg0.conf /etc/wireguard/wg0.conf.manual-<span style=color:#66d9ef>$(</span>date +%Y%m%d<span style=color:#66d9ef>)</span>
 </span></span></code></pre></div></li><li><p><strong>Document IP assignments</strong> for your infrastructure</p></li><li><p><strong>Monitor logs</strong> after changes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo tail -f /var/log/wireguard-peers.log
-</span></span></code></pre></div></li></ol><h2 id=future-enhancements>Future Enhancements</h2><p>Potential additions I&rsquo;m considering:</p><ul><li>Peer removal with confirmation prompts</li><li>Bulk peer creation from CSV</li><li>Email notifications on peer creation</li><li>Integration with monitoring systems</li><li>Automatic backup rotation/cleanup</li><li>Config validation before applying</li></ul><h2 id=conclusion>Conclusion</h2><hr><p>After accidentally deleting an active peer with my old script, building a safer alternative was essential. The key improvements - automatic backups, append-only operations, split-tunnel defaults, and interactive mode - make WireGuard peer management reliable and safe for infrastructure deployments.
+</span></span></code></pre></div></li></ol><h2 id=future-enhancements>Future Enhancements</h2><p>Potential additions I&rsquo;m considering:</p><ul><li>Peer removal with confirmation prompts</li><li>Bulk peer creation from CSV</li><li>Email notifications on peer creation</li><li>Integration with monitoring systems</li><li>Automatic backup rotation/cleanup</li><li>Config validation before applying</li></ul><h2 id=full-script>Full Script</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#################################################################</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># WireGuard Peer Management Script</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Manages peer creation, configuration generation, and QR codes</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#################################################################</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Configuration</span>
+</span></span><span style=display:flex><span>WG_INTERFACE<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;wg0&#34;</span>
+</span></span><span style=display:flex><span>WG_CONFIG<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/etc/wireguard/</span><span style=color:#e6db74>${</span>WG_INTERFACE<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span>
+</span></span><span style=display:flex><span>WG_CLIENTS_DIR<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/etc/wireguard/clients&#34;</span>
+</span></span><span style=display:flex><span>LOG_FILE<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;/var/log/wireguard-peers.log&#34;</span>
+</span></span><span style=display:flex><span>SERVER_IP<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;10.0.0.1&#34;</span>
+</span></span><span style=display:flex><span>SERVER_SUBNET<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;10.0.0.0/24&#34;</span>
+</span></span><span style=display:flex><span>SERVER_PORT<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;51820&#34;</span>
+</span></span><span style=display:flex><span>SERVER_PUBLIC_IP<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>  <span style=color:#75715e># Will be auto-detected if empty</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Default tunnel mode: split (infrastructure) or full (internet)</span>
+</span></span><span style=display:flex><span>DEFAULT_TUNNEL_MODE<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;split&#34;</span>  <span style=color:#75715e># Change to &#34;full&#34; for VPN routing</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Colors for output</span>
+</span></span><span style=display:flex><span>RED<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0;31m&#39;</span>
+</span></span><span style=display:flex><span>GREEN<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0;32m&#39;</span>
+</span></span><span style=display:flex><span>YELLOW<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[1;33m&#39;</span>
+</span></span><span style=display:flex><span>BLUE<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0;34m&#39;</span>
+</span></span><span style=display:flex><span>NC<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\033[0m&#39;</span> <span style=color:#75715e># No Color</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Function to log messages</span>
+</span></span><span style=display:flex><span>log_message<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local timestamp<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>date <span style=color:#e6db74>&#39;+%Y-%m-%d %H:%M:%S&#39;</span><span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;[</span>$timestamp<span style=color:#e6db74>] </span>$1<span style=color:#e6db74>&#34;</span> | tee -a <span style=color:#e6db74>&#34;</span>$LOG_FILE<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Function to print colored output</span>
+</span></span><span style=display:flex><span>print_info<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>BLUE<span style=color:#e6db74>}</span><span style=color:#e6db74>[INFO]</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74> </span>$1<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print_success<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>[SUCCESS]</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74> </span>$1<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print_warning<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>YELLOW<span style=color:#e6db74>}</span><span style=color:#e6db74>[WARNING]</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74> </span>$1<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>print_error<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    echo -e <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>RED<span style=color:#e6db74>}</span><span style=color:#e6db74>[ERROR]</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74> </span>$1<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check if running as root</span>
+</span></span><span style=display:flex><span>check_root<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> $EUID -ne <span style=color:#ae81ff>0</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;This script must be run as root&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check required dependencies</span>
+</span></span><span style=display:flex><span>check_dependencies<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local missing_deps<span style=color:#f92672>=()</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> cmd in wg wg-quick qrencode; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ! command -v <span style=color:#e6db74>&#34;</span>$cmd<span style=color:#e6db74>&#34;</span> &amp;&gt; /dev/null; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            missing_deps<span style=color:#f92672>+=(</span><span style=color:#e6db74>&#34;</span>$cmd<span style=color:#e6db74>&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>${#</span>missing_deps[@]<span style=color:#e6db74>}</span> -ne <span style=color:#ae81ff>0</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;Missing required dependencies: </span><span style=color:#e6db74>${</span>missing_deps[*]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;Install them with: apt install wireguard-tools qrencode&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Get server public IP</span>
+</span></span><span style=display:flex><span>get_server_public_ip<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$SERVER_PUBLIC_IP<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        SERVER_PUBLIC_IP<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>curl -s https://api.ipify.org<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$SERVER_PUBLIC_IP<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            SERVER_PUBLIC_IP<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>curl -s https://ifconfig.me<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$SERVER_PUBLIC_IP<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            print_warning <span style=color:#e6db74>&#34;Could not auto-detect public IP&#34;</span>
+</span></span><span style=display:flex><span>            read -p <span style=color:#e6db74>&#34;Enter server public IP address: &#34;</span> SERVER_PUBLIC_IP
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Get server public key</span>
+</span></span><span style=display:flex><span>get_server_public_key<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -f <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;WireGuard config not found at </span>$WG_CONFIG<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    SERVER_PRIVATE_KEY<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>grep PrivateKey <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;{print $3}&#39;</span><span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    SERVER_PUBLIC_KEY<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>echo <span style=color:#e6db74>&#34;</span>$SERVER_PRIVATE_KEY<span style=color:#e6db74>&#34;</span> | wg pubkey<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Get next available IP</span>
+</span></span><span style=display:flex><span>get_next_ip<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    mkdir -p <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Get all assigned IPs from client configs</span>
+</span></span><span style=display:flex><span>    local used_ips<span style=color:#f92672>=()</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -d <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> IFS<span style=color:#f92672>=</span> read -r file; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -f <span style=color:#e6db74>&#34;</span>$file<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                ip<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>grep <span style=color:#e6db74>&#34;Address&#34;</span> <span style=color:#e6db74>&#34;</span>$file<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;{print $3}&#39;</span> | cut -d<span style=color:#e6db74>&#39;/&#39;</span> -f1<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -n <span style=color:#e6db74>&#34;</span>$ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                    used_ips<span style=color:#f92672>+=(</span><span style=color:#e6db74>&#34;</span>$ip<span style=color:#e6db74>&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>done</span> &lt; &lt;<span style=color:#f92672>(</span>find <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span> -name <span style=color:#e6db74>&#34;*.conf&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Also check main server config for existing peer IPs</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -f <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> IFS<span style=color:#f92672>=</span> read -r line; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$line<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span>~ AllowedIPs<span style=color:#f92672>[[</span>:space:<span style=color:#f92672>]]</span>*<span style=color:#f92672>=[[</span>:space:<span style=color:#f92672>]]</span>*<span style=color:#f92672>([</span>0-9<span style=color:#f92672>]</span>+<span style=color:#ae81ff>\.</span><span style=color:#f92672>[</span>0-9<span style=color:#f92672>]</span>+<span style=color:#ae81ff>\.</span><span style=color:#f92672>[</span>0-9<span style=color:#f92672>]</span>+<span style=color:#ae81ff>\.</span><span style=color:#f92672>[</span>0-9<span style=color:#f92672>]</span>+<span style=color:#f92672>)</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                ip<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>BASH_REMATCH[1]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span>~ ^10<span style=color:#ae81ff>\.</span>0<span style=color:#ae81ff>\.</span>0<span style=color:#ae81ff>\.</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                    used_ips<span style=color:#f92672>+=(</span><span style=color:#e6db74>&#34;</span>$ip<span style=color:#e6db74>&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>done</span> &lt; <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Find next available IP in range 10.0.0.2 - 10.0.0.254</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i in <span style=color:#f92672>{</span>2..254<span style=color:#f92672>}</span>; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>        test_ip<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;10.0.0.</span>$i<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> ! <span style=color:#e6db74>&#34; </span><span style=color:#e6db74>${</span>used_ips[@]<span style=color:#e6db74>}</span><span style=color:#e6db74> &#34;</span> <span style=color:#f92672>=</span>~ <span style=color:#e6db74>&#34; </span><span style=color:#e6db74>${</span>test_ip<span style=color:#e6db74>}</span><span style=color:#e6db74> &#34;</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            echo <span style=color:#e6db74>&#34;</span>$test_ip<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print_error <span style=color:#e6db74>&#34;No available IP addresses in range&#34;</span>
+</span></span><span style=display:flex><span>    exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Validate IP address</span>
+</span></span><span style=display:flex><span>validate_ip<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local ip<span style=color:#f92672>=</span>$1
+</span></span><span style=display:flex><span>    local stat<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> $ip <span style=color:#f92672>=</span>~ ^10<span style=color:#ae81ff>\.</span>0<span style=color:#ae81ff>\.</span>0<span style=color:#ae81ff>\.</span><span style=color:#f92672>([</span>0-9<span style=color:#f92672>]{</span>1,3<span style=color:#f92672>})</span>$ <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        local octet<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>BASH_REMATCH[1]<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> $octet -ge <span style=color:#ae81ff>2</span> <span style=color:#f92672>&amp;&amp;</span> $octet -le <span style=color:#ae81ff>254</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            stat<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> $stat
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Check if IP is already in use</span>
+</span></span><span style=display:flex><span>check_ip_in_use<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local ip<span style=color:#f92672>=</span>$1
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Check client configs</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -d <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> IFS<span style=color:#f92672>=</span> read -r file; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -f <span style=color:#e6db74>&#34;</span>$file<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                existing_ip<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>grep <span style=color:#e6db74>&#34;Address&#34;</span> <span style=color:#e6db74>&#34;</span>$file<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;{print $3}&#39;</span> | cut -d<span style=color:#e6db74>&#39;/&#39;</span> -f1<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$existing_ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;</span>$ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>  <span style=color:#75715e># IP is in use</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>done</span> &lt; &lt;<span style=color:#f92672>(</span>find <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span> -name <span style=color:#e6db74>&#34;*.conf&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Check main server config</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -f <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> IFS<span style=color:#f92672>=</span> read -r line; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>[[</span> <span style=color:#e6db74>&#34;</span>$line<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>=</span>~ AllowedIPs<span style=color:#f92672>[[</span>:space:<span style=color:#f92672>]]</span>*<span style=color:#f92672>=[[</span>:space:<span style=color:#f92672>]]</span>*<span style=color:#f92672>([</span>0-9<span style=color:#f92672>]</span>+<span style=color:#ae81ff>\.</span><span style=color:#f92672>[</span>0-9<span style=color:#f92672>]</span>+<span style=color:#ae81ff>\.</span><span style=color:#f92672>[</span>0-9<span style=color:#f92672>]</span>+<span style=color:#ae81ff>\.</span><span style=color:#f92672>[</span>0-9<span style=color:#f92672>]</span>+<span style=color:#f92672>)</span>/32 <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                existing_ip<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>BASH_REMATCH[1]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$existing_ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;</span>$ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>  <span style=color:#75715e># IP is in use</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>done</span> &lt; <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>1</span>  <span style=color:#75715e># IP is not in use</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Create peer configuration</span>
+</span></span><span style=display:flex><span>create_peer<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local peer_name<span style=color:#f92672>=</span>$1
+</span></span><span style=display:flex><span>    local peer_ip<span style=color:#f92672>=</span>$2
+</span></span><span style=display:flex><span>    local show_qr<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>3<span style=color:#66d9ef>:-</span>false<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>    local tunnel_mode<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>4<span style=color:#66d9ef>:-</span>$DEFAULT_TUNNEL_MODE<span style=color:#e6db74>}</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Sanitize peer name</span>
+</span></span><span style=display:flex><span>    peer_name<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>echo <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> | tr <span style=color:#e6db74>&#39; &#39;</span> <span style=color:#e6db74>&#39;_&#39;</span> | tr -cd <span style=color:#e6db74>&#39;[:alnum:]_-&#39;</span><span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;Invalid peer name&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Validate and check IP</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> ! validate_ip <span style=color:#e6db74>&#34;</span>$peer_ip<span style=color:#e6db74>&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;Invalid IP address. Must be in range 10.0.0.2 - 10.0.0.254&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> check_ip_in_use <span style=color:#e6db74>&#34;</span>$peer_ip<span style=color:#e6db74>&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;IP address </span>$peer_ip<span style=color:#e6db74> is already in use&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create clients directory</span>
+</span></span><span style=display:flex><span>    mkdir -p <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Check if peer already exists</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -f <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>peer_name<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;Peer &#39;</span>$peer_name<span style=color:#e6db74>&#39; already exists&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Creating peer: </span>$peer_name<span style=color:#e6db74> with IP: </span>$peer_ip<span style=color:#e6db74> (</span><span style=color:#e6db74>${</span>tunnel_mode<span style=color:#e6db74>}</span><span style=color:#e6db74> tunnel)&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Generate keys for peer</span>
+</span></span><span style=display:flex><span>    local peer_private_key<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>wg genkey<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    local peer_public_key<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>echo <span style=color:#e6db74>&#34;</span>$peer_private_key<span style=color:#e6db74>&#34;</span> | wg pubkey<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    local peer_preshared_key<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>wg genpsk<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Determine AllowedIPs and DNS based on tunnel mode</span>
+</span></span><span style=display:flex><span>    local allowed_ips
+</span></span><span style=display:flex><span>    local dns_line
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$tunnel_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;full&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        allowed_ips<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;0.0.0.0/0, ::/0&#34;</span>
+</span></span><span style=display:flex><span>        dns_line<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;DNS = 1.1.1.1, 1.0.0.1&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Split tunnel - infrastructure only</span>
+</span></span><span style=display:flex><span>        allowed_ips<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$SERVER_SUBNET<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        dns_line<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;# DNS = 1.1.1.1, 1.0.0.1  # Commented out for split-tunnel&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create client config file</span>
+</span></span><span style=display:flex><span>    cat &gt; <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>peer_name<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span> <span style=color:#e6db74>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[Interface]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PrivateKey = $peer_private_key
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Address = $peer_ip/32
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>$dns_line
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[Peer]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PublicKey = $SERVER_PUBLIC_KEY
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PresharedKey = $peer_preshared_key
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Endpoint = $SERVER_PUBLIC_IP:$SERVER_PORT
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>AllowedIPs = $allowed_ips
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PersistentKeepalive = 25
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Backup server config before modification</span>
+</span></span><span style=display:flex><span>    local backup_file<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>WG_CONFIG<span style=color:#e6db74>}</span><span style=color:#e6db74>.backup-</span><span style=color:#66d9ef>$(</span>date +%Y%m%d-%H%M%S<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Creating backup: </span>$backup_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    cp <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$backup_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Add peer to server config</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Adding peer to server configuration...&#34;</span>
+</span></span><span style=display:flex><span>    cat &gt;&gt; <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74># Peer: $peer_name - $peer_ip
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>[Peer]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PublicKey = $peer_public_key
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>PresharedKey = $peer_preshared_key
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>AllowedIPs = $peer_ip/32
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Reload WireGuard</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Reloading WireGuard interface...&#34;</span>
+</span></span><span style=display:flex><span>    wg syncconf <span style=color:#e6db74>&#34;</span>$WG_INTERFACE<span style=color:#e6db74>&#34;</span> &lt;<span style=color:#f92672>(</span>wg-quick strip <span style=color:#e6db74>&#34;</span>$WG_INTERFACE<span style=color:#e6db74>&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Log the operation</span>
+</span></span><span style=display:flex><span>    log_message <span style=color:#e6db74>&#34;Created peer: </span>$peer_name<span style=color:#e6db74> | IP: </span>$peer_ip<span style=color:#e6db74> | Public Key: </span>$peer_public_key<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Print success message</span>
+</span></span><span style=display:flex><span>    print_success <span style=color:#e6db74>&#34;Peer &#39;</span>$peer_name<span style=color:#e6db74>&#39; created successfully!&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Configuration file: </span>$WG_CLIENTS_DIR<span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>peer_name<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Peer IP: </span>$peer_ip<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Tunnel Mode: </span>$tunnel_mode<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Public Key: </span>$peer_public_key<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Backup created: </span>$backup_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Show QR code if requested</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$show_qr<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;true&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;QR Code for mobile device:&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        qrencode -t ansiutf8 &lt; <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>peer_name<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;You can also generate QR code later with:&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;qrencode -t ansiutf8 &lt; </span>$WG_CLIENTS_DIR<span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>peer_name<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;To display configuration:&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;cat </span>$WG_CLIENTS_DIR<span style=color:#e6db74>/</span><span style=color:#e6db74>${</span>peer_name<span style=color:#e6db74>}</span><span style=color:#e6db74>.conf&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># List all peers</span>
+</span></span><span style=display:flex><span>list_peers<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Current WireGuard Peers:&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -d <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span> <span style=color:#f92672>||</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>ls -A <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span> 2&gt;/dev/null<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_warning <span style=color:#e6db74>&#34;No peers found&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    printf <span style=color:#e6db74>&#34;%-20s %-15s %-10s\n&#34;</span> <span style=color:#e6db74>&#34;NAME&#34;</span> <span style=color:#e6db74>&#34;IP ADDRESS&#34;</span> <span style=color:#e6db74>&#34;STATUS&#34;</span>
+</span></span><span style=display:flex><span>    printf <span style=color:#e6db74>&#34;%-20s %-15s %-10s\n&#34;</span> <span style=color:#e6db74>&#34;----&#34;</span> <span style=color:#e6db74>&#34;----------&#34;</span> <span style=color:#e6db74>&#34;------&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> conf_file in <span style=color:#e6db74>&#34;</span>$WG_CLIENTS_DIR<span style=color:#e6db74>&#34;</span>/*.conf; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -f <span style=color:#e6db74>&#34;</span>$conf_file<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            peer_name<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>basename <span style=color:#e6db74>&#34;</span>$conf_file<span style=color:#e6db74>&#34;</span> .conf<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>            peer_ip<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>grep <span style=color:#e6db74>&#34;Address&#34;</span> <span style=color:#e6db74>&#34;</span>$conf_file<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;{print $3}&#39;</span> | cut -d<span style=color:#e6db74>&#39;/&#39;</span> -f1<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>            peer_pubkey<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>grep <span style=color:#e6db74>&#34;PrivateKey&#34;</span> <span style=color:#e6db74>&#34;</span>$conf_file<span style=color:#e6db74>&#34;</span> | awk <span style=color:#e6db74>&#39;{print $3}&#39;</span> | wg pubkey<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            <span style=color:#75715e># Check if peer is active</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> wg show <span style=color:#e6db74>&#34;</span>$WG_INTERFACE<span style=color:#e6db74>&#34;</span> | grep -q <span style=color:#e6db74>&#34;</span>$peer_pubkey<span style=color:#e6db74>&#34;</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                status<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>GREEN<span style=color:#e6db74>}</span><span style=color:#e6db74>Active</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>                status<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>YELLOW<span style=color:#e6db74>}</span><span style=color:#e6db74>Inactive</span><span style=color:#e6db74>${</span>NC<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>            
+</span></span><span style=display:flex><span>            printf <span style=color:#e6db74>&#34;%-20s %-15s %-10b\n&#34;</span> <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$peer_ip<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$status<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># List available backups</span>
+</span></span><span style=display:flex><span>list_backups<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Available WireGuard configuration backups:&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    local backups<span style=color:#f92672>=(</span><span style=color:#66d9ef>$(</span>ls -t <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>WG_CONFIG<span style=color:#e6db74>}</span><span style=color:#e6db74>.backup-&#34;</span>* 2&gt;/dev/null<span style=color:#66d9ef>)</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>${#</span>backups[@]<span style=color:#e6db74>}</span> -eq <span style=color:#ae81ff>0</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_warning <span style=color:#e6db74>&#34;No backups found&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    printf <span style=color:#e6db74>&#34;%-30s %-20s %-10s\n&#34;</span> <span style=color:#e6db74>&#34;BACKUP FILE&#34;</span> <span style=color:#e6db74>&#34;DATE&#34;</span> <span style=color:#e6db74>&#34;SIZE&#34;</span>
+</span></span><span style=display:flex><span>    printf <span style=color:#e6db74>&#34;%-30s %-20s %-10s\n&#34;</span> <span style=color:#e6db74>&#34;-----------&#34;</span> <span style=color:#e6db74>&#34;----&#34;</span> <span style=color:#e6db74>&#34;----&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> backup in <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>backups[@]<span style=color:#e6db74>}</span><span style=color:#e6db74>&#34;</span>; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>        local filename<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>basename <span style=color:#e6db74>&#34;</span>$backup<span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        local filesize<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>du -h <span style=color:#e6db74>&#34;</span>$backup<span style=color:#e6db74>&#34;</span> | cut -f1<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        local filedate<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>echo <span style=color:#e6db74>&#34;</span>$filename<span style=color:#e6db74>&#34;</span> | grep -oP <span style=color:#e6db74>&#39;\d{8}-\d{6}&#39;</span> | sed <span style=color:#e6db74>&#39;s/\([0-9]\{8\}\)-\([0-9]\{6\}\)/\1 \2/&#39;</span><span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        printf <span style=color:#e6db74>&#34;%-30s %-20s %-10s\n&#34;</span> <span style=color:#e6db74>&#34;</span>$filename<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$filedate<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$filesize<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;To restore a backup:&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;sudo cp /etc/wireguard/wg0.conf.backup-TIMESTAMP /etc/wireguard/wg0.conf&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;sudo wg syncconf wg0 &lt;(wg-quick strip wg0)&#34;</span>
+</span></span><span style=display:flex><span>    echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Restore from backup</span>
+</span></span><span style=display:flex><span>restore_backup<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    local backup_file<span style=color:#f92672>=</span>$1
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> ! -f <span style=color:#e6db74>&#34;</span>$backup_file<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;Backup file not found: </span>$backup_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print_warning <span style=color:#e6db74>&#34;This will restore WireGuard config from backup&#34;</span>
+</span></span><span style=display:flex><span>    read -p <span style=color:#e6db74>&#34;Are you sure? (yes/no): &#34;</span> confirm
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$confirm<span style=color:#e6db74>&#34;</span> !<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;yes&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;Restore cancelled&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create backup of current config before restoring</span>
+</span></span><span style=display:flex><span>    local safety_backup<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>WG_CONFIG<span style=color:#e6db74>}</span><span style=color:#e6db74>.pre-restore-</span><span style=color:#66d9ef>$(</span>date +%Y%m%d-%H%M%S<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    cp <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$safety_backup<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Safety backup created: </span>$safety_backup<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Restore</span>
+</span></span><span style=display:flex><span>    cp <span style=color:#e6db74>&#34;</span>$backup_file<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$WG_CONFIG<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    print_success <span style=color:#e6db74>&#34;Config restored from: </span>$backup_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Reload</span>
+</span></span><span style=display:flex><span>    print_info <span style=color:#e6db74>&#34;Reloading WireGuard...&#34;</span>
+</span></span><span style=display:flex><span>    wg syncconf <span style=color:#e6db74>&#34;</span>$WG_INTERFACE<span style=color:#e6db74>&#34;</span> &lt;<span style=color:#f92672>(</span>wg-quick strip <span style=color:#e6db74>&#34;</span>$WG_INTERFACE<span style=color:#e6db74>&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    print_success <span style=color:#e6db74>&#34;Restore complete!&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Show usage</span>
+</span></span><span style=display:flex><span>show_usage<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    cat <span style=color:#e6db74>&lt;&lt;EOF
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>WireGuard Peer Management Script
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Usage: $0 [OPTIONS]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Interactive Mode:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Run without any options for guided menu-driven interface:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Options:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -n, --name NAME         Peer name (required)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -i, --ip IP            IP address (optional, auto-assigned if not provided)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -q, --qr               Generate QR code for mobile devices
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -f, --full-tunnel      Full tunnel mode (route all traffic through VPN)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                           Default: split-tunnel (infrastructure only)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -l, --list             List all peers
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -b, --backups          List all configuration backups
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -r, --restore FILE     Restore from backup file
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    -h, --help             Show this help message
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Tunnel Modes:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Split-tunnel (default): Only routes 10.0.0.0/24 through VPN, no DNS
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                           Perfect for point-to-point services (RDP, etc)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    Full-tunnel (-f):      Routes all traffic through VPN with DNS
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                           Use for complete VPN internet access
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Examples:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Interactive mode (recommended for beginners)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Create infrastructure peer (split-tunnel, no DNS)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -n server-backend
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Create infrastructure peer with QR code
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -n office-device -q
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Create full VPN peer with internet routing
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -n mobile-device -f -q
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Create peer with specific IP
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -n service-host -i 10.0.0.50
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # List all peers
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -l
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # List all backups
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -b
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Restore from backup
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    $0 -r /etc/wireguard/wg0.conf.backup-20231118-143022
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Safety:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    • Automatic backup before each peer creation
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    • Append-only mode (never overwrites existing peers)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    • Non-destructive config reload
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Log file: $LOG_FILE
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Config directory: $WG_CLIENTS_DIR
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Backups: ${WG_CONFIG}.backup-*
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Main script</span>
+</span></span><span style=display:flex><span>main<span style=color:#f92672>()</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    check_root
+</span></span><span style=display:flex><span>    check_dependencies
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Parse command line arguments</span>
+</span></span><span style=display:flex><span>    local peer_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    local peer_ip<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    local show_qr<span style=color:#f92672>=</span>false
+</span></span><span style=display:flex><span>    local list_mode<span style=color:#f92672>=</span>false
+</span></span><span style=display:flex><span>    local backups_mode<span style=color:#f92672>=</span>false
+</span></span><span style=display:flex><span>    local restore_file<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>    local tunnel_mode<span style=color:#f92672>=</span>$DEFAULT_TUNNEL_MODE
+</span></span><span style=display:flex><span>    local interactive_mode<span style=color:#f92672>=</span>false
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Check if running with no arguments (interactive mode)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> $# -eq <span style=color:#ae81ff>0</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        interactive_mode<span style=color:#f92672>=</span>true
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>while</span> <span style=color:#f92672>[[</span> $# -gt <span style=color:#ae81ff>0</span> <span style=color:#f92672>]]</span>; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>case</span> $1 in
+</span></span><span style=display:flex><span>            -n|--name<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                peer_name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$2<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                shift <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -i|--ip<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                peer_ip<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$2<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                shift <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -q|--qr<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                show_qr<span style=color:#f92672>=</span>true
+</span></span><span style=display:flex><span>                shift
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -f|--full-tunnel<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                tunnel_mode<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;full&#34;</span>
+</span></span><span style=display:flex><span>                shift
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -l|--list<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                list_mode<span style=color:#f92672>=</span>true
+</span></span><span style=display:flex><span>                shift
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -b|--backups<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                backups_mode<span style=color:#f92672>=</span>true
+</span></span><span style=display:flex><span>                shift
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -r|--restore<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                restore_file<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$2<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                shift <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            -h|--help<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                show_usage
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            *<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                print_error <span style=color:#e6db74>&#34;Unknown option: </span>$1<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                show_usage
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>esac</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Interactive mode</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$interactive_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> true <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;=== WireGuard Peer Manager - Interactive Mode ===&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Show menu</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;What would you like to do?&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  1) Create a new peer&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  2) List all peers&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  3) List backups&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  4) Restore from backup&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  5) Exit&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        read -p <span style=color:#e6db74>&#34;Select option (1-5): &#34;</span> menu_choice
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>case</span> $menu_choice in
+</span></span><span style=display:flex><span>            1<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                <span style=color:#75715e># Create peer - continue with prompts below</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            2<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                get_server_public_key
+</span></span><span style=display:flex><span>                list_peers
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            3<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                list_backups
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            4<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                list_backups
+</span></span><span style=display:flex><span>                echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>                read -p <span style=color:#e6db74>&#34;Enter backup file path to restore: &#34;</span> restore_file
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -n <span style=color:#e6db74>&#34;</span>$restore_file<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                    restore_backup <span style=color:#e6db74>&#34;</span>$restore_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>                <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            5<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                print_info <span style=color:#e6db74>&#34;Goodbye!&#34;</span>
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            *<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                print_error <span style=color:#e6db74>&#34;Invalid option&#34;</span>
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>esac</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;=== Create New Peer ===&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Get peer name</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>while</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>do</span>
+</span></span><span style=display:flex><span>            read -p <span style=color:#e6db74>&#34;Enter peer name (e.g., office-device, john-phone): &#34;</span> peer_name
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>                print_error <span style=color:#e6db74>&#34;Peer name cannot be empty&#34;</span>
+</span></span><span style=display:flex><span>            <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>done</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Get IP address (note: actual auto-assign happens later after server info is loaded)</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        read -p <span style=color:#e6db74>&#34;Enter IP address (press Enter for auto-assign): &#34;</span> peer_ip
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Get tunnel mode</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;Select tunnel mode:&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  1) Split-tunnel (default) - Infrastructure only, no DNS&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;     Routes only 10.0.0.0/24 through VPN&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;     Perfect for: RDP, SSH, databases, service mesh&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  2) Full-tunnel - Complete VPN with internet routing&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;     Routes ALL traffic through VPN with DNS&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;     Perfect for: Remote workers, secure browsing&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        read -p <span style=color:#e6db74>&#34;Select mode (1 or 2) [1]: &#34;</span> mode_choice
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>case</span> $mode_choice in
+</span></span><span style=display:flex><span>            2<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                tunnel_mode<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;full&#34;</span>
+</span></span><span style=display:flex><span>                print_info <span style=color:#e6db74>&#34;Selected: Full-tunnel mode&#34;</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            1|<span style=color:#e6db74>&#34;&#34;</span><span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                tunnel_mode<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;split&#34;</span>
+</span></span><span style=display:flex><span>                print_info <span style=color:#e6db74>&#34;Selected: Split-tunnel mode&#34;</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            *<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                print_warning <span style=color:#e6db74>&#34;Invalid choice, using default: Split-tunnel&#34;</span>
+</span></span><span style=display:flex><span>                tunnel_mode<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;split&#34;</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>esac</span>
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#75715e># Get QR code preference</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        read -p <span style=color:#e6db74>&#34;Generate QR code for mobile device? (y/n) [n]: &#34;</span> qr_choice
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>case</span> $qr_choice in
+</span></span><span style=display:flex><span>            y|Y|yes|Yes<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                show_qr<span style=color:#f92672>=</span>true
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>            *<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                show_qr<span style=color:#f92672>=</span>false
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>esac</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Backup list mode</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$backups_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> true <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        list_backups
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Restore mode</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -n <span style=color:#e6db74>&#34;</span>$restore_file<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        restore_backup <span style=color:#e6db74>&#34;</span>$restore_file<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># List mode</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$list_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> true <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        get_server_public_key
+</span></span><span style=display:flex><span>        list_peers
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Validate required parameters (only for flag-based mode)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$interactive_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> false <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        print_error <span style=color:#e6db74>&#34;Peer name is required&#34;</span>
+</span></span><span style=display:flex><span>        show_usage
+</span></span><span style=display:flex><span>        exit <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Auto-assign IP if not provided (for flag-based mode only)</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$peer_ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$interactive_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> false <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        peer_ip<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>get_next_ip<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;Auto-assigned IP: </span>$peer_ip<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Get server info</span>
+</span></span><span style=display:flex><span>    get_server_public_ip
+</span></span><span style=display:flex><span>    get_server_public_key
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Auto-assign IP if not provided</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -z <span style=color:#e6db74>&#34;</span>$peer_ip<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        peer_ip<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>get_next_ip<span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$interactive_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> true <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>            print_info <span style=color:#e6db74>&#34;Auto-assigned IP: </span>$peer_ip<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Show summary in interactive mode before creating</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$interactive_mode<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> true <span style=color:#f92672>]</span>; <span style=color:#66d9ef>then</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        print_info <span style=color:#e6db74>&#34;Summary:&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  Name: </span>$peer_name<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  IP: </span>$peer_ip<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  Mode: </span>$tunnel_mode<span style=color:#e6db74>-tunnel&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;  QR Code: </span><span style=color:#66d9ef>$(</span><span style=color:#f92672>[</span> <span style=color:#e6db74>&#34;</span>$show_qr<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>==</span> true <span style=color:#f92672>]</span> <span style=color:#f92672>&amp;&amp;</span> echo <span style=color:#e6db74>&#34;Yes&#34;</span> <span style=color:#f92672>||</span> echo <span style=color:#e6db74>&#34;No&#34;</span><span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span>        echo <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>        read -p <span style=color:#e6db74>&#34;Create this peer? (y/n) [y]: &#34;</span> confirm
+</span></span><span style=display:flex><span>        
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>case</span> $confirm in
+</span></span><span style=display:flex><span>            n|N|no|No<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>                print_info <span style=color:#e6db74>&#34;Cancelled&#34;</span>
+</span></span><span style=display:flex><span>                exit <span style=color:#ae81ff>0</span>
+</span></span><span style=display:flex><span>                ;;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>esac</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>fi</span>
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e># Create the peer</span>
+</span></span><span style=display:flex><span>    create_peer <span style=color:#e6db74>&#34;</span>$peer_name<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$peer_ip<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$show_qr<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span>$tunnel_mode<span style=color:#e6db74>&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Run main function</span>
+</span></span><span style=display:flex><span>main <span style=color:#e6db74>&#34;</span>$@<span style=color:#e6db74>&#34;</span>
+</span></span></code></pre></div><h2 id=conclusion>Conclusion</h2><hr><p>After accidentally deleting an active peer with my old script, building a safer alternative was essential. The key improvements - automatic backups, append-only operations, split-tunnel defaults, and interactive mode - make WireGuard peer management reliable and safe for infrastructure deployments.
 The script has been running in production for over a month managing point-to-point connections for RDP access, database connections, and service mesh networking across our infrastructure without incident. Do not forget that there is a QR code option for mobile device enrollment, so please do not try importing and exporting configs this is dangerous.</p></div></article><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
 Back to Posts</a></div></span><section class=author-section><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Andrew Jones avatar" src=/images/posts/Andrew.png class=avatar height=90 width=90></figure><div class=authorbox__content><h3 class=authorbox__name>Andrew Jones</h3><p class=authorbox__bio>IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p></div></div></section><style>article table{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.5rem 0;border-collapse:collapse}article table{display:block;overflow-x:auto}article table tbody,article table thead{display:table;width:100%}@media(max-width:768px){article table{font-size:.875rem}article table th,article table td{padding:.5rem .75rem;white-space:nowrap}}pre,pre[style],code,.highlight pre{background-color:#000!important;background:#000!important}code[class*=language-]{background-color:#000!important}.highlight,div[class*=highlight]{background-color:#000!important}pre[style*=background-color]{background-color:#000!important}.toc{background:0 0;border-left:3px solid #dc143c;border-top:none;border-right:none;border-bottom:none;padding:1.5rem;border-radius:8px;margin:2rem 0;width:fit-content;color:#000}.toc h2{margin-top:0;font-size:1.1rem}.toc nav>ol,.toc nav>ul{padding-left:1.2rem;margin:0}.toc ol,.toc ul{line-height:1.8}.toc li{margin:.4rem 0;color:#000}.toc a{text-decoration:none;transition:color .2s}.toc a:hover{color:#f03}@media(max-width:1024px){.content-wrapper{grid-template-columns:1fr}}.post-nav-right{display:flex;justify-content:flex-end;margin-bottom:2rem}.read-more{display:inline-flex;align-items:center;gap:.5rem;color:#000;text-decoration:none;font-weight:500;transition:all .2s ease;border-bottom:2px dotted transparent}.read-more:hover{color:red;border-bottom:2px dotted #c53030}.read-more svg{transition:transform .2s ease}.read-more:hover svg{transform:translateX(-7px)}.reading-time{color:#000;font-size:.9rem;white-space:nowrap}.professional-post{max-width:800px;margin:0 auto;padding:2rem 1rem}.professional-header{margin-bottom:2rem;border-bottom:1px solid red;padding-bottom:1.5rem}.post-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}.post-date{color:#000;font-size:.9rem;font-weight:500}.reading-time{color:#000;font-size:.9rem;font-weight:500}.post-category{background:#f3f4f6;color:#000;padding:.25rem .75rem;border-radius:0;font-size:.8rem;font-weight:500}.post-title{font-size:2.5rem;color:#000;margin:0 0 1rem;font-weight:300;line-height:1.2}.post-description{font-size:1.2rem;color:#000;margin-bottom:1.5rem;line-height:1.6}.author-info{display:flex;align-items:center;gap:.5rem}.author{color:#000;font-size:.9rem}.post-content{line-height:1.7;color:#000;font-size:1.1rem}.post-content h2{color:#000;font-weight:400;margin:2rem 0 1rem;font-size:1.8rem}.post-content h3{color:#000;font-weight:500;margin:1.5rem 0 .75rem;font-size:1.4rem}.post-content p{margin-bottom:1.5rem}.post-content ul,.post-content ol{margin-bottom:1.5rem;padding-left:1.5rem}.post-content li{margin-bottom:.5rem}@media(max-width:768px){.professional-post{padding:1rem .5rem}.post-title{font-size:2rem}.post-meta{gap:.75rem}}</style></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2025 Andy J Blog - Trials of an IT Engineer.
 <span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script><script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".highlight").forEach(function(e){if(e.querySelector(".copy-code-btn"))return;const t=document.createElement("button");t.className="copy-code-btn",t.innerHTML="📋 Copy",t.title="Copy code to clipboard",t.style.cssText=`
