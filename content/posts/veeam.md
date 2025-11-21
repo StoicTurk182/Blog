@@ -1238,6 +1238,6 @@ For ongoing support:
 ---
 
 >**Document Version**: 1.1  
-> NOTE: Debian 13 is not not support by the community / main edition suport will be coming soon. 
+> NOTE: Debian 13 is not supported by the community / main edition, suport will be coming soon. This will allow for full VM backups of Deiban 13 virtual machines.  
 >**Last Updated**: 21:47pm - 0911/2025   
 
