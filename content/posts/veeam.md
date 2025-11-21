@@ -1237,6 +1237,7 @@ For ongoing support:
 
 ---
 
->**Document Version**: 1.0  
+>**Document Version**: 1.1  
+> NOTE: Debian 13 is not not support by the community / main edition suport will be coming soon. 
 >**Last Updated**: 21:47pm - 0911/2025   
 
