@@ -14,6 +14,7 @@ socialShare: true
 ---
 
 ## Introduction
+---
 
 This comprehensive guide covers everything you need to know about Linux user management, file permissions, system navigation, and file operations. Whether you're a beginner or an experienced user, this reference will help you master Linux system administration. Also a good application that you can use after you grasp the basics is Midnight Commander - https://midnight-commander.org 
 
@@ -21,10 +22,13 @@ A highly regarded tool to make file management easier and more like working with
 
 
 ## Part 1: Linux Users, Groups, and Permissions
+---
 
 ### User Management
+---
 
 #### Viewing User Information
+---
 
 ```bash
 # Current user information
@@ -45,6 +49,7 @@ chage -l username
 ```
 
 #### Creating and Modifying Users
+---
 
 ```bash
 # Create user with home directory and specific shell
@@ -60,8 +65,10 @@ sudo usermod -L johndoe            # Lock account
 ```
 
 ### Group Management
+---
 
 #### Viewing and Managing Groups
+---
 
 ```bash
 # Current user's groups
@@ -75,20 +82,24 @@ sudo gpasswd -a johndoe developers
 ```
 
 ### File Permissions Basics
+---
 
 #### Understanding Permission Types
+---
 
 - **Read (r) = 4**: View file contents or list directory
 - **Write (w) = 2**: Modify file or directory contents
 - **Execute (x) = 1**: Run file or traverse directory
 
 #### Permission Classes
+---
 
 - **User (u)**: File owner
 - **Group (g)**: Group owner
 - **Others (o)**: All other users
 
 #### Viewing Permissions
+---
 
 ```bash
 ls -l file.txt
@@ -99,8 +110,10 @@ stat -c "%a %n" file.txt
 ```
 
 ### Permission Modification
+---
 
 #### Changing Permissions with chmod
+---
 
 ```bash
 # Symbolic notation
@@ -116,6 +129,7 @@ chmod -R 755 directory/
 ```
 
 #### Changing Ownership
+---
 
 ```bash
 # Change owner and group
@@ -129,8 +143,10 @@ sudo chown -R johndoe:developers directory/
 ```
 
 ### Special Permissions
+---
 
 #### SetUID, SetGID, and Sticky Bit
+---
 
 ```bash
 # SetUID - executes with owner's privileges
@@ -147,8 +163,10 @@ chmod 1777 directory/
 ```
 
 ### Access Control Lists (ACL)
+---
 
 #### Advanced Permission Management
+---
 
 ```bash
 # Install ACL tools
@@ -168,8 +186,10 @@ setfacl -m d:u:bob:rwx shared_directory/
 ```
 
 ### Sudo and Privilege Escalation
+---
 
 #### Sudo Configuration
+---
 
 ```bash
 # Edit sudoers file safely
@@ -180,6 +200,7 @@ sudo -l
 ```
 
 #### Sudoers File Examples
+---
 
 ```text
 # User specifications
@@ -192,10 +213,13 @@ johndoe     ALL=(root) /usr/bin/apt, /usr/bin/systemctl
 ```
 
 ## Part 2: Linux Navigation and File Location
+---
 
 ### Basic Navigation
+---
 
 #### Directory Operations
+---
 
 ```bash
 # Current directory
@@ -215,8 +239,10 @@ dirs                      # Show directory stack
 ```
 
 ### Linux Filesystem Hierarchy
+---
 
 #### Essential Directory Structure
+---
 
 ```text
 /
@@ -230,8 +256,10 @@ dirs                      # Show directory stack
 ```
 
 ### File System Navigation
+---
 
 #### Listing Files and Directories
+---
 
 ```bash
 # Basic listing with details
@@ -245,6 +273,7 @@ tree -d                   # Directories only
 ```
 
 #### File Information Commands
+---
 
 ```bash
 # File type and information
@@ -258,8 +287,10 @@ dirname /path/to/file      # Extract directory path
 ```
 
 ### Searching for Files
+---
 
 #### Using find Command
+---
 
 ```bash
 # Basic find syntax
@@ -284,6 +315,7 @@ find . -name "*.old" -exec rm {} \;
 ```
 
 #### Fast Search with locate
+---
 
 ```bash
 # Update file database
@@ -296,6 +328,7 @@ locate -l 20 "*.jpg"        # Limit to 20 results
 ```
 
 #### Finding Commands
+---
 
 ```bash
 # Find executables
@@ -311,8 +344,10 @@ whatis ls
 ```
 
 ### Finding File Content
+---
 
 #### grep for Text Search
+---
 
 ```bash
 # Basic text search
@@ -329,6 +364,7 @@ grep -A 3 -B 2 "pattern" file.txt # 3 lines after, 2 lines before
 ```
 
 #### Modern Alternatives
+---
 
 ```bash
 # ripgrep (faster)
@@ -341,8 +377,10 @@ ag -G "\.js$" "function"          # JavaScript files
 ```
 
 ### File Compression and Archiving
+---
 
 #### tar Commands
+---
 
 ```bash
 # Create archives
@@ -358,6 +396,7 @@ tar -tzf archive.tar.gz           # List gzip archive
 ```
 
 #### Other Compression Tools
+---
 
 ```bash
 # Individual file compression
@@ -369,8 +408,10 @@ xz file.txt                       # Creates file.txt.xz
 ```
 
 ### Disk Usage Analysis
+---
 
 #### Analyzing Space Usage
+---
 
 ```bash
 # Disk usage by directory
@@ -386,6 +427,7 @@ df -i                             # Inode usage
 ```
 
 #### Interactive Analysis
+---
 
 ```bash
 # NCurses disk usage
@@ -397,8 +439,10 @@ find / -type f -size +100M -exec ls -lh {} \; 2>/dev/null
 ```
 
 ### File Operations
+---
 
 #### Copying and Moving
+---
 
 ```bash
 # Copy with preservation
@@ -411,6 +455,7 @@ mv --backup=numbered file1 file2 # Numbered backups
 ```
 
 #### Creating Files and Directories
+---
 
 ```bash
 # Create nested directories
@@ -427,6 +472,7 @@ dd if=/dev/zero of=largefile.bin bs=1M count=100  # 100MB file
 ```
 
 #### Text File Operations
+---
 
 ```bash
 # View files
@@ -446,10 +492,13 @@ uniq -c file.txt                 # Count occurrences
 ```
 
 ## Part 3: Essential Applications and Tools
+---
 
 ### Terminal File Managers
+---
 
 #### Midnight Commander (mc)
+---
 
 ```bash
 # Installation
@@ -460,6 +509,7 @@ sudo yum install mc        # RHEL/CentOS
 ```
 
 #### Ranger
+---
 
 ```bash
 # Installation
@@ -469,14 +519,17 @@ sudo apt install ranger
 ```
 
 #### Other Terminal Managers
+---
 
 - **Vifm**: Dual-pane with Vim keybindings
 - **nnn**: Fast and minimalistic
 - **Yazi**: Modern, asynchronous (Rust-based)
 
 ### Enhanced Search Tools
+---
 
 #### ripgrep (rg)
+---
 
 ```bash
 # Installation
@@ -488,6 +541,7 @@ rg -t js "function"              # JavaScript files only
 ```
 
 #### fd-find
+---
 
 ```bash
 # Installation  
@@ -499,8 +553,10 @@ fd -e py                         # Python files
 ```
 
 ### Disk Analysis Tools
+---
 
 #### ncdu
+---
 
 ```bash
 # Installation
@@ -511,6 +567,7 @@ ncdu /path/to/scan
 ```
 
 #### dust
+---
 
 ```bash
 # Installation (via cargo)
@@ -521,8 +578,10 @@ dust /var
 ```
 
 ### Permission Management Tools
+---
 
 #### ACL Tools
+---
 
 ```bash
 # Installation
@@ -534,10 +593,13 @@ setfacl -m u:user:perms /path/to/file
 ```
 
 ## Best Practices and Security
+---
 
 ### Security Guidelines
+---
 
 #### Principle of Least Privilege
+---
 
 ```bash
 chmod 750 sensitive_directory/
@@ -546,6 +608,7 @@ chmod 600 /etc/shadow
 ```
 
 #### Regular Audits
+---
 
 ```bash
 # Find world-writable files
@@ -556,6 +619,7 @@ find / -perm /6000 2>/dev/null
 ```
 
 #### Secure Defaults
+---
 
 ```bash
 # Set secure umask
@@ -563,6 +627,7 @@ umask 027
 ```
 
 ### Navigation Efficiency
+---
 
 ```bash
 # Directory shortcuts
@@ -575,6 +640,7 @@ PS1='\u@\h:\w\$ '
 ```
 
 ### File Management Tips
+---
 
 ```bash
 # Safe operations
@@ -590,6 +656,7 @@ find ~/.cache -type f -mtime +30 -delete
 ```
 
 ## Conclusion
+---
 
 Mastering Linux user management, permissions, and file navigation is essential for effective system administration. This guide provides comprehensive coverage of:
 

@@ -12,16 +12,19 @@ toc: true
 ---
 
 # Improved Backup Script Usage Guide
+---
 
 This comprehensive guide covers the enhanced backup script with advanced features like compression, incremental backups, and automated reporting. Whether you're a system administrator or a developer managing server backups, this guide will help you implement reliable backup strategies with performance optimization and verification capabilities.
 
 
 
 ## Overview
+---
 
 The improved backup script provides good backup capabilities with enhanced features for modern system administration needs. Built on robust technologies like rsync and tar with optional parallel compression, it offers both full system backups and space-efficient incremental backups while maintaining data integrity through verification processes.
 
 ## Key Features
+---
 
 - **Compression support**: Parallel processing with pigz for faster backup compression
 - **Incremental backups**: Space-efficient differential backups between full backups
@@ -33,6 +36,7 @@ The improved backup script provides good backup capabilities with enhanced featu
 - **Restore instructions**: Auto-generated restoration guidance for disaster recovery
 
 ## Configuration Options
+---
 
 Set these environment variables before running or export them permanently:
 
@@ -46,8 +50,10 @@ export EMAIL_REPORT=admin@example.com  # Send report via email
 ```
 
 ## Usage Examples
+---
 
 ### Basic Usage
+---
 
 ```bash
 # Interactive mode with defaults
@@ -58,6 +64,7 @@ sudo ./backup_improved.sh /Backup_Data
 ```
 
 ### Compressed Backup
+---
 
 ```bash
 # One-time compressed backup
@@ -68,6 +75,7 @@ sudo COMPRESS_BACKUP=true MAX_PARALLEL=8 ./backup_improved.sh /mnt/backup
 ```
 
 ### Incremental Backup
+---
 
 ```bash
 # First run - full backup
@@ -78,6 +86,7 @@ sudo BACKUP_TYPE=incremental ./backup_improved.sh /Backup_Data
 ```
 
 ### Automated Daily Backup (Crontab)
+---
 
 ```bash
 # Edit crontab
@@ -92,6 +101,7 @@ sudo crontab -e
 ```
 
 ### Email Notifications
+---
 
 ```bash
 # Setup mail (if not configured)
@@ -102,6 +112,7 @@ sudo EMAIL_REPORT=admin@example.com ./backup_improved.sh /Backup_Data
 ```
 
 ### Network Backup to Remote Storage
+---
 
 ```bash
 # Backup to NFS mount
@@ -115,6 +126,7 @@ sudo COMPRESS_BACKUP=true ./backup_improved.sh /mnt/remote_backup
 ```
 
 ### Custom Retention Policies
+---
 
 ```bash
 # Keep backups for 7 days only
@@ -128,6 +140,7 @@ sudo RETENTION_DAYS=0 ./backup_improved.sh /Backup_Data
 ```
 
 ### Verification and Testing
+---
 
 ```bash
 # Run with verification enabled
@@ -141,6 +154,7 @@ sudo ./backup_improved.sh --verify /Backup_Data/backup-2025-11-07-143022
 ```
 
 ### Advanced Compression Options
+---
 
 ```bash
 # Use maximum compression (slower but smaller)
@@ -154,6 +168,7 @@ sudo COMPRESS_BACKUP=true COMPRESSION_TYPE=bzip2 ./backup_improved.sh /Backup_Da
 ```
 
 ### Multiple Destination Backups
+---
 
 ```bash
 # Backup to multiple locations simultaneously
@@ -167,6 +182,7 @@ sudo ./backup_improved.sh /mnt/remote_backup
 ```
 
 ### Scheduled Backup with Logging
+---
 
 ```bash
 # Backup with detailed logging
@@ -177,6 +193,7 @@ sudo ./backup_improved.sh /Backup_Data 2>&1 | tee /var/log/backup-$(date +%Y%m%d
 ```
 
 ### Exclusion Patterns
+---
 
 ```bash
 # Backup excluding specific directories
@@ -187,6 +204,7 @@ sudo EXCLUDE_PATTERNS="Downloads/,Videos/,*.iso" ./backup_improved.sh /Backup_Da
 ```
 
 ## Quick Commands
+---
 
 ```bash
 # Make executable
@@ -212,8 +230,10 @@ rsync -av --dry-run /Backup_Data/backup-2025-11-07-143022/system/ /
 ```
 
 ## Restoration Process
+---
 
 ### Full System Restore
+---
 
 ```bash
 # From compressed backup
@@ -225,6 +245,7 @@ sudo rsync -av /Backup_Data/backup-2025-11-07-143022/system/ /
 ```
 
 ### Selective Restore
+---
 
 ```bash
 # Restore specific directory
@@ -239,6 +260,7 @@ sudo apt-get dselect-upgrade
 ```
 
 ## Output Example
+---
 
 ```text
 [2025-11-07 14:30:22] [INFO] =========================================
@@ -261,6 +283,7 @@ sudo apt-get dselect-upgrade
 ```
 
 ## Performance Tips
+---
 
 1. Use compression for network drives or limited space
 2. Use incremental for daily backups, full weekly
@@ -272,6 +295,7 @@ sudo apt-get dselect-upgrade
 8. Adjust compression level based on CPU vs storage constraints
 
 ## Troubleshooting
+---
 
 ```bash
 # Check if script has correct permissions
@@ -297,6 +321,7 @@ which rsync tar pigz mail
 ```
 
 ## Installation & Setup
+---
 
 ```bash
 # Download and make executable
@@ -313,6 +338,7 @@ sudo ./backup_improved.sh --help
 ```
 
 ## Full Script Code
+---
 
 Below is the complete backup script. You can copy this code and save it as `backup_improved.sh`:
 
@@ -672,5 +698,6 @@ sudo RETENTION_DAYS=7 EMAIL_REPORT=andrew@ajolnet.com /mnt/vps_backup/full_syste
 ```
 
 ## Conclusion
+---
 
 This guide provides comprehensive coverage of the improved backup script's capabilities, from basic usage to advanced automation and troubleshooting. The script's enhanced features make it suitable for both personal use and enterprise backup strategies. By following these examples and best practices, you can implement a robust backup solution that ensures data safety and business continuity.

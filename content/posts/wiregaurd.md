@@ -40,6 +40,7 @@ Primary Interface (WiFi/Ethernet)        WireGuard Interface (wg0)
 
 
 ## Why DNS Configuration Breaks Split-Tunnel Mode
+---
 
 ---
 
@@ -150,10 +151,12 @@ I created a comprehensive WireGuard peer management script with several key safe
 - **IP conflict detection** across both client configs and server config
 
 ## Key Features
+---
 
 ---
 
 ### Dual Operation Modes
+---
 
 **Interactive Mode** - Perfect for beginners or when you need guidance:
 ```bash
@@ -166,6 +169,7 @@ sudo ./wg-peer-manager.sh -n server-backend -q
 ```
 
 ### Split vs Full Tunnel
+---
 
 The script defaults to **split-tunnel mode** - routing only your internal network (10.0.0.0/24) through the VPN. This is perfect for point-to-point connections like RDP, SSH, or database access without interfering with internet traffic.
 
@@ -180,6 +184,7 @@ sudo ./wg-peer-manager.sh -n mobile-device -f
 **Why this matters:** DNS settings in VPN configs can cause the operating system to route internet traffic through the tunnel even when you only want infrastructure access. Split-tunnel mode comments out the DNS line and restricts routing to your internal network only.
 
 ### Automatic Backups
+---
 
 Every peer creation automatically creates a timestamped backup:
 
@@ -199,6 +204,7 @@ sudo wg syncconf wg0 <(wg-quick strip wg0)
 ```
 
 ### IP Conflict Prevention
+---
 
 The original version only checked client configs for IP assignments. If you had legacy peers in your main config without matching client files, the script would assign duplicate IPs.
 
@@ -209,6 +215,7 @@ The fixed version checks **both** locations:
 This prevents duplicate IP assignments across your entire infrastructure.
 
 ## Installation
+---
 
 ```bash
 # Download the script
@@ -222,8 +229,10 @@ sudo mv wg-peer-manager.sh /usr/local/bin/wg-peer-manager
 ```
 
 ## Usage Examples
+---
 
 ### Creating Infrastructure Peers
+---
 
 ```bash
 # RDP server with auto-assigned IP
@@ -237,6 +246,7 @@ sudo ./wg-peer-manager.sh -n ipad-admin -q
 ```
 
 ### Creating Full VPN Peers
+---
 
 ```bash
 # Laptop needing complete VPN
@@ -247,6 +257,7 @@ sudo ./wg-peer-manager.sh -n android-phone -f -q
 ```
 
 ### Management Operations
+---
 
 ```bash
 # List all peers and their status
@@ -260,6 +271,7 @@ sudo ./wg-peer-manager.sh -r /etc/wireguard/wg0.conf.backup-TIMESTAMP
 ```
 
 ## Interactive Mode Walkthrough
+---
 
 Running the script without arguments launches interactive mode:
 
@@ -300,8 +312,10 @@ Create this peer? (y/n): y
 ```
 
 ## Technical Implementation Details
+---
 
 ### Append-Only Design
+---
 
 The script uses `>>` (append) instead of `>` (overwrite) when adding peers:
 
@@ -318,6 +332,7 @@ EOF
 This ensures existing peers are never lost.
 
 ### Non-Destructive Reloads
+---
 
 Instead of restarting WireGuard (which drops active connections), the script uses `wg syncconf`:
 
@@ -328,6 +343,7 @@ wg syncconf "$WG_INTERFACE" <(wg-quick strip "$WG_INTERFACE")
 This applies configuration changes without interrupting existing connections.
 
 ### Configuration Templates
+---
 
 **Split-Tunnel Client Config:**
 ```ini
@@ -360,20 +376,25 @@ PersistentKeepalive = 25
 ```
 
 ## Lessons Learned
+---
 
 ### 1. DNS Can Route Internet Traffic
+---
 
 Even with `AllowedIPs` set to only your internal network, having DNS configured in the client can cause the OS to route traffic through the tunnel. For infrastructure-only use cases, omit the DNS line entirely.
 
 ### 2. Check All Configuration Sources
+---
 
 Don't assume all peers have matching client config files. Always validate IP assignments against both the client configs directory and the main server configuration.
 
 ### 3. Backups Are Essential
+---
 
 A single character difference (`>` vs `>>`) can wipe out your entire peer configuration. Automatic backups before every change saved me multiple times during development.
 
 ### 4. `wg syncconf` vs Restart
+---
 
 Use `wg syncconf` for adding/updating peers to avoid dropping active connections. However, when **removing** peers, you need a full restart:
 
@@ -384,8 +405,10 @@ sudo wg-quick down wg0 && sudo wg-quick up wg0
 `wg syncconf` only adds and updates - it doesn't remove peers from the running configuration.
 
 ## Use Cases
+---
 
 ### Point-to-Point Infrastructure
+---
 
 Perfect for accessing internal services without routing internet traffic:
 
@@ -396,6 +419,7 @@ Perfect for accessing internal services without routing internet traffic:
 - Service mesh between applications
 
 ### Full VPN Solution
+---
 
 When you need complete privacy and security:
 
@@ -405,6 +429,7 @@ When you need complete privacy and security:
 - Complete traffic encryption
 
 ## Safety Checklist
+---
 
 Before deploying in production:
 
@@ -428,6 +453,7 @@ Before deploying in production:
    ```
 
 ## Future Enhancements
+---
 
 Potential additions I'm considering:
 
@@ -439,6 +465,7 @@ Potential additions I'm considering:
 - Config validation before applying
 
 ## Full Script 
+---
 
 ```bash
 #!/bin/bash
@@ -1148,6 +1175,7 @@ main "$@"
 
 
 ## Conclusion
+---
 
 ---
 

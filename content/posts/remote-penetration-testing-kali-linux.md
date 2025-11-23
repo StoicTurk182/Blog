@@ -15,6 +15,7 @@ socialShare: true
 ---
 
 # Remote Penetration Testing Guide: Kali Linux
+---
 
 **Hacking your own infrastructure with Kali Linux.** 
 
@@ -31,10 +32,12 @@ The script has been tested inside a VM and within a devcontainer—it's always r
 Taking these kinds of precautions is how you can make a real attempt at keeping yourself somewhat safe. I'll do a real deep dive on Lynis later, as I use it a lot when I update applications or daemons. It gives you a good view on the current state of you endpoint security, though it's hard to get 100%, even if you could the restriction on the system would, in my opinion, make it hard to interact with as an administrator.  
 
 ## Overview
+---
 
 Remote penetration testing is the process of evaluating the security of computer systems, networks, and applications from an external perspective. Kali Linux provides the ultimate toolkit for security professionals to identify vulnerabilities before malicious actors can exploit them.
 
 ### Why Use Kali Linux for Penetration Testing?
+---
 
 - **Comprehensive Toolset**: 600+ pre-installed security tools
 - **Professional Framework**: Industry-standard methodologies and workflows
@@ -42,6 +45,7 @@ Remote penetration testing is the process of evaluating the security of computer
 - **Community Support**: Active community and extensive documentation
 
 ## Prerequisites
+---
 
 Before you begin, ensure you have the following:
 
@@ -265,6 +269,7 @@ echo ""
 
 ```
 ## Instalation 
+---
 
 - See the below for command list (Kali comes out of the box with all of what you need)
 ```bash
@@ -291,6 +296,7 @@ Web Application Testing
 Specialized tools for web application security testing, including directory brute-forcing and vulnerability scanning.
 
 ## Installation & Setup ##
+---
 
 Step 1: Update Kali Linux
 bash
@@ -368,32 +374,39 @@ gobuster --help
 - [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) 
 ```      
 ## Additional Resources
+---
 
 ### Official Documentation
+---
 - [Kali Linux Official Docs](https://www.kali.org/docs/)
 - [Nmap Reference Guide](https://nmap.org/book/)
 - [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
 
 ### Community Resources
+---
 - [Kali Linux Forums](https://forums.kali.org/)
 - [Reddit r/netsec](https://reddit.com/r/netsec)
 - [Stack Overflow Security](https://stackoverflow.com/questions/tagged/security)
 
 ### Related Tools
+---
 - **Nessus**: Comprehensive vulnerability scanner
 - **Burp Suite Professional**: Advanced web application testing
 - **Metasploit Pro**: Commercial penetration testing platform
 
 ### Further Reading
+---
 - [Penetration Testing Execution Standard](http://www.pentest-standard.org/)
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
 - [SANS Penetration Testing Resources](https://www.sans.org/cyber-security-courses/penetration-testing/)
 
 ## Conclusion
+---
 
 This comprehensive guide has equipped you with the knowledge and tools to conduct professional remote penetration tests using Kali Linux. From automated reconnaissance to detailed vulnerability assessment, you now have a complete methodology for identifying and documenting security weaknesses.
 
 ### What's Next?
+---
 
 - Explore advanced exploitation techniques with Metasploit
 - Learn web application security testing in depth
@@ -409,6 +422,7 @@ This comprehensive guide has equipped you with the knowledge and tools to conduc
 ---
 
 ### Notes for Content Creators
+---
 
 **Testing & Compatibility:**
 - All commands have been tested on Kali Linux 2023.3

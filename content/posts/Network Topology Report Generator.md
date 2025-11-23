@@ -20,6 +20,7 @@ socialShare: true
 I created this as a vanity project as I really like seeing changes in my network and I had the idea to create it, I am unsure as to it utility outside of my use case but I did have a lot of fun troubleshooting it. 
 
 ## Overview
+---
 
 The Network Topology Report Generator is a single bash script that collects and organizes comprehensive network configuration data from Linux systems. It produces human-readable reports that include visual ASCII diagrams, making complex network setups easy to understand at a glance.
 
@@ -30,6 +31,7 @@ This tool is invaluable when:
 - Diagnosing service availability problems
 
 ### Why Use Network Topology Report Generator?
+---
 
 - **Complete Visibility**: Captures everything from physical interfaces to virtual Docker networks and VPN tunnels
 - **Zero Dependencies**: Uses only standard Linux utilities available on most distributions
@@ -39,6 +41,7 @@ This tool is invaluable when:
 - **Version Control Friendly**: Plain text output perfect for git repositories and change tracking
 
 ## Prerequisites
+---
 
 Before you begin, ensure you have the following:
 
@@ -57,42 +60,53 @@ sudo -v && echo "✅ Sudo access confirmed" || echo "❌ No sudo access"
 ```
 
 ## Key Features
+---
 
 ### Comprehensive Network Interface Reporting
+---
 
 Captures all network interfaces including physical NICs, virtual interfaces, VPN tunnels (WireGuard, Tailscale), Docker bridges, and loopback devices. Shows IP addresses (both IPv4 and IPv6), MAC addresses, MTU values, and interface states.
 
 ### Routing and Neighbor Discovery
+---
 
 Documents complete routing tables including default gateways, static routes, and policy-based routing. Captures ARP/NDP tables showing MAC address mappings and neighbor reachability states.
 
 ### Service and Port Analysis
+---
 
 Lists all listening TCP and UDP ports with associated processes, PIDs, and protocol versions. Identifies web servers, SSH daemons, VPN endpoints, database servers, and custom services.
 
 ### Firewall Configuration Export
+---
 
 Exports complete UFW or iptables configurations showing all rules, chains, policies, and NAT configurations. Essential for security audits and troubleshooting connectivity issues.
 
 ### VPN Status Reporting
+---
 
 Detailed WireGuard peer information including handshake times, allowed IPs, endpoints, and data transfer statistics. Tailscale interface status with IP assignments and DNS configuration.
 
 ### Docker Network Integration
+---
 
 Maps Docker networks, containers, IP address assignments, and network drivers. Shows bridge networks, overlay networks, and custom network configurations.
 
 ### Samba/SMB Connection Tracking
+---
 
 Lists active Samba connections with usernames, client IPs, mounted shares, protocol versions, and file locks. Perfect for troubleshooting file server issues.
 
 ### Visual ASCII Topology Diagrams
+---
 
 Automatically generates hierarchical network diagrams showing the relationship between internet gateways, public interfaces, VPNs, Docker networks, and active connections.
 
 ## Installation & Setup
+---
 
 ### Step 1: Download the Script
+---
 
 ```bash
 # Download directly
@@ -104,6 +118,7 @@ cd network-tools
 ```
 
 ### Step 2: Make Executable
+---
 
 ```bash
 # Set execute permissions
@@ -114,6 +129,7 @@ sudo cp network_topology_report.sh /usr/local/bin/network-report
 ```
 
 ### Step 3: Verify Installation
+---
 
 ```bash
 # Test basic execution (without sudo - limited info)
@@ -128,6 +144,7 @@ cat test_report.txt | head -20
 ```
 
 ## Configuration Options
+---
 
 The script accepts minimal command-line options to keep it simple:
 ```bash
@@ -137,6 +154,7 @@ The script accepts minimal command-line options to keep it simple:
 | `--help` | Show usage information | N/A | `./script.sh --help` |
 
 ### Environment Variables
+---
 
 You can customize behavior via environment variables:
 
@@ -152,6 +170,7 @@ sudo NO_COLOR=1 ./network_topology_report.sh
 ```
 
 ### Customization via Script Editing
+---
 
 For advanced users, edit the script directly:
 
@@ -166,8 +185,10 @@ nano network_topology_report.sh
 ```
 
 ## Usage Examples
+---
 
 ### Basic Usage
+---
 
 Generate a report with default filename:
 
@@ -185,8 +206,10 @@ View with: cat network_topology_report_vps-server_20251108_143022.txt
 ```
 
 ### Intermediate Usage
+---
 
 #### Use Case 1: Named Report for Documentation
+---
 
 ```bash
 # Generate report with specific name
@@ -197,6 +220,7 @@ sudo ./network_topology_report.sh /var/reports/network/baseline.txt
 ```
 
 #### Use Case 2: Regular Monitoring Setup
+---
 
 ```bash
 # Daily report with timestamp
@@ -207,6 +231,7 @@ sudo ./network_topology_report.sh /var/backups/network_baseline.txt
 ```
 
 #### Use Case 3: Quick Status Check
+---
 
 ```bash
 # Pipe specific sections to terminal
@@ -217,8 +242,10 @@ sudo ./network_topology_report.sh /tmp/fw.txt && grep -A 50 "FIREWALL STATUS" /t
 ```
 
 ### Advanced Usage
+---
 
 #### Complex Scenario 1: Multi-Server Fleet Documentation
+---
 
 Document entire server fleet with coordinated naming:
 
@@ -241,6 +268,7 @@ echo "Fleet audit complete: $OUTPUT_DIR"
 ```
 
 #### Complex Scenario 2: Change Detection and Alerting
+---
 
 Compare reports to detect configuration changes:
 
@@ -270,6 +298,7 @@ fi
 ```
 
 #### Complex Scenario 3: Incident Documentation
+---
 
 Capture network state during incident investigation:
 
@@ -300,8 +329,10 @@ echo "Incident documentation complete: $INCIDENT_DIR"
 ```
 
 ## Automation & Scheduling
+---
 
 ### Using Cron
+---
 
 Set up automated daily/weekly reports:
 
@@ -323,6 +354,7 @@ crontab -e
 ```
 
 ### Using Systemd Timer
+---
 
 Create a systemd service and timer for more control:
 
@@ -380,6 +412,7 @@ sudo journalctl -u network-report.service -n 50
 ```
 
 ### Using Scripts for Pre/Post Deployment
+---
 
 ```bash
 #!/bin/bash
@@ -421,11 +454,13 @@ cat > "${REPORT_DIR}/README.md" <<EOF
 **User**: ${USER}
 
 ## Files
+---
 - pre_deployment.txt: Network state before deployment
 - post_deployment.txt: Network state after deployment
 - deployment_changes.diff: Detected changes
 
 ## Quick Stats
+---
 - Pre-deployment connections: $(grep -c "ESTAB" "${REPORT_DIR}/pre_deployment.txt")
 - Post-deployment connections: $(grep -c "ESTAB" "${REPORT_DIR}/post_deployment.txt")
 EOF
@@ -434,6 +469,7 @@ echo "📋 Deployment documentation: ${REPORT_DIR}"
 ```
 
 ## Best Practices
+---
 
 1. **Regular Baseline Updates**: Generate and store baseline reports weekly or after approved changes to use for comparison during troubleshooting
 
@@ -476,8 +512,10 @@ The information that is pulled is to be treated as OPSEC in the extreme!
 > This script is for **educational and authorized testing purposes only**. 
 
 ## Performance Optimization
+---
 
 ### Tip 1: Parallel Collection
+---
 
 For faster execution on systems with many interfaces:
 
@@ -493,6 +531,7 @@ For faster execution on systems with many interfaces:
 ```
 
 ### Tip 2: Selective Sections
+---
 
 Comment out sections you don't need for faster execution:
 
@@ -505,6 +544,7 @@ Comment out sections you don't need for faster execution:
 ```
 
 ### Tip 3: Output Compression
+---
 
 For large fleets, compress reports automatically:
 
@@ -517,6 +557,7 @@ ls -lh report.txt.gz
 ```
 
 ### Benchmarking
+---
 
 Measure script execution time:
 
@@ -534,10 +575,13 @@ bash -x ./network_topology_report.sh 2>&1 | grep "print_header" | ts -i "%.s"
 ```
 
 ## Troubleshooting
+---
 
 ### Common Issues
+---
 
 #### Issue 1: "Permission denied" Errors
+---
 
 **Symptoms:**
 - Script runs but many sections show "not accessible" or are empty
@@ -559,6 +603,7 @@ exit
 ```
 
 #### Issue 2: "Command not found" Warnings
+---
 
 **Symptoms:**
 - Warning messages about missing commands (`ip`, `ss`, `docker`, etc.)
@@ -582,6 +627,7 @@ which ip ss netstat docker wg
 ```
 
 #### Issue 3: Docker Commands Fail
+---
 
 **Symptoms:**
 - Docker section empty despite Docker being installed
@@ -604,6 +650,7 @@ sudo ./network_topology_report.sh
 ```
 
 #### Issue 4: Output File is Empty or Truncated
+---
 
 **Symptoms:**
 - Output file created but contains no data or cuts off mid-section
@@ -625,6 +672,7 @@ quota -v
 ```
 
 #### Issue 5: WireGuard Section Shows "Not accessible"
+---
 
 **Symptoms:**
 - WireGuard is running but status not captured
@@ -646,6 +694,7 @@ lsmod | grep wireguard
 ```
 
 ### Debugging Commands
+---
 
 ```bash
 # Enable bash debug mode to see what's executing
@@ -671,6 +720,7 @@ ls -l ./network_topology_report.sh
 ```
 
 ### Getting Help
+---
 
 ```bash
 # Check script version (if versioned)
@@ -690,8 +740,10 @@ grep "function\|print_header" ./network_topology_report.sh
 ```
 
 ## Security Considerations
+---
 
 ### Important Security Notes
+---
 
 - **Sensitive Information**: Reports contain sensitive data including internal IP addresses, VPN configurations, network topology, and service information
 - **VPN Keys**: WireGuard public keys are included (private keys are never exposed)
@@ -701,6 +753,7 @@ grep "function\|print_header" ./network_topology_report.sh
 - **Compliance**: Reports may contain data subject to compliance regulations (GDPR, HIPAA, PCI-DSS)
 
 ### Secure Configuration Example
+---
 
 ```bash
 # Create secure directory for reports
@@ -734,6 +787,7 @@ EOF
 ```
 
 ### Sanitizing Reports for Sharing
+---
 
 ```bash
 #!/bin/bash
@@ -764,8 +818,10 @@ echo "⚠️  Always manually review before sharing!"
 ```
 
 ## Integration with Other Tools
+---
 
 ### Integration 1: Ansible Inventory
+---
 
 Use reports to verify Ansible inventory accuracy:
 
@@ -792,6 +848,7 @@ Use reports to verify Ansible inventory accuracy:
 ```
 
 ### Integration 2: Monitoring Systems (Prometheus/Grafana)
+---
 
 Parse reports for metrics:
 
@@ -824,6 +881,7 @@ EOF
 ```
 
 ### Integration 3: Git-based Infrastructure Documentation
+---
 
 Automated infrastructure-as-documentation:
 
@@ -854,6 +912,7 @@ git push origin main
 ```
 
 ### Integration 4: Slack/Teams Notifications
+---
 
 Alert on significant changes:
 
@@ -894,8 +953,10 @@ fi
 ```
 
 ## Quick Reference
+---
 
 ### Essential Commands
+---
 
 ```bash
 # Basic usage
@@ -928,6 +989,7 @@ grep -i "docker" report.txt
 ```
 
 ### Environment Variables
+---
 
 ```bash
 # Disable colored output
@@ -941,6 +1003,7 @@ NO_COLOR=1 sudo ./network_topology_report.sh
 ```
 
 ### Useful Aliases
+---
 
 Add to your `~/.bashrc` or `~/.zshrc`:
 
@@ -962,8 +1025,10 @@ alias nettopo='sudo /usr/local/bin/network-report /tmp/net.txt && grep -A 200 "V
 ```
 
 ## Real-World Examples
+---
 
 ### Example 1: Production VPS Setup
+---
 
 Complete documentation workflow for production environment:
 
@@ -1000,20 +1065,24 @@ cat > "$BASELINE/${HOSTNAME}_summary.md" <<EOF
 **Administrator**: ${USER}
 
 ## Quick Stats
+---
 - **Interfaces**: $(grep -c "^[0-9]*:" "$BASELINE/${HOSTNAME}_baseline.txt")
 - **Listening Services**: $(grep -c "LISTEN" "$BASELINE/${HOSTNAME}_baseline.txt")
 - **Active Connections**: $(grep -c "ESTAB" "$BASELINE/${HOSTNAME}_baseline.txt")
 - **Firewall Rules**: $(grep -c "ALLOW\|DENY" "$BASELINE/${HOSTNAME}_baseline.txt")
 
 ## VPN Status
+---
 $(grep -A 10 "WIREGUARD STATUS" "$BASELINE/${HOSTNAME}_baseline.txt" | tail -8)
 
 ## Services
+---
 \`\`\`
 $(grep "tcp.*LISTEN" "$BASELINE/${HOSTNAME}_baseline.txt" | head -10)
 \`\`\`
 
 ## Next Review
+---
 Scheduled for: $(date -d "+30 days" +%Y-%m-%d)
 EOF
 
@@ -1028,6 +1097,7 @@ chmod 600 "$ARCHIVE"/*.txt.gz
 ```
 
 ### Example 2: Development Environment Snapshot
+---
 
 Quick documentation for development servers:
 
@@ -1079,6 +1149,7 @@ fi
 ```
 
 ### Example 3: Multi-Server Comparison
+---
 
 Compare network configurations across multiple servers:
 
@@ -1178,6 +1249,7 @@ echo "  cat ${REPORT_DIR}/COMPARISON.md"
 ```
 
 ### Example 4: Incident Response Toolkit
+---
 
 Complete incident response network documentation:
 
@@ -1332,19 +1404,23 @@ echo "  less ${NETWORK_DIR}/evidence/active_connections_${TIMESTAMP}.txt"
 ```
 
 ## Additional Resources
+---
 
 ### Official Documentation
+---
 - [Linux Networking Guide](https://tldp.org/LDP/nag2/index.html) - Comprehensive networking documentation
 - [iproute2 Documentation](https://wiki.linuxfoundation.org/networking/iproute2) - Modern Linux networking tools
 - [WireGuard Documentation](https://www.wireguard.com/quickstart/) - VPN setup and configuration
 - [Docker Networking](https://docs.docker.com/network/) - Container networking guide
 
 ### Community Resources
+---
 - [/r/linuxadmin](https://reddit.com/r/linuxadmin) - Linux system administration community
 - [Unix & Linux Stack Exchange](https://unix.stackexchange.com/) - Q&A for networking issues
 - [Server Fault](https://serverfault.com/) - Professional server administration Q&A
 
 ### Related Tools
+---
 - **netstat**: Legacy network statistics tool (still widely used)
 - **tcpdump**: Packet capture and analysis for deep debugging
 - **nmap**: Network discovery and security auditing
@@ -1353,12 +1429,14 @@ echo "  less ${NETWORK_DIR}/evidence/active_connections_${TIMESTAMP}.txt"
 - **Wireshark**: GUI packet analyzer for detailed traffic inspection
 
 ### Further Reading
+---
 - [Linux Network Administrator's Guide](https://tldp.org/LDP/nag2/nag2.pdf) - Complete network admin reference
 - [TCP/IP Illustrated](https://www.amazon.com/TCP-Illustrated-Vol-Addison-Wesley-Professional/dp/0201633469) - Deep dive into networking protocols
 - [DevOps Handbook](https://itrevolution.com/product/the-devops-handbook/) - Infrastructure automation best practices
 - [Site Reliability Engineering](https://sre.google/books/) - Google's approach to infrastructure management
 
 ## Conclusion
+---
 
 The Network Topology Report Generator provides a powerful, zero-dependency solution for documenting and understanding Linux network infrastructure. By automating the collection of interface configurations, routing tables, firewall rules, VPN connections, and active services, it saves hours of manual work while ensuring consistency and completeness.
 
@@ -1367,6 +1445,7 @@ Whether you're troubleshooting connectivity issues, documenting a new environmen
 By incorporating this script into your regular operational workflows—through cron jobs, systemd timers, or deployment pipelines—you'll build a valuable historical record of your network's evolution. When combined with version control and change detection, you'll have powerful infrastructure-as-code documentation that catches configuration drift before it causes problems.
 
 ### What's Next?
+---
 
 - **Expand Coverage**: Modify the script to capture additional services relevant to your environment (nginx, postgresql, redis)
 - **Build Dashboards**: Parse reports to extract metrics for Grafana/Prometheus visualization

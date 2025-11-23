@@ -19,14 +19,17 @@ tool_image: "/darkreader.png"
 ---
 # Comprehensive Guide: Veeam Agent-Level Backups with User Self-Service
 ## Linux VMs & Windows Workstations
+---
 
 ---
 
 ## Overview
+---
 
 This guide covers implementing Veeam agent-level backups for Linux VMs and Windows workstations with user self-service capabilities, allowing remote users to initiate and manage their own backups while maintaining centralized control.
 
 ### Key Capabilities
+---
 - **Centralized Management**: Manage agents from Veeam Backup & Replication console
 - **User Self-Service**: Users can initiate backups from their machines
 - **Flexible Control**: Choose between full control and read-only modes
@@ -35,8 +38,10 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 ---
 
 ## Architecture & Concepts
+---
 
 ### Agent Operation Modes
+---
 
 **1. Standalone Mode**
 - Agent operates independently on the endpoint
@@ -55,6 +60,7 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 - **Full Access Mode**: Users can modify job settings, change schedules, configure backups
 
 ### Management Components
+---
 
 **Protection Groups**
 - Container for organizing computers by type, location, or policy
@@ -72,14 +78,17 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 ---
 
 ## Prerequisites
+---
 
 ### Veeam Backup & Replication Server
+---
 - Veeam Backup & Replication 12.0 or later
 - Appropriate licensing (see Licensing Requirements below)
 - Network connectivity to agent endpoints
 - Backup repository configured
 
 ### Linux VMs Requirements
+---
 **Supported Distributions** (as of v6.0):
 - RHEL/CentOS/Rocky Linux/AlmaLinux 7-9
 - Ubuntu 18.04-24.04 LTS
@@ -108,6 +117,7 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 ```
 
 ### Windows Workstations Requirements
+---
 **Supported OS**:
 - Windows 11 (22H2, 23H2, 24H2)
 - Windows 10 (1809 and later)
@@ -120,12 +130,14 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 - .NET Framework 4.5.2 or later (auto-installed if missing)
 
 ### Network Requirements
+---
 - Port 6160/TCP: Veeam Installer Service
 - Port 2500-3300/TCP: Data transmission
 - Port 10005-10007/TCP: Agent communication
 - DNS resolution between server and agents
 
 ### Licensing Requirements
+---
 
 **License Types**:
 1. **Per-Instance License**: Based on number of protected machines
@@ -144,10 +156,13 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 ---
 
 ## Installation & Deployment
+---
 
 ### Method 1: Automatic Deployment (Recommended)
+---
 
 #### Step 1: Create Protection Group
+---
 
 1. In Veeam B&R console, go to **Inventory** → **Physical Infrastructure**
 2. Right-click → **Add Protection Group**
@@ -158,6 +173,7 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
    - **Pre-installed agents**: For manual/GPO deployment
 
 #### Step 2: Configure Protection Group Settings
+---
 
 **For Active Directory Objects**:
 ```
@@ -174,6 +190,7 @@ Credentials: DOMAIN\VeeamAgentInstaller (with local admin rights)
 - **Distribution server**: Select closest Veeam proxy/repository
 
 #### Step 3: Credentials Configuration
+---
 
 For Linux systems:
 ```
@@ -188,8 +205,10 @@ Requirements: Local Administrator group membership
 ```
 
 ### Method 2: Manual Installation (Linux)
+---
 
 #### For RHEL/CentOS/Rocky/AlmaLinux:
+---
 
 ```bash
 # Add Veeam repository (RHEL 8 example)
@@ -207,6 +226,7 @@ sudo veeam
 ```
 
 #### For Debian/Ubuntu:
+---
 
 ```bash
 # Download repository package
@@ -229,6 +249,7 @@ sudo veeam
 ```
 
 #### Configure Agent for Management:
+---
 
 ```bash
 # Apply configuration from Veeam B&R
@@ -243,8 +264,10 @@ sudo veeamconfig vbrserver add \
 ```
 
 ### Method 3: Manual Installation (Windows)
+---
 
 #### Silent Installation:
+---
 
 ```powershell
 # Download installer from Veeam
@@ -257,6 +280,7 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 ```
 
 #### Configure via Command Line:
+---
 
 ```powershell
 # Import configuration from Veeam B&R
@@ -267,6 +291,7 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 ```
 
 #### Group Policy Deployment (Enterprise):
+---
 
 1. **Prepare Installation Package**:
    - Place installer in network share: `\\server\share\Veeam\`
@@ -286,8 +311,10 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 ---
 
 ## User Permissions & Roles
+---
 
 ### Veeam Backup & Replication Roles
+---
 
 **Built-in Roles**:
 
@@ -312,8 +339,10 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
    - Scope to specific jobs/computers
 
 ### Configuring User Roles
+---
 
 #### Add Users to Veeam Console:
+---
 
 1. In Veeam B&R console: **Users and Roles** → **Security**
 2. Click **Add**
@@ -324,6 +353,7 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
    - **Custom Role** (for fine-grained control)
 
 #### Create Custom Role:
+---
 
 1. **Users and Roles** → **Roles**
 2. Click **Add**
@@ -343,6 +373,7 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
    - Restrict to only their computers
 
 ### Local Agent Permissions
+---
 
 **For Users to Control Agents Locally**:
 
@@ -361,10 +392,13 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 ---
 
 ## Self-Service Configuration
+---
 
 ### Configuration Options
+---
 
 #### Option 1: Full Agent Control (Standalone-like)
+---
 
 **When to Use**:
 - Power users who understand backup concepts
@@ -385,6 +419,7 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 - Perform restores
 
 #### Option 2: Limited Self-Service (Read-Only Mode)
+---
 
 **When to Use**:
 - Standard users needing occasional manual backups
@@ -416,6 +451,7 @@ Protection Group wizard → Options step →
 ```
 
 #### Option 3: Hybrid Approach (Backup Policies)
+---
 
 **Best for**: Most enterprise environments
 
@@ -428,8 +464,10 @@ Protection Group wizard → Options step →
 ---
 
 ## Operating Modes Explained
+---
 
 ### Backup Job vs Backup Policy
+---
 
 | Feature | Backup Job (Server-Managed) | Backup Policy (Agent-Managed) |
 |---------|---------------------------|----------------------------|
@@ -442,6 +480,7 @@ Protection Group wizard → Options step →
 | **Multiple Jobs** | Servers: unlimited, Workstations: limited | Per licensing edition |
 
 ### Creating Backup Jobs (Server-Managed)
+---
 
 **Use Case**: Linux VMs in datacenter, stable connectivity
 
@@ -464,6 +503,7 @@ Protection Group wizard → Options step →
 ```
 
 ### Creating Backup Policies (Agent-Managed)
+---
 
 **Use Case**: Windows workstations, laptops, remote workers
 
@@ -501,8 +541,10 @@ Protection Group wizard → Options step →
 ---
 
 ## Step-by-Step Implementation
+---
 
 ### Scenario 1: Linux VMs with Full User Control
+---
 
 **Environment**: 50 Linux VMs in production, sysadmins need backup flexibility
 
@@ -553,6 +595,7 @@ Protection Group wizard → Options step →
    - Can modify job settings, run manual backups, perform restores
 
 ### Scenario 2: Windows Workstations with Read-Only Mode
+---
 
 **Environment**: 200 Windows 10/11 laptops, users need manual backup initiation only
 
@@ -603,6 +646,7 @@ Protection Group wizard → Options step →
    - Restore: **Control Panel** → **Restore** → **File-level restore**
 
 ### Scenario 3: Mixed Environment (Linux + Windows)
+---
 
 **Environment**: 30 Linux servers, 100 Windows workstations, different policies
 
@@ -658,8 +702,10 @@ Protection Group wizard → Options step →
 ---
 
 ## Best Practices
+---
 
 ### Security
+---
 
 1. **Credential Management**:
    - Use service accounts for agent deployment
@@ -680,6 +726,7 @@ Protection Group wizard → Options step →
    - Air-gapped copies for critical data
 
 ### Performance
+---
 
 1. **Scheduling**:
    - Stagger backup windows across protection groups
@@ -700,6 +747,7 @@ Protection Group wizard → Options step →
    - Per-VM backup files for granular management
 
 ### Monitoring
+---
 
 1. **Configure Notifications**:
    ```
@@ -722,6 +770,7 @@ Protection Group wizard → Options step →
    - Quarterly: Test DR procedures
 
 ### Maintenance
+---
 
 1. **Regular Tasks**:
    - Update agents (automatic or scheduled)
@@ -743,10 +792,13 @@ Protection Group wizard → Options step →
 ---
 
 ## Troubleshooting
+---
 
 ### Common Issues
+---
 
 #### Agent Installation Failures
+---
 
 **Linux - Missing Dependencies**:
 ```bash
@@ -778,6 +830,7 @@ Remove-Item -Path "$env:TEMP\*" -Recurse -Force
 ```
 
 #### Connectivity Issues
+---
 
 **Agent Cannot Connect to Veeam Server**:
 
@@ -831,6 +884,7 @@ New-NetFirewallRule -DisplayName "Veeam Agent" -Direction Inbound -Protocol TCP 
 ```
 
 #### Backup Job Failures
+---
 
 **Insufficient Permissions**:
 ```bash
@@ -867,6 +921,7 @@ vssadmin delete shadows /all /quiet
 ```
 
 #### Read-Only Mode Not Working
+---
 
 **Issue**: Users can still modify backup settings despite read-only mode enabled
 
@@ -886,6 +941,7 @@ vssadmin delete shadows /all /quiet
    - Linux: Revoke sudo access for veeam commands
 
 #### Performance Issues
+---
 
 **Slow Backups**:
 ```bash
@@ -906,6 +962,7 @@ iostat -x 5 10
 - Add processing cores to agents
 
 ### Log Locations
+---
 
 **Linux**:
 ```bash
@@ -935,6 +992,7 @@ C:\ProgramData\Veeam\Endpoint\
 ```
 
 ### Support Commands
+---
 
 **Linux Diagnostic Bundle**:
 ```bash
@@ -954,8 +1012,10 @@ sudo veeamconfig support export --path /tmp/veeam-support.zip --include-system-i
 ---
 
 ## Appendix A: Command Reference
+---
 
 ### Linux (veeamconfig)
+---
 
 **General**:
 ```bash
@@ -1016,6 +1076,7 @@ sudo veeamconfig recovery unmount --mountpoint /mnt/backup
 ```
 
 ### Windows (Veeam.Agent.Configurator.exe)
+---
 
 **General**:
 ```powershell
@@ -1053,8 +1114,10 @@ $veeam = "C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe"
 ---
 
 ## Appendix B: Quick Reference Tables
+---
 
 ### Port Requirements
+---
 
 | Port | Protocol | Direction | Purpose |
 |------|----------|-----------|---------|
@@ -1066,6 +1129,7 @@ $veeam = "C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe"
 | 445 | TCP | Outbound to repository | SMB shares |
 
 ### Backup Modes Comparison
+---
 
 | Mode | Description | Use Case | Restore Granularity |
 |------|-------------|----------|---------------------|
@@ -1074,6 +1138,7 @@ $veeam = "C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe"
 | **File Level** | Specific files/folders | User data only | Individual files |
 
 ### Retention Policy Examples
+---
 
 | Scenario | Configuration | Result |
 |----------|--------------|---------|
@@ -1085,8 +1150,10 @@ $veeam = "C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe"
 ---
 
 ## Appendix C: Sample Scripts
+---
 
 ### PowerShell: Deploy Agents to Multiple Windows Machines
+---
 
 ```powershell
 # Deploy-VeeamAgent.ps1
@@ -1130,6 +1197,7 @@ foreach ($computer in $computers) {
 ```
 
 ### Bash: Deploy Agents to Multiple Linux Machines
+---
 
 ```bash
 #!/bin/bash
@@ -1177,6 +1245,7 @@ echo "Deployment complete!"
 ```
 
 ### PowerShell: Check Agent Status Report
+---
 
 ```powershell
 # Get-VeeamAgentStatus.ps1
@@ -1221,6 +1290,7 @@ Disconnect-VBRServer
 ---
 
 ## Conclusion
+---
 
 This guide provides a comprehensive framework for implementing Veeam agent-level backups with user self-service capabilities for both Linux VMs and Windows workstations. Key takeaways:
 
