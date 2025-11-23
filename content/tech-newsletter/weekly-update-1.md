@@ -18,9 +18,7 @@ Toc: true
 >NEWS UPDATE 16:04 23 November 2025
 
 
-Ram prices set to continue increasing over the next year, huge price spikes increases for both DDR 4 & DDR 5 driven by supply issues 
-and the current AI hyper-scaled expansion. The spike has  happened almost overnight whilst it has been steadily increasing over the last few year 
-the really explosion has happened over the lat few months. 
+Ram prices set to continue increasing over the next year, huge price spikes with the retail price increasing for both DDR 4 & DDR 5, predominately driven by supply issues and the current AI hyper-scaling expansion happening globally.   
 
 
 ### Details
