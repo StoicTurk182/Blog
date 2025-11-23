@@ -6,12 +6,105 @@ issue: "Vol. 1, Issue 1"
 categories: ["Newsletter"]
 tags: ["Security", "Networking", "Updates"]
 layout: "professional"
-description: "Critical security updates, Tailscale mesh networking, and emerging threats in cybersecurity"
+description: "Critical security updates and emerging threats in cybersecurity"
 author: "Andrew Jones"
 authorImage: "/images/authors/devops-team.jpg"
 authorBio: "Linux system administration and automation experts"
 Toc: true
 ---
+
+
+##  RAM prices exponential increase
+>NEWS UPDATE 16:04 23 November 2025
+
+
+Ram prices set to continue increasing over the next year, huge price spikes increases for both DDR 4 & DDR 5 driven by supply issues 
+and the current AI hyper-scaled expansion. The spike has  happened almost overnight whilst it has been steadily increasing over the last few year 
+the really explosion has happened over the lat few months. 
+
+
+### Details
+
+The 2025 price spikes (DDR4 up 158% spot since Sep; DDR5 up 307%) stem from AI/server demand overwhelming supply, as manufacturers (Samsung, SK Hynix, Micron) shift 30%+ capacity to high-margin HBM/DDR5 for data centers. DDR4's surge is amplified by EOL phase-outs (final shipments Q1–Q2 2026), triggering panic stockpiling and Chinese exits (e.g., CXMT by mid-2026), inverting prices (DDR4 now 39–87% > DDR5/GB). U.S. tariffs (25–50% post-Jul 2025) and packaging hikes (double-digit) add fuel.
+Future Projections (2026–2027)
+
+DDR4: Shortages persist into H1 2026 (+13–23% QoQ contracts); becomes niche/scarce post-Q2, with prices elevated 50–100% YoY until 2027 oversupply crash (possible 50% drop if AI hype fades). Limited revival if demand holds (e.g., budget PCs).
+The 2025 price spikes (DDR4 up 158% spot since Sep; DDR5 up 307%) stem from AI/server demand overwhelming supply, as manufacturers (Samsung, SK Hynix, Micron) shift 30%+ capacity to high-margin HBM/DDR5 for data centers. DDR4's surge is amplified by EOL phase-outs (final shipments Q1–Q2 2026), triggering panic stockpiling and Chinese exits (e.g., CXMT by mid-2026), inverting prices (DDR4 now 39–87% > DDR5/GB). U.S. tariffs (25–50% post-Jul 2025) and packaging hikes (double-digit) add fuel.
+Future Projections (2026–2027)
+
+
+![alt text](/images/posts/ramchart.png)
+
+
+### Checkout a great video by Gamers Nexus on the topic
+
+{{< youtube 9hLiwNViMak >}}
+
+
+<br>
+
+Please check out the video for a deep dive into the issues also please check out my post on the matter in the post section that goes into details 
+on the various issues working to cause the chaos. 
+
+### Sources & Further Reading
+
+- **Accio** – Computer Memory Price Trends 2025  
+  https://www.accio.com/business/computer_memory_price_trends  
+  https://www.accio.com/business/dram_price_trend
+
+- **BACloud** – When Will RAM Prices Drop? Global Memory Market Outlook 2024–2026  
+  https://www.bacloud.com/en/blog/230/when-will-ram-prices-drop-global-memory-market-outlook-20242026.html
+
+- **Digitimes** (Nov 2025) – DRAM and NAND Prices Set to Rise Further in 2026 Due to AI-Driven Shortages  
+  https://www.digitimes.com/news/a20251119PD238/dram-demand-samsung-investment-2026.html
+
+- **Guru3D** (Nov 2025) – DRAM Output to Increase Despite Ongoing Shortages Through 2027  
+  https://www.guru3d.com/story/dram-output-increase-despite-rising-memory-prices/
+
+- **Network World** (Nov 2025) – Server Memory Prices Could Double by 2026 as AI Demand Strains Supply  
+  https://www.networkworld.com/article/4093752/server-memory-prices-could-double-by-2026-as-ai-demand-strains-supply.html
+
+- **PCServerParts** (Oct 2025) – DDR4 vs DDR5 Memory Pricing Trends 2025  
+  https://pcserverandparts.com/blog/ddr4-vs-ddr5-memory-pricing-trends-2025/
+
+- **Tom’s Hardware** (Jul 2025) – DRAM Prices Are About to Skyrocket – DDR4 and GDDR6 Could Jump Up to 45%  
+  https://www.tomshardware.com/pc-components/dram/dram-prices-are-about-to-skyrocket-ddr4-and-gddr6-among-formats-that-could-increase-in-price-by-up-to-45-percent
+
+- **Tom’s Hardware** (Aug 2025) – DDR4 Production Expected to Continue Until 2026  
+  https://www.tomshardware.com/pc-components/ddr4/ddr4-production-expected-to-continue-until-2026-samsung-sk-hynix-and-micron-will-continue-serving-industry-clients-for-longer
+
+- **Tom’s Hardware** (Oct 2025) – Perfect Storm of Demand and Supply Driving Up Storage and Memory Costs  
+  https://www.tomshardware.com/pc-components/storage/perfect-storm-of-demand-and-supply-driving-up-storage-costs
+
+- **TrendForce** (Jul 2025) – DDR4 Exit Timeline Unfolds for Samsung, SK hynix, and Micron  
+  https://www.trendforce.com/news/2025/07/09/news-ddr4-exit-timeline-unfolds-for-top-memory-makers-plans-for-samsung-sk-hynix-and-micron/
+
+- **TrendForce** (Sep 2025) – Samsung & SK hynix Reportedly Delay DDR4 Phase-Out to 2026 as It Becomes Unexpected Cash Cow  
+  https://www.trendforce.com/news/2025/09/02/news-samsung-sk-hynix-reportedly-delay-phase-out-to-2026-as-ddr4-becomes-unexpected-cash-cow/
+
+- **TrendForce** (Nov 2025) – Memory Spot Price Update: DDR5 Prices Up 307% Since September  
+  https://www.trendforce.com/news/2025/11/19/insights-memory-spot-price-update-ddr5-prices-up-307-since-september-as-module-costs-poised-to-surge/
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
