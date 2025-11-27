@@ -1177,7 +1177,5 @@ main "$@"
 ## Conclusion
 ---
 
----
-
 After accidentally deleting an active peer with my old script, building a safer alternative was essential. The key improvements - automatic backups, append-only operations, split-tunnel defaults, and interactive mode - make WireGuard peer management reliable and safe for infrastructure deployments.
 The script has been running in production for over a month managing point-to-point connections for RDP access, database connections, and service mesh networking across our infrastructure without incident. Do not forget that there is a QR code option for mobile device enrollment, so please do not try importing and exporting configs this is dangerous. 

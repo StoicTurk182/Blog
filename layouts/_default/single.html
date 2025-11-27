@@ -104,38 +104,181 @@
 
 
 
-/* Create a scrollable wrapper effect without display: block */
-article table {
-  width: 100%;
-  max-width: 100%;
+/* ===================================
+   Tables - Mobile First Approach
+   Pure CSS (No Template Changes Needed)
+   =================================== */
+
+/* MOBILE FIRST: Base styles for small screens */
+
+/* Make the article container scrollable for tables */
+article {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  margin: 1.5rem 0;
-  border-collapse: collapse; /* Ensures clean borders */
 }
 
-/* Wrap tables in a scrollable container */
+/* Table base styles - works on all screen sizes */
 article table {
-  display: block;
-  overflow-x: auto;
-}
-
-article table tbody,
-article table thead {
-  display: table; /* Keep table structure for body/head */
   width: 100%;
+  min-width: 500px; /* Forces horizontal scroll on mobile */
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.875rem; /* 14px - smaller for mobile */
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  display: table; /* Keep table structure intact */
+  table-layout: auto;
 }
 
-@media (max-width: 768px) {
+/* Header styling */
+article table thead {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+article table th {
+  padding: 0.625rem 0.75rem; /* 10px 12px */
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap; /* Prevent header text wrapping */
+  font-size: 0.8125rem; /* 13px */
+}
+
+/* Cell styling */
+article table td {
+  padding: 0.625rem 0.75rem; /* 10px 12px */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  vertical-align: top;
+}
+
+/* Row hover effect */
+article table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Last row - remove bottom border */
+article table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===================================
+   TABLET: Enhance for medium screens
+   =================================== */
+@media (min-width: 640px) {
   article table {
-    font-size: 0.875rem;
+    font-size: 0.9375rem; /* 15px */
+    min-width: 600px;
   }
   
+  article table th {
+    padding: 0.75rem 1rem; /* 12px 16px */
+    font-size: 0.9375rem; /* 15px */
+  }
+  
+  article table td {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* ===================================
+   DESKTOP: Full experience
+   =================================== */
+@media (min-width: 1024px) {
+  article {
+    overflow-x: visible; /* No scroll needed on desktop */
+  }
+  
+  article table {
+    font-size: 1rem; /* 16px */
+    min-width: auto; /* Allow table to size naturally */
+    max-width: 100%;
+  }
+  
+  article table th {
+    padding: 0.875rem 1.25rem; /* 14px 20px */
+    font-size: 1rem;
+  }
+  
+  article table td {
+    padding: 0.875rem 1.25rem;
+  }
+  
+  /* More prominent hover on desktop */
+  article table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+  }
+}
+
+/* ===================================
+   LARGE DESKTOP: Maximum comfort
+   =================================== */
+@media (min-width: 1280px) {
   article table th,
   article table td {
-    padding: 0.5rem 0.75rem;
-    white-space: nowrap;
+    padding: 1rem 1.5rem; /* 16px 24px */
   }
+}
+
+/* ===================================
+   Dark Theme Adjustments (Optional)
+   =================================== */
+@media (prefers-color-scheme: dark) {
+  article table {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  
+  article table thead {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  article table th {
+    border-bottom-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  article table td {
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+  }
+  
+  article table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* ===================================
+   Specific Column Adjustments
+   =================================== */
+
+/* If you have specific column types that need special treatment */
+
+/* Numeric columns - right align */
+article table td.numeric,
+article table th.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums; /* Monospace numbers */
+}
+
+/* Narrow columns (checkbox, icons) */
+article table td.narrow,
+article table th.narrow {
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Wide columns (descriptions) */
+article table td.wide,
+article table th.wide {
+  min-width: 200px;
+}
+
+/* Code in tables */
+article table code {
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
 }
 
 
