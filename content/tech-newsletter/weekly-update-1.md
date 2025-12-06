@@ -14,7 +14,51 @@ Toc: true
 ---
 
 
-##  RAM prices exponential increase
+
+##  Micron Leaves The Consumer Market
+>NEWS UPDATE 22:10 06 December 2025
+
+![alt text](/images/posts/micron.webp)
+"Photo by Jakub Porzycki/NurPhoto via Getty Images)"
+
+### Details
+
+Micron the long standing memory design and manufacturing company has release details that they intend to leave the consumer market - 
+
+>"Memory chipmaker Micron Technology (MU.O), opens new tab said on Wednesday it will exit its consumer business, as it doubles down on advanced memory chips used in artificial intelligence data centers amid a global supply shortage of the essential semiconductors." source: https://www.reuters.com/business/micron-exit-crucial-consumer-memory-business-2025-12-03/
+
+This is the most recent blow to the technology sector with a very negative effect on the enthusiast community. RAM-Double Data Rate Memory, is a vital component for servers, desktop and Laptop computers. It is also present in
+most IOT devices like mobile phones etc.  
+
+In the a previous post I detailed the past and present problems with the oligopoly that controls the memory market so with this new development the entire market is going to be under enormous pressure and in all likelihood
+consumer demand is going to skyrocket further driving up prices.   
+
+These problems are even more compounded by the supply issues due to lack of increased production and with the pressure being placed on the technology industry to meet the demands of AI and the infrastructure it requires. 
+In very reductive terms AI and the lack of surplus has driven prices to levels never seen before. 
+
+As I write this article 128Gb of ECC server memory is $2000, this price increase scaled up to data center levels could have major ramifications to every industry on the planet and now one of the three consumer players in this sector 
+is leaving. Now this might sound strange but AI is not using DDR5 it relies heavily on HMB- High Bandwidth Memory so the shortages are being driven but panic buying and constrained production levels. Ergo this bottleneck will be at the Silicon Wafer allocation level and the current issues, which I am sad to say; are only the beginning...
+
+If the production of memory for the consumer market is using fabrication time that could be allocated to more profitable products then the reason seem very clear, these companies are chasing short term growth. As it stands it is impossible to 
+know when the AI bubble will collapse but personally Micron is hedging its bets in a big way and leaving the market wide open to Chinese companies. In the event China hyper-scales RAM production to fill in the gap and meet this new consumer demand for cheap memory. Then Micron in specific might be exposed to a lot of risk if the bubble pops and they may find that the draw bridge back to the consumer market been raised.
+
+Key Market Dynamics:
+
+Memory's Dominant Role: Memory chips (DRAM and NAND Flash) are among the largest consumers of silicon wafers. According to market research, memory applications account for approximately 35% of total silicon wafer demand.
+
+Recent Price Increases: The semiconductor industry is experiencing significant price pressure. In late 2025, reports indicated that contract prices for some DRAM and NAND products increased by 80% to 100% month-over-month, with spot prices for key components like 16Gb DDR5 chips rising sharply. The specialized 300mm wafers required for cutting-edge logic and memory production are central to this demand, with their shipments seeing notable growth.
+
+Cyclical Influence of DRAM: The silicon wafer market is heavily influenced by the cyclical nature of the semiconductor industry, particularly DRAM pricing. Industry analysis notes that the market follows a pattern where price declines lead to reduced capital expenditure and inventory adjustments, directly impacting the demand for wafers.
+
+ https://www.tomshardware.com/uk/pc-components/ram/news
+
+ ### Gamers Nexus's Take
+
+ 
+{{< youtube 9A-eeJP0J7c >}}
+
+
+##  RAM Prices Exponential Increase
 >NEWS UPDATE 16:04 23 November 2025
 
 
