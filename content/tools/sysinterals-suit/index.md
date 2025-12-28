@@ -13,6 +13,7 @@ tool_image: "sys.png"
 The Sysinternals Suite is an extensive collection of more than 70 individual utilities, bundled together for IT professionals, system administrators, and developers. These tools provide deep insight into the inner workings of the Windows operating system, allowing for advanced troubleshooting, diagnostic analysis, and system monitoring. Originally created by Mark Russinovich, the suite is now officially maintained by Microsoft.
 
 ## Key Featured Utilities
+---
 
 While the suite contains many tools, some of the most powerful and frequently used include[citation:1][citation:5]:
 
@@ -30,6 +31,7 @@ While the suite contains many tools, some of the most powerful and frequently us
 | **RAMMap** | System Information | Advanced physical memory usage analysis. |
 
 ## Overview
+---
 
 The Sysinternals Suite is the definitive toolkit for anyone who needs to understand what is happening under the hood of their Windows system. It is invaluable for[citation:5]:
 *   **Diagnosing complex system issues** like slow performance, application crashes, or resource leaks.
@@ -37,6 +39,7 @@ The Sysinternals Suite is the definitive toolkit for anyone who needs to underst
 *   **Managing and troubleshooting** local and remote Windows systems and applications.
 
 ## Installation and Access
+---
 
 You can obtain and use the Sysinternals tools in several convenient ways[citation:1][citation:2][citation:4]:
 
@@ -46,6 +49,7 @@ You can obtain and use the Sysinternals tools in several convenient ways[citatio
 *   **Install via Winget**: Use the command `winget install "Sysinternals Suite"` for a quick command-line installation[citation:4][citation:10].
 
 ## Getting Started and Learning Resources
+---
 
 Due to the powerful nature of these tools, it is recommended to refer to the official resources for guidance[citation:2][citation:5]:
 *   **Official Documentation**: The [main Sysinternals page](https://learn.microsoft.com/en-us/sysinternals/) provides access to documentation, the blog, and learning resources.

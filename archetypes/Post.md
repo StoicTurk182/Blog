@@ -18,10 +18,12 @@ Brief introduction to the topic and what readers will learn. Explain why this co
 ![Descriptive alt text](/images/posts/{{ .Name }}/image-1.jpg)
 
 ## Overview
+---
 
 Main content section with your insights and analysis. This is where you dive into the main topic and provide valuable information to your readers.
 
 ## Key Features
+---
 
 <!-- Bullet points for quick scanning -->
 - **Feature 1**: Detailed description of the first key feature
@@ -30,6 +32,7 @@ Main content section with your insights and analysis. This is where you dive int
 - **Feature 4**: Additional feature that adds value
 
 ## Installation & Setup
+---
 
 ```bash
 # Code block for commands

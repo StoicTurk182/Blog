@@ -6,17 +6,20 @@ layout: "contact"
 ---
 
 ## Email & Phone
+---
 
 **Email:** Stoicturk182@protonmail.com 
 **Phone:** (44) 07990338386 
 **Location:** London, UK
 
 ## Social Media
+---
 - GitHub: [StoicTurk182](https://github.com/StoicTurk182)
 - LinkedIn: [Andrew Jones](https://www.linkedin.com/in/andrew-john-j-780177300)
 
 
 ## Contact Form
+---
 You can also reach me using the form below:
 
 <form action="https://formspree.io/f/xovppvjo" method="POST">

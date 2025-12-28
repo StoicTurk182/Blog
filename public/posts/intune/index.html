@@ -511,38 +511,38 @@ Create custom roles with specific permissions:</p><ol><li><strong>Intune admin c
 </span></span><span style=display:flex><span>One-time announcement: Company Portal notification
 </span></span></code></pre></div><h3 id=documentation-and-knowledge-management>Documentation and Knowledge Management</h3><hr><p><strong>Maintain runbooks for each application:</strong></p><p><strong>Template:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span># Application: [Name]
 </span></span><span style=display:flex><span><span style=color:#75715e>## Version: [Current Version]
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#75715e>## Description
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span>[What the app does, why it&#39;s deployed]
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Deployment Details
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Package type: Win32 / Microsoft 365 / Store
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Install command: [Command]
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Uninstall command: [Command]
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Detection rule: [Method and details]
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Dependencies
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> [List dependent apps]
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Targeted Groups
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> [Azure AD groups]
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Known Issues
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> [Issue 1]: [Workaround]
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> [Issue 2]: [Workaround]
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Support Contact
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> App owner: [Name/Team]
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> Escalation: [Email/Teams channel]
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e>## Change History
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span>---
+</span></span></span><span style=display:flex><span>---
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> YYYY-MM-DD: Initial deployment
 </span></span><span style=display:flex><span><span style=color:#66d9ef>-</span> YYYY-MM-DD: Updated to version X.X
 </span></span></code></pre></div><p><strong>Store in:</strong></p><ul><li>SharePoint document library</li><li>Confluence/Wiki</li><li>Git repository (for version control)</li></ul><hr><h2 id=part-7-real-world-deployment-scenarios>Part 7: Real-World Deployment Scenarios</h2><hr><h3 id=scenario-1-deploy-adobe-acrobat-reader-dc>Scenario 1: Deploy Adobe Acrobat Reader DC</h3><hr><p><strong>Requirements:</strong></p><ul><li>Silent installation</li><li>Disable auto-updates (managed via Intune)</li><li>Remove bloatware (ads, trials)</li><li>Organization-wide deployment</li></ul><p><strong>Step 1: Download Installer</strong></p><p>Adobe Customization Wizard: <a href=https://www.adobe.com/devnet-docs/acrobatetk/tools/Wizard/index.html>Adobe Reader Customization</a></p><p>Download enterprise installer: <code>.msi</code> file</p><p><strong>Step 2: Customize Installer</strong></p><p>Using Adobe Customization Wizard:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>- Disable auto-updates

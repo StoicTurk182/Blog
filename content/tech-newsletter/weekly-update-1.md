@@ -16,12 +16,14 @@ Toc: true
 
 
 ##  Micron Leaves The Consumer Market
+---
 >NEWS UPDATE 22:10 06 December 2025
 
 ![alt text](/images/posts/micron.webp)
 "Photo by Jakub Porzycki/NurPhoto via Getty Images)"
 
 ### Details
+---
 
 Micron the long standing memory design and manufacturing company has release details that they intend to leave the consumer market - 
 
@@ -53,12 +55,14 @@ Cyclical Influence of DRAM: The silicon wafer market is heavily influenced by th
  https://www.tomshardware.com/uk/pc-components/ram/news
 
  ### Gamers Nexus's Take
+---
 
  
 {{< youtube 9A-eeJP0J7c >}}
 
 
 ##  RAM Prices Exponential Increase
+---
 >NEWS UPDATE 16:04 23 November 2025
 
 
@@ -66,6 +70,7 @@ Ram prices set to continue increasing over the next year, huge price spikes with
 
 
 ### Details
+---
 
 The 2025 price spikes (DDR4 up 158% spot since Sep; DDR5 up 307%) stem from AI/server demand overwhelming supply, as manufacturers (Samsung, SK Hynix, Micron) shift 30%+ capacity to high-margin HBM/DDR5 for data centers. DDR4's surge is amplified by EOL phase-outs (final shipments Q1–Q2 2026), triggering panic stockpiling and Chinese exits (e.g., CXMT by mid-2026), inverting prices (DDR4 now 39–87% > DDR5/GB). U.S. tariffs (25–50% post-Jul 2025) and packaging hikes (double-digit) add fuel.
 Future Projections (2026–2027)
@@ -79,6 +84,7 @@ Future Projections (2026–2027)
 
 
 ### Checkout a great video by Gamers Nexus on the topic
+---
 
 {{< youtube 9hLiwNViMak >}}
 
@@ -89,6 +95,7 @@ Please check out the video for a deep dive into the issues also please check out
 on the various issues working to cause the chaos. 
 
 ### Sources & Further Reading
+---
 
 - **Accio** – Computer Memory Price Trends 2025  
   https://www.accio.com/business/computer_memory_price_trends  
@@ -152,6 +159,7 @@ on the various issues working to cause the chaos.
 
 
 ##  Featured Content: Gamers Nexus
+---
 
 Check out this excellent technical analysis from **Gamers Nexus** - one of the most trusted sources for in-depth hardware reviews and performance testing.
 They are getting very involved with investigative journalism and I would also highly recommend following  them on their secondary channel: [GNCA - GamersNexus Consumer Advocacy]( https://www.youtube.com/@GNCAInvestigates) 
@@ -170,24 +178,28 @@ Their rigorous testing methodology and technical expertise make them an invaluab
 ---
 
 ##  Critical Security Alert: Windows Zero-Day Exploit
+---
 
 **CVE-2025-26701** - Emergency patch required for all Windows systems
 
 Microsoft has released an out-of-band emergency patch for a critical zero-day vulnerability being actively exploited in ransomware attacks worldwide.
 
 ### Key Details
+---
 - **CVSS Score:** 9.8/10 (Critical)
 - **Affected Systems:** Windows 10, 11, Server 2019/2022
 - **Attack Vector:** Remote code execution via malicious Office documents
 - **Status:** Active exploitation in 47 countries
 
 ### Immediate Actions Required
+---
 1. **Apply KB5037851** emergency security update immediately
 2. **Block Office macros** from the internet zone
 3. **Enable Attack Surface Reduction** rules
 4. **Monitor for suspicious PowerShell and MSHTA activity**
 
 ### Impact Assessment
+---
 Successful exploitation allows full system compromise without user interaction. Multiple ransomware groups including LockBit and BlackCat have weaponized this vulnerability.
 
 **Download Patch:** [Microsoft Security Update Guide](https://msrc.microsoft.com/update-guide)
@@ -195,19 +207,23 @@ Successful exploitation allows full system compromise without user interaction. 
 ---
 
 ## Tool Recommendation: Tailscale Mesh VPN
+---
 
 **Tailscale** - Zero-config VPN for secure network connectivity
 
 ### Overview
+---
 Tailscale is a modern VPN solution that makes secure network connectivity incredibly simple to set up and manage. Built on WireGuard®, it provides state-of-the-art encryption with zero configuration required.
 
 ### Technical Foundation
+---
 - **Protocol:** WireGuard® with Noise protocol framework
 - **Encryption:** Curve25519, ChaCha20, Poly1305
 - **Topology:** Full mesh - all nodes communicate directly
 - **Addressing:** IPv6-only internal (ULA range)
 
 ### Key Features
+---
 - **Zero-configuration** setup
 - **Cross-platform** support (Windows, Mac, Linux, iOS, Android)
 - **Automatic NAT traversal**
@@ -215,6 +231,7 @@ Tailscale is a modern VPN solution that makes secure network connectivity incred
 - **Free for personal use** (up to 100 devices)
 
 ### Security Model
+---
 - **Zero-trust architecture** - default deny, explicit allow
 - **Ephemeral certificates** with automatic rotation
 - **Perfect forward secrecy**
@@ -225,8 +242,10 @@ Tailscale is a modern VPN solution that makes secure network connectivity incred
 ---
 
 ## Emerging Threats
+---
 
 ### AI-Powered Phishing Surge
+---
 Security researchers report a **300% increase** in AI-powered phishing campaigns using generative AI to create highly convincing fake emails and websites.
 
 **Key Indicators:**
@@ -240,6 +259,7 @@ Security researchers report a **300% increase** in AI-powered phishing campaigns
 - Conduct regular security awareness training
 
 ### Ransomware 3.0: Triple-Extortion Attacks
+---
 Modern ransomware has evolved beyond data encryption to triple-extortion tactics:
 
 1. **Data Encryption** - Traditional file locking

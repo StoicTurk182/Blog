@@ -15,10 +15,12 @@ tool_image: "YUMI.png"
 YUMI (Your Universal Multiboot Integrator) is a powerful tool that allows you to create a bootable USB drive containing multiple operating systems, antivirus utilities, disc cloning, diagnostic tools, and more.
 
 ## Overview
+---
 
 YUMI makes it easy to create a multiboot USB drive that can boot various Linux distributions, Windows installers, and system utilities from a single device. It's the successor to MultibootISOs and uses syslinux to boot extracted distributions from the USB device.
 
 ## Key Features
+---
 
 - **Multiple OS Support**: Install numerous Linux distributions on one USB drive
 - **Windows Integration**: Supports Windows XP through Windows 11 installers
@@ -28,10 +30,12 @@ YUMI makes it easy to create a multiboot USB drive that can boot various Linux d
 - **Simple Interface**: Easy-to-use interface with distribution auto-download options
 
 ## Supported Distributions
+---
 
 YUMI supports a wide range of operating systems including:
 
 ### Linux Distributions
+---
 - Ubuntu and derivatives (Kubuntu, Lubuntu, Xubuntu)
 - Linux Mint
 - Debian
@@ -42,6 +46,7 @@ YUMI supports a wide range of operating systems including:
 - And many more...
 
 ### System Utilities
+---
 - GParted
 - Clonezilla
 - DBAN (Darik's Boot and Nuke)
@@ -51,12 +56,14 @@ YUMI supports a wide range of operating systems including:
 - Various antivirus rescue disks
 
 ## System Requirements
+---
 
 - **Windows OS**: Windows XP or later (tool runs on Windows)
 - **USB Drive**: 4GB minimum (8GB+ recommended for multiple distributions)
 - **Administrator Rights**: Required for USB formatting and boot sector writing
 
 ## How to Use
+---
 
 1. **Download YUMI** from the official website
 2. **Run as Administrator** for proper functionality
@@ -67,12 +74,14 @@ YUMI supports a wide range of operating systems including:
 7. **Repeat** for additional distributions as needed
 
 ## Download Options
+---
 
 - **Standard Version**: For most users with typical requirements
 - **UEFI Version**: For systems requiring UEFI boot support
 - **Legacy Version**: For older systems with specific requirements
 
 ## Usage Tips
+---
 
 - Always back up your USB drive data before using YUMI
 - Use a high-quality USB 3.0 drive for better performance
@@ -81,6 +90,7 @@ YUMI supports a wide range of operating systems including:
 - Persistent storage is available for certain Ubuntu-based distributions
 
 ## Security Notes
+---
 
 - Only download YUMI from the official pendrivelinux.com website
 - Verify ISO checksums when manually adding distributions
@@ -88,6 +98,7 @@ YUMI supports a wide range of operating systems including:
 - Always scan downloaded ISO files for malware
 
 ## Alternatives
+---
 
 While YUMI is excellent for Windows users, other platforms have alternatives:
 - **Rufus**: Fast USB creation for single distributions

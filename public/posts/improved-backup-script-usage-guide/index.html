@@ -171,7 +171,7 @@ Back to Posts</a></div></span><aside class=toc><h2>Table of Contents</h2><nav id
 </span></span><span style=display:flex><span><span style=color:#75715e># Verify system compatibility</span>
 </span></span><span style=display:flex><span>./backup_improved.sh --check
 </span></span></code></pre></div><h2 id=full-script-code>Full Script Code</h2><hr><p>Below is the complete backup script. You can copy this code and save it as <code>backup_improved.sh</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e>#!/bin/bash
-</span></span></span><span style=display:flex><span><span style=color:#75715e></span><span style=color:#75715e># Streamlined Backup Script v3.0 - No manifest, better progress</span>
+</span></span></span><span style=display:flex><span><span style=color:#75715e># Streamlined Backup Script v3.0 - No manifest, better progress</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Exit on error</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Function to send email report</span>
@@ -371,29 +371,29 @@ Back to Posts</a></div></span><aside class=toc><h2>Table of Contents</h2><nav id
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># RSYNC WITH PROGRESS</span>
 </span></span><span style=display:flex><span>rsync $RSYNC_OPTS <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/proc <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/sys <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/dev <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/tmp <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/run <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/mnt <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/media <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/lost+found <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*.cache&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*.tmp&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*.log&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/var/log/*&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/var/cache/*&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/var/tmp/*&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/swapfile <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span>/swap.img <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$MOUNT_POINT<span style=color:#e6db74>&#34;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/home/*/.cache&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/home/*/.local/share/Trash&#39;</span> <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --no-specials <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --no-devices <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    --ignore-errors <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>    / <span style=color:#e6db74>&#34;</span>$BACKUP_DIR<span style=color:#e6db74>/system/&#34;</span> 2&gt;&amp;<span style=color:#ae81ff>1</span> | tee -a <span style=color:#e6db74>&#34;</span>$LOG_FILE<span style=color:#e6db74>&#34;</span>
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/proc <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/sys <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/dev <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/tmp <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/run <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/mnt <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/media <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/lost+found <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*.cache&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*.tmp&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;*.log&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/var/log/*&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/var/cache/*&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/var/tmp/*&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/swapfile <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span>/swap.img <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;</span>$MOUNT_POINT<span style=color:#e6db74>&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/home/*/.cache&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --exclude<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;/home/*/.local/share/Trash&#39;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --no-specials <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --no-devices <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --ignore-errors <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    / <span style=color:#e6db74>&#34;</span>$BACKUP_DIR<span style=color:#e6db74>/system/&#34;</span> 2&gt;&amp;<span style=color:#ae81ff>1</span> | tee -a <span style=color:#e6db74>&#34;</span>$LOG_FILE<span style=color:#e6db74>&#34;</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>RSYNC_EXIT<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>PIPESTATUS[0]<span style=color:#e6db74>}</span>
 </span></span><span style=display:flex><span>END_TIME<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>date +%s<span style=color:#66d9ef>)</span>
@@ -443,8 +443,8 @@ Back to Posts</a></div></span><aside class=toc><h2>Table of Contents</h2><nav id
 </span></span><span style=display:flex><span>        <span style=color:#75715e># Use pigz for parallel compression with progress</span>
 </span></span><span style=display:flex><span>        log_message <span style=color:#e6db74>&#34;INFO&#34;</span> <span style=color:#e6db74>&#34;Using pigz for parallel compression...&#34;</span>
 </span></span><span style=display:flex><span>        tar -cf - -C <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>dirname $BACKUP_DIR<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;</span><span style=color:#66d9ef>$(</span>basename $BACKUP_DIR<span style=color:#66d9ef>)</span><span style=color:#e6db74>&#34;</span> | <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        pigz -p $MAX_PARALLEL | <span style=color:#ae81ff>\
-</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>        pv -s <span style=color:#66d9ef>$(</span>du -sb <span style=color:#e6db74>&#34;</span>$BACKUP_DIR<span style=color:#e6db74>&#34;</span> | cut -f1<span style=color:#66d9ef>)</span> &gt; <span style=color:#e6db74>&#34;</span>$BACKUP_DIR<span style=color:#e6db74>.tar.gz&#34;</span>
+</span></span></span><span style=display:flex><span>        pigz -p $MAX_PARALLEL | <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>        pv -s <span style=color:#66d9ef>$(</span>du -sb <span style=color:#e6db74>&#34;</span>$BACKUP_DIR<span style=color:#e6db74>&#34;</span> | cut -f1<span style=color:#66d9ef>)</span> &gt; <span style=color:#e6db74>&#34;</span>$BACKUP_DIR<span style=color:#e6db74>.tar.gz&#34;</span>
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>
 </span></span><span style=display:flex><span>        <span style=color:#75715e># Fallback to standard tar with verbose output</span>
 </span></span><span style=display:flex><span>        log_message <span style=color:#e6db74>&#34;INFO&#34;</span> <span style=color:#e6db74>&#34;Using tar with verbose output...&#34;</span>
