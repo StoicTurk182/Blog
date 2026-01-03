@@ -7,6 +7,10 @@
     color: black;
 }
 
+.logo__tagline {
+  color: #ff0000 !important; /* Bright red */
+}
+
 .copy-code-btn:hover {
     background: rgba(255,255,255,1) !important;
     border-color: #0366d6 !important;
@@ -34,3 +38,4 @@
     a { color: #000 !important; text-decoration: none !important; }
     .container { max-width: 100% !important; }
 }
+
