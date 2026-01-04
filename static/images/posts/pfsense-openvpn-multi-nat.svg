@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #2c3e50; stroke: #3498db; stroke-width: 2; }
+      .router-box { fill: #34495e; stroke: #1abc9c; stroke-width: 2; }
+      .vm-box { fill: #2c3e50; stroke: #e74c3c; stroke-width: 2; }
+      .client-box { fill: #2c3e50; stroke: #9b59b6; stroke-width: 2; }
+      .text { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 14px; }
+      .title { fill: #ecf0f1; font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; }
+      .subtitle { fill: #95a5a6; font-family: 'Courier New', monospace; font-size: 12px; }
+      .arrow { stroke: #3498db; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .arrow-blocked { stroke: #e74c3c; stroke-width: 3; fill: none; marker-end: url(#arrowhead-blocked); stroke-dasharray: 8,4; }
+      .nat-label { fill: #f39c12; font-family: 'Courier New', monospace; font-size: 11px; font-weight: bold; }
+      .port-label { fill: #1abc9c; font-family: 'Courier New', monospace; font-size: 11px; }
+      .ip-label { fill: #3498db; font-family: 'Courier New', monospace; font-size: 12px; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3498db" />
+    </marker>
+    <marker id="arrowhead-blocked" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#e74c3c" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="400" y="30" class="title" text-anchor="middle">OpenVPN Multi-Layer NAT Traversal</text>
+  <text x="400" y="50" class="subtitle" text-anchor="middle">Internet → UDR → Windows Host → VirtualBox → pfSense</text>
+  
+  <!-- Layer 1: Mobile Client -->
+  <rect x="300" y="80" width="200" height="80" rx="5" class="client-box"/>
+  <text x="400" y="105" class="title" text-anchor="middle">Mobile Client</text>
+  <text x="400" y="125" class="text" text-anchor="middle">4G/5G Network</text>
+  <text x="400" y="145" class="ip-label" text-anchor="middle">Source: 203.0.113.45:54321</text>
+  
+  <!-- Arrow 1: Client to Internet -->
+  <line x1="400" y1="160" x2="400" y2="200" class="arrow"/>
+  <text x="420" y="185" class="port-label">UDP:1194</text>
+  
+  <!-- Internet Cloud -->
+  <ellipse cx="400" cy="220" rx="80" ry="30" fill="none" stroke="#95a5a6" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="400" y="227" class="subtitle" text-anchor="middle">Internet</text>
+  
+  <!-- Arrow 2: Internet to UDR -->
+  <line x1="400" y1="250" x2="400" y2="290" class="arrow"/>
+  <text x="340" y="275" class="ip-label">Dst: &lt;Public IP&gt;:1194</text>
+  
+  <!-- Layer 2: UniFi Dream Router -->
+  <rect x="250" y="290" width="300" height="100" rx="5" class="router-box"/>
+  <text x="400" y="315" class="title" text-anchor="middle">UniFi Dream Router (UDR)</text>
+  <text x="400" y="335" class="text" text-anchor="middle">Edge Gateway</text>
+  <text x="400" y="355" class="nat-label" text-anchor="middle">NAT Layer 1: Port Forward</text>
+  <text x="400" y="375" class="ip-label" text-anchor="middle">&lt;Public IP&gt;:1194 → 10.1.10.20:1194</text>
+  
+  <!-- Arrow 3: UDR to Windows Host -->
+  <line x1="400" y1="390" x2="400" y2="430" class="arrow"/>
+  <text x="320" y="415" class="port-label">Forward UDP:1194</text>
+  
+  <!-- Layer 3: Windows Host -->
+  <rect x="250" y="430" width="300" height="100" rx="5" class="box"/>
+  <text x="400" y="455" class="title" text-anchor="middle">Windows Host</text>
+  <text x="400" y="475" class="ip-label" text-anchor="middle">LAN IP: 10.1.10.20</text>
+  <text x="400" y="495" class="text" text-anchor="middle">Windows Firewall: Allow UDP:1194</text>
+  <text x="400" y="515" class="subtitle" text-anchor="middle">VirtualBox Hypervisor</text>
+  
+  <!-- Arrow 4: Windows to VirtualBox NAT -->
+  <line x1="400" y1="530" x2="400" y2="570" class="arrow"/>
+  <text x="320" y="555" class="nat-label">NAT Layer 2: VBox Port Forward</text>
+  
+  <!-- Layer 4: VirtualBox NAT Network -->
+  <rect x="250" y="570" width="300" height="80" rx="5" class="box"/>
+  <text x="400" y="595" class="title" text-anchor="middle">VirtualBox NAT Network</text>
+  <text x="400" y="615" class="nat-label" text-anchor="middle">Host:1194 → Guest:10.0.2.15:1194</text>
+  <text x="400" y="635" class="ip-label" text-anchor="middle">Internal NAT: 10.0.2.0/24</text>
+  
+  <!-- Arrow 5: VirtualBox to pfSense -->
+  <line x1="400" y1="650" x2="400" y2="690" class="arrow"/>
+  <text x="320" y="675" class="port-label">Forward to Guest</text>
+  
+  <!-- Layer 5: pfSense VM -->
+  <rect x="250" y="690" width="300" height="120" rx="5" class="vm-box"/>
+  <text x="400" y="715" class="title" text-anchor="middle">pfSense VM</text>
+  <text x="400" y="735" class="ip-label" text-anchor="middle">WAN IP: 10.0.2.15:1194</text>
+  <text x="400" y="755" class="text" text-anchor="middle">Firewall: Pass UDP:1194</text>
+  <text x="400" y="775" class="nat-label" text-anchor="middle">OpenVPN Server Running</text>
+  <text x="400" y="795" class="subtitle" text-anchor="middle">TLS Handshake Success ✓</text>
+  
+  <!-- Legend Box -->
+  <rect x="50" y="840" width="700" height="50" rx="5" fill="#1a1a1a" stroke="#3498db" stroke-width="1"/>
+  <text x="60" y="860" class="subtitle">Key Issue:</text>
+  <text x="60" y="878" class="text" style="font-size: 11px;">Broken firewall alias caused silent rule loading failure → GUI showed pass rule but kernel had stale ruleset → Default Deny blocked all traffic</text>
+  
+  <!-- NAT Layer Indicators on the side -->
+  <text x="50" y="335" class="nat-label" transform="rotate(-90 50 335)">NAT-1</text>
+  <text x="50" y="480" class="nat-label" transform="rotate(-90 50 480)">NAT-2</text>
+  <text x="50" y="610" class="nat-label" transform="rotate(-90 50 610)">NAT-3</text>
+  <text x="50" y="750" class="nat-label" transform="rotate(-90 50 750)">Destination</text>
+  
+  <!-- Port numbers on right side -->
+  <circle cx="750" cy="120" r="3" fill="#1abc9c"/>
+  <text x="760" y="125" class="port-label">:54321</text>
+  
+  <circle cx="750" cy="340" r="3" fill="#1abc9c"/>
+  <text x="760" y="345" class="port-label">:1194</text>
+  
+  <circle cx="750" cy="480" r="3" fill="#1abc9c"/>
+  <text x="760" y="485" class="port-label">:1194</text>
+  
+  <circle cx="750" cy="610" r="3" fill="#1abc9c"/>
+  <text x="760" y="615" class="port-label">:1194</text>
+  
+  <circle cx="750" cy="750" r="3" fill="#1abc9c"/>
+  <text x="760" y="755" class="port-label">:1194</text>
+</svg>
