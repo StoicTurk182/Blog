@@ -6,28 +6,28 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/p
 I digress; my current setup is really geared as an adaptation of the Lab topology that I picked up from David Varghese’s website. During this process of adaptation I really wanted to learn about PKI - Public Key Infrastructure and building my own VPN tunnel from scratch via Easy-RSA this is used to generate the PKI certificate chain in a Windows environment, this project was not simple and I did run into small issues along the way but when trying to test external connectivity from the internet using my mobile device I ran into an issue that I could not resolve. this article documents my solution.
 Link to David’s Lab guide - <a href=https://blog.davidvarghese.net/posts/building-home-lab-part-1/>https://blog.davidvarghese.net/posts/building-home-lab-part-1/</a></p><p>Successfully establishing OpenVPN connectivity through multiple NAT layers requires methodical troubleshooting and deep understanding of packet flow. This guide documents the complete process of connecting to a VirtualBox pfSense lab from the internet, including the discovery and resolution of a silent firewall rule loading failure.</p><p><strong>Environment:</strong></p><ul><li><strong>Client:</strong> Mobile Device (4G/5G)</li><li><strong>Edge Router:</strong> UniFi Dream Router (UDR)</li><li><strong>Host:</strong> Windows 10/11 (Physical IP: <code>10.1.10.20</code>)</li><li><strong>Hypervisor:</strong> VirtualBox (NAT Mode)</li><li><strong>Guest:</strong> pfSense (WAN IP: <code>10.0.2.15</code>)</li></ul><p><strong>Traffic Path:</strong> <code>Internet → UDR → Windows Host → VirtualBox → pfSense</code></p><hr><h2 id=initial-problem>Initial Problem</h2><hr><p><strong>Symptom:</strong> <code>TLS Error: TLS key negotiation failed to occur within 60 seconds</code></p><p><strong>Meaning:</strong> The OpenVPN client was sending packets, but receiving no response. Traffic was being dropped somewhere in the multi-layered NAT chain before reaching the pfSense OpenVPN server.</p><hr><h2 id=diagnostic-methodology>Diagnostic Methodology</h2><hr><h3 id=layer-1-host-and-hypervisor-verification>Layer 1: Host and Hypervisor Verification</h3><hr><p><strong>Windows Firewall Check:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;*OpenVPN*&#34;</span> | Select-Object DisplayName,Enabled,Direction,Action
 </span></span></code></pre></div><p><strong>Verified Configuration:</strong></p><ul><li>Rule Name: <code>OpenVPN UDP 1194 Inbound</code></li><li>Status: Enabled/Allowed</li><li>Protocol: UDP</li><li>Port: 1194</li></ul><p><strong>VirtualBox NAT Port Forwarding:</strong></p><ul><li>Protocol: UDP</li><li>Host IP: <code>0.0.0.0</code> (All Interfaces)</li><li>Host Port: 1194</li><li>Guest IP: <code>10.0.2.15</code></li><li>Guest Port: 1194</li></ul><h3 id=layer-2-pfsense-invisible-blockers>Layer 2: pfSense &ldquo;Invisible&rdquo; Blockers</h3><hr><p><strong>Issue Identified:</strong> VirtualBox assigns a private RFC1918 address (<code>10.0.2.15</code>) to the pfSense WAN interface. By default, pfSense blocks traffic from private networks on WAN interfaces.</p><p><strong>Resolution:</strong></p><p>Navigate to <strong>Interfaces > WAN</strong> and disable:</p><ul><li><strong>Block private networks and loopback addresses</strong></li><li><strong>Block bogon networks</strong></li></ul><p><strong>Command Verification:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>grep <span style=color:#e6db74>&#34;block drop in&#34;</span> /tmp/rules.debug
-</span></span></code></pre></div><p>This command confirms whether the private network blocking rules are present in the compiled ruleset.</p><h3 id=layer-3-the-silent-failure-root-cause>Layer 3: The Silent Failure (Root Cause)</h3><hr><p>Despite correct firewall rules in the GUI, traffic continued hitting the Default Deny rule.</p><p><strong>Firewall Log Evidence:</strong></p><pre tabindex=0><code>Jan 04 14:15:23 pfsense filterlog: 5,,,1000000103,em0,match,block,in,4,0x0,,64,0,0,DF,17,udp,78,203.0.113.45,10.0.2.15,54321,1194,58
-</code></pre><p><strong>Rule ID:</strong> <code>1000000103</code> (Default Deny Rule)</p><p><strong>Investigation Commands:</strong></p><ol><li><strong>Check if rules are loaded in kernel:</strong></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -sr | grep <span style=color:#ae81ff>1194</span>
+</span></span></code></pre></div><p>This command confirms whether the private network blocking rules are present in the compiled ruleset.</p><h3 id=layer-3-the-silent-failure-root-cause>Layer 3: The Silent Failure (Root Cause)</h3><hr><p>Despite correct firewall rules in the GUI, traffic continued hitting the Default Deny rule.</p><p><strong>Firewall Log Evidence:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Jan <span style=color:#ae81ff>04</span> 14:15:23 pfsense filterlog: 5,,,1000000103,em0,match,block,in,4,0x0,,64,0,0,DF,17,udp,78,203.0.113.45,10.0.2.15,54321,1194,58
+</span></span></code></pre></div><p><strong>Rule ID:</strong> <code>1000000103</code> (Default Deny Rule)</p><p><strong>Investigation Commands:</strong></p><ol><li><strong>Check if rules are loaded in kernel:</strong></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -sr | grep <span style=color:#ae81ff>1194</span>
 </span></span></code></pre></div><p><strong>Result:</strong> No output (Rule not present in active ruleset)</p><ol start=2><li><strong>Attempt emergency rule injection:</strong></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>easyrule pass wan udp any any <span style=color:#ae81ff>1194</span>
 </span></span></code></pre></div><p><strong>Result:</strong> Command returned &ldquo;Success&rdquo; but rule still didn&rsquo;t appear in <code>pfctl -sr</code></p><ol start=3><li><strong>Force manual rule reload:</strong></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -f /tmp/rules.debug
-</span></span></code></pre></div><p><strong>Result:</strong></p><pre tabindex=0><code>/tmp/rules.debug:XX: syntax error: macro &#39;TAILSCALE__NETWORK&#39; not defined
-</code></pre><p><strong>Discovery:</strong> A broken firewall alias related to Tailscale was preventing the entire firewall ruleset from loading. pfSense was operating on stale rules from before the alias was deleted.</p><p><strong>Resolution:</strong></p><ol><li>Navigate to <strong>Firewall > Rules > WAN</strong></li><li>Locate rules referencing the broken <code>TAILSCALE__NETWORK</code> alias</li><li>Edit each rule and change Source/Destination from alias to manual CIDR: <code>100.64.0.0/10</code></li><li>Apply changes</li><li>Verify rule reload:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -f /tmp/rules.debug
+</span></span></code></pre></div><p><strong>Result:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>/tmp/rules.debug:XX: syntax error: macro <span style=color:#e6db74>&#39;TAILSCALE__NETWORK&#39;</span> not defined
+</span></span></code></pre></div><p><strong>Discovery:</strong> A broken firewall alias related to Tailscale was preventing the entire firewall ruleset from loading. pfSense was operating on stale rules from before the alias was deleted.</p><p><strong>Resolution:</strong></p><ol><li>Navigate to <strong>Firewall > Rules > WAN</strong></li><li>Locate rules referencing the broken <code>TAILSCALE__NETWORK</code> alias</li><li>Edit each rule and change Source/Destination from alias to manual CIDR: <code>100.64.0.0/10</code></li><li>Apply changes</li><li>Verify rule reload:</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -f /tmp/rules.debug
 </span></span><span style=display:flex><span>pfctl -sr | grep <span style=color:#ae81ff>1194</span>
-</span></span></code></pre></div><p><strong>Success Indicator:</strong> No syntax errors and OpenVPN rule now appears in active ruleset.</p><hr><h2 id=network-configuration>Network Configuration</h2><hr><h3 id=unifi-dream-router-udr-port-forwarding>UniFi Dream Router (UDR) Port Forwarding</h3><hr><p><strong>Path:</strong> Settings > Security > Port Forwarding</p><p><strong>Configuration:</strong></p><ul><li>Name: <code>OpenVPN Lab Access</code></li><li>External Port: 1194</li><li>Internal Port: 1194</li><li>Protocol: UDP</li><li>Forward IP: <code>10.1.10.20</code> (Windows Host)</li><li>Enabled: Yes</li></ul><p><strong>Note:</strong> The UDR cannot route directly to <code>10.0.2.15</code> (VM internal NAT network). Traffic must be forwarded to the Windows host, which then forwards to VirtualBox NAT.</p><h3 id=openvpn-client-configuration>OpenVPN Client Configuration</h3><hr><p><strong>Critical Change:</strong> Replace local IP with DDNS hostname for internet accessibility.</p><p><strong>Before:</strong></p><pre tabindex=0><code class=language-conf data-lang=conf>remote 10.1.10.20 1194
-</code></pre><p><strong>After:</strong></p><pre tabindex=0><code class=language-conf data-lang=conf>remote my-lab.ddns.net 1194
-</code></pre><p><strong>Additional Client Settings:</strong></p><pre tabindex=0><code class=language-conf data-lang=conf>client
-dev tun
-proto udp
-remote my-lab.ddns.net 1194
-resolv-retry infinite
-nobind
-persist-key
-persist-tun
-remote-cert-tls server
-cipher AES-256-GCM
-auth SHA256
-verb 3
-</code></pre><hr><h2 id=critical-commands-reference>Critical Commands Reference</h2><hr><h3 id=firewall-rule-verification>Firewall Rule Verification</h3><hr><p><strong>Check active firewall rules in kernel:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -sr | grep &lt;port&gt;
+</span></span></code></pre></div><p><strong>Success Indicator:</strong> No syntax errors and OpenVPN rule now appears in active ruleset.</p><hr><h2 id=network-configuration>Network Configuration</h2><hr><h3 id=unifi-dream-router-udr-port-forwarding>UniFi Dream Router (UDR) Port Forwarding</h3><hr><p><strong>Path:</strong> Settings > Security > Port Forwarding</p><p><strong>Configuration:</strong></p><ul><li>Name: <code>OpenVPN Lab Access</code></li><li>External Port: 1194</li><li>Internal Port: 1194</li><li>Protocol: UDP</li><li>Forward IP: <code>10.1.10.20</code> (Windows Host)</li><li>Enabled: Yes</li></ul><p><strong>Note:</strong> The UDR cannot route directly to <code>10.0.2.15</code> (VM internal NAT network). Traffic must be forwarded to the Windows host, which then forwards to VirtualBox NAT.</p><h3 id=openvpn-client-configuration>OpenVPN Client Configuration</h3><hr><p><strong>Critical Change:</strong> Replace local IP with DDNS hostname for internet accessibility.</p><p><strong>Before:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>remote 10.1.10.20 <span style=color:#ae81ff>1194</span>
+</span></span></code></pre></div><p><strong>After:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>remote my-lab.ddns.net <span style=color:#ae81ff>1194</span>
+</span></span></code></pre></div><p><strong>Additional Client Settings:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>client
+</span></span><span style=display:flex><span>dev tun
+</span></span><span style=display:flex><span>proto udp
+</span></span><span style=display:flex><span>remote my-lab.ddns.net <span style=color:#ae81ff>1194</span>
+</span></span><span style=display:flex><span>resolv-retry infinite
+</span></span><span style=display:flex><span>nobind
+</span></span><span style=display:flex><span>persist-key
+</span></span><span style=display:flex><span>persist-tun
+</span></span><span style=display:flex><span>remote-cert-tls server
+</span></span><span style=display:flex><span>cipher AES-256-GCM
+</span></span><span style=display:flex><span>auth SHA256
+</span></span><span style=display:flex><span>verb <span style=color:#ae81ff>3</span>
+</span></span></code></pre></div><hr><h2 id=critical-commands-reference>Critical Commands Reference</h2><hr><h3 id=firewall-rule-verification>Firewall Rule Verification</h3><hr><p><strong>Check active firewall rules in kernel:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -sr | grep &lt;port&gt;
 </span></span></code></pre></div><p><strong>Monitor firewall decisions in real-time:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>clog -f /var/log/filter.log
 </span></span></code></pre></div><p><strong>Force firewall rule reload:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -f /tmp/rules.debug
 </span></span></code></pre></div><p><strong>Trigger PHP configuration sync:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>/etc/rc.filter_configure_sync
@@ -36,99 +36,99 @@ verb 3
 </span></span></code></pre></div><p><strong>Warning:</strong> This bypasses the GUI. Use only for emergency troubleshooting.</p><h3 id=diagnostic-commands>Diagnostic Commands</h3><hr><p><strong>Verify private network blocking is disabled:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>grep <span style=color:#e6db74>&#34;block drop in&#34;</span> /tmp/rules.debug | grep -E <span style=color:#e6db74>&#34;(10\.|172\.(1[6-9]|2[0-9]|3[01])\.|192\.168\.)&#34;</span>
 </span></span></code></pre></div><p><strong>Check for broken aliases in ruleset:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -f /tmp/rules.debug 2&gt;&amp;<span style=color:#ae81ff>1</span> | grep <span style=color:#e6db74>&#34;macro.*not defined&#34;</span>
 </span></span></code></pre></div><p><strong>View OpenVPN server status:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>/usr/local/sbin/openvpn --status /var/etc/openvpn/server1.status <span style=color:#ae81ff>1</span>
-</span></span></code></pre></div><hr><h2 id=packet-flow-analysis>Packet Flow Analysis</h2><hr><h3 id=successful-connection-flow>Successful Connection Flow</h3><hr><pre tabindex=0><code>[Mobile Client]
-    |
-    | UDP:1194 (Source: Random High Port)
-    v
-[Internet]
-    |
-    | Destination: &lt;Public IP&gt;:1194
-    v
-[UniFi Dream Router]
-    |
-    | NAT Translation: &lt;Public IP&gt;:1194 → 10.1.10.20:1194
-    v
-[Windows Host:10.1.10.20]
-    |
-    | Windows Firewall: Allow UDP:1194
-    v
-[VirtualBox NAT]
-    |
-    | Port Forward: Host:1194 → Guest:10.0.2.15:1194
-    v
-[pfSense WAN:10.0.2.15]
-    |
-    | Firewall Rule: Pass UDP:1194
-    v
-[OpenVPN Server]
-    |
-    | TLS Handshake Success
-    v
-[VPN Tunnel Established]
-</code></pre><h3 id=blocked-traffic-flow-before-fix>Blocked Traffic Flow (Before Fix)</h3><hr><pre tabindex=0><code>[pfSense WAN:10.0.2.15]
-    |
-    | Firewall Rules: &lt;GUI shows pass rule&gt;
-    v
-[Kernel Ruleset]
-    |
-    | Actual Rules: &lt;Stale - broken alias prevented reload&gt;
-    v
-[Default Deny Rule:1000000103]
-    |
-    | Action: Block
-    v
-[Packet Dropped - No Response to Client]
-</code></pre><hr><h2 id=verification-and-testing>Verification and Testing</h2><hr><h3 id=test-1-rule-presence-in-kernel>Test 1: Rule Presence in Kernel</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -sr | grep <span style=color:#ae81ff>1194</span>
-</span></span></code></pre></div><p><strong>Expected Output:</strong></p><pre tabindex=0><code>pass in quick on em0 inet proto udp from any to any port = 1194 flags S/SA keep state
-</code></pre><h3 id=test-2-live-traffic-monitoring>Test 2: Live Traffic Monitoring</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>tcpdump -i em0 -n port <span style=color:#ae81ff>1194</span>
-</span></span></code></pre></div><p><strong>Expected Output:</strong></p><pre tabindex=0><code>14:30:15.123456 IP 203.0.113.45.54321 &gt; 10.0.2.15.1194: UDP, length 58
-14:30:15.124567 IP 10.0.2.15.1194 &gt; 203.0.113.45.54321: UDP, length 62
-</code></pre><h3 id=test-3-openvpn-connection>Test 3: OpenVPN Connection</h3><hr><p><strong>From Mobile Client:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openvpn --config client.ovpn --verb <span style=color:#ae81ff>4</span>
-</span></span></code></pre></div><p><strong>Expected Output:</strong></p><pre tabindex=0><code>TLS: Initial packet from [AF_INET]203.0.113.45:54321
-VERIFY OK: depth=1, CN=pfSense CA
-VERIFY OK: depth=0, CN=pfSense Server
-Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384
-Initialization Sequence Completed
-</code></pre><hr><h2 id=security-considerations>Security Considerations</h2><hr><h3 id=hardening-recommendations>Hardening Recommendations</h3><hr><p><strong>1. Restrict Source IPs (If Static Public IP Available):</strong></p><pre tabindex=0><code>Firewall &gt; Rules &gt; WAN &gt; OpenVPN Rule
-Source: &lt;Your Static IP&gt;/32
-</code></pre><p><strong>2. Enable TLS Authentication:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openvpn --genkey secret ta.key
-</span></span></code></pre></div><p>Add to server and client config:</p><pre tabindex=0><code class=language-conf data-lang=conf>tls-auth ta.key 0  # Server
-tls-auth ta.key 1  # Client
-</code></pre><p><strong>3. Implement Certificate Revocation:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openssl ca -revoke client-cert.pem -config openssl.cnf
+</span></span></code></pre></div><hr><h2 id=packet-flow-analysis>Packet Flow Analysis</h2><hr><h3 id=successful-connection-flow>Successful Connection Flow</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>Mobile Client<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | UDP:1194 <span style=color:#f92672>(</span>Source: Random High Port<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Internet<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Destination: &lt;Public IP&gt;:1194
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>UniFi Dream Router<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | NAT Translation: &lt;Public IP&gt;:1194 → 10.1.10.20:1194
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Windows Host:10.1.10.20<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Windows Firewall: Allow UDP:1194
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>VirtualBox NAT<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Port Forward: Host:1194 → Guest:10.0.2.15:1194
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>pfSense WAN:10.0.2.15<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Firewall Rule: Pass UDP:1194
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>OpenVPN Server<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | TLS Handshake Success
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>VPN Tunnel Established<span style=color:#f92672>]</span>
+</span></span></code></pre></div><h3 id=blocked-traffic-flow-before-fix>Blocked Traffic Flow (Before Fix)</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#f92672>[</span>pfSense WAN:10.0.2.15<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Firewall Rules: &lt;GUI shows pass rule&gt;
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Kernel Ruleset<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Actual Rules: &lt;Stale - broken alias prevented reload&gt;
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Default Deny Rule:1000000103<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    | Action: Block
+</span></span><span style=display:flex><span>    v
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Packet Dropped - No Response to Client<span style=color:#f92672>]</span>
+</span></span></code></pre></div><hr><h2 id=verification-and-testing>Verification and Testing</h2><hr><h3 id=test-1-rule-presence-in-kernel>Test 1: Rule Presence in Kernel</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pfctl -sr | grep <span style=color:#ae81ff>1194</span>
+</span></span></code></pre></div><p><strong>Expected Output:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pass in quick on em0 inet proto udp from any to any port <span style=color:#f92672>=</span> <span style=color:#ae81ff>1194</span> flags S/SA keep state
+</span></span></code></pre></div><h3 id=test-2-live-traffic-monitoring>Test 2: Live Traffic Monitoring</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>tcpdump -i em0 -n port <span style=color:#ae81ff>1194</span>
+</span></span></code></pre></div><p><strong>Expected Output:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>14:30:15.123456 IP 203.0.113.45.54321 &gt; 10.0.2.15.1194: UDP, length <span style=color:#ae81ff>58</span>
+</span></span><span style=display:flex><span>14:30:15.124567 IP 10.0.2.15.1194 &gt; 203.0.113.45.54321: UDP, length <span style=color:#ae81ff>62</span>
+</span></span></code></pre></div><h3 id=test-3-openvpn-connection>Test 3: OpenVPN Connection</h3><hr><p><strong>From Mobile Client:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openvpn --config client.ovpn --verb <span style=color:#ae81ff>4</span>
+</span></span></code></pre></div><p><strong>Expected Output:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>TLS: Initial packet from <span style=color:#f92672>[</span>AF_INET<span style=color:#f92672>]</span>203.0.113.45:54321
+</span></span><span style=display:flex><span>VERIFY OK: depth<span style=color:#f92672>=</span>1, CN<span style=color:#f92672>=</span>pfSense CA
+</span></span><span style=display:flex><span>VERIFY OK: depth<span style=color:#f92672>=</span>0, CN<span style=color:#f92672>=</span>pfSense Server
+</span></span><span style=display:flex><span>Control Channel: TLSv1.3, cipher TLSv1.3 TLS_AES_256_GCM_SHA384
+</span></span><span style=display:flex><span>Initialization Sequence Completed
+</span></span></code></pre></div><hr><h2 id=security-considerations>Security Considerations</h2><hr><h3 id=hardening-recommendations>Hardening Recommendations</h3><hr><p><strong>1. Restrict Source IPs (If Static Public IP Available):</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Firewall &gt; Rules &gt; WAN &gt; OpenVPN Rule
+</span></span><span style=display:flex><span>Source: &lt;Your Static IP&gt;/32
+</span></span></code></pre></div><p><strong>2. Enable TLS Authentication:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openvpn --genkey secret ta.key
+</span></span></code></pre></div><p>Add to server and client config:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>tls-auth ta.key <span style=color:#ae81ff>0</span>  <span style=color:#75715e># Server</span>
+</span></span><span style=display:flex><span>tls-auth ta.key <span style=color:#ae81ff>1</span>  <span style=color:#75715e># Client</span>
+</span></span></code></pre></div><p><strong>3. Implement Certificate Revocation:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openssl ca -revoke client-cert.pem -config openssl.cnf
 </span></span><span style=display:flex><span>openssl ca -gencrl -out crl.pem -config openssl.cnf
 </span></span></code></pre></div><p><strong>4. Monitor Failed Authentication Attempts:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>grep <span style=color:#e6db74>&#34;TLS Error&#34;</span> /var/log/openvpn.log | tail -20
-</span></span></code></pre></div><hr><h2 id=lessons-learned>Lessons Learned</h2><hr><p><strong>1. GUI is Not Always Truth:</strong><br>The pfSense GUI may show correctly configured rules while the kernel operates on stale rulesets due to silent configuration errors.</p><p><strong>2. Broken Aliases Fail Silently:</strong><br>Deleted or misconfigured firewall aliases can prevent the entire ruleset from loading, with no visible error in the GUI.</p><p><strong>3. Kernel Commands are Essential:</strong><br>Direct kernel inspection using <code>pfctl -sr</code> is critical for verifying active firewall rules.</p><p><strong>4. Multi-Layer NAT Requires Methodical Debugging:</strong><br>Each layer (UDR, Windows Host, VirtualBox, pfSense) must be verified independently using packet captures and logs.</p><p><strong>5. Private Network Blocking is Often Overlooked:</strong><br>VirtualBox&rsquo;s default NAT assignment (<code>10.0.2.0/24</code>) triggers pfSense&rsquo;s private network blocking on WAN interfaces.</p><hr><h2 id=troubleshooting-decision-tree>Troubleshooting Decision Tree</h2><hr><pre tabindex=0><code>OpenVPN Connection Fails
-    |
-    +-- Check Windows Firewall
-    |       |
-    |       +-- Blocked? → Create allow rule
-    |       +-- Allowed? → Continue
-    |
-    +-- Check VirtualBox Port Forwarding
-    |       |
-    |       +-- Missing? → Add UDP 1194 forward
-    |       +-- Present? → Continue
-    |
-    +-- Check pfSense WAN Blocks
-    |       |
-    |       +-- Private networks blocked? → Disable
-    |       +-- Disabled? → Continue
-    |
-    +-- Check pfSense Firewall Rules
-    |       |
-    |       +-- GUI shows rule? → Check kernel with pfctl -sr
-    |               |
-    |               +-- Rule in kernel? → Check logs for blocks
-    |               +-- No rule in kernel? → Force reload with pfctl -f
-    |                       |
-    |                       +-- Syntax error? → Find broken alias
-    |                       +-- No error? → Check rule specificity
-    |
-    +-- Check Client Configuration
-            |
-            +-- Using local IP? → Change to DDNS/Public IP
-            +-- Using DDNS? → Verify DNS resolution
-</code></pre><hr><h2 id=conclusion>Conclusion</h2><hr><p>Successfully establishing OpenVPN connectivity through four layers of NAT required:</p><ol><li><strong>Systematic verification</strong> of each network layer</li><li><strong>Kernel-level diagnostic commands</strong> to bypass GUI limitations</li><li><strong>Root cause analysis</strong> to identify silent configuration failures</li><li><strong>Proper NAT chain configuration</strong> from internet to internal VM</li></ol><p>The discovery of the broken alias causing silent firewall rule loading failures highlights the importance of direct kernel inspection in complex networking environments.</p><p><strong>Final Traffic Path:</strong><br><code>Internet → UDR (10.1.10.20:1194) → Windows Host → VirtualBox NAT (10.0.2.15:1194) → pfSense OpenVPN Server</code></p><p><strong>Key Takeaway:</strong> When firewall rules appear correct in the GUI but don&rsquo;t work, always verify the active kernel ruleset with <code>pfctl -sr</code> and force a configuration reload with <code>pfctl -f /tmp/rules.debug</code> to expose hidden errors.</p><hr><h2 id=references>References</h2><hr><ul><li><a href=https://docs.netgate.com/pfsense/en/latest/firewall/index.html>pfSense Documentation: Firewall Rules</a></li><li><a href=https://openvpn.net/community-resources/reference-manual-for-openvpn-2-4/>OpenVPN Reference Manual</a></li><li><a href=https://www.virtualbox.org/manual/ch06.html>VirtualBox Network Settings</a></li><li><a href=https://forum.netgate.com>pfSense Forum: Silent Rule Loading Failures</a></li></ul><hr><p><strong>Author:</strong> Andrew Jones<br><strong>Date:</strong> January 04, 2026<br><strong>Lab Environment:</strong> OrionAD.lab<br><strong>Related Posts:</strong> <a href=#>PKI & X.509 Certificate Management</a>, <a href=#>UniFi Zone-Based Firewall Architecture</a></p></div></article><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+</span></span></code></pre></div><hr><h2 id=lessons-learned>Lessons Learned</h2><hr><p><strong>1. GUI is Not Always Truth:</strong><br>The pfSense GUI may show correctly configured rules while the kernel operates on stale rulesets due to silent configuration errors.</p><p><strong>2. Broken Aliases Fail Silently:</strong><br>Deleted or misconfigured firewall aliases can prevent the entire ruleset from loading, with no visible error in the GUI.</p><p><strong>3. Kernel Commands are Essential:</strong><br>Direct kernel inspection using <code>pfctl -sr</code> is critical for verifying active firewall rules.</p><p><strong>4. Multi-Layer NAT Requires Methodical Debugging:</strong><br>Each layer (UDR, Windows Host, VirtualBox, pfSense) must be verified independently using packet captures and logs.</p><p><strong>5. Private Network Blocking is Often Overlooked:</strong><br>VirtualBox&rsquo;s default NAT assignment (<code>10.0.2.0/24</code>) triggers pfSense&rsquo;s private network blocking on WAN interfaces.</p><hr><h2 id=troubleshooting-decision-tree>Troubleshooting Decision Tree</h2><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>OpenVPN Connection Fails
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    +-- Check Windows Firewall
+</span></span><span style=display:flex><span>    |       |
+</span></span><span style=display:flex><span>    |       +-- Blocked? → Create allow rule
+</span></span><span style=display:flex><span>    |       +-- Allowed? → Continue
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    +-- Check VirtualBox Port Forwarding
+</span></span><span style=display:flex><span>    |       |
+</span></span><span style=display:flex><span>    |       +-- Missing? → Add UDP <span style=color:#ae81ff>1194</span> forward
+</span></span><span style=display:flex><span>    |       +-- Present? → Continue
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    +-- Check pfSense WAN Blocks
+</span></span><span style=display:flex><span>    |       |
+</span></span><span style=display:flex><span>    |       +-- Private networks blocked? → Disable
+</span></span><span style=display:flex><span>    |       +-- Disabled? → Continue
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    +-- Check pfSense Firewall Rules
+</span></span><span style=display:flex><span>    |       |
+</span></span><span style=display:flex><span>    |       +-- GUI shows rule? → Check kernel with pfctl -sr
+</span></span><span style=display:flex><span>    |               |
+</span></span><span style=display:flex><span>    |               +-- Rule in kernel? → Check logs <span style=color:#66d9ef>for</span> blocks
+</span></span><span style=display:flex><span>    |               +-- No rule in kernel? → Force reload with pfctl -f
+</span></span><span style=display:flex><span>    |                       |
+</span></span><span style=display:flex><span>    |                       +-- Syntax error? → Find broken alias
+</span></span><span style=display:flex><span>    |                       +-- No error? → Check rule specificity
+</span></span><span style=display:flex><span>    |
+</span></span><span style=display:flex><span>    +-- Check Client Configuration
+</span></span><span style=display:flex><span>            |
+</span></span><span style=display:flex><span>            +-- Using local IP? → Change to DDNS/Public IP
+</span></span><span style=display:flex><span>            +-- Using DDNS? → Verify DNS resolution
+</span></span></code></pre></div><hr><h2 id=conclusion>Conclusion</h2><hr><p>Successfully establishing OpenVPN connectivity through four layers of NAT required:</p><ol><li><strong>Systematic verification</strong> of each network layer</li><li><strong>Kernel-level diagnostic commands</strong> to bypass GUI limitations</li><li><strong>Root cause analysis</strong> to identify silent configuration failures</li><li><strong>Proper NAT chain configuration</strong> from internet to internal VM</li></ol><p>The discovery of the broken alias causing silent firewall rule loading failures highlights the importance of direct kernel inspection in complex networking environments.</p><p><strong>Final Traffic Path:</strong><br><code>Internet → UDR (10.1.10.20:1194) → Windows Host → VirtualBox NAT (10.0.2.15:1194) → pfSense OpenVPN Server</code></p><p><strong>Key Takeaway:</strong> When firewall rules appear correct in the GUI but don&rsquo;t work, always verify the active kernel ruleset with <code>pfctl -sr</code> and force a configuration reload with <code>pfctl -f /tmp/rules.debug</code> to expose hidden errors.</p><hr><h2 id=references>References</h2><hr><ul><li><a href=https://docs.netgate.com/pfsense/en/latest/firewall/index.html>pfSense Documentation: Firewall Rules</a></li><li><a href=https://openvpn.net/community-resources/reference-manual-for-openvpn-2-4/>OpenVPN Reference Manual</a></li><li><a href=https://www.virtualbox.org/manual/ch06.html>VirtualBox Network Settings</a></li><li><a href=https://forum.netgate.com>pfSense Forum: Silent Rule Loading Failures</a></li></ul><hr><p><strong>Author:</strong> Andrew Jones<br><strong>Date:</strong> January 04, 2026<br><strong>Lab Environment:</strong> OrionAD.lab<br><strong>Related Posts:</strong> <a href=#>PKI & X.509 Certificate Management</a>, <a href=#>UniFi Zone-Based Firewall Architecture</a></p></div></article><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
 Back to Posts</a></div></span><section class=author-section><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Andrew Jones avatar" src=/images/posts/Andrew.png class=avatar height=90 width=90></figure><div class=authorbox__content><h3 class=authorbox__name>Andrew Jones</h3><p class=authorbox__bio>IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p></div></div></section><style>article{overflow-x:auto;-webkit-overflow-scrolling:touch}article table{width:100%;min-width:500px;border-collapse:collapse;margin:1.5rem 0;font-size:.875rem;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:4px;display:table;table-layout:auto}article table thead{background-color:rgba(255,255,255,8%)}article table th{padding:.625rem .75rem;text-align:left;font-weight:600;border-bottom:2px solid rgba(255,255,255,.2);white-space:nowrap;font-size:.8125rem}article table td{padding:.625rem .75rem;border-bottom:1px solid rgba(255,255,255,.1);vertical-align:top}article table tbody tr:hover{background-color:rgba(255,255,255,3%)}article table tbody tr:last-child td{border-bottom:none}@media(min-width:640px){article table{font-size:.9375rem;min-width:600px}article table th{padding:.75rem 1rem;font-size:.9375rem}article table td{padding:.75rem 1rem}}@media(min-width:1024px){article{overflow-x:visible}article table{font-size:1rem;min-width:auto;max-width:100%}article table th{padding:.875rem 1.25rem;font-size:1rem}article table td{padding:.875rem 1.25rem}article table tbody tr:hover{background-color:rgba(255,255,255,5%);transition:background-color .2s ease}}@media(min-width:1280px){article table th,article table td{padding:1rem 1.5rem}}@media(prefers-color-scheme:dark){article table{background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.12)}article table thead{background-color:rgba(255,255,255,.1)}article table th{border-bottom-color:rgba(255,255,255,.25)}article table td{border-bottom-color:rgba(255,255,255,.12)}article table tbody tr:hover{background-color:rgba(255,255,255,6%)}}article table td.numeric,article table th.numeric{text-align:right;font-variant-numeric:tabular-nums}article table td.narrow,article table th.narrow{width:1%;white-space:nowrap}article table td.wide,article table th.wide{min-width:200px}article table code{font-size:.875em;padding:.125rem .375rem;background:rgba(255,255,255,.1);border-radius:3px}pre,pre[style],code,.highlight pre{background-color:#000!important;background:#000!important}code[class*=language-]{background-color:#000!important}.highlight,div[class*=highlight]{background-color:#000!important}pre[style*=background-color]{background-color:#000!important}.toc{background:0 0;border-left:3px solid red;border-top:none;border-right:none;border-bottom:none;padding:1.5rem;border-radius:8px;margin:2rem 0;width:fit-content;color:#000}.toc h2{margin-top:0;font-size:1.1rem}.toc nav>ol,.toc nav>ul{padding-left:1.2rem;margin:0}.toc ol,.toc ul{line-height:1.8}.toc li{margin:.4rem 0;color:#000}.toc a{text-decoration:none;transition:color .2s}.toc a:hover{color:red}@media(max-width:1024px){.content-wrapper{grid-template-columns:1fr}}.post-nav-right{display:flex;justify-content:flex-end;margin-bottom:2rem}.read-more{display:inline-flex;align-items:center;gap:.5rem;color:#000;text-decoration:none;font-weight:500;transition:all .2s ease;border-bottom:2px dotted transparent}.read-more:hover{color:red;border-bottom:2px dotted #c53030}.read-more svg{transition:transform .2s ease}.read-more:hover svg{transform:translateX(-7px)}.reading-time{color:#000;font-size:.9rem;white-space:nowrap}.professional-post{max-width:800px;margin:0 auto;padding:2rem 1rem}.professional-header{margin-bottom:2rem;border-bottom:1px solid red;padding-bottom:1.5rem}.post-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}.post-date{color:#000;font-size:.9rem;font-weight:500}.reading-time{color:#000;font-size:.9rem;font-weight:500}.post-category{background:#f3f4f6;color:#000;padding:.25rem .75rem;border-radius:0;font-size:.8rem;font-weight:500}.post-title{font-size:2.5rem;color:#000;margin:0 0 1rem;font-weight:300;line-height:1.2}.post-description{font-size:1.2rem;color:#000;margin-bottom:1.5rem;line-height:1.6}.author-info{display:flex;align-items:center;gap:.5rem}.author{color:#000;font-size:.9rem}.post-content{line-height:1.7;color:#000;font-size:1.1rem}.post-content h2{color:#000;font-weight:400;margin:2rem 0 1rem;font-size:1.8rem}.post-content h3{color:#000;font-weight:500;margin:1.5rem 0 .75rem;font-size:1.4rem}.post-content p{margin-bottom:1.5rem}.post-content ul,.post-content ol{margin-bottom:1.5rem;padding-left:1.5rem}.post-content li{margin-bottom:.5rem}@media(max-width:768px){.professional-post{padding:1rem .5rem}.post-title{font-size:2rem}.post-meta{gap:.75rem}}</style></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2026 Andy J Blog - Trials of an IT Engineer.
 <span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script><script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".highlight").forEach(function(e){if(e.querySelector(".copy-code-btn"))return;const t=document.createElement("button");t.className="copy-code-btn",t.innerHTML="📋 Copy",t.title="Copy code to clipboard",t.style.cssText=`
             position: absolute;

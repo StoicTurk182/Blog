@@ -94,7 +94,7 @@ This command confirms whether the private network blocking rules are present in 
 Despite correct firewall rules in the GUI, traffic continued hitting the Default Deny rule.
 
 **Firewall Log Evidence:**
-```
+```bash
 Jan 04 14:15:23 pfsense filterlog: 5,,,1000000103,em0,match,block,in,4,0x0,,64,0,0,DF,17,udp,78,203.0.113.45,10.0.2.15,54321,1194,58
 ```
 
@@ -119,7 +119,7 @@ easyrule pass wan udp any any 1194
 pfctl -f /tmp/rules.debug
 ```
 **Result:** 
-```
+```bash
 /tmp/rules.debug:XX: syntax error: macro 'TAILSCALE__NETWORK' not defined
 ```
 
@@ -165,17 +165,17 @@ pfctl -sr | grep 1194
 **Critical Change:** Replace local IP with DDNS hostname for internet accessibility.
 
 **Before:**
-```conf
+```bash
 remote 10.1.10.20 1194
 ```
 
 **After:**
-```conf
+```bash
 remote my-lab.ddns.net 1194
 ```
 
 **Additional Client Settings:**
-```conf
+```bash
 client
 dev tun
 proto udp
@@ -258,7 +258,7 @@ pfctl -f /tmp/rules.debug 2>&1 | grep "macro.*not defined"
 
 ### Successful Connection Flow
 ---
-```
+```bash
 [Mobile Client]
     |
     | UDP:1194 (Source: Random High Port)
@@ -292,7 +292,7 @@ pfctl -f /tmp/rules.debug 2>&1 | grep "macro.*not defined"
 
 ### Blocked Traffic Flow (Before Fix)
 ---
-```
+```bash
 [pfSense WAN:10.0.2.15]
     |
     | Firewall Rules: <GUI shows pass rule>
@@ -320,7 +320,7 @@ pfctl -sr | grep 1194
 ```
 
 **Expected Output:**
-```
+```bash
 pass in quick on em0 inet proto udp from any to any port = 1194 flags S/SA keep state
 ```
 
@@ -331,7 +331,7 @@ tcpdump -i em0 -n port 1194
 ```
 
 **Expected Output:**
-```
+```bash
 14:30:15.123456 IP 203.0.113.45.54321 > 10.0.2.15.1194: UDP, length 58
 14:30:15.124567 IP 10.0.2.15.1194 > 203.0.113.45.54321: UDP, length 62
 ```
@@ -345,7 +345,7 @@ openvpn --config client.ovpn --verb 4
 ```
 
 **Expected Output:**
-```
+```bash
 TLS: Initial packet from [AF_INET]203.0.113.45:54321
 VERIFY OK: depth=1, CN=pfSense CA
 VERIFY OK: depth=0, CN=pfSense Server
@@ -362,7 +362,7 @@ Initialization Sequence Completed
 ---
 
 **1. Restrict Source IPs (If Static Public IP Available):**
-```
+```bash
 Firewall > Rules > WAN > OpenVPN Rule
 Source: <Your Static IP>/32
 ```
@@ -373,7 +373,7 @@ openvpn --genkey secret ta.key
 ```
 
 Add to server and client config:
-```conf
+```bash
 tls-auth ta.key 0  # Server
 tls-auth ta.key 1  # Client
 ```
@@ -413,7 +413,7 @@ VirtualBox's default NAT assignment (`10.0.2.0/24`) triggers pfSense's private n
 
 ## Troubleshooting Decision Tree
 ---
-```
+```bash
 OpenVPN Connection Fails
     |
     +-- Check Windows Firewall
