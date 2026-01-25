@@ -2,7 +2,7 @@
 title: "ASCII Art Generator - Bitmap-Based Image to Character Conversion"
 date: 2026-01-25
 draft: false
-description: "A Python script that converts images into colored ASCII art using CLAHE contrast enhancement and L1 distance bitmap matching for optimal character selection."
+description: "A Python script that converts images into coloured ASCII art using CLAHE contrast enhancement and L1 distance bitmap matching for optimal character selection."
 categories: ["Scripts", "Python"]
 tags: ["python"]
 featuredImage: "/images/saraf.png"
