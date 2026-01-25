@@ -3,7 +3,7 @@ title: "QtScrcpy: Professional Android Screen Mirroring and Remote Control"
 date: 2025-11-27
 draft: false
 description: " Introduction to QtScrcpy - free, open-source Android screen mirroring with sub-30ms latency, custom key mapping."
-categories: ["Android", "Mobile", "Open Source", "Remote Access"]
+categories: ["Networking", "Tools"]
 tags: ["qtscrcpy", "android-mirroring", "scrcpy", "remote-control", "adb", "mobile-gaming", "device-management", "open-source", "cross-platform", "screen-recording"]
 featuredImage: "/images/posts/QT.png"
 readingTime: true

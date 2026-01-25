@@ -3,7 +3,7 @@ title: "Solving Cloudflare DDNS in Double NAT Environments"
 date: 2025-12-28
 draft: false
 description: "How to configure Cloudflare Dynamic DNS when your gateway is behind double NAT and can't detect your real public IP. A PowerShell-based solution for Windows workstations."
-categories: ["Networking", "Home Lab", "Infrastructure"]
+categories: ["Infrastructure", "Networking"]
 tags: ["cloudflare", "ddns", "dynamic-dns", "double-nat", "openvpn", "unifi", "powershell", "windows", "api", "remote-access"]
 featuredImage: "/images/cloudflare-ddns-double-nat.svg"
 readingTime: true

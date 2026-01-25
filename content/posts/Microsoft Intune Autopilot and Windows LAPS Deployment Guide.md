@@ -3,7 +3,7 @@ title: "Microsoft Intune Autopilot and Windows LAPS Deployment Guide"
 date: 2026-01-17
 draft: false
 description: "Complete guide for configuring Windows Autopilot with custom local administrator naming and Windows LAPS password management. Includes BitLocker key escrow, White Glove pre-provisioning, and troubleshooting for policy conflicts."
-categories: ["Microsoft 365", "Intune", "Infrastructure"]
+categories: ["Infrastructure", "Microsoft"]
 tags: ["autopilot"]
 featuredImage: ""
 readingTime: true

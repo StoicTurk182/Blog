@@ -3,7 +3,7 @@ title: "Joining the War for Team Blue"
 date: 2025-11-16
 draft: false
 description: "A real-world analysis of attack attempts on a small VPS infrastructure running nginx and basic services"
-categories: ["Security", "Monitoring", "DevOps"]
+categories: ["Linux", "Security"]
 tags: ["crowdsec", "wazuh", "nginx", "cybersecurity", "vps", "monitoring", "threat-detection"]
 featuredImage: "/images/posts/cyber.jpeg"
 readingTime: true

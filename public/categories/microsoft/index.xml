@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Andy J Blog - Trials of an IT Engineer</title><link>http://localhost:1313/</link><description>Personal Projects</description><generator>Hugo</generator><language>en-us</language><copyright>© 2025 Andrew Jones. All rights reserved.</copyright><lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/microsoft/" rel="self" type="application/rss+xml"/><item><title>Windows 11 Pro Installation - Bypassing BIOS Embedded Home Key</title><link>http://localhost:1313/posts/windows-home-autopilot-bypass-guide/</link><pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/windows-home-autopilot-bypass-guide/</guid><description>&lt;p&gt;Guide for installing Windows 11 Pro on devices with OEM Home edition keys embedded in BIOS/UEFI firmware.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Andy J Blog - Trials of an IT Engineer</title><link>http://localhost:1313/</link><description>Personal Projects</description><generator>Hugo</generator><language>en-us</language><copyright>© 2025 Andrew Jones. All rights reserved.</copyright><lastBuildDate>Tue, 20 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/microsoft/" rel="self" type="application/rss+xml"/><item><title>Windows 11 Pro Installation - Bypassing BIOS Embedded Home Key</title><link>http://localhost:1313/posts/windows-home-autopilot-bypass-guide/</link><pubDate>Tue, 20 Jan 2026 00:00:00 +0000</pubDate><guid>http://localhost:1313/posts/windows-home-autopilot-bypass-guide/</guid><description>&lt;p&gt;Guide for installing Windows 11 Pro on devices with OEM Home edition keys embedded in BIOS/UEFI firmware.&lt;/p&gt;
 &lt;h2 id="problem-overview"&gt;Problem Overview&lt;/h2&gt;
 &lt;p&gt;Many OEM devices (Dell, HP, Lenovo, etc.) have Windows Home product keys embedded in the BIOS MSDM table. During Windows Setup, this key is detected automatically and forces Home edition installation, bypassing edition selection entirely.&lt;/p&gt;
 &lt;p&gt;This causes issues for:&lt;/p&gt;
@@ -94,18 +94,7 @@ Link to David’s Lab guide - &lt;a href="https://blog.davidvarghese.net/posts/b
 &lt;hr&gt;
 &lt;h3 id="agent-operation-modes"&gt;Agent Operation Modes&lt;/h3&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;1. Standalone Mode&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>NEWS</title><link>http://localhost:1313/tech-newsletter/weekly-update-1/</link><pubDate>Tue, 04 Nov 2025 19:29:41 +0000</pubDate><guid>http://localhost:1313/tech-newsletter/weekly-update-1/</guid><description>&lt;h2 id="micron-leaves-the-consumer-market"&gt;Micron Leaves The Consumer Market&lt;/h2&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;NEWS UPDATE 22:10 06 December 2025&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img src="http://localhost:1313/images/posts/micron.webp" alt="alt text"&gt;
-&amp;ldquo;Photo by Jakub Porzycki/NurPhoto via Getty Images)&amp;rdquo;&lt;/p&gt;
-&lt;h3 id="details"&gt;Details&lt;/h3&gt;
-&lt;hr&gt;
-&lt;p&gt;Micron the long standing memory design and manufacturing company has release details that they intend to leave the consumer market -&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&amp;ldquo;Memory chipmaker Micron Technology (MU.O), opens new tab said on Wednesday it will exit its consumer business, as it doubles down on advanced memory chips used in artificial intelligence data centers amid a global supply shortage of the essential semiconductors.&amp;rdquo; source: &lt;a href="https://www.reuters.com/business/micron-exit-crucial-consumer-memory-business-2025-12-03/"&gt;https://www.reuters.com/business/micron-exit-crucial-consumer-memory-business-2025-12-03/&lt;/a&gt;&lt;/p&gt;</description></item><item><title>My Role at GMA: A Professional Journey on the Helpdesk</title><link>http://localhost:1313/posts/my-professional-journey/</link><pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate><guid>http://localhost:1313/posts/my-professional-journey/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;1. Standalone Mode&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>My Role at GMA: A Professional Journey on the Helpdesk</title><link>http://localhost:1313/posts/my-professional-journey/</link><pubDate>Thu, 30 Oct 2025 14:53:39 +0000</pubDate><guid>http://localhost:1313/posts/my-professional-journey/</guid><description>&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
 &lt;hr&gt;
 &lt;p&gt;My journey at GMA Began one year ago when I joined the team as a Helpdesk technician. Little did I know that this role would become one of the most transformative experiences of my professional career, shaping my skills, perspectives, and approach in IT.&lt;/p&gt;
 &lt;h2 id="the-company-and-my-role"&gt;The Company and My Role&lt;/h2&gt;

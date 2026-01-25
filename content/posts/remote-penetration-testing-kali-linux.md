@@ -3,7 +3,7 @@ title: "Basic Penetration Testing Kali Linux"
 date: 2025-11-08
 draft: false
 description: "A very basic automation for testing VPS security externally"
-categories: ["Security", "Penetration Testing"]
+categories: ["Security"]
 tags: ["kali-linux", "pentesting", "cybersecurity", "automation", "bash"]
 featuredImage: "/images/posts/kali-linux-os-red-5s4vyt83m0scbaq7.webp"
 readingTime: true

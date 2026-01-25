@@ -3,7 +3,7 @@ title: "The DRAM Paradox: How Three Companies Control 95% of Memory and What Tha
 date: 2025-11-21
 draft: false
 description: "An investigation into the DRAM industry's remarkable transformation from 2022's losses to 2025's record profits. When three companies control 95% of a market, where does rational business strategy end and market manipulation begin?"
-categories: ["Hardware", "Technology", "Business", "Investigation"]
+categories: ["Hardware"]
 tags: ["dram", "memory", "oligopoly", "market-analysis", "samsung", "sk-hynix", "micron", "game-theory", "economics"]
 featuredImage: "/images/posts/the-history-and-future-of-dram.webp"
 readingTime: true

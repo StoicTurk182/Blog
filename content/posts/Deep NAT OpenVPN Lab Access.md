@@ -3,7 +3,7 @@ title: "Deep NAT OpenVPN Lab Access: Troubleshooting Silent Firewall Failures"
 date: 2026-01-04
 draft: false
 description: "A comprehensive guide to diagnosing and resolving OpenVPN connectivity through multiple NAT layers, including the discovery of a critical silent firewall rule loading failure in pfSense caused by broken aliases."
-categories: ["Networking", "Home Lab", "Infrastructure", "Security"]
+categories: ["Infrastructure", "Networking", "Security"]
 tags: ["openvpn", "pfsense", "virtualbox", "nat", "networking", "troubleshooting", "firewall", "vpn", "remote-access", "homelab", "packet-analysis", "kernel-debugging"]
 featuredImage: "/images/posts/pfsense-openvpn-multi-nat.svg"
 readingTime: true

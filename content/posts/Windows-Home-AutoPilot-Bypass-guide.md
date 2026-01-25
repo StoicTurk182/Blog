@@ -3,7 +3,7 @@ title: "Windows 11 Pro Installation - Bypassing BIOS Embedded Home Key"
 date: 2026-01-20
 draft: false
 description: "Guide for installing Windows 11 Pro on devices with OEM Home edition keys embedded in BIOS/UEFI firmware. Includes ISO modification with ei.cfg and pid.txt, post-install upgrade method, and regional configuration for Autopilot deployments."
-categories: ["Microsoft 365", "Intune", "Infrastructure"]
+categories: ["Infrastructure", "Microsoft"]
 tags: ["autopilot", "windows-11", "deployment"]
 featuredImage: ""
 readingTime: true

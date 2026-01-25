@@ -3,7 +3,7 @@ title: "Microsoft Intune Application Deployment: The Complete Enterprise Guide"
 date: 2025-11-27
 draft: false
 description: "Comprehensive guide to Microsoft Intune application deployment covering setup, configuration, best practices, and troubleshooting. Enterprise-focused with complete Microsoft documentation references."
-categories: ["Microsoft", "Intune", "Enterprise", "MDM"]
+categories: ["Microsoft"]
 tags: ["intune", "microsoft-365", "application-deployment", "mdm", "endpoint-management", "windows", "azure-ad", "enterprise-it"]
 featuredImage: "/images/posts/intune.png"
 readingTime: true

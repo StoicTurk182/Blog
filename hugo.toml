@@ -59,19 +59,9 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   weight = 2
 
 [[menu.main]]
-  name = "Tech News"
-  url = "/tech-newsletter/weekly-update-1/"
-  weight = 10
-
-[[menu.main]]
   name = "Tools"
   url = "/tools/"
   weight = 20
-
-[[menu.main]]
-  name = "Videos"  # ← ADD THIS LINE
-  url = "/videos/" # ← ADD THIS LINE  
-  weight = 30      # ← ADD THIS LINE
 
 [[menu.main]]
   name = "Contact"  # ← ADD THIS LINE

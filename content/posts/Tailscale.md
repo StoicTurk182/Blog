@@ -3,7 +3,7 @@ title: "Tailscale: The Zero-Trust Network That Changed How I Manage Infrastructu
 date: 2025-11-23
 draft: false
 description: "A comprehensive deep-dive into Tailscale's mesh networking technology, from WireGuard foundations to practical SSH and SMB configurations. Why this zero-trust VPN has become essential infrastructure for modern system administration."
-categories: ["Networking", "Security", "Infrastructure", "Technology"]
+categories: ["Hardware", "Infrastructure", "Networking", "Security"]
 tags: ["tailscale", "vpn", "wireguard", "zero-trust", "networking", "ssh", "smb", "remote-access", "mesh-network", "security"]
 featuredImage: "/images/posts/enter-tailscale.png"
 readingTime: true
