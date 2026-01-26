@@ -1,0 +1,8 @@
+[
+{{- $first := true -}}
+{{- range site.RegularPages -}}
+{{- if not $first }},{{ end -}}
+{{- $first = false -}}
+{{ dict "title" .Title "permalink" .Permalink "summary" .Summary "content" .Plain | jsonify }}
+{{- end -}}
+]

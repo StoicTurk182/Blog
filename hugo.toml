@@ -5,6 +5,9 @@ languageCode = 'en-us'
 author = "Andrew Jones"
 copyright = "© 2025 Andrew Jones. All rights reserved."
 
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [params]
   description = "Personal Projects"
   readmore = true
@@ -17,6 +20,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   author = "Andrew Jones"
   authorbio = "IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible."
   authoravatar = "/images/posts/Andrew.png"
+  customCSS = ["css/custom.css"]
 
   [params.logo]
     title = "Projects 2025"
@@ -30,7 +34,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     home = true
     single = false
     list = false
-    widgets = ["recent", "categories"]
+    widgets = ["Search","recent", "categories"]
 
   [params.social]
     youtube = "https://www.youtube.com/@saraf01"

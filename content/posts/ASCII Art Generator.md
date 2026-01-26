@@ -11,6 +11,7 @@ toc: true
 author: "Andrew Jones"
 authorBio: "L2 IT Support Engineer specializing in system administration and network infrastructure"
 socialShare: true
+codemirror: true
 ---
 
 # ASCII Art Generator - Image to Character Bitmap Conversion

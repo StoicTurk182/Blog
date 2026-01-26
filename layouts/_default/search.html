@@ -1,0 +1,183 @@
+{{ define "main" }}
+<article class="content search-page">
+    <header class="content__header">
+        <h1 class="content__title">Search</h1>
+    </header>
+    <div class="content__body">
+        <div class="search-container">
+            <div class="input-wrapper">
+                <input type="text" id="search-input" placeholder="What are you looking for?" autofocus>
+                <div id="search-status" class="search-hint">Enter at least 2 characters</div>
+            </div>
+        </div>
+        <div id="search-results"></div>
+    </div>
+</article>
+
+<style>
+/* Modern Variable Overrides (Optional but recommended) */
+:root {
+    --accent-color: #e22d30;
+    --soft-gray: #f8f9fa;
+    --text-muted: #6c757d;
+}
+
+.search-container {
+    margin: 3rem 0;
+}
+
+.input-wrapper {
+    position: relative;
+    max-width: 800px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--border-primary, #eee);
+    border-radius: 0px; /* Softer corners */
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-hint {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* Results Layout */
+#search-results {
+    margin-top: 2rem;
+    max-width: 800px;
+}
+
+.results-count {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-primary, #eee);
+}
+
+.search-result {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-primary, #f5f5f5);
+}
+
+.search-result:last-child {
+    border-bottom: none;
+}
+
+.search-result h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.search-result h3 a {
+    color: var(--text-primary); /* Darker text for title is cleaner */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.search-result h3 a:hover {
+    color: var(--accent-color);
+}
+
+.search-result p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.no-results {
+    padding: 2rem;
+    text-align: center;
+    background: var(--soft-gray);
+    border-radius: 0px;
+    color: var(--text-muted);
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+// ( existing JS logic is solid, just a small tweak to the result template)
+(function() {
+    let fuse = null;
+    
+    fetch('/index.json')
+        .then(response => response.json())
+        .then(data => {
+            fuse = new Fuse(data, {
+                keys: ['title', 'content', 'summary'],
+                threshold: 0.3,
+                ignoreLocation: true // Improves search quality for clean results
+            });
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query) {
+                document.getElementById('search-input').value = query;
+                performSearch(query);
+            }
+        });
+    
+    document.getElementById('search-input').addEventListener('input', function(e) {
+        performSearch(e.target.value);
+    });
+    
+    function performSearch(query) {
+        const resultsDiv = document.getElementById('search-results');
+        const hint = document.getElementById('search-status');
+        
+        if (!query || query.length < 2) {
+            resultsDiv.innerHTML = '';
+            hint.style.opacity = "1";
+            return;
+        }
+        
+        if (!fuse) return;
+        
+        const results = fuse.search(query);
+        hint.style.opacity = "0"; // Hide hint when results appear
+        
+        if (results.length === 0) {
+            resultsDiv.innerHTML = '<div class="no-results">No matches found for "' + query + '"</div>';
+            return;
+        }
+        
+        let html = '<div class="results-count">' + results.length + ' Result' + (results.length !== 1 ? 's' : '') + '</div>';
+        
+        results.slice(0, 15).forEach(result => {
+            const item = result.item;
+            let summary = item.summary || item.content || '';
+            if (summary.length > 160) {
+                summary = summary.substring(0, 160) + '...';
+            }
+            html += `
+                <div class="search-result">
+                    <h3><a href="${item.permalink}">${item.title}</a></h3>
+                    <p>${summary}</p>
+                </div>`;
+        });
+        
+        resultsDiv.innerHTML = html;
+    }
+})();
+</script>
+{{ end }}

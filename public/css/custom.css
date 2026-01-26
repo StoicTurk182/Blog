@@ -1,0 +1,75 @@
+/* Search Widget - Clean Square Style */
+.widget-search__field {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.widget-search__field:hover,
+.widget-search__field:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.widget-search__field::selection {
+    background: #000;
+    color: #fff;
+}
+
+/* Remove browser search input styling */
+.widget-search__field::-webkit-search-decoration,
+.widget-search__field::-webkit-search-cancel-button,
+.widget-search__field::-webkit-search-results-button,
+.widget-search__field::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
+.widget-search__submit {
+    display: none;
+}
+
+/* Menu Search Box - Force Override */
+.menu__item--search {
+    border-left: 1px solid rgba(255, 255, 255, .1) !important;
+}
+
+.menu__search input,
+.menu__search input[type="text"],
+.menu .menu__search input {
+    display: block !important;
+    padding: .625rem .9375rem !important;
+    font-weight: 700 !important;
+    font-size: .875rem !important;
+    text-transform: uppercase !important;
+    color: #fff !important;
+    background: transparent !important;
+    border: none !important;
+    width: 120px !important;
+    transition: background-color .25s ease-out !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
+.menu__search input::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+}
+
+.menu__search input:hover {
+    background: #e22d30 !important;
+}
+
+.menu__search input:focus {
+    outline: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    width: 160px !important;
+}

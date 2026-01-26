@@ -231,7 +231,9 @@ function preloadImages() {
 
 window.addEventListener('load', preloadImages);
 </script>
-
+{{ if .Params.codemirror }}
+    {{ partial "codemirror.html" . }}
+{{ end }}
 </body>
 </html>
 
