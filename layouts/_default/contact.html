@@ -1,58 +1,60 @@
 {{ define "main" }}
 <article class="contact-page">
-    <!-- Header Section -->
     <header class="contact-header">
         <h1 class="contact-title">{{ .Title }}</h1>
-        <p class="contact-subtitle">Get in touch - I'd love to hear from you</p>
+        <p class="contact-subtitle">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
     </header>
 
-    <!-- Main Contact Content -->
     <div class="contact-content">
         <div class="contact-grid">
-            <!-- Contact Information -->
             <div class="contact-info">
-                <h2> Email & Phone</h2>
-                <div class="contact-details">
-                    <p><strong>Email:</strong> <a href="mailto:Stoicturk182@protonmail.com">Stoicturk182@protonmail.com</a></p>
-                    <p><strong>Phone:</strong> <a href="tel:+447990338386">(44) 07990338386</a></p>
-                    <p><strong>Location:</strong> London, UK</p>
-                </div>
+                <section class="info-section">
+                    <h2>Email & Phone</h2>
+                    <div class="contact-details">
+    <p><strong>Email:</strong> Stoicturk182@protonmail.com</p>
+    <p><strong>Phone:</strong> +44 (0) 7990 338386</p>
+    <p><strong>Location:</strong> London, UK</p>
+</div>
+                </section>
 
-                <h2> Social Media</h2>
-                <div class="social-links">
-                    <p><strong>GitHub:</strong> <a href="https://github.com/StoicTurk182" target="_blank">StoicTurk182</a></p>
-                    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/andrew-john-j-780177300" target="_blank">Andrew Jones</a></p>
-                </div>
+                <section class="info-section">
+                    <h2>Social Media</h2>
+                    <div class="social-links">
+                        <p><strong>GitHub:</strong> <a href="https://github.com/StoicTurk182" target="_blank">StoicTurk182</a></p>
+                        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/andrew-john-j-780177300" target="_blank">Andrew Jones</a></p>
+                    </div>
+                </section>
             </div>
 
-            <!-- Contact Form -->
-            <div class="contact-form">
-                <h2> Send Me a Message</h2>
+            <div class="contact-form-container">
+                <h2>Send a Message</h2>
                 <form action="https://formspree.io/f/xovppvjo" method="POST" class="form">
                     <div class="form-group">
-                        <label for="name">Your Name:</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">Your Email:</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="How can I help you?" required></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    <button type="submit" class="submit-btn">
+                        <span>Send Message</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.493-7.493Z"/></svg>
+                    </button>
                 </form>
             </div>
         </div>
 
-        <!-- Comments Section -->
         {{ if .Site.Params.comments.utterances }}
         <div class="comments-section">
-            <h3>💬 Comments & Questions</h3>
+            <h3 class="section-title">Comments & Questions</h3>
             <script src="https://utteranc.es/client.js"
                     repo="{{ .Site.Params.comments.utterancesRepo }}"
                     issue-term="{{ .Site.Params.comments.utterancesIssueTerm }}"
@@ -66,86 +68,82 @@
 </article>
 
 <style>
-
-    
 .contact-page {
     max-width: 1000px;
     margin: 2rem auto;
-    padding: 0 1rem;
-    background: #ffffff;
-    padding: 2rem;
-    border-radius: 0px;
-
+    padding: 2rem 1rem;
 }
 
+/* Header - Unified with Tools/Search */
 .contact-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #ff0000;
-    
+    margin-bottom: 3.5rem;
 }
 
 .contact-title {
     font-size: 2.5rem;
-    color: var(--text-primary);
-    margin: 1rem 0;
     font-weight: 700;
+    margin: 0 0 0.5rem 0;
 }
 
 .contact-subtitle {
-    font-size: 1.2rem;
-     color: #000000;
-    margin-top: 0.5rem;
-    font-style: italic;
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    line-height: 1.5;
 }
 
+/* Grid Layout */
 .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-   
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+/* Typography & Links */
+.info-section {
+    margin-bottom: 2.5rem;
 }
 
 .contact-info h2,
-.contact-form h2 {
-    color: var(--text-primary);
-    border-bottom: 1px dotted #e53e3e; /* changed from solid to dotted */
+.contact-form-container h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    border-bottom: 1px solid #eee;
     padding-bottom: 0.75rem;
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
 }
 
 .contact-details p,
 .social-links p {
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     font-size: 1.05rem;
-    color: var(--text-primary);
 }
 
 .contact-details strong,
 .social-links strong {
+    display: inline-block;
+    width: 80px;
     color: var(--text-primary);
     font-weight: 600;
 }
 
 .contact-details a,
 .social-links a {
-    color: var(--accent-primary);
+    color: #e53e3e;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
 }
 
 .contact-details a:hover,
 .social-links a:hover {
-    color: var(--accent-hover);
-    text-decoration: underline;
+    border-bottom: 1px dotted #e53e3e;
 }
 
-/* Form Styles */
+/* Unified Form Styling */
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -154,82 +152,120 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--text-primary);
+    font-size: 0.9rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: none;
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--border-primary, #eee);
     border-radius: 0px;
     font-size: 1rem;
-    background: var(--bg-secondary);
+    background: var(--bg-secondary, #fafafa);
     color: var(--text-primary);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-.form-group input:hover,
-.form-group textarea:hover,
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    border-color: #e53e3e;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.05);
 }
 
-
-
-
-.submit-btn{
+/* Unified Button - Matches Search & Tool hover states */
+.submit-btn {
+    /* Base styles from .btn-secondary */
     background: transparent;
-    color: #374151;
-    padding: 0.75rem 1.5rem;
+    color: #000000;
+    padding: 0.6rem 1.25rem;
     text-decoration: none;
     border: 1px solid #d1d5db;
-    border-radius: 0px;
+    border-radius: 0px; /* Matches your tool cards */
     font-weight: 500;
-    transition: all 0.2s;
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.2s ease;
+    width: auto; /* Ensures it stays small and understated */
 }
 
-.submit-btn:hover{
-    border-color: #84888d;
+.submit-btn:hover {
+    border-color: #9ca3af;
     background: #f9fafb;
-    color: red;
-    text-decoration: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Pressed effect */
+    color: #ff0000; /* Keeps your brand red accent on hover */
 }
+
 .submit-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
     background: #e5e7eb;
+    transition: transform 0.1s ease;
 }
 
-
-
-/* Comments Section */
+/* Comments Section - Unified */
 .comments-section {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 2px solid var(--border-primary);
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid #eee;
 }
 
-.comments-section h3 {
-    color: var(--text-primary);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 3px solid var(--accent-primary);
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 850px) {
     .contact-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
-        
+        gap: 3rem;
     }
     
-    .contact-title {
-        font-size: 2rem;
+    .contact-header {
+        text-align: left;
     }
+}
+
+/* 1. Target all links within the contact page specifically */
+.contact-page a, 
+.contact-page a:link, 
+.contact-page a:visited {
+    color: #e53e3e !important; /* Brand Red */
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    border-bottom: 1px solid transparent !important;
+    transition: all 0.2s ease-in-out !important;
+    padding-bottom: 1px;
+}
+
+/* 2. Unified Hover State */
+.contact-page a:hover, 
+.contact-page a:active {
+    color: #c53030 !important; /* Darker Red */
+    border-bottom: 1px dotted #c53030 !important;
+    text-decoration: none !important;
+}
+
+/* 3. Label Formatting (Email, Phone, etc.) */
+.contact-details strong,
+.social-links strong {
+    display: inline-block;
+    width: 90px; /* Aligns all links in a straight vertical line */
+    color: var(--text-primary, #1a1a1a) !important;
+    font-weight: 700 !important;
+    text-transform: none;
+}
+
+/* 4. Paragraph spacing within info sections */
+.contact-details p,
+.social-links p {
+    margin: 1rem 0 !important;
+    display: flex;
+    align-items: center;
 }
 </style>
 {{ end }}

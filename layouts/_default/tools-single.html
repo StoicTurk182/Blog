@@ -32,7 +32,8 @@
             <div class="post-nav-right">
     {{ with .Params.tool_image }}
     <a href="{{ $.Params.download_url }}" class="tool-image-link">
-        <img src="/images/posts/{{ . }}" alt="{{ $.Title }} logo" class="tool-image">
+        {{/* relURL automatically handles the leading slash and static folder path */}}
+        <img src="{{ . | relURL }}" alt="{{ $.Title }} logo" class="tool-image">
     </a>
     {{ end }}
 </div>
@@ -101,7 +102,7 @@
     text-decoration: none;
     font-weight: 500;
     transition: all 0.2s ease;
-    border-bottom: 2px dotted transparent;
+    border-bottom: px dotted transparent;
 }
 
 .read-more:hover {

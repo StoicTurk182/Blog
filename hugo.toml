@@ -34,7 +34,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     home = true
     single = false
     list = false
-    widgets = ["Search","recent", "categories"]
+    widgets = ["recent", "categories"]
 
   [params.social]
     youtube = "https://www.youtube.com/@saraf01"

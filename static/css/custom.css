@@ -73,3 +73,184 @@
     background: rgba(255, 255, 255, 0.1) !important;
     width: 160px !important;
 }
+
+
+/* --- Ultra-Smooth Code Block & Copy Button --- */
+
+/* 1. Container: Sharp, single-pixel precision */
+.highlight {
+    position: relative !important;
+    margin: 2rem 0;
+    background-color: #fcfcfc !important;
+    /* We use a solid border here that the button will "sit" inside */
+    border: 1px solid #d1d5da !important;
+    border-radius: 0px !important;
+    overflow: hidden; /* This clips any jagged overlaps */
+}
+
+.highlight pre {
+    margin: 0 !important;
+    padding: 1.25rem !important;
+    border-radius: 0px !important;
+    border: none !important;
+}
+
+/* 2. The Button: Integrated "Tab" Style */
+.copy-code-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    
+    /* Aesthetics */
+    background: #ffffff !important;
+    color: #57606a !important;
+    
+    /* THE FIX: Remove top/right borders so they don't clash with the container */
+    border-top: none !important;
+    border-right: none !important;
+    border-left: 1px solid #d1d5da !important;
+    border-bottom: 1px solid #d1d5da !important;
+    border-radius: 0px !important;
+    
+    padding: 6px 14px !important;
+    font-family: ui-monospace, monospace !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    z-index: 10;
+    
+    /* Smoothness settings */
+    opacity: 0;
+    transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+    
+    /* Remove any default button outlines that cause jagged "ghost" edges */
+    outline: none !important;
+    -webkit-appearance: none;
+}
+
+/* 3. Interaction Logic */
+.highlight:hover .copy-code-btn {
+    opacity: 1;
+}
+
+.copy-code-btn:hover {
+    background: #f6f8fa !important;
+    color: #e53e3e !important;
+}
+
+/* Success State: Clean and high-contrast */
+.copy-code-btn.copied {
+    background: #e53e3e !important;
+    color: #ffffff !important;
+    border-left-color: #e53e3e !important;
+    border-bottom-color: #e53e3e !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- CodeMirror Editor Styling (Unified) --- */
+
+/* Force Editor to match square highlight style */
+[data-codemirror],
+.cm-editor {
+    border: 1px solid #e1e4e8 !important; /* Match highlight border color */
+    margin: 1.5rem 0;
+    border-radius: 0px !important; /* Ensure square corners */
+    overflow: hidden;
+}
+
+.cm-editor {
+    font-size: 14px;
+    background: #1e1e1e;
+    outline: none !important; /* Remove focus ring */
+}
+
+.cm-scroller {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    padding: 0; /* Flush edges */
+}
+
+.cm-gutters {
+    background: #1e1e1e !important;
+    color: #858585;
+    border-right: 1px solid #333 !important;
+    border-radius: 0px !important;
+}
+
+.cm-activeLine, 
+.cm-activeLineGutter {
+    background: #2a2d2e !important;
+}
+
+.cm-content {
+    padding: 0.5rem 0;
+}
+
+/* --- Existing Styles Maintained --- */
+.logo__tagline {
+  color: #ff0000 !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .copy-code-btn {
+        opacity: 1 !important;
+    }
+}

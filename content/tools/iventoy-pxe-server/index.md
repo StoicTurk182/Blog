@@ -7,7 +7,7 @@ tags: ["pxe", "network-boot", "os-deployment"]
 layout: "tools-single"
 download_url: "https://www.iventoy.com/en/download.html"
 buy_url: "https://www.iventoy.com/en/doc_edition.html"
-tool_image: "iventoy.png"  # Add this line
+tool_image: "/images/posts/iventoy.png"  # Add this line
 ---
 
 # iVentoy PXE Server

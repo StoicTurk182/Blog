@@ -7,7 +7,7 @@ tags: ["Applications","Performance"]
 layout: "tools-single"
 demo_url: "https://www.youtube.com/results?search_query=YUMI%3A+Multiboot+Windows+and+Linux+from+USB"
 download_url: "https://dl.bitsum.com/files/processlassosetup64.exe"
-tool_image: "/bitsum.png"
+tool_image: "/images/posts/bitsum.png"
 ---
 
 # Process Lasso

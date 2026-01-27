@@ -5,14 +5,13 @@ draft: false
 description: "Simple introduction to the industry standard backup and recovery software"
 categories: ["Security"]
 tags: ["kali-linux", "automation"]
-featuredImage: "/images/posts/hero_veeam_backup-v2.jpg"
+featuredImage: "/images/posts/veeam.jpg"
 readingTime: true
 toc: true
 author: "Andrew Jones"
 authorImage: "/images/authors/security-team.jpg"
 authorBio: ""
 socialShare: true
-tool_image: "/darkreader.png"
 ---
 
 

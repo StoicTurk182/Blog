@@ -6,7 +6,7 @@ categories: ["Tools", "Remote Management"]
 tags: ["remote-desktop", "rdp"]
 layout: "tools-single"
 download_url: "https://www.royalapps.com/ts/win/download"
-tool_image: "/royal.png"
+tool_image: "/images/posts/royal.png"
 ---
 
 # Royal TS

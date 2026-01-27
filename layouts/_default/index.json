@@ -1,8 +1,32 @@
 [
 {{- $first := true -}}
-{{- range site.RegularPages -}}
-{{- if not $first }},{{ end -}}
-{{- $first = false -}}
-{{ dict "title" .Title "permalink" .Permalink "summary" .Summary "content" .Plain | jsonify }}
+{{- /* Include both sections */ -}}
+{{- range (where site.RegularPages "Section" "in" (slice "posts" "tools")) -}}
+    {{- if not $first }},{{ end -}}
+    {{- $first = false -}}
+    
+    {{- $img := "" -}}
+    
+    {{- /* 1. Priority: Check Tool-specific parameter */ -}}
+    {{- if .Params.tool_image -}}
+        {{- $img = .Params.tool_image | relURL -}}
+    
+    {{- /* 2. Check Standard Post parameter */ -}}
+    {{- else if .Params.featuredImage -}}
+        {{- $img = .Params.featuredImage | relURL -}}
+
+    {{- /* 3. Check Thumbnail parameter */ -}}
+    {{- else if .Params.thumbnail -}}
+        {{- $img = .Params.thumbnail | relURL -}}
+
+    {{- /* 4. Fallback: Check for an image file inside the post folder (Page Bundle) */ -}}
+    {{- else -}}
+        {{- $resource := (.Resources.ByType "image").GetMatch "{*featured*,*thumbnail*,*cover*}" -}}
+        {{- if $resource -}}
+            {{- $img = $resource.RelPermalink -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{ dict "title" .Title "permalink" .RelPermalink "summary" .Summary "content" .Plain "image" $img | jsonify }}
 {{- end -}}
 ]

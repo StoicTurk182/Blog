@@ -6,7 +6,7 @@ categories: ["Tools"]
 tags: ["dark-mode", "accessibility", "eye-care", "browser-extension"]
 layout: "tools-single"
 download_url: "https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh"
-tool_image: "/darkreader.png"
+tool_image: "/images/posts/darkreader.png"
 ---
 
 # Dark Reader
