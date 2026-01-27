@@ -1,10 +1,25 @@
-<!-- ===== PRESERVE YOUR EXISTING CODE ===== -->
 {{ if .IsPage }}
-<script>
-// Copy code functionality
-// ... [keep your existing JavaScript] ...
-</script>
 <style>
-/* ... [keep your existing CSS] ... */
+/* Page-specific overrides */
 </style>
 {{ end }}
+
+<style>
+/* Essential: Hide the body immediately so it can fade in */
+body {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* This class will be added by our JS file */
+body.page-loaded {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+</style>
+
+{{- $jsResource := resources.Get "js/copy-code.js" -}}
+{{- if $jsResource -}}
+    {{- $js := $jsResource | minify | fingerprint -}}
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- end -}}

@@ -68,31 +68,17 @@
 </article>
 
 <style>
+/* --- Layout Containers --- */
 .contact-page {
     max-width: 1000px;
     margin: 2rem auto;
     padding: 2rem 1rem;
 }
 
-/* Header - Unified with Tools/Search */
-.contact-header {
-    margin-bottom: 3.5rem;
-}
+.contact-header { margin-bottom: 3.5rem; }
+.contact-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.contact-subtitle { font-size: 1.1rem; color: #666; max-width: 600px; line-height: 1.5; }
 
-.contact-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
-}
-
-.contact-subtitle {
-    font-size: 1.1rem;
-    color: #666;
-    max-width: 600px;
-    line-height: 1.5;
-}
-
-/* Grid Layout */
 .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -100,11 +86,7 @@
     margin-bottom: 4rem;
 }
 
-/* Typography & Links */
-.info-section {
-    margin-bottom: 2.5rem;
-}
-
+/* --- Section Headers --- */
 .contact-info h2,
 .contact-form-container h2 {
     font-size: 0.85rem;
@@ -116,54 +98,48 @@
     margin-bottom: 1.5rem;
 }
 
+/* --- Unified Links (Obsidian/Brand Red) --- */
+/* We target only <a> tags that ARE NOT buttons to avoid conflicts */
+.contact-page a:not(.submit-btn) {
+    color: #e53e3e !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.contact-page a:not(.submit-btn):hover {
+    color: #ff0000 !important;
+    border-bottom: 1px dotted #ff0000;
+}
+
+/* --- Info Section Formatting --- */
 .contact-details p,
 .social-links p {
-    margin: 1.25rem 0;
-    font-size: 1.05rem;
+    margin: 1rem 0 !important;
+    display: flex; /* Keeps label and link on one line */
+    align-items: center;
 }
 
 .contact-details strong,
 .social-links strong {
     display: inline-block;
-    width: 80px;
-    color: var(--text-primary);
-    font-weight: 600;
+    width: 90px; /* Perfectly aligns the red links vertically */
+    color: var(--text-primary, #1a1a1a);
+    font-weight: 700;
 }
 
-.contact-details a,
-.social-links a {
-    color: #e53e3e;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid transparent;
-}
-
-.contact-details a:hover,
-.social-links a:hover {
-    border-bottom: 1px dotted #e53e3e;
-}
-
-/* Unified Form Styling */
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
+/* --- Form Styling --- */
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.85rem 1rem;
-    border: 2px solid var(--border-primary, #eee);
+    border: 2px solid #eee;
     border-radius: 0px;
     font-size: 1rem;
-    background: var(--bg-secondary, #fafafa);
-    color: var(--text-primary);
+    background: #fafafa;
     transition: all 0.2s ease;
 }
 
@@ -172,100 +148,34 @@
     outline: none;
     border-color: #e53e3e;
     background: #fff;
-    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.05);
 }
 
-/* Unified Button - Matches Search & Tool hover states */
+/* --- Submit Button (Matches Theme Tools) --- */
 .submit-btn {
-    /* Base styles from .btn-secondary */
     background: transparent;
-    color: #000000;
+    color: #000000 !important; /* Forces black text even though it's an <a> */
     padding: 0.6rem 1.25rem;
-    text-decoration: none;
+    text-decoration: none !important;
     border: 1px solid #d1d5db;
-    border-radius: 0px; /* Matches your tool cards */
-    font-weight: 500;
+    border-radius: 0px;
+    font-weight: 500 !important;
     font-size: 0.85rem;
-    line-height: 1;
     cursor: pointer;
     display: inline-block;
     transition: all 0.2s ease;
-    width: auto; /* Ensures it stays small and understated */
 }
 
 .submit-btn:hover {
     border-color: #9ca3af;
     background: #f9fafb;
-    color: #ff0000; /* Keeps your brand red accent on hover */
+    color: #ff0000 !important; /* Turns red only on hover */
 }
 
-.submit-btn:active {
-    transform: scale(0.95);
-    background: #e5e7eb;
-    transition: transform 0.1s ease;
-}
-
-/* Comments Section - Unified */
-.comments-section {
-    margin-top: 5rem;
-    padding-top: 3rem;
-    border-top: 1px solid #eee;
-}
-
-.section-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-
-/* Responsive */
+/* --- Responsive & Comments --- */
 @media (max-width: 850px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-    
-    .contact-header {
-        text-align: left;
-    }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
 }
 
-/* 1. Target all links within the contact page specifically */
-.contact-page a, 
-.contact-page a:link, 
-.contact-page a:visited {
-    color: #e53e3e !important; /* Brand Red */
-    text-decoration: none !important;
-    font-weight: 600 !important;
-    border-bottom: 1px solid transparent !important;
-    transition: all 0.2s ease-in-out !important;
-    padding-bottom: 1px;
-}
-
-/* 2. Unified Hover State */
-.contact-page a:hover, 
-.contact-page a:active {
-    color: #c53030 !important; /* Darker Red */
-    border-bottom: 1px dotted #c53030 !important;
-    text-decoration: none !important;
-}
-
-/* 3. Label Formatting (Email, Phone, etc.) */
-.contact-details strong,
-.social-links strong {
-    display: inline-block;
-    width: 90px; /* Aligns all links in a straight vertical line */
-    color: var(--text-primary, #1a1a1a) !important;
-    font-weight: 700 !important;
-    text-transform: none;
-}
-
-/* 4. Paragraph spacing within info sections */
-.contact-details p,
-.social-links p {
-    margin: 1rem 0 !important;
-    display: flex;
-    align-items: center;
-}
+.comments-section { margin-top: 5rem; padding-top: 3rem; border-top: 1px solid #eee; }
 </style>
 {{ end }}

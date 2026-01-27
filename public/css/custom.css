@@ -37,6 +37,30 @@
 }
 
 /* Menu Search Box - Force Override */
+
+
+/* 1. Kill the theme's global focus shadow specifically for search */
+.menu__item--search:focus-within .menu__btn-title,
+.menu__item--search:focus .menu__btn-title,
+.menu__search:focus-within,
+.menu__search:focus {
+    box-shadow: none !important;
+}
+
+/* 2. Prevent the menu item background from changing on hover/focus */
+.menu__item--search:hover,
+.menu__item--search:focus-within {
+    background: transparent !important;
+}
+
+/* 3. Ensure the input itself doesn't trigger the inherited shadow */
+.menu__search input:focus {
+    box-shadow: none !important;
+    outline: 0 !important;
+    /* Maintain your desired background here */
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
 .menu__item--search {
     border-left: 1px solid rgba(255, 255, 255, .1) !important;
 }
@@ -64,10 +88,6 @@
     text-transform: uppercase !important;
 }
 
-.menu__search input:hover {
-    background: #ff0004 !important;
-}
-
 .menu__search input:focus {
     outline: none !important;
     background: rgba(255, 255, 255, 0.1) !important;
@@ -75,89 +95,103 @@
 }
 
 
-/* --- Ultra-Smooth Code Block & Copy Button --- */
 
-/* 1. Container: Sharp, single-pixel precision */
+
+/* --- Clean Obsidian Icon Only --- */
+
 .highlight {
     position: relative !important;
-    margin: 2rem 0;
-    background-color: #fcfcfc !important;
-    /* We use a solid border here that the button will "sit" inside */
-    border: 1px solid #d1d5da !important;
-    border-radius: 0px !important;
-    overflow: hidden; /* This clips any jagged overlaps */
 }
 
-.highlight pre {
-    margin: 0 !important;
-    padding: 1.25rem !important;
-    border-radius: 0px !important;
-    border: none !important;
-}
-
-/* 2. The Button: Integrated "Tab" Style */
 .copy-code-btn {
     position: absolute;
-    top: 0;
-    right: 0;
-    
-    /* Aesthetics */
-    background: #ffffff !important;
-    color: #57606a !important;
-    
-    /* THE FIX: Remove top/right borders so they don't clash with the container */
-    border-top: none !important;
-    border-right: none !important;
-    border-left: 1px solid #d1d5da !important;
-    border-bottom: 1px solid #d1d5da !important;
-    border-radius: 0px !important;
-    
-    padding: 6px 14px !important;
-    font-family: ui-monospace, monospace !important;
-    font-size: 10px !important;
-    font-weight: 700 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    z-index: 10;
-    
-    /* Smoothness settings */
-    opacity: 0;
-    transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
-    
-    /* Remove any default button outlines that cause jagged "ghost" edges */
+    top: 12px;
+    right: 12px;
+    z-index: 100;
+
+    /* Reset everything to transparent */
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     outline: none !important;
-    -webkit-appearance: none;
+    padding: 0 !important;
+    margin: 0 !important;
+    
+    /* Icon Styling */
+    color: #6b7280 !important; /* Muted gray */
+    cursor: pointer;
+    display: flex !important;
+    
+    /* Smooth but snappy transitions */
+    opacity: 0;
+    transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-/* 3. Interaction Logic */
+/* 1. Show icon on hover - NO BOX */
 .highlight:hover .copy-code-btn {
-    opacity: 1;
+    opacity: 1 !important;
+    background: transparent !important;
 }
 
+/* 2. Hover Icon Color - NO BOX */
 .copy-code-btn:hover {
-    background: #f6f8fa !important;
-    color: #e53e3e !important;
+    color: #ef4444 !important; /* Red hover */
+    background: transparent !important;
 }
 
-/* Success State: Clean and high-contrast */
+/* 3. Copied state - NO BOX */
 .copy-code-btn.copied {
-    background: #e53e3e !important;
-    color: #ffffff !important;
-    border-left-color: #e53e3e !important;
-    border-bottom-color: #e53e3e !important;
+    color: #10b981 !important; /* Green success */
+    opacity: 1 !important;
+    background: transparent !important;
 }
 
+/* 4. Kill the messy transition on the 'innerHTML' swap */
+/* This ensures the icon swap feels 'mechanical' and crisp, not blurry */
+.copy-code-btn svg {
+    transition: none !important; 
+}
 
+/* ============================================================
+   HERO CAROUSEL - TRUE CROSS-FADE
+   ============================================================ */
+.hero {
+    position: relative;
+    overflow: hidden;
+    background-color: #000; /* Backdrop color during transition */
+    z-index: 1;
+}
 
+/* The Background Layer */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: var(--hero-bg); /* Controlled by JS */
+    
+    /* This is what makes it smooth */
+    transition: opacity 1.5s ease-in-out;
+    opacity: 1;
+    z-index: -1;
+}
 
+/* State for when we are switching images */
+.hero.fade-out::before {
+    opacity: 0;
+}
 
-
-
-
-
-
-
+/* Ensure content (text/buttons) stays sharp and above background */
+.hero > * {
+    position: relative;
+    z-index: 2;
+}
 
 
 
