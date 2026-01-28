@@ -23,7 +23,7 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   customCSS = ["css/custom.css"]
 
   [params.logo]
-    title = "Projects 2025"
+    title = "Projects"
     subtitle = "Information Technology Musings"
 
   [params.style]

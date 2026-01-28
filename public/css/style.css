@@ -34,46 +34,6 @@ section {
 	color: transparent;
 }
 
-a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="tool-image-link"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"]) {
-    color: #ff0000;
-    font-weight: 500;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-thickness: 1.5px;
-    text-decoration-color: #e53e3e;
-    position: relative;
-    padding-right: 1.1em;
-    transition: all 0.3s ease;
-    transform: translateX(0);
-}
-
-a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="tool-image-link"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"])::after {
-    content: "↗";
-    font-size: 0.8em;
-    color: #ff0000;
-    position: absolute;
-    right: 0.1em;
-    top: 0.15em;
-    opacity: 0.5;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    transform: translate(0, 0);
-}
-
-a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="tool-image-link"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"]):hover {
-    color: #ff0000;
-    text-decoration: none;
-    background: none;
-    border-radius: 0;
-    transform: translateX(2px);
-}
-
-a[href^="http"]:not([href*="yourdomain.com"]):not([class*="btn"]):not([class*="tool-image-link"]):not([class*="download-link"]):not([class*="card-link"]):not([class*="hero-link"]):hover::after {
-    color: #ff0000;
-    opacity: 1;
-    transform: translate(2px, -2px);
-}
-
 :root {
   --text-primary: #000000;   /* <-- HERE */
   --text-secondary: #000000;

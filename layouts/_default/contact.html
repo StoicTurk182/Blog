@@ -101,10 +101,9 @@
 /* --- Unified Links (Obsidian/Brand Red) --- */
 /* We target only <a> tags that ARE NOT buttons to avoid conflicts */
 .contact-page a:not(.submit-btn) {
-    color: #e53e3e !important;
+    color: red !important;
     text-decoration: none !important;
     font-weight: 600 !important;
-    transition: all 0.2s ease-in-out !important;
 }
 
 .contact-page a:not(.submit-btn):hover {
@@ -128,26 +127,53 @@
     font-weight: 700;
 }
 
-/* --- Form Styling --- */
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; }
+.contact-page a:not(.submit-btn):active {
+    transform: translateY(1px); /* Moves the link down 1px when clicked */
+    color: #b91c1c !important;  /* Darkens the red to show pressure */
+    transition: none;           /* Makes the 'click' feel instant and mechanical */
+}
+
+.contact-page a:not(.submit-btn) {
+    color: red !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    border-bottom: 1px dotted transparent; /* <--- ADD THIS LINE */
+    transition: border-color 0.3s ease; /* <--- ADD THIS LINE */
+}
+
+/* --- Form Styling (Anti-Jitter) --- */
+.form-group { 
+    margin-bottom: 1.5rem; 
+}
+
+.form-group label { 
+    display: block; 
+    margin-bottom: 0.5rem; 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+}
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.85rem 1rem;
-    border: 2px solid #eee;
+    /* Use the same border width for both states */
+    border: px solid #eee !important; 
     border-radius: 0px;
     font-size: 1rem;
     background: #fafafa;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    /* This ensures padding is calculated inside the width */
+    box-sizing: border-box !important; 
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: #e53e3e;
-    background: #fff;
+    outline: none !important;
+    border-color: #e53e3e !important;
+    background: #fff !important;
+    /* Use box-shadow for the 'glow' effect so it doesn't move pixels */
+    box-shadow: 0 0 0 1px #e53e3e inset !important;
 }
 
 /* --- Submit Button (Matches Theme Tools) --- */

@@ -179,30 +179,56 @@
 }
 
 .category-filter {
-
+    /* Layout & Dimensions */
+    width: 180px;      
+    max-width: 100%;   
     padding: 0.5rem 1rem;
-    border: 1px solid #bfc7d1;
-    border-radius: 0px;
-    background: white;
-    color: #000000;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: border-color 0.2s;
-    width: 180px;      /* Add this line for a fixed width */
-    min-width: unset;  /* Optional: remove any min-width */
-    max-width: 100%;   /* Prevent overflow */
-}
-.category-filter:hover,
-.category-filter:focus {
-    border-color: #888;
-    outline: none;
-    box-shadow: 0 0 0 2px #e2e8f0;
+    
+    /* Square Aesthetic & Colors */
+    border: 1px solid #bfc7d1;
+    border-radius: 0px;
+    background: #ffffff;
+    color: #000000;
+    
+    /* Remove ALL shadows */
+    box-shadow: none !important;
+    
+    /* Modern Selection Color */
+    accent-color: #ff0000 !important;
+    
+    /* Transition */
+    transition: border-color 0.2s ease;
+    
+    /* Removes native OS styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
+/* Hover & Focus State - Border only, no shadow */
+.category-filter:hover,
 .category-filter:focus {
-    outline: none;
-    border-color: #e53e3e;
-    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+    outline: none !important;
+    border-color: #ff0000 !important;
+    box-shadow: none !important; /* Forces removal of any glow */
+}
+
+/* Internal Option Styling - The "Anti-Blue" Force */
+.category-filter option {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* This is the critical part: 
+   The inset shadow 'overpaints' the browser's blue hover highlight with red.
+*/
+.category-filter option:checked,
+.category-filter option:hover {
+    background-color: #ff0000 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 10px 100px #ff0000 inset !important;
 }
 
 /* Articles List */

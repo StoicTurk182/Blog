@@ -152,6 +152,9 @@ document.addEventListener('click', function(e) {
 </html>
 
 <style>
+
+
+
 /* CRITICAL: Reset everything to 0 */
 * {
     margin: 0;
@@ -184,232 +187,152 @@ body {
     top: 0 !important;
 }    
 
-/* Hero Carousel - Visible Morph Transitions */
-/* Supports both quick crossfade and zoom morph effects */
-
-/* --- Hero Seamless Blend --- */
-
-.hero > * {
-    position: relative !important;
-    z-index: 10 !important; /* Forces text above the dark overlay */
-}
-
-/* 1. Remove browser-level gaps */
+/* --- 1. Global & Layout Fixes --- */
 html, body {
     margin: 0 !important;
     padding: 0 !important;
 }
 
-/* 2. Force the Mainroad container to hit the top */
+/* Remove the red border from the main container top */
 .container--outer {
     margin-top: 0 !important;
     padding-top: 0 !important;
-}
-
-/* 3. Ensure the Hero box itself has no top margin */
-.hero {
-    margin-top: 0 !important;
     border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    /* Outer shadow for the whole site container */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* 4. Ensure the Header/Menu doesn't push the Hero down */
-.header {
-    margin-top: 0 !important;
-    top: 0 !important;
-}
-
+/* --- 2. The Recessed Hero Container --- */
 .hero {
     position: relative;
-    padding: 4rem 0 3rem;
-    margin-bottom: 3rem;
-    min-height: 400px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    
+    min-height: 400px;
+    padding: 4rem 1rem;
+    margin: 0 0 3rem 0 !important; /* Spacing below the hero */
+    
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    background-color: #181a1b; /* Dark backdrop for the transition */
+    background-color: #181a1b;
     
-    /* The transition is key - it creates the blend */
+    /* Transitions for image swapping */
     transition: background-image 0.8s ease-in-out, opacity 0.5s ease;
     overflow: hidden;
-    color: #ffffff;
+    
+    /* The Recessed "Well" Shadow */
+    box-shadow: 
+        inset 0px 10px 20px rgba(0, 0, 0, 0.7), 
+        inset 0px -10px 20px rgba(0, 0, 0, 0.7) !important;
+    border: none !important;
+
+    
 }
 
-/* Create an 'In-Transition' state to soften the swap */
-.hero.is-swapping {
-    opacity: 0.9; /* Slight dim during swap to hide the sharp change */
-}
-
-/* Ensure the overlay stays consistent */
+/* The Dark Overlay for Text Contrast */
 .hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(24,26,27,0.4) 0%, rgba(24,26,27,0.2) 50%, rgba(24,26,27,0.4) 100%);
+    background: rgba(0, 0, 0, 0.45); 
     z-index: 1;
     pointer-events: none;
 }
 
-
-/* --- Hero Text: Slight Glow & High Pop --- */
-/* Added 'body' prefix to ensure it beats the grey theme defaults */
+/* --- 3. Clean Typography (No Glow) --- */
 body .hero h1,
 body .hero h2,
 body .hero h3,
 body .hero p,
 body .hero a {
-    color: #ffffff !important; 
-    padding: 1rem 2rem;
-    letter-spacing: 0.5px;
-    
-    /* 1. Slight Black Outline for 'Pop' */
-    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.4); 
-
-    /* 2. Layered Shadows: Slight Glow + Sharp Shadow */
-    text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.35), /* The Slight Glow */
-        2px 2px 5px rgba(0, 0, 0, 0.9)      /* The Sharp Pop */
-        !important;
-    
-    /* Ensures text sits above the dark overlay layers */
     position: relative !important;
     z-index: 10 !important;
+    color: #ffffff !important;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 850px;
+    
+    /* Subtle Drop Shadow - Replaces Glow */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9) !important;
+    -webkit-text-stroke: 0px !important;
+    
+    /* Fix for text escaping on mobile */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
 }
 
 body .hero h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    font-weight: 700;
-    /* Enhanced glow for the main title */
-    text-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.4), 
-        3px 3px 10px rgba(0, 0, 0, 1) 
-        !important;
+    line-height: 1.2;
 }
 
 body .hero p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.6;
-    font-weight: 500;
+    font-weight: 400;
+    padding: 0 1rem;
 }
 
 body .hero a {
-    color: #ffffff !important;
-    text-decoration: underline !important;
-    transition: all 0.2s ease;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: none !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.3s ease;
 }
 
 body .hero a:hover {
-    color: #e0e0e0 !important;
     border-bottom: 2px solid #ffffff !important;
-    /* Glow intensifies slightly on hover */
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 5px rgba(0, 0, 0, 1) !important;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* --- Layout Lock: Snaps Picture Box to Top --- */
-html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-}
+/* --- 4. Responsive & Mobile Optimization --- */
 
-.container.container--outer {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
-}
-
-.hero {
-    margin-top: 0 !important;
-    top: 0 !important;
-    border: none !important;
-}
-
-/* 1. Remove the theme-level red border/glow */
-.header, 
-.menu {
-    border-bottom: none !important;
-    box-shadow: none !important; 
-}
-
-/* 2. Apply the 'Lift' to the picture box container */
-.container--outer {
-    border-bottom: none !important; /* Keep the red line gone */
-    
-    /* The 'Lift' - A deep, soft shadow to make it float */
-    box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.6), 
-        0 5px 15px rgba(0, 0, 0, 0.4) !important;
-    
-    /* Ensure the shadow has room to breathe */
-    margin-bottom: 3rem !important;
-    position: relative;
-    z-index: 10;
-}
-
-/* 3. Clean up the Hero itself */
-.hero {
-    border: none !important;
-    /* Optional: subtle interior shadow for extra depth */
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.3); 
-}
-
-/* ===== TABLET RESPONSIVENESS (768px and below) ===== */
+/* Tablet View */
 @media (max-width: 768px) {
     .hero {
-        min-height: 300px;
-        padding: 2rem 0 1.5rem;
+        min-height: 350px;
+        padding: 3rem 1rem;
     }
-
-    .hero > * {
-        padding: 1rem 1.5rem;
-        max-width: 95%;
-    }
-
-    .hero h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .hero p {
-        font-size: 0.95rem;
-        line-height: 1.5;
+    body .hero h1 {
+        font-size: 2.2rem;
     }
 }
 
-/* ===== MOBILE RESPONSIVENESS (480px and below) ===== */
+/* Mobile View - Prevents Text Escaping & Overflow */
 @media (max-width: 480px) {
     .hero {
-        min-height: 250px;
-        padding: 1.5rem 0 1rem;
+        min-height: 280px;
+        padding: 2rem 15px !important;
+        margin-bottom: 2rem !important;
     }
 
+    body .hero h1 {
+        font-size: 1.6rem !important;
+        width: 100% !important;
+        padding: 0 5px;
+    }
+
+    body .hero p {
+        font-size: 0.95rem !important;
+        width: 100% !important;
+        padding: 0 5px;
+    }
+
+    /* Force children to stay within the viewport */
     .hero > * {
-        padding: 0.75rem 1rem;
-        max-width: 98%;
-    }
-
-    .hero h1 {
-        font-size: 1.4rem;
-        margin-bottom: 0.25rem;
-    }
-
-    .hero p {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-
-    .hero h1,
-    .hero h2,
-    .hero h3,
-    .hero p,
-    .hero a {
-        padding: 0.5rem 1rem;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
-
 
 /*END OF HERO*/
 
@@ -429,35 +352,6 @@ html, body {
   opacity: 1;
   transition: opacity 0.3s ease;
   
-}
-
-.body {
-  background: 
-    linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-    linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-    linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-    linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-    linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-    linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
-  background-color: #0a0a0a;
-  background-size: 15px 15px;
-  background-attachment: fixed; /* Keeps pattern fixed while scrolling */
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-.container.container--outer {
-  background: rgba(24, 26, 27, 0.95); /* Slightly more opaque */
-  backdrop-filter: blur(16px); /* Stronger blur */
-  -webkit-backdrop-filter: blur(16px); /* Safari support */
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 1px rgba(255, 255, 255, 0.1); /* Subtle edge glow */
-  margin-top: 0; /* Remove any top margin */
-  margin-bottom: 0; /* Remove any bottom margin */
 }
 
 /* Better visual depth */
@@ -539,7 +433,48 @@ html, body {
     }
 }
 
+/* 1. THE FOUNDATION - Direct Pure Black */
+html, 
+body {
+    background-color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 
+/* 2. THE CONTAINER - Ensures content area stays visible */
+.container--outer {
+    background-color: #181a1b !important; /* Theme dark grey */
+    margin-top: 0 !important;
+    border: none !important;
+}
+
+.authorbox__name {
+    color: #ef4444 !important; /* Red name to match your theme */
+}
+
+/* 4. FOOTER RED LINE FIX */
+.footer {
+    border-top: 3px solid red !important; /* Red Line */
+    padding: 2rem 0 !important;
+    margin-top: 0 !important; /* Flush with content */
+    background-color: rgba(24, 26, 27, 0.98) !important;
+}
+
+.footer__copyright {
+    color: #a0a0a0 !important; /* Slightly lighter grey for readability */
+    font-size: 0.85rem;
+    padding-left: 1.5rem !important;
+}
+
+.footer__copyright a {
+    color: white !important; /* Keeps credits in theme red */
+    text-decoration: none !important;
+}
+
+.footer__copyright a:hover {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+}
 
 </style>
 
@@ -550,9 +485,6 @@ html, body {
     {{ partial "codemirror.html" . }}
 {{ end }}
 
-
-Final 10px fix · HTML
-Copy
 
 <!-- FINAL FIX: 10px Gap Compensation -->
 <!-- Add this before </body> in baseof.html -->
@@ -574,7 +506,11 @@ Copy
         container.style.position = 'relative';
     }
 })();
+
+
 </script>
+
+
 
 
 </body>

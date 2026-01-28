@@ -14,9 +14,10 @@ toc: true
 
 # The Evil Command 
 
-*This single command and variations of it have lead to the death of thousands of innocent servers and the worst part it... it is totally preventable, I would consider the below be part of your standard deployment process even if it is not a production system an example of the worse case - https://www.reddit.com/r/cscareerquestions/comments/1qjsfv8/accidentally_rm_rfd_a_production_server/*
+*A single command, or a slight variation of it, has led to the death of thousands of innocent servers. The most frustrating part? It is entirely preventable. I consider the following setup a mandatory part of any deployment process—even for non-production systems. For a sobering reminder of the absolute worst-case scenario, [read this account](https://www.reddit.com/r/cscareerquestions/comments/1qjsfv8/accidentally_rm_rfd_a_production_server/) of a production server being wiped in an instant.*
 
->This Standard Operating Procedure (SOP) establishes a "Double-Lock" protection system for Debian-based servers to prevent catastrophic accidental data loss from `rm -rf /` commands.
+## Standard Operating Procedure: The "Double-Lock"
+> This SOP establishes a redundant protection system for Debian-based servers to prevent catastrophic data loss caused by accidental `rm -rf /` execution.
 
 ## Target Systems
 
