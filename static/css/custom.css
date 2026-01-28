@@ -94,9 +94,6 @@
     width: 160px !important;
 }
 
-
-
-
 /* --- Clean Obsidian Icon Only --- */
 
 .highlight {
@@ -152,92 +149,6 @@
 .copy-code-btn svg {
     transition: none !important; 
 }
-
-/* ============================================================
-   HERO CAROUSEL - TRUE CROSS-FADE
-   ============================================================ */
-.hero {
-    position: relative;
-    overflow: hidden;
-    background-color: #000; /* Backdrop color during transition */
-    z-index: 1;
-}
-
-/* The Background Layer */
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: var(--hero-bg); /* Controlled by JS */
-    
-    /* This is what makes it smooth */
-    transition: opacity 1.5s ease-in-out;
-    opacity: 1;
-    z-index: -1;
-}
-
-/* State for when we are switching images */
-.hero.fade-out::before {
-    opacity: 0;
-}
-
-/* Ensure content (text/buttons) stays sharp and above background */
-.hero > * {
-    position: relative;
-    z-index: 2;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* --- CodeMirror Editor Styling (Unified) --- */
 

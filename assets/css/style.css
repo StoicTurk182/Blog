@@ -1,3 +1,51 @@
+/* ===== HTML ELEMENT TOP GAP FIX - MUST BE FIRST ===== */
+/* The html element itself has spacing - this fixes it */
+
+html {
+    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border: 0 !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100% !important;
+    background-color: #181a1b !important;
+}
+
+/* Also ensure body is flush */
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    top: 0 !important;
+    background-color: #181a1b !important;
+}
+
+/* And container */
+.container--outer {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* And header */
+.header {
+    margin-top: 0 !important;
+    top: 0 !important;
+}
+
+
+
+/* ===== END TOP GAP FIX ===== */
+
+
 /* Search Widget - Clean Square Style */
 .widget-search__field {
     -webkit-appearance: none;

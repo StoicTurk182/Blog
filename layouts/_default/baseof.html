@@ -2,27 +2,57 @@
 <html class="no-js" lang="{{ .Site.Language.Lang }}">
     
 <head>
-    <html style="background-color: #181a1b;"></html>
-
-     <style>
+    <style>
+        /* CRITICAL: Reset everything to 0 - MUST BE FIRST */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         /* Enable font anti-aliasing globally */
+        html,
+        body,
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }    
+        
+        /* Prevent white flash and force to top */
+        html {
+          background-color: #181a1b !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        
+        body {
+          background-color: #181a1b !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
 
-html,
-body,
-* {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}    
-    /* Prevent white flash - load this FIRST */
-    html {
-      background-color: #181a1b !important;
-    }
-    body {
-      background-color: #181a1b !important;
-    }
-  </style>
+        /* Force the very top of the browser window */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Fix for the Mainroad 'Outer' container */
+        .container--outer {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+            position: relative;
+            top: 0;
+        }
+
+        /* Ensure the Sticky Header hits the 0px mark */
+        .header {
+            top: 0 !important;
+            margin-top: 0 !important;
+            padding-top: 1rem;
+        }
+      </style>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,7 +83,6 @@ body,
         <link rel="stylesheet" href="{{ . | relURL }}">
         {{- end }}
 
-
         {{- with .OutputFormats.Get "rss" }}
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s">` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
         {{- end }}
@@ -68,37 +97,31 @@ body,
         {{- if not $server }}
                 {{ template "_internal/google_analytics.html" . }}
         {{- end }}
-...
+
     {{ partial "head-custom.html" . }}
     
     {{- $js := resources.Get "js/copy-code.js" | minify | fingerprint -}}
-    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
-</head>
-        
+    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>        
 </head>
 
 <body class="body">
-    
-        <div class="container container--outer">
-    {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
-    
-    <div class="wrapper flex">
-        <div class="primary">
-
-            <!-- SINGLE main block definition -->
-            {{ block "main" . }}
-                {{ with .Content }}
-                <div class="content main__content clearfix">
-                    {{ . }}
-                </div>
+    <div class="container container--outer">
+        {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
+        
+        <div class="wrapper flex">
+            <div class="primary">
+                {{ block "main" . }}
+                    {{ with .Content }}
+                    <div class="content main__content clearfix">
+                        {{ . }}
+                    </div>
+                    {{ end }}
                 {{ end }}
-            {{ end }}
+            </div>
+            {{ block "sidebar" . }}{{ partial "sidebar.html" . }}{{ end }}
         </div>
-        {{ block "sidebar" . }}{{ partial "sidebar.html" . }}{{ end }}
+        {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
     </div>
-    
-    {{ block "footer" . }}{{ partial "footer.html" . }}{{ end }}
-</div>
 
 <!-- ALL OTHER SCRIPTS FIRST -->
 <script async defer src="{{ "js/menu.js" | relURL }}"></script>
@@ -106,7 +129,6 @@ body,
 <script src="{{ . | relURL }}"></script>
 {{- end }}
 {{- partial "mathjax.html" . -}}
-
 
 <!-- Simple fade transition on page load -->
 <script>
@@ -124,62 +146,81 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
-<!-- Hero Carousel Script -->
-<script>
-const heroImages = [
-    '/images/posts/pexels-pixabay-159304.jpg',
-    '/images/posts/pexels-luis-gomes-166706-546819.jpg',
-    '/images/posts/pexels-kevin-ku-92347-577585.jpg',
-    '/images/posts/pexels-johnpet-2115257.jpg'
-];
-
-let currentIndex = 0;
-const hero = document.querySelector('.hero');
-
-if (hero) {
-    console.log('Hero element found, initializing carousel...');
-    
-    updateHeroImage();
-    
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % heroImages.length;
-        console.log('Switching to image:', heroImages[currentIndex]);
-        updateHeroImage();
-    }, 6000);
-}
-
-function updateHeroImage() {
-    const img = heroImages[currentIndex];
-    console.log('Setting background image:', img);
-    hero.style.backgroundImage = `url('${img}')`;
-}
-
-// Preload images
-function preloadImages() {
-    heroImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-        img.onerror = () => console.warn('Failed to load image:', src);
-    });
-}
-
-window.addEventListener('load', preloadImages);
-</script>
-{{ if .Params.codemirror }}
-    {{ partial "codemirror.html" . }}
-{{ end }}
-
 
 
 </body>
 </html>
 
 <style>
+/* CRITICAL: Reset everything to 0 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #181a1b !important;
+}
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #181a1b !important;
+}
+
+/* Force container to top */
+.container--outer {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Force header to top */
+.header {
+    margin-top: 0 !important;
+    padding-top: 1rem !important;
+    top: 0 !important;
+}    
+
+/* Hero Carousel - Visible Morph Transitions */
+/* Supports both quick crossfade and zoom morph effects */
+
+/* --- Hero Seamless Blend --- */
+
+.hero > * {
+    position: relative !important;
+    z-index: 10 !important; /* Forces text above the dark overlay */
+}
+
+/* 1. Remove browser-level gaps */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 2. Force the Mainroad container to hit the top */
+.container--outer {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* 3. Ensure the Hero box itself has no top margin */
+.hero {
+    margin-top: 0 !important;
+    border-top: none !important;
+}
+
+/* 4. Ensure the Header/Menu doesn't push the Hero down */
+.header {
+    margin-top: 0 !important;
+    top: 0 !important;
+}
 
 .hero {
     position: relative;
     padding: 4rem 0 3rem;
-    border: 1px solid rgb(0, 0, 0);
     margin-bottom: 3rem;
     min-height: 400px;
     display: flex;
@@ -187,84 +228,132 @@ window.addEventListener('load', preloadImages);
     justify-content: center;
     background-size: cover;
     background-position: center;
-    background-attachment: scroll;
-    transition: background-image 0.8s ease-in-out;  /* KEEP: Smooth fade effect */
+    background-repeat: no-repeat;
+    background-color: #181a1b; /* Dark backdrop for the transition */
+    
+    /* The transition is key - it creates the blend */
+    transition: background-image 0.8s ease-in-out, opacity 0.5s ease;
     overflow: hidden;
     color: #ffffff;
 }
 
-/* Blurred background image */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    background-attachment: scroll;
-    filter: blur(0px) brightness(0.5);
-    z-index: 0;
+/* Create an 'In-Transition' state to soften the swap */
+.hero.is-swapping {
+    opacity: 0.9; /* Slight dim during swap to hide the sharp change */
 }
 
-/* Dark overlay for text readability */
+/* Ensure the overlay stays consistent */
 .hero::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(24, 26, 27, 0.7) 0%, rgba(24, 26, 27, 0.5) 50%, rgba(24, 26, 27, 0.7) 100%);
+    inset: 0;
+    background: linear-gradient(135deg, rgba(24,26,27,0.4) 0%, rgba(24,26,27,0.2) 50%, rgba(24,26,27,0.4) 100%);
     z-index: 1;
+    pointer-events: none;
 }
 
-/* Ensure all content stays above layers */
-.hero > * {
-    position: relative;
-    z-index: 2;
-    color: #ffffff;
-    padding: 1.5rem 2.5rem;
-    max-width: 90%;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-}
 
-/* Make all headings and text white */
-.hero h1,
-.hero h2,
-.hero h3,
-.hero p,
-.hero a {
-    color: #ffffff;
+/* --- Hero Text: Slight Glow & High Pop --- */
+/* Added 'body' prefix to ensure it beats the grey theme defaults */
+body .hero h1,
+body .hero h2,
+body .hero h3,
+body .hero p,
+body .hero a {
+    color: #ffffff !important; 
     padding: 1rem 2rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     letter-spacing: 0.5px;
+    
+    /* 1. Slight Black Outline for 'Pop' */
+    -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.4); 
+
+    /* 2. Layered Shadows: Slight Glow + Sharp Shadow */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.35), /* The Slight Glow */
+        2px 2px 5px rgba(0, 0, 0, 0.9)      /* The Sharp Pop */
+        !important;
+    
+    /* Ensures text sits above the dark overlay layers */
+    position: relative !important;
+    z-index: 10 !important;
 }
 
-.hero h1 {
+body .hero h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+    /* Enhanced glow for the main title */
+    text-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.4), 
+        3px 3px 10px rgba(0, 0, 0, 1) 
+        !important;
 }
 
-.hero p {
+body .hero p {
     font-size: 1.1rem;
     line-height: 1.6;
     font-weight: 500;
 }
 
-.hero a {
-    text-decoration: underline;
+body .hero a {
+    color: #ffffff !important;
+    text-decoration: underline !important;
     transition: all 0.2s ease;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5) !important;
 }
 
-.hero a:hover {
-    color: #e0e0e0;
-    border-bottom: 2px solid #ffffff;
+body .hero a:hover {
+    color: #e0e0e0 !important;
+    border-bottom: 2px solid #ffffff !important;
+    /* Glow intensifies slightly on hover */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 2px 2px 5px rgba(0, 0, 0, 1) !important;
+}
+
+/* --- Layout Lock: Snaps Picture Box to Top --- */
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.container.container--outer {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+}
+
+.hero {
+    margin-top: 0 !important;
+    top: 0 !important;
+    border: none !important;
+}
+
+/* 1. Remove the theme-level red border/glow */
+.header, 
+.menu {
+    border-bottom: none !important;
+    box-shadow: none !important; 
+}
+
+/* 2. Apply the 'Lift' to the picture box container */
+.container--outer {
+    border-bottom: none !important; /* Keep the red line gone */
+    
+    /* The 'Lift' - A deep, soft shadow to make it float */
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.6), 
+        0 5px 15px rgba(0, 0, 0, 0.4) !important;
+    
+    /* Ensure the shadow has room to breathe */
+    margin-bottom: 3rem !important;
+    position: relative;
+    z-index: 10;
+}
+
+/* 3. Clean up the Hero itself */
+.hero {
+    border: none !important;
+    /* Optional: subtle interior shadow for extra depth */
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.3); 
 }
 
 /* ===== TABLET RESPONSIVENESS (768px and below) ===== */
@@ -272,7 +361,6 @@ window.addEventListener('load', preloadImages);
     .hero {
         min-height: 300px;
         padding: 2rem 0 1.5rem;
-        transition: background-image 0.8s ease-in-out;  /* CHANGED: Keep transition for fade effect */
     }
 
     .hero > * {
@@ -296,7 +384,6 @@ window.addEventListener('load', preloadImages);
     .hero {
         min-height: 250px;
         padding: 1.5rem 0 1rem;
-        transition: background-image 0.8s ease-in-out;  /* CHANGED: Keep transition for fade effect */
     }
 
     .hero > * {
@@ -322,6 +409,11 @@ window.addEventListener('load', preloadImages);
         padding: 0.5rem 1rem;
     }
 }
+
+
+/*END OF HERO*/
+
+
 
 /* Copy Code Button Styles */
 .copy-code-btn:hover {
@@ -446,7 +538,44 @@ html, body {
         padding: 0.75rem 0;
     }
 }
+
+
+
 </style>
+
+<!-- Hero Carousel Script -->
+<script async defer src="{{ "js/hero-carousel.js" | relURL }}"></script>
+
+{{ if .Params.codemirror }}
+    {{ partial "codemirror.html" . }}
+{{ end }}
+
+
+Final 10px fix · HTML
+Copy
+
+<!-- FINAL FIX: 10px Gap Compensation -->
+<!-- Add this before </body> in baseof.html -->
+
+<script>
+(function() {
+    // Move BODY up 10px to compensate for mystery gap
+    document.body.style.transform = 'translateY(-10px)';
+    
+    // Move container back down to preserve internal spacing
+    var container = document.querySelector('.container--outer');
+    if (container) {
+        container.style.transform = 'translateY(10px)';
+    }
+    
+    // Ensure no visual glitches
+    document.body.style.position = 'relative';
+    if (container) {
+        container.style.position = 'relative';
+    }
+})();
+</script>
+
 
 </body>
 </html>
