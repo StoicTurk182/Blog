@@ -17,6 +17,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
+            
         }    
         
         /* Prevent white flash and force to top */
@@ -30,6 +31,10 @@
           background-color: #181a1b !important;
           margin: 0 !important;
           padding: 0 !important;
+          background-attachment: fixed;             /* Keeps background from scrolling */
+    min-height: 100vh;                       /* 100% of Viewport Height */
+    display: flex;
+    flex-direction: column;
         }
 
         /* Force the very top of the browser window */
@@ -448,9 +453,7 @@ body {
     border: none !important;
 }
 
-.authorbox__name {
-    color: #ef4444 !important; /* Red name to match your theme */
-}
+
 
 /* 4. FOOTER RED LINE FIX */
 .footer {
@@ -458,12 +461,20 @@ body {
     padding: 2rem 0 !important;
     margin-top: 0 !important; /* Flush with content */
     background-color: rgba(24, 26, 27, 0.98) !important;
+    margin-top: auto !important;
+    
 }
 
 .footer__copyright {
     color: #a0a0a0 !important; /* Slightly lighter grey for readability */
     font-size: 0.85rem;
     padding-left: 1.5rem !important;
+    color: rgba(255, 255, 255, 0.4) !important; 
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    padding-left: 1.5rem !important; /* Keeping your edge alignment */
+    transition: color 0.3s ease;
 }
 
 .footer__copyright a {
