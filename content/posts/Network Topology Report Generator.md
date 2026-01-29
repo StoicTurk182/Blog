@@ -10,6 +10,7 @@ toc: true
 author: "Andrew Jones"
 authorImage: "/images/authors/devops-team.jpg"
 authorBio: "Linux system administration and automation experts"
+featuredImage: "/images/posts/swtich.jpg"
 socialShare: true
 ---
 
