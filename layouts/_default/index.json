@@ -1,25 +1,26 @@
 [
 {{- $first := true -}}
-{{- /* Include both sections */ -}}
 {{- range (where site.RegularPages "Section" "in" (slice "posts" "tools")) -}}
     {{- if not $first }},{{ end -}}
     {{- $first = false -}}
     
     {{- $img := "" -}}
     
-    {{- /* 1. Priority: Check Tool-specific parameter */ -}}
+    {{- /* 1. Tool-specific */ -}}
     {{- if .Params.tool_image -}}
         {{- $img = .Params.tool_image | relURL -}}
     
-    {{- /* 2. Check Standard Post parameter */ -}}
+    {{- /* 2. Check both featured_image and featuredImage */ -}}
+    {{- else if .Params.featured_image -}}
+        {{- $img = .Params.featured_image | relURL -}}
     {{- else if .Params.featuredImage -}}
         {{- $img = .Params.featuredImage | relURL -}}
 
-    {{- /* 3. Check Thumbnail parameter */ -}}
+    {{- /* 3. Thumbnail */ -}}
     {{- else if .Params.thumbnail -}}
         {{- $img = .Params.thumbnail | relURL -}}
 
-    {{- /* 4. Fallback: Check for an image file inside the post folder (Page Bundle) */ -}}
+    {{- /* 4. Fallback: Resources */ -}}
     {{- else -}}
         {{- $resource := (.Resources.ByType "image").GetMatch "{*featured*,*thumbnail*,*cover*}" -}}
         {{- if $resource -}}

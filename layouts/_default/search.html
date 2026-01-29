@@ -40,7 +40,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #888;
+    color: var(--text-primary, #1a1a1a); /* Updated to match your strong labels */
     border-bottom: 1px solid #eee;
 }
 
@@ -65,8 +65,28 @@
 
 .search-result-content { flex: 1; min-width: 0; }
 .search-result-title { margin: 0 0 0.4rem 0; font-size: 1.25rem; font-weight: 700; }
-.search-result-title a { color: var(--text-primary, #111); text-decoration: none; }
-.search-result-title a:hover { color: #e53e3e; text-decoration: underline; }
+
+/* --- Updated Unified Links (Obsidian/Brand Red) --- */
+.search-result-title a {
+    color: rgb(0, 0, 0) !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    border-bottom: 1px dotted transparent; 
+    transition: border-color 0.3s ease, transform 0.1s ease;
+    display: inline-block; /* Allows the active transform to move the text */
+}
+
+.search-result-title a:hover {
+    color: #ff0000 !important;
+    border-bottom: 1px dotted #ff0000 !important;
+}
+
+.search-result-title a:active {
+    transform: translateY(1px); 
+    color: #b91c1c !important;
+    transition: none;
+}
+
 .search-result-summary {
     margin: 0;
     color: #666;

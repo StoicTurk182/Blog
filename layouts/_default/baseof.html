@@ -135,22 +135,41 @@
 {{- end }}
 {{- partial "mathjax.html" . -}}
 
-<!-- Simple fade transition on page load -->
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.opacity = '1';
-    document.body.style.transition = 'opacity 0.3s ease';
+// Use pageshow to handle bfcache (back-button)
+window.addEventListener('pageshow', function() {
+    // We use a shorter, faster transition (200ms) 
+    // and 'cubic-bezier' for a "snappy" feel
+    document.body.style.transition = 'opacity 200ms cubic-bezier(0.23, 1, 0.32, 1)';
+    
+    requestAnimationFrame(() => {
+        document.body.style.opacity = '1';
+    });
 });
 
-// Fade out on link clicks (before navigation)
 document.addEventListener('click', function(e) {
     const link = e.target.closest('a');
-    if (link && !link.href.includes('://') && link.target !== '_blank') {
+    
+    if (link && 
+        link.href && 
+        link.origin === window.location.origin && 
+        link.target !== '_blank' &&
+        !link.hash &&
+        !e.metaKey && !e.ctrlKey) { // Don't fade if user Cmd/Ctrl+Clicks to open new tab
+        
+        e.preventDefault();
+        const destination = link.href;
+        
         document.body.style.opacity = '0';
+        
+        // Match this delay exactly to the transition duration (200ms)
+        setTimeout(() => {
+            window.location.href = destination;
+        }, 200);
     }
 });
 </script>
-
 
 
 </body>
@@ -174,9 +193,14 @@ html {
 }
 
 body {
+    opacity: 0;
     margin: 0 !important;
     padding: 0 !important;
     background-color: #181a1b !important;
+    /* Hardware acceleration */
+    will-change: opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* Force container to top */

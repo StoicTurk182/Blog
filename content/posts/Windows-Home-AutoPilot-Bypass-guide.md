@@ -5,7 +5,7 @@ draft: false
 description: "Guide for installing Windows 11 Pro on devices with OEM Home edition keys embedded in BIOS/UEFI firmware. Includes ISO modification with ei.cfg and pid.txt, post-install upgrade method, and regional configuration for Autopilot deployments."
 categories: ["Infrastructure", "Microsoft"]
 tags: ["autopilot", "windows-11", "deployment"]
-featuredImage: ""
+featuredImage: "/images/posts/key.png"
 readingTime: true
 toc: true
 author: "Andrew Jones"

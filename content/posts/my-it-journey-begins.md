@@ -5,7 +5,7 @@ draft: false
 author: "Andrew Jones"
 tags: ["Blog"]
 categories: ["Infrastructure"]
-featured_image: "/images/posts/my-it-journey-begins/featured.jpg"
+featured_image: "/images/posts/self.webp"
 description: "My IT journey Continues - insights from Andrew Jones, IT Engineer in London, UK"
 toc: true
 ---

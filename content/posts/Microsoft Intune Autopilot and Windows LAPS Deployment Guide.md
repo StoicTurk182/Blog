@@ -5,7 +5,7 @@ draft: false
 description: "Complete guide for configuring Windows Autopilot with custom local administrator naming and Windows LAPS password management. Includes BitLocker key escrow, White Glove pre-provisioning, and troubleshooting for policy conflicts."
 categories: ["Infrastructure", "Microsoft"]
 tags: ["autopilot"]
-featuredImage: ""
+featuredImage: "/images/posts/intune.png"
 readingTime: true
 toc: true
 author: "Andrew Jones"

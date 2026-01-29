@@ -5,7 +5,7 @@ draft: false
 description: "Complete guide to using the improved backup script with compression, incremental backups, email reporting, and automated scheduling"
 categories: ["System Administration"]
 tags: ["backup", "bash", "automation"]
-featuredImageAlt: "Backup script workflow diagram showing compression and incremental backup process"
+featuredImage: "/images/posts/hdd.jpg"
 author: "Andrew Jones"
 readingTime: true
 toc: true
