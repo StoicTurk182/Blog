@@ -150,44 +150,6 @@
     transition: none !important; 
 }
 
-/* --- CodeMirror Editor Styling (Unified) --- */
-
-/* Force Editor to match square highlight style */
-[data-codemirror],
-.cm-editor {
-    border: 1px solid #e1e4e8 !important; /* Match highlight border color */
-    margin: 1.5rem 0;
-    border-radius: 0px !important; /* Ensure square corners */
-    overflow: hidden;
-}
-
-.cm-editor {
-    font-size: 14px;
-    background: #1e1e1e;
-    outline: none !important; /* Remove focus ring */
-}
-
-.cm-scroller {
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    padding: 0; /* Flush edges */
-}
-
-.cm-gutters {
-    background: #1e1e1e !important;
-    color: #858585;
-    border-right: 1px solid #333 !important;
-    border-radius: 0px !important;
-}
-
-.cm-activeLine, 
-.cm-activeLineGutter {
-    background: #2a2d2e !important;
-}
-
-.cm-content {
-    padding: 0.5rem 0;
-}
-
 /* --- Existing Styles Maintained --- */
 .logo__tagline {
   color: #ff0000 !important;

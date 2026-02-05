@@ -1,0 +1,321 @@
+---
+title: "Secure Hardware Telemetry with Caddy"
+date: 2026-02-03
+draft: false
+description: "Implementing a secure reverse proxy architecture for LibreHardwareMonitor using Caddy with internal TLS and Tailscale overlay networking on Windows infrastructure."
+categories: ["Infrastructure", "Security"]
+tags: ["caddy", "tailscale", "windows", "reverse-proxy", "librehardwaremonitor", "networking"]
+featuredImage: "static/images/posts/logo-dark.svg"
+readingTime: true
+toc: true
+author: "Andrew Jones"
+authorBio: "L2 IT Support Engineer specializing in system administration and network infrastructure"
+socialShare: true
+codemirror: true
+---
+
+## Overview
+
+The convergence of home lab infrastructure, remote systems administration, and Zero Trust networking principles has necessitated robust solutions for exposing internal telemetry without compromising security. This guide provides a comprehensive implementation for securing LibreHardwareMonitor using Caddy as a reverse proxy and Tailscale as the transport layer.
+
+The architecture moves beyond simple port forwarding, utilizing an overlay network (Tailscale) to render the service invisible to the public internet, while employing application-layer encryption (TLS) via Caddy. This multi-layered approach adheres to the principle of Defence in Depth.
+
+## Architecture Overview
+
+The solution integrates three distinct technologies:
+
+| Component | Role | Port |
+|-----------|------|------|
+| LibreHardwareMonitor | Hardware telemetry source | 8085 (HTTP) |
+| Caddy | Reverse proxy with TLS termination | 8086 (HTTPS) |
+| Tailscale | Encrypted overlay network | WireGuard tunnel |
+
+### Security Layers
+
+| Layer | Protection |
+|-------|------------|
+| Network | Tailscale mesh - invisible to public internet |
+| Transport | WireGuard encryption (ChaCha20-Poly1305) |
+| Application | Caddy internal TLS (self-signed) |
+| Binding | Tailscale IP only - no LAN exposure |
+
+## Prerequisites
+
+### LibreHardwareMonitor Configuration
+
+LibreHardwareMonitor must be configured to expose its web server on the local network.
+
+1. Download from [GitHub Releases](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases)
+2. Extract to `C:\Tools\LibreHardwareMonitor`
+3. Run as Administrator (required for hardware sensor access)
+4. Enable web server: **Options** > **Remote Web Server** > **IP** > Select your LAN IP
+5. Enable web server: **Options** > **Remote Web Server** > **Run**
+
+Verify the upstream is accessible locally:
+
+```powershell
+Test-NetConnection -ComputerName 10.1.10.30 -Port 8085
+```
+
+### Tailscale Installation
+
+Ensure Tailscale is installed and authenticated on the host system. Verify your Tailscale IP:
+
+```powershell
+tailscale ip -4
+```
+
+Example output: `100.69.66.60`
+
+## Implementation
+
+### Step 1: Create Directory Structure
+
+```powershell
+New-Item -ItemType Directory -Path "C:\Caddy" -Force
+New-Item -ItemType Directory -Path "C:\Caddy\data" -Force
+New-Item -ItemType Directory -Path "C:\Caddy\logs" -Force
+```
+
+### Step 2: Download Caddy
+
+```powershell
+Invoke-WebRequest -Uri "https://caddyserver.com/api/download?os=windows&arch=amd64" -OutFile "C:\Caddy\caddy.exe"
+```
+
+Verify installation:
+
+```powershell
+C:\Caddy\caddy.exe version
+```
+
+### Step 3: Create Caddyfile
+
+Open Notepad to create the configuration:
+
+```powershell
+notepad C:\Caddy\Caddyfile
+```
+
+Paste the following configuration:
+
+```caddy
+100.69.66.60:8086 {
+    reverse_proxy 10.1.10.30:8085
+    tls internal
+}
+```
+
+Configuration breakdown:
+
+| Directive | Purpose |
+|-----------|---------|
+| `100.69.66.60:8086` | Bind only to Tailscale interface on port 8086 |
+| `reverse_proxy` | Forward requests to LibreHardwareMonitor |
+| `tls internal` | Generate self-signed certificate for HTTPS |
+
+### Step 4: Configure Windows Firewall
+
+Create an application-based firewall rule that only allows traffic when `caddy.exe` is listening:
+
+```powershell
+# Remove any existing rules
+Remove-NetFirewallRule -DisplayName "Caddy*" -ErrorAction SilentlyContinue
+
+# Create new rule
+New-NetFirewallRule -DisplayName "Caddy Server" `
+    -Direction Inbound `
+    -Program "C:\Caddy\caddy.exe" `
+    -Action Allow `
+    -Profile Any
+```
+
+The `-Profile Any` parameter is essential for Tailscale, which often presents as a Public network interface to Windows.
+
+### Step 5: Test Configuration
+
+Run Caddy in foreground mode to verify the configuration:
+
+```powershell
+C:\Caddy\caddy.exe run --config C:\Caddy\Caddyfile
+```
+
+Expected output:
+
+```
+INFO    admin   admin endpoint started
+INFO    tls.cache.maintenance   started background certificate maintenance
+INFO    http.log        server running
+INFO    autosaved config
+INFO    serving initial configuration
+```
+
+Test from another terminal:
+
+```powershell
+Test-NetConnection -ComputerName 100.69.66.60 -Port 8086
+```
+
+### Step 6: Install as Windows Service
+
+Stop the foreground process (Ctrl+C), then create the service:
+
+```powershell
+sc.exe create Caddy start= auto binPath= "C:\Caddy\caddy.exe run --config C:\Caddy\Caddyfile"
+```
+
+**Important:** Note the space after each equals sign - this is required by `sc.exe` syntax.
+
+Configure automatic restart on failure:
+
+```powershell
+sc.exe failure Caddy reset= 86400 actions= restart/60000/restart/60000/restart/60000
+```
+
+This configures:
+- Reset failure count after 24 hours (86400 seconds)
+- Restart after 60 seconds on first, second, and subsequent failures
+
+Start the service:
+
+```powershell
+Start-Service Caddy
+```
+
+## Verification
+
+### Service Status
+
+```powershell
+Get-Service Caddy
+```
+
+### Port Listening
+
+```powershell
+Get-NetTCPConnection -LocalPort 8086 -State Listen | Format-Table LocalAddress, LocalPort
+```
+
+Expected output:
+
+```
+LocalAddress   LocalPort
+------------   ---------
+100.69.66.60        8086
+```
+
+### Browser Test
+
+From any Tailscale-connected device, navigate to:
+
+```
+https://100.69.66.60:8086/
+```
+
+Accept the certificate warning (expected for self-signed certificates), and the LibreHardwareMonitor dashboard should load.
+
+## Service Management
+
+| Action | Command |
+|--------|---------|
+| Start | `Start-Service Caddy` |
+| Stop | `Stop-Service Caddy` |
+| Restart | `Restart-Service Caddy` |
+| Status | `Get-Service Caddy` |
+| Delete | `sc.exe delete Caddy` |
+
+## Troubleshooting
+
+### Common Issues
+
+| Symptom | HTTP Code | Cause | Resolution |
+|---------|-----------|-------|------------|
+| Connection Refused | N/A | Firewall or service not running | Check `Get-Service Caddy` and firewall rules |
+| Bad Gateway | 502 | Upstream unreachable | Verify LHM is running on correct IP/port |
+| Certificate Error | N/A | Self-signed certificate | Accept warning or install root CA |
+| Blank Page | 200 | JavaScript/header mismatch | Update LibreHardwareMonitor |
+
+### Diagnostic Commands
+
+Check if Caddy is listening:
+
+```powershell
+netstat -ano | findstr ":8086"
+```
+
+View Caddy process:
+
+```powershell
+Get-Process -Name caddy -ErrorAction SilentlyContinue | Format-Table Id, ProcessName, Path
+```
+
+Test upstream connectivity:
+
+```powershell
+Invoke-RestMethod -Uri "http://10.1.10.30:8085/data.json" | ConvertTo-Json -Depth 3
+```
+
+## Updating Caddy
+
+Caddy is distributed as a static binary, making updates straightforward:
+
+```powershell
+Stop-Service Caddy
+Invoke-WebRequest -Uri "https://caddyserver.com/api/download?os=windows&arch=amd64" -OutFile "C:\Caddy\caddy.exe"
+Start-Service Caddy
+```
+
+## Uninstallation
+
+```powershell
+# Stop and remove service
+Stop-Service Caddy -ErrorAction SilentlyContinue
+sc.exe delete Caddy
+
+# Remove firewall rule
+Remove-NetFirewallRule -DisplayName "Caddy*"
+
+# Remove files
+Remove-Item -Path "C:\Caddy" -Recurse -Force
+```
+
+## Security Considerations
+
+### Why Tailscale-Only Binding?
+
+By binding Caddy exclusively to the Tailscale IP (`100.69.66.60`), the service is inaccessible from:
+- The local LAN (unless devices are on Tailscale)
+- The public internet (Tailscale IPs are not routable)
+- Port scanners (Shodan, Censys)
+
+### Internal TLS Rationale
+
+While Tailscale already encrypts traffic using WireGuard, adding application-layer TLS provides:
+- End-to-end encryption where the private key is held by Caddy
+- Protection against potential malicious actors within the tailnet
+- Defence in depth if the VPN tunnel is somehow compromised
+
+### Alternative: Tailscale HTTPS Certificates
+
+Caddy can use Tailscale's built-in certificate provisioning:
+
+```caddy
+100.69.66.60:8086 {
+    reverse_proxy 10.1.10.30:8085
+    tls {
+        get_certificate tailscale
+    }
+}
+```
+
+This provides valid Let's Encrypt certificates with no browser warnings, but requires additional Tailscale socket permissions on Windows.
+
+## References
+
+- [Caddy Documentation](https://caddyserver.com/docs/)
+- [Caddy Reverse Proxy Quick-Start](https://caddyserver.com/docs/quick-starts/reverse-proxy)
+- [Caddy TLS Directive](https://caddyserver.com/docs/caddyfile/directives/tls)
+- [Tailscale with Caddy](https://tailscale.com/blog/caddy)
+- [LibreHardwareMonitor GitHub](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor)
+- [Microsoft sc.exe Documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sc-create)
+- [Windows Firewall PowerShell](https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule)

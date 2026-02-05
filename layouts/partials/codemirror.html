@@ -1,3 +1,5 @@
+{{- /* layouts/partials/codemirror.html */ -}}
+{{- /* This builds the JavaScript assets */ -}}
 {{ $opts := dict "targetPath" "js/codemirror.bundle.js" "minify" true }}
 {{ with resources.Get "js/codemirror-init.js" }}
     {{ $js := . | js.Build $opts }}

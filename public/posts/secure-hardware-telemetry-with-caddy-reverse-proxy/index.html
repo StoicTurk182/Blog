@@ -1,0 +1,1547 @@
+<!doctype html><html class=no-js lang=en><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><style>*{margin:0;padding:0;box-sizing:border-box}html,body,*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}html{background-color:#181a1b!important;margin:0!important;padding:0!important}body{background-color:#181a1b!important;margin:0!important;padding:0!important;background-attachment:fixed;min-height:100vh;display:flex;flex-direction:column}html,body{margin:0!important;padding:0!important}.container--outer{margin-top:0!important;padding-top:0!important;position:relative;top:0}.header{top:0!important;margin-top:0!important;padding-top:1rem}</style><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Secure Hardware Telemetry with Caddy - Andy J Blog - Trials of an IT Engineer</title><script>(function(e,t){e[t]=e[t].replace("no-js","js")})(document.documentElement,"className")</script><meta name=description content="Implementing a secure reverse proxy architecture for LibreHardwareMonitor using Caddy with internal TLS, HTTP Basic Authentication, granular firewall controls, and Tailscale overlay networking on Windows infrastructure."><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=//fonts.googleapis.com><link rel=dns-prefetch href=//fonts.gstatic.com><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/custom.css><link rel="shortcut icon" href=/favicon.ico><style></style><style>body{opacity:0;transform:translateY(10px);transition:opacity .6s ease-out,transform .6s cubic-bezier(.23,1,.32,1)}body.page-loaded{opacity:1!important;transform:translateY(0)!important}</style><script src=/js/copy-code.min.f4f2cf6a8c823124c9b4dfe0e56fe889304a1aaf0590fb5963ebcd288c17e94e.js integrity="sha256-9PLPaoyCMSTJtN/g5W/oiTBKGq8FkPtZY+vNKIwX6U4=" defer></script><script src=/js/copy-code.min.f4f2cf6a8c823124c9b4dfe0e56fe889304a1aaf0590fb5963ebcd288c17e94e.js integrity="sha256-9PLPaoyCMSTJtN/g5W/oiTBKGq8FkPtZY+vNKIwX6U4=" defer></script></head><body class=body><div class="container container--outer"><header class=header><div class="container header__container"><div class=logo><a class=logo__link href=/ title=Projects rel=home><div class="logo__item logo__text"><div class=logo__title>Projects</div><div class=logo__tagline>Information Technology Musings</div></div></a></div><nav class=menu><button class=menu__btn aria-haspopup=true aria-expanded=false tabindex=0>
+<span class=menu__btn-title tabindex=-1>Menu</span></button><ul class=menu__list><li class=menu__item><a class=menu__link href=/><span class=menu__text>Home</span></a></li><li class=menu__item><a class=menu__link href=/posts/><span class=menu__text>Posts</span></a></li><li class=menu__item><a class=menu__link href=/tools/><span class=menu__text>Tools</span></a></li><li class=menu__item><a class=menu__link href=/contact/><span class=menu__text>Contact</span></a></li><li class="menu__item menu__item--search"><form class=menu__search action=/search/ method=get><input type=text name=q placeholder=Search... aria-label=Search></form></li></ul></nav></div></header><div class="wrapper flex"><div class=primary><article class=professional-post><header class=professional-header><div class=post-meta><span class=post-date>February 5, 2026</span>
+<span class=reading-time>• 29 min read</span>
+<span class=post-category>Infrastructure</span></div><h1 class=post-title>Secure Hardware Telemetry with Caddy</h1><p class=post-description>Implementing a secure reverse proxy architecture for LibreHardwareMonitor using Caddy with internal TLS, HTTP Basic Authentication, granular firewall controls, and Tailscale overlay networking on Windows infrastructure.</p><div class=author-info><span class=author>By Andrew Jones</span></div></header><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/caddy_logo.png alt="Secure Hardware Telemetry with Caddy"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#overview>Overview</a></li><li><a href=#architecture-overview>Architecture Overview</a></li><li><a href=#prerequisites>Prerequisites</a></li><li><a href=#implementation>Implementation</a></li><li><a href=#authentication>Authentication</a></li><li><a href=#firewall-management>Firewall Management</a></li><li><a href=#verification>Verification</a></li><li><a href=#service-management>Service Management</a></li><li><a href=#menu-options>Menu Options</a></li><li><a href=#file-structure>File Structure</a></li><li><a href=#troubleshooting>Troubleshooting</a></li><li><a href=#updating-caddy>Updating Caddy</a></li><li><a href=#uninstallation>Uninstallation</a></li><li><a href=#security-considerations>Security Considerations</a></li><li><a href=#full-script>Full Script</a></li><li><a href=#references>References</a></li></ol></nav></aside><div class=post-content><h2 id=overview>Overview</h2><p>The convergence of home lab infrastructure, remote systems administration, and Zero Trust networking principles has necessitated robust solutions for exposing internal telemetry without compromising security. This guide provides a comprehensive implementation for securing LibreHardwareMonitor using Caddy as a reverse proxy and Tailscale as the transport layer.</p><p>The architecture moves beyond simple port forwarding, utilizing an overlay network (Tailscale) to render the service invisible to the public internet, while employing application-layer encryption (TLS) via Caddy. Version 5.0 adds HTTP Basic Authentication and granular firewall rule management, adhering to the principle of Defence in Depth.</p><h2 id=architecture-overview>Architecture Overview</h2><p>The solution integrates three distinct technologies with multiple security layers:</p><table><thead><tr><th>Component</th><th>Role</th><th>Port</th></tr></thead><tbody><tr><td>LibreHardwareMonitor</td><td>Hardware telemetry source</td><td>8085 (HTTP)</td></tr><tr><td>Caddy</td><td>Reverse proxy with TLS termination and authentication</td><td>8086 (HTTPS)</td></tr><tr><td>Tailscale</td><td>Encrypted overlay network</td><td>WireGuard tunnel</td></tr></tbody></table><h3 id=security-layers>Security Layers</h3><table><thead><tr><th>Layer</th><th>Protection</th></tr></thead><tbody><tr><td>Network</td><td>Windows Firewall with scope-based rules</td></tr><tr><td>Overlay</td><td>Tailscale mesh - invisible to public internet</td></tr><tr><td>Transport</td><td>WireGuard encryption (ChaCha20-Poly1305)</td></tr><tr><td>Application</td><td>Caddy internal TLS (self-signed)</td></tr><tr><td>Authentication</td><td>HTTP Basic Auth with bcrypt hashing</td></tr><tr><td>Binding</td><td>Tailscale IP only - no LAN exposure</td></tr></tbody></table><h2 id=prerequisites>Prerequisites</h2><h3 id=librehardwaremonitor-configuration>LibreHardwareMonitor Configuration</h3><p>LibreHardwareMonitor must be configured to expose its web server on the local network.</p><ol><li>Download from <a href=https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases>GitHub Releases</a></li><li>Extract to <code>C:\Tools\LibreHardwareMonitor</code></li><li>Run as Administrator (required for hardware sensor access)</li><li>Enable web server: <strong>Options</strong> > <strong>Remote Web Server</strong> > <strong>IP</strong> > Select your LAN IP</li><li>Enable web server: <strong>Options</strong> > <strong>Remote Web Server</strong> > <strong>Run</strong></li></ol><p>Verify the upstream is accessible locally:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Test-NetConnection -ComputerName <span style=color:#ae81ff>10.1</span>.10.30 -Port <span style=color:#ae81ff>8085</span>
+</span></span></code></pre></div><h3 id=tailscale-installation>Tailscale Installation</h3><p>Ensure Tailscale is installed and authenticated on the host system. Verify your Tailscale IP:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>tailscale ip <span style=color:#ae81ff>-4</span>
+</span></span></code></pre></div><p>Example output: <code>100.69.66.60</code></p><h2 id=implementation>Implementation</h2><h3 id=quick-start>Quick Start</h3><p>For automated deployment with recommended security settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -EnableAuth -FirewallScope TailscaleOnly
+</span></span></code></pre></div><p>This enables authentication (prompts for credentials) and restricts firewall access to Tailscale devices only.</p><h3 id=step-1-create-directory-structure>Step 1: Create Directory Structure</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>New-Item -ItemType Directory -Path <span style=color:#e6db74>&#34;C:\Caddy&#34;</span> -Force
+</span></span><span style=display:flex><span>New-Item -ItemType Directory -Path <span style=color:#e6db74>&#34;C:\Caddy\data&#34;</span> -Force
+</span></span><span style=display:flex><span>New-Item -ItemType Directory -Path <span style=color:#e6db74>&#34;C:\Caddy\logs&#34;</span> -Force
+</span></span></code></pre></div><h3 id=step-2-download-caddy>Step 2: Download Caddy</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Invoke-WebRequest -Uri <span style=color:#e6db74>&#34;https://caddyserver.com/api/download?os=windows&amp;arch=amd64&#34;</span> -OutFile <span style=color:#e6db74>&#34;C:\Caddy\caddy.exe&#34;</span>
+</span></span></code></pre></div><p>Verify installation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>C:\Caddy\caddy.exe version
+</span></span></code></pre></div><h3 id=step-3-create-caddyfile>Step 3: Create Caddyfile</h3><p>Open Notepad to create the configuration:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>notepad C:\Caddy\Caddyfile
+</span></span></code></pre></div><p>Paste the following configuration (without authentication):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-caddy data-lang=caddy><span style=display:flex><span>100.69.66.60:8086 {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>reverse_proxy</span> 10.1.10.30:<span style=color:#ae81ff>8085</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>tls</span> <span style=color:#66d9ef>internal</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Or with HTTP Basic Authentication:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-caddy data-lang=caddy><span style=display:flex><span>100.69.66.60:8086 {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>basicauth</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>admin</span> <span style=color:#e6db74>$2a$14$Zkx19XLiW6VYouLHR5NmfOFU0z2GTNmpkT/5qqR7hx4IjWJPDhjvG</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>reverse_proxy</span> 10.1.10.30:<span style=color:#ae81ff>8085</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>tls</span> <span style=color:#66d9ef>internal</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Generate a password hash using Caddy:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#e6db74>&#34;YourPassword&#34;</span> | C:\Caddy\caddy.exe hash-password
+</span></span></code></pre></div><p>Configuration breakdown:</p><table><thead><tr><th>Directive</th><th>Purpose</th></tr></thead><tbody><tr><td><code>100.69.66.60:8086</code></td><td>Bind only to Tailscale interface on port 8086</td></tr><tr><td><code>basicauth</code></td><td>Require username/password authentication</td></tr><tr><td><code>reverse_proxy</code></td><td>Forward requests to LibreHardwareMonitor</td></tr><tr><td><code>tls internal</code></td><td>Generate self-signed certificate for HTTPS</td></tr></tbody></table><h3 id=step-4-configure-windows-firewall>Step 4: Configure Windows Firewall</h3><p>The script provides three firewall scope options for different security requirements:</p><h4 id=tailscale-only-recommended>Tailscale Only (Recommended)</h4><p>Restricts access to the Tailscale CGNAT range (100.64.0.0/10):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>New-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Caddy Reverse Proxy (Tailscale Only)&#34;</span> `
+</span></span><span style=display:flex><span>    -Direction Inbound `
+</span></span><span style=display:flex><span>    -Protocol TCP `
+</span></span><span style=display:flex><span>    -LocalPort <span style=color:#ae81ff>8086</span> `
+</span></span><span style=display:flex><span>    -RemoteAddress <span style=color:#ae81ff>100.64</span>.0.<span style=color:#ae81ff>0</span>/<span style=color:#ae81ff>10</span> `
+</span></span><span style=display:flex><span>    -Action Allow `
+</span></span><span style=display:flex><span>    -Profile Any
+</span></span></code></pre></div><h4 id=lan-restricted>LAN Restricted</h4><p>Allows specific IP addresses or subnets:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>New-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Caddy Reverse Proxy (LAN Restricted)&#34;</span> `
+</span></span><span style=display:flex><span>    -Direction Inbound `
+</span></span><span style=display:flex><span>    -Protocol TCP `
+</span></span><span style=display:flex><span>    -LocalPort <span style=color:#ae81ff>8086</span> `
+</span></span><span style=display:flex><span>    -RemoteAddress <span style=color:#ae81ff>10.1</span>.10.<span style=color:#ae81ff>0</span>/<span style=color:#ae81ff>24</span> `
+</span></span><span style=display:flex><span>    -Action Allow `
+</span></span><span style=display:flex><span>    -Profile Private,Domain
+</span></span></code></pre></div><h4 id=any-least-secure>Any (Least Secure)</h4><p>Allows all connections (not recommended for production):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>New-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Caddy Reverse Proxy (Any)&#34;</span> `
+</span></span><span style=display:flex><span>    -Direction Inbound `
+</span></span><span style=display:flex><span>    -Protocol TCP `
+</span></span><span style=display:flex><span>    -LocalPort <span style=color:#ae81ff>8086</span> `
+</span></span><span style=display:flex><span>    -Action Allow `
+</span></span><span style=display:flex><span>    -Profile Any
+</span></span></code></pre></div><h3 id=step-5-test-configuration>Step 5: Test Configuration</h3><p>Run Caddy in foreground mode to verify the configuration:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>C:\Caddy\caddy.exe run --config C:\Caddy\Caddyfile
+</span></span></code></pre></div><p>Expected output:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>INFO    admin   admin endpoint started
+</span></span><span style=display:flex><span>INFO    tls.cache.maintenance   started background certificate maintenance
+</span></span><span style=display:flex><span>INFO    http.log        server running
+</span></span><span style=display:flex><span>INFO    autosaved config
+</span></span><span style=display:flex><span>INFO    serving initial configuration
+</span></span></code></pre></div><p>Test from another terminal:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Test-NetConnection -ComputerName <span style=color:#ae81ff>100.69</span>.66.60 -Port <span style=color:#ae81ff>8086</span>
+</span></span></code></pre></div><h3 id=step-6-install-as-windows-service>Step 6: Install as Windows Service</h3><p>Stop the foreground process (Ctrl+C), then create the service:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>sc.exe create Caddy start= auto binPath= <span style=color:#e6db74>&#34;C:\Caddy\caddy.exe run --config C:\Caddy\Caddyfile&#34;</span>
+</span></span></code></pre></div><p><strong>Important:</strong> Note the space after each equals sign - this is required by <code>sc.exe</code> syntax.</p><p>Configure automatic restart on failure:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>sc.exe failure Caddy reset= <span style=color:#ae81ff>86400</span> actions= restart/<span style=color:#ae81ff>60000</span>/restart/<span style=color:#ae81ff>60000</span>/restart/<span style=color:#ae81ff>60000</span>
+</span></span></code></pre></div><p>This configures:</p><ul><li>Reset failure count after 24 hours (86400 seconds)</li><li>Restart after 60 seconds on first, second, and subsequent failures</li></ul><p>Start the service:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Start-Service Caddy
+</span></span></code></pre></div><h2 id=authentication>Authentication</h2><h3 id=how-it-works>How It Works</h3><p>Caddy&rsquo;s <code>basicauth</code> directive provides HTTP Basic Authentication with bcrypt-hashed passwords. The script uses Caddy&rsquo;s built-in <code>hash-password</code> command to generate secure hashes, ensuring passwords are never stored in plain text.</p><h3 id=password-requirements>Password Requirements</h3><table><thead><tr><th>Requirement</th><th>Value</th></tr></thead><tbody><tr><td>Minimum length</td><td>8 characters</td></tr><tr><td>Hash algorithm</td><td>bcrypt (Caddy default)</td></tr><tr><td>Storage</td><td>auth.json (admin-only ACL)</td></tr></tbody></table><h3 id=managing-authentication-via-script>Managing Authentication via Script</h3><p>The interactive menu provides full authentication management:</p><table><thead><tr><th>Option</th><th>Action</th></tr></thead><tbody><tr><td>Enable/Update Authentication</td><td>Set username and password</td></tr><tr><td>Change Password</td><td>Update password for existing user</td></tr><tr><td>Disable Authentication</td><td>Remove auth and regenerate Caddyfile</td></tr></tbody></table><p>Command-line usage:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Enable during install</span>
+</span></span><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -EnableAuth -AuthUsername <span style=color:#e6db74>&#34;monitor&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># With custom username</span>
+</span></span><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -EnableAuth -AuthUsername <span style=color:#e6db74>&#34;admin&#34;</span>
+</span></span></code></pre></div><h3 id=security-considerations-for-authentication>Security Considerations for Authentication</h3><p>The script handles password security by:</p><ol><li>Accepting passwords via <code>SecureString</code> (masked input)</li><li>Converting to plain text only for hashing</li><li>Immediately clearing plain text from memory</li><li>Storing only the bcrypt hash in <code>auth.json</code></li><li>Restricting file permissions to Administrators and SYSTEM only</li></ol><h2 id=firewall-management>Firewall Management</h2><h3 id=scope-options>Scope Options</h3><table><thead><tr><th>Scope</th><th>Remote Address</th><th>Profile</th><th>Security Level</th></tr></thead><tbody><tr><td>TailscaleOnly</td><td>100.64.0.0/10</td><td>Any</td><td>Highest</td></tr><tr><td>LAN</td><td>User-specified</td><td>Private,Domain</td><td>Medium</td></tr><tr><td>Any</td><td>Any</td><td>Any</td><td>Lowest</td></tr></tbody></table><h3 id=command-line-usage>Command-Line Usage</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Tailscale only (default, most secure)</span>
+</span></span><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -FirewallScope TailscaleOnly
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># LAN subnet</span>
+</span></span><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -FirewallScope LAN -AllowedAddresses <span style=color:#e6db74>&#34;10.1.10.0/24&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Specific hosts</span>
+</span></span><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -FirewallScope LAN -AllowedAddresses <span style=color:#e6db74>&#34;10.1.10.10,10.1.10.30&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Mixed (subnet + specific IPs)</span>
+</span></span><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -FirewallScope LAN -AllowedAddresses <span style=color:#e6db74>&#34;10.1.10.0/24,192.168.1.50&#34;</span>
+</span></span></code></pre></div><h3 id=interactive-menu>Interactive Menu</h3><p>The firewall submenu (<code>[F]</code> from main menu) provides:</p><table><thead><tr><th>Option</th><th>Action</th></tr></thead><tbody><tr><td>[1] Tailscale Only</td><td>Restrict to 100.64.0.0/10</td></tr><tr><td>[2] LAN Restricted</td><td>Specify addresses interactively</td></tr><tr><td>[3] Any</td><td>Allow all (with confirmation)</td></tr><tr><td>[4] Remove All Rules</td><td>Delete all Caddy firewall rules</td></tr><tr><td>[5] Refresh Status</td><td>View current rule configuration</td></tr></tbody></table><h3 id=viewing-current-rules>Viewing Current Rules</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Caddy Reverse Proxy*&#34;</span> | ForEach-Object {
+</span></span><span style=display:flex><span>    $port = Get-NetFirewallPortFilter -AssociatedNetFirewallRule $_
+</span></span><span style=display:flex><span>    $addr = Get-NetFirewallAddressFilter -AssociatedNetFirewallRule $_
+</span></span><span style=display:flex><span>    [<span style=color:#66d9ef>PSCustomObject</span>]@{
+</span></span><span style=display:flex><span>        Name = $_.DisplayName
+</span></span><span style=display:flex><span>        Enabled = $_.Enabled
+</span></span><span style=display:flex><span>        Port = $port.LocalPort
+</span></span><span style=display:flex><span>        RemoteAddress = $addr.RemoteAddress
+</span></span><span style=display:flex><span>        Profile = $_.Profile
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>} | Format-Table -AutoSize
+</span></span></code></pre></div><h2 id=verification>Verification</h2><h3 id=service-status>Service Status</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-Service Caddy
+</span></span></code></pre></div><h3 id=port-listening>Port Listening</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-NetTCPConnection -LocalPort <span style=color:#ae81ff>8086</span> -State Listen | Format-Table LocalAddress, LocalPort
+</span></span></code></pre></div><p>Expected output:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>LocalAddress   LocalPort
+</span></span><span style=display:flex><span>------------   ---------
+</span></span><span style=display:flex><span><span style=color:#ae81ff>100.69</span>.66.60        <span style=color:#ae81ff>8086</span>
+</span></span></code></pre></div><h3 id=browser-test>Browser Test</h3><p>From any Tailscale-connected device, navigate to:</p><pre tabindex=0><code>https://100.69.66.60:8086/
+</code></pre><p>If authentication is enabled, you will be prompted for credentials. Accept the certificate warning (expected for self-signed certificates), and the LibreHardwareMonitor dashboard should load.</p><h2 id=service-management>Service Management</h2><table><thead><tr><th>Action</th><th>Command</th></tr></thead><tbody><tr><td>Start</td><td><code>Start-Service Caddy</code></td></tr><tr><td>Stop</td><td><code>Stop-Service Caddy</code></td></tr><tr><td>Restart</td><td><code>Restart-Service Caddy</code></td></tr><tr><td>Status</td><td><code>Get-Service Caddy</code></td></tr><tr><td>Delete</td><td><code>sc.exe delete Caddy</code></td></tr></tbody></table><h2 id=menu-options>Menu Options</h2><p>The interactive menu provides comprehensive management:</p><table><thead><tr><th>Key</th><th>Option</th><th>Description</th></tr></thead><tbody><tr><td>1</td><td>Install Caddy Proxy</td><td>Full installation with auth and firewall prompts</td></tr><tr><td>2</td><td>Uninstall Caddy</td><td>Remove service, files, firewall rules</td></tr><tr><td>3</td><td>Test Installation</td><td>Verify all components</td></tr><tr><td>4</td><td>Restart Caddy Service</td><td>Restart after config changes</td></tr><tr><td>5</td><td>View Caddyfile</td><td>Display current configuration</td></tr><tr><td>6</td><td>Edit Caddyfile</td><td>Open in Notepad</td></tr><tr><td>7</td><td>LHM Setup Instructions</td><td>Display setup guide</td></tr><tr><td>8</td><td>Open Install Folder</td><td>Open C:\Caddy in Explorer</td></tr><tr><td>A</td><td>Authentication Settings</td><td>Manage auth credentials</td></tr><tr><td>F</td><td>Firewall Settings</td><td>Manage firewall rules</td></tr><tr><td>S</td><td>Scan/Select Upstream IP</td><td>Find LHM on local interfaces</td></tr><tr><td>Q</td><td>Quit</td><td>Exit menu</td></tr></tbody></table><h2 id=file-structure>File Structure</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>C:\Caddy\
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>├──</span> caddy.exe        <span style=color:#75715e># Caddy binary</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>├──</span> Caddyfile        <span style=color:#75715e># Proxy configuration</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>├──</span> auth.json        <span style=color:#75715e># Authentication config (restricted ACL)</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>├──</span> firewall.json    <span style=color:#75715e># Firewall scope config</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>├──</span> data\            <span style=color:#75715e># Caddy data directory</span>
+</span></span><span style=display:flex><span><span style=color:#960050;background-color:#1e0010>└──</span> logs\            <span style=color:#75715e># Log files</span>
+</span></span></code></pre></div><h2 id=troubleshooting>Troubleshooting</h2><h3 id=common-issues>Common Issues</h3><table><thead><tr><th>Symptom</th><th>HTTP Code</th><th>Cause</th><th>Resolution</th></tr></thead><tbody><tr><td>Connection Refused</td><td>N/A</td><td>Firewall or service not running</td><td>Check <code>Get-Service Caddy</code> and firewall rules</td></tr><tr><td>Bad Gateway</td><td>502</td><td>Upstream unreachable</td><td>Verify LHM is running on correct IP/port</td></tr><tr><td>Certificate Error</td><td>N/A</td><td>Self-signed certificate</td><td>Accept warning or install root CA</td></tr><tr><td>401 Unauthorized</td><td>401</td><td>Wrong credentials</td><td>Check username/password or reset via menu</td></tr><tr><td>Blank Page</td><td>200</td><td>JavaScript/header mismatch</td><td>Update LibreHardwareMonitor</td></tr></tbody></table><h3 id=diagnostic-commands>Diagnostic Commands</h3><p>Check if Caddy is listening:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>netstat -ano | findstr <span style=color:#e6db74>&#34;:8086&#34;</span>
+</span></span></code></pre></div><p>View Caddy process:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-Process -Name caddy -ErrorAction SilentlyContinue | Format-Table Id, ProcessName, Path
+</span></span></code></pre></div><p>Test upstream connectivity:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Invoke-RestMethod -Uri <span style=color:#e6db74>&#34;http://10.1.10.30:8085/data.json&#34;</span> | ConvertTo-Json -Depth <span style=color:#ae81ff>3</span>
+</span></span></code></pre></div><p>Check firewall rules:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Caddy*&#34;</span> | Select-Object DisplayName, Enabled, Direction, Action
+</span></span></code></pre></div><p>Verify authentication config:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Get-Content C:\Caddy\Caddyfile | Select-String <span style=color:#e6db74>&#34;basicauth&#34;</span> -Context <span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>3</span>
+</span></span></code></pre></div><h2 id=updating-caddy>Updating Caddy</h2><p>Caddy is distributed as a static binary, making updates straightforward:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>Stop-Service Caddy
+</span></span><span style=display:flex><span>Invoke-WebRequest -Uri <span style=color:#e6db74>&#34;https://caddyserver.com/api/download?os=windows&amp;arch=amd64&#34;</span> -OutFile <span style=color:#e6db74>&#34;C:\Caddy\caddy.exe&#34;</span>
+</span></span><span style=display:flex><span>Start-Service Caddy
+</span></span></code></pre></div><h2 id=uninstallation>Uninstallation</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Stop and remove service</span>
+</span></span><span style=display:flex><span>Stop-Service Caddy -ErrorAction SilentlyContinue
+</span></span><span style=display:flex><span>sc.exe delete Caddy
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Remove firewall rules</span>
+</span></span><span style=display:flex><span>Remove-NetFirewallRule -DisplayName <span style=color:#e6db74>&#34;Caddy Reverse Proxy*&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Remove files</span>
+</span></span><span style=display:flex><span>Remove-Item -Path <span style=color:#e6db74>&#34;C:\Caddy&#34;</span> -Recurse -Force
+</span></span></code></pre></div><p>Or use the script:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Uninstall -Force
+</span></span></code></pre></div><h2 id=security-considerations>Security Considerations</h2><h3 id=why-tailscale-only-binding>Why Tailscale-Only Binding?</h3><p>By binding Caddy exclusively to the Tailscale IP (<code>100.69.66.60</code>), the service is inaccessible from:</p><ul><li>The local LAN (unless devices are on Tailscale)</li><li>The public internet (Tailscale IPs are not routable)</li><li>Port scanners (Shodan, Censys)</li></ul><h3 id=why-scope-based-firewall-rules>Why Scope-Based Firewall Rules?</h3><p>The script creates port-based rules with address filtering rather than program-based rules:</p><table><thead><tr><th>Approach</th><th>Pros</th><th>Cons</th></tr></thead><tbody><tr><td>Program-based</td><td>Simple, follows executable</td><td>Allows all connections if program runs</td></tr><tr><td>Port + Address</td><td>Granular control, explicit allow list</td><td>Requires address management</td></tr></tbody></table><p>For Tailscale-only deployments, restricting to <code>100.64.0.0/10</code> ensures only Tailnet devices can connect, even if the firewall rule is accidentally modified.</p><h3 id=internal-tls-rationale>Internal TLS Rationale</h3><p>While Tailscale already encrypts traffic using WireGuard, adding application-layer TLS provides:</p><ul><li>End-to-end encryption where the private key is held by Caddy</li><li>Protection against potential malicious actors within the tailnet</li><li>Defence in depth if the VPN tunnel is somehow compromised</li></ul><h3 id=authentication-rationale>Authentication Rationale</h3><p>HTTP Basic Authentication adds a credential layer that:</p><ul><li>Prevents unauthorized access even if someone gains Tailnet access</li><li>Provides audit capability (who authenticated)</li><li>Allows different credentials per deployment</li><li>Uses bcrypt hashing (computationally expensive to brute force)</li></ul><h3 id=recommended-configuration>Recommended Configuration</h3><p>For maximum security, combine all layers:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>.\Setup-CaddyProxy.ps1 -Action Install -EnableAuth -FirewallScope TailscaleOnly
+</span></span></code></pre></div><p>This provides:</p><ol><li>Firewall blocks all non-Tailscale traffic (100.64.0.0/10 only)</li><li>Tailscale provides authenticated mesh network access</li><li>TLS encrypts all traffic</li><li>basicauth requires username/password</li></ol><h3 id=alternative-tailscale-https-certificates>Alternative: Tailscale HTTPS Certificates</h3><p>Caddy can use Tailscale&rsquo;s built-in certificate provisioning:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-caddy data-lang=caddy><span style=display:flex><span>100.69.66.60:8086 {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>basicauth</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>admin</span> <span style=color:#e6db74>$2a$14$hashedpassword...</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>reverse_proxy</span> 10.1.10.30:<span style=color:#ae81ff>8085</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>tls</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>get_certificate</span> <span style=color:#e6db74>tailscale</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This provides valid Let&rsquo;s Encrypt certificates with no browser warnings, but requires additional Tailscale socket permissions on Windows.</p><h2 id=full-script>Full Script</h2><p>Presented using CodeMirror for a more complete visualization, this was an off the cuff project that I had an idea to a while ago but never followed through with. I have always felt that HW Info is limited when it comes to remote HW telemetry even though it is a truly excellent piece of software.</p><p>This is a simple & secure solution to remotely monitor your PC / Server hardware details. The requirements are Tailscale and Caddy, with optional HTTP Basic Authentication and granular firewall controls.</p><div class=codemirror-container data-codemirror data-language=powershell data-readonly=true><textarea style=display:none>
+&amp;lt;#
+.SYNOPSIS
+    Caddy reverse proxy setup for LibreHardwareMonitor via Tailscale with optional authentication.
+
+.DESCRIPTION
+    Installs and configures Caddy as a reverse proxy for LibreHardwareMonitor,
+    binding to your Tailscale IP for secure remote access. Supports HTTP Basic
+    Authentication using Caddy&amp;#39;s built-in bcrypt password hashing.
+    
+    Prerequisites:
+    - Tailscale installed and connected
+    - LibreHardwareMonitor installed with web server enabled
+    
+    LibreHardwareMonitor Setup:
+    1. Download from: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases
+    2. Extract and run LibreHardwareMonitor.exe
+    3. Options &amp;gt; Remote Web Server &amp;gt; Run (enable)
+    4. Options &amp;gt; Remote Web Server &amp;gt; Port: 8085
+    5. Options &amp;gt; Remote Web Server &amp;gt; IP: Select your LAN IP (not Hyper-V)
+
+.PARAMETER Action
+    Install, Uninstall, Status, Test, or Menu
+
+.PARAMETER InstallPath
+    Caddy installation directory (default: C:\Caddy)
+
+.PARAMETER ProxyPort
+    Port for Caddy to listen on (default: 8086)
+
+.PARAMETER UpstreamPort
+    LibreHardwareMonitor port (default: 8085)
+
+.PARAMETER UpstreamIP
+    LibreHardwareMonitor IP (default: 127.0.0.1)
+
+.PARAMETER TailscaleIP
+    Tailscale IP to bind to (default: auto-detect)
+
+.PARAMETER EnableAuth
+    Enable HTTP Basic Authentication
+
+.PARAMETER AuthUsername
+    Username for basic auth (default: admin)
+
+.PARAMETER FirewallScope
+    Firewall rule scope: TailscaleOnly, LAN, or Any (default: TailscaleOnly)
+
+.PARAMETER AllowedAddresses
+    Comma-separated list of allowed addresses/subnets for LAN scope
+
+.PARAMETER Force
+    Skip confirmation prompts
+
+.EXAMPLE
+    .\Setup-CaddyProxy.ps1
+    Interactive menu
+
+.EXAMPLE
+    .\Setup-CaddyProxy.ps1 -Action Install -Force
+    Automated installation with defaults (no auth, Tailscale-only firewall)
+
+.EXAMPLE
+    .\Setup-CaddyProxy.ps1 -Action Install -EnableAuth -AuthUsername &amp;#34;monitor&amp;#34;
+    Install with authentication enabled (prompts for password)
+
+.EXAMPLE
+    .\Setup-CaddyProxy.ps1 -Action Install -FirewallScope LAN -AllowedAddresses &amp;#34;10.1.10.0/24&amp;#34;
+    Install with LAN access restricted to specified subnet
+
+.EXAMPLE
+    .\Setup-CaddyProxy.ps1 -Action Install -FirewallScope LAN -AllowedAddresses &amp;#34;10.1.10.10,10.1.10.30&amp;#34;
+    Install with LAN access restricted to specific hosts
+
+.NOTES
+    Author: Andrew Jones
+    Version: 5.0
+    Date: 2026-02-05
+    
+    Authentication: Uses Caddy&amp;#39;s built-in HTTP Basic Auth with bcrypt hashing
+    LibreHardwareMonitor: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
+    Caddy basicauth: https://caddyserver.com/docs/caddyfile/directives/basicauth
+#&amp;gt;
+
+#Requires -RunAsAdministrator
+#Requires -Version 5.1
+
+[CmdletBinding()]
+param (
+    [Parameter(Position = 0)]
+    [ValidateSet(&amp;#34;Install&amp;#34;, &amp;#34;Uninstall&amp;#34;, &amp;#34;Status&amp;#34;, &amp;#34;Test&amp;#34;, &amp;#34;Menu&amp;#34;)]
+    [string]$Action = &amp;#34;Menu&amp;#34;,
+
+    [Parameter()]
+    [string]$InstallPath = &amp;#34;C:\Caddy&amp;#34;,
+
+    [Parameter()]
+    [int]$ProxyPort = 8086,
+
+    [Parameter()]
+    [int]$UpstreamPort = 8085,
+
+    [Parameter()]
+    [string]$UpstreamIP = &amp;#34;127.0.0.1&amp;#34;,
+
+    [Parameter()]
+    [string]$TailscaleIP,
+
+    [Parameter()]
+    [switch]$EnableAuth,
+
+    [Parameter()]
+    [string]$AuthUsername = &amp;#34;admin&amp;#34;,
+
+    [Parameter()]
+    [ValidateSet(&amp;#34;TailscaleOnly&amp;#34;, &amp;#34;LAN&amp;#34;, &amp;#34;Any&amp;#34;)]
+    [string]$FirewallScope = &amp;#34;TailscaleOnly&amp;#34;,
+
+    [Parameter()]
+    [string]$AllowedAddresses,
+
+    [Parameter()]
+    [switch]$Force
+)
+
+# ============================================================================
+# CONFIGURATION
+# ============================================================================
+
+$Script:Config = @{
+    CaddyDownloadUrl   = &amp;#34;https://caddyserver.com/api/download?os=windows&amp;amp;arch=amd64&amp;#34;
+    CaddyExe           = &amp;#34;caddy.exe&amp;#34;
+    CaddyFile          = &amp;#34;Caddyfile&amp;#34;
+    AuthFile           = &amp;#34;auth.json&amp;#34;
+    FirewallFile       = &amp;#34;firewall.json&amp;#34;
+    ServiceName        = &amp;#34;Caddy&amp;#34;
+    FirewallRuleBase   = &amp;#34;Caddy Reverse Proxy&amp;#34;
+    TailscaleRange     = &amp;#34;100.64.0.0/10&amp;#34;
+    LHMGitHub          = &amp;#34;https://github.com/LibreHardwareMonitor/LibreHardwareMonitor&amp;#34;
+    LHMReleases        = &amp;#34;https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases&amp;#34;
+}
+
+# Script-scope auth settings
+$Script:AuthEnabled = $EnableAuth
+$Script:AuthUser = $AuthUsername
+$Script:AuthHash = $null
+
+# Script-scope firewall settings
+$Script:FWScope = $FirewallScope
+$Script:FWAllowedAddresses = $AllowedAddresses
+
+# ============================================================================
+# HELPER FUNCTIONS
+# ============================================================================
+
+function Write-Log {
+    param (
+        [string]$Message,
+        [ValidateSet(&amp;#34;INFO&amp;#34;, &amp;#34;SUCCESS&amp;#34;, &amp;#34;WARNING&amp;#34;, &amp;#34;ERROR&amp;#34;, &amp;#34;HEADER&amp;#34;)]
+        [string]$Level = &amp;#34;INFO&amp;#34;
+    )
+    $colors = @{
+        &amp;#34;INFO&amp;#34;    = &amp;#34;Cyan&amp;#34;
+        &amp;#34;SUCCESS&amp;#34; = &amp;#34;Green&amp;#34;
+        &amp;#34;WARNING&amp;#34; = &amp;#34;Yellow&amp;#34;
+        &amp;#34;ERROR&amp;#34;   = &amp;#34;Red&amp;#34;
+        &amp;#34;HEADER&amp;#34;  = &amp;#34;Magenta&amp;#34;
+    }
+    $prefix = switch ($Level) {
+        &amp;#34;HEADER&amp;#34;  { &amp;#34;`n=== &amp;#34; }
+        &amp;#34;SUCCESS&amp;#34; { &amp;#34;[&#43;] &amp;#34; }
+        &amp;#34;ERROR&amp;#34;   { &amp;#34;[-] &amp;#34; }
+        &amp;#34;WARNING&amp;#34; { &amp;#34;[!] &amp;#34; }
+        default   { &amp;#34;[*] &amp;#34; }
+    }
+    $suffix = if ($Level -eq &amp;#34;HEADER&amp;#34;) { &amp;#34; ===&amp;#34; } else { &amp;#34;&amp;#34; }
+    Write-Host &amp;#34;$prefix$Message$suffix&amp;#34; -ForegroundColor $colors[$Level]
+}
+
+function Test-TailscaleInstalled {
+    $tailscale = Get-Command tailscale -ErrorAction SilentlyContinue
+    return $null -ne $tailscale
+}
+
+function Get-TailscaleIP {
+    if (-not (Test-TailscaleInstalled)) { return $null }
+    try {
+        $ip = &amp;amp; tailscale ip -4 2&amp;gt;$null
+        if ($ip -match &amp;#39;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$&amp;#39;) {
+            return $ip.Trim()
+        }
+    }
+    catch { return $null }
+    return $null
+}
+
+function Test-PortOpen {
+    param (
+        [string]$ComputerName,
+        [int]$Port
+    )
+    try {
+        $result = Test-NetConnection -ComputerName $ComputerName -Port $Port -WarningAction SilentlyContinue -InformationLevel Quiet
+        return $result
+    }
+    catch { 
+        return $false 
+    }
+}
+
+function Confirm-Action {
+    param ([string]$Message)
+    if ($Force) { return $true }
+    $response = Read-Host &amp;#34;$Message (Y/N)&amp;#34;
+    return $response -match &amp;#39;^[Yy]&amp;#39;
+}
+
+# ============================================================================
+# FIREWALL FUNCTIONS
+# ============================================================================
+
+function Get-FirewallRules {
+    $rules = Get-NetFirewallRule -DisplayName &amp;#34;$($Script:Config.FirewallRuleBase)*&amp;#34; -ErrorAction SilentlyContinue
+    return $rules
+}
+
+function Show-FirewallStatus {
+    $rules = Get-FirewallRules
+    
+    if (-not $rules) {
+        Write-Host &amp;#34;  No Caddy firewall rules found&amp;#34; -ForegroundColor Yellow
+        return
+    }
+    
+    foreach ($rule in $rules) {
+        $portFilter = Get-NetFirewallPortFilter -AssociatedNetFirewallRule $rule
+        $addressFilter = Get-NetFirewallAddressFilter -AssociatedNetFirewallRule $rule
+        
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  Rule: &amp;#34; -NoNewline
+        Write-Host $rule.DisplayName -ForegroundColor Cyan
+        Write-Host &amp;#34;  Status: &amp;#34; -NoNewline
+        if ($rule.Enabled -eq &amp;#34;True&amp;#34;) {
+            Write-Host &amp;#34;Enabled&amp;#34; -ForegroundColor Green
+        }
+        else {
+            Write-Host &amp;#34;Disabled&amp;#34; -ForegroundColor Red
+        }
+        Write-Host &amp;#34;  Direction: &amp;#34; -NoNewline
+        Write-Host $rule.Direction -ForegroundColor White
+        Write-Host &amp;#34;  Action: &amp;#34; -NoNewline
+        Write-Host $rule.Action -ForegroundColor White
+        Write-Host &amp;#34;  Protocol: &amp;#34; -NoNewline
+        Write-Host $portFilter.Protocol -ForegroundColor White
+        Write-Host &amp;#34;  Port: &amp;#34; -NoNewline
+        Write-Host $portFilter.LocalPort -ForegroundColor White
+        Write-Host &amp;#34;  Remote Addresses: &amp;#34; -NoNewline
+        Write-Host $addressFilter.RemoteAddress -ForegroundColor White
+        Write-Host &amp;#34;  Profile: &amp;#34; -NoNewline
+        Write-Host $rule.Profile -ForegroundColor White
+    }
+}
+
+function Set-FirewallRule {
+    param (
+        [ValidateSet(&amp;#34;TailscaleOnly&amp;#34;, &amp;#34;LAN&amp;#34;, &amp;#34;Any&amp;#34;)]
+        [string]$Scope = &amp;#34;TailscaleOnly&amp;#34;,
+        
+        [string]$Addresses
+    )
+    
+    Write-Log &amp;#34;Configuring firewall rule (Scope: $Scope)...&amp;#34; &amp;#34;INFO&amp;#34;
+    
+    Remove-FirewallRules -Silent
+    
+    $ruleName = $Script:Config.FirewallRuleBase
+    $ruleParams = @{
+        DisplayName = $ruleName
+        Direction   = &amp;#34;Inbound&amp;#34;
+        Protocol    = &amp;#34;TCP&amp;#34;
+        LocalPort   = $ProxyPort
+        Action      = &amp;#34;Allow&amp;#34;
+        Enabled     = &amp;#34;True&amp;#34;
+    }
+    
+    switch ($Scope) {
+        &amp;#34;TailscaleOnly&amp;#34; {
+            $ruleParams.DisplayName = &amp;#34;$ruleName (Tailscale Only)&amp;#34;
+            $ruleParams.RemoteAddress = $Script:Config.TailscaleRange
+            $ruleParams.Profile = &amp;#34;Any&amp;#34;
+            $ruleParams.Description = &amp;#34;Allow Caddy reverse proxy - Tailscale CGNAT range only (100.64.0.0/10)&amp;#34;
+        }
+        &amp;#34;LAN&amp;#34; {
+            if ([string]::IsNullOrWhiteSpace($Addresses)) {
+                Write-Log &amp;#34;LAN scope requires addresses to be specified&amp;#34; &amp;#34;ERROR&amp;#34;
+                return $false
+            }
+            $ruleParams.DisplayName = &amp;#34;$ruleName (LAN Restricted)&amp;#34;
+            $ruleParams.RemoteAddress = $Addresses -split &amp;#39;,&amp;#39; | ForEach-Object { $_.Trim() }
+            $ruleParams.Profile = &amp;#34;Private,Domain&amp;#34;
+            $ruleParams.Description = &amp;#34;Allow Caddy reverse proxy - Restricted to: $Addresses&amp;#34;
+        }
+        &amp;#34;Any&amp;#34; {
+            $ruleParams.DisplayName = &amp;#34;$ruleName (Any)&amp;#34;
+            $ruleParams.Profile = &amp;#34;Any&amp;#34;
+            $ruleParams.Description = &amp;#34;Allow Caddy reverse proxy - All addresses (least secure)&amp;#34;
+        }
+    }
+    
+    try {
+        New-NetFirewallRule @ruleParams | Out-Null
+        Write-Log &amp;#34;Firewall rule created: $($ruleParams.DisplayName)&amp;#34; &amp;#34;SUCCESS&amp;#34;
+        Save-FirewallConfig -Scope $Scope -Addresses $Addresses
+        return $true
+    }
+    catch {
+        Write-Log &amp;#34;Failed to create firewall rule: $_&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+}
+
+function Remove-FirewallRules {
+    param ([switch]$Silent)
+    
+    $rules = Get-FirewallRules
+    
+    if ($rules) {
+        foreach ($rule in $rules) {
+            Remove-NetFirewallRule -DisplayName $rule.DisplayName -ErrorAction SilentlyContinue
+            if (-not $Silent) {
+                Write-Log &amp;#34;Removed rule: $($rule.DisplayName)&amp;#34; &amp;#34;SUCCESS&amp;#34;
+            }
+        }
+        
+        $fwConfigPath = Join-Path $InstallPath $Script:Config.FirewallFile
+        if (Test-Path $fwConfigPath) {
+            Remove-Item $fwConfigPath -Force -ErrorAction SilentlyContinue
+        }
+        return $true
+    }
+    else {
+        if (-not $Silent) {
+            Write-Log &amp;#34;No Caddy firewall rules found&amp;#34; &amp;#34;INFO&amp;#34;
+        }
+        return $false
+    }
+}
+
+function Save-FirewallConfig {
+    param (
+        [string]$Scope,
+        [string]$Addresses
+    )
+    
+    $fwConfigPath = Join-Path $InstallPath $Script:Config.FirewallFile
+    
+    $fwConfig = @{
+        Scope     = $Scope
+        Addresses = $Addresses
+        Port      = $ProxyPort
+        Updated   = (Get-Date -Format &amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;)
+    }
+    
+    try {
+        $fwConfig | ConvertTo-Json | Out-File -FilePath $fwConfigPath -Encoding UTF8 -Force
+        return $true
+    }
+    catch {
+        Write-Log &amp;#34;Failed to save firewall config: $_&amp;#34; &amp;#34;WARNING&amp;#34;
+        return $false
+    }
+}
+
+function Read-FirewallConfig {
+    $fwConfigPath = Join-Path $InstallPath $Script:Config.FirewallFile
+    
+    if (Test-Path $fwConfigPath) {
+        try {
+            $fwConfig = Get-Content $fwConfigPath -Raw | ConvertFrom-Json
+            $Script:FWScope = $fwConfig.Scope
+            $Script:FWAllowedAddresses = $fwConfig.Addresses
+            return $true
+        }
+        catch {
+            return $false
+        }
+    }
+    return $false
+}
+
+function Show-FirewallMenu {
+    while ($true) {
+        Clear-Host
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Cyan
+        Write-Host &amp;#34;  ║          Firewall Rule Management                     ║&amp;#34; -ForegroundColor Cyan
+        Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Cyan
+        
+        Show-FirewallStatus
+        
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  ─────────────────────────────────────────────────────────&amp;#34; -ForegroundColor DarkGray
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  [1] Tailscale Only (100.64.0.0/10) - Recommended&amp;#34;
+        Write-Host &amp;#34;  [2] LAN Restricted (specify addresses)&amp;#34;
+        Write-Host &amp;#34;  [3] Any (all addresses) - Least secure&amp;#34;
+        Write-Host &amp;#34;  [4] Remove All Caddy Rules&amp;#34;
+        Write-Host &amp;#34;  [5] Refresh Status&amp;#34;
+        Write-Host &amp;#34;  [B] Back to Main Menu&amp;#34;
+        Write-Host &amp;#34;&amp;#34;
+        
+        $choice = Read-Host &amp;#34;  Select option&amp;#34;
+        
+        switch ($choice.ToUpper()) {
+            &amp;#34;1&amp;#34; {
+                Set-FirewallRule -Scope &amp;#34;TailscaleOnly&amp;#34;
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;2&amp;#34; {
+                Write-Host &amp;#34;&amp;#34;
+                Write-Host &amp;#34;  Enter allowed addresses (comma-separated)&amp;#34; -ForegroundColor Cyan
+                Write-Host &amp;#34;  Examples:&amp;#34; -ForegroundColor Gray
+                Write-Host &amp;#34;    Single IP:    10.1.10.10&amp;#34; -ForegroundColor Gray
+                Write-Host &amp;#34;    Multiple IPs: 10.1.10.10,10.1.10.30&amp;#34; -ForegroundColor Gray
+                Write-Host &amp;#34;    Subnet:       10.1.10.0/24&amp;#34; -ForegroundColor Gray
+                Write-Host &amp;#34;    Mixed:        10.1.10.10,192.168.1.0/24&amp;#34; -ForegroundColor Gray
+                Write-Host &amp;#34;&amp;#34;
+                
+                $addresses = Read-Host &amp;#34;  Addresses&amp;#34;
+                
+                if ([string]::IsNullOrWhiteSpace($addresses)) {
+                    Write-Log &amp;#34;No addresses specified&amp;#34; &amp;#34;WARNING&amp;#34;
+                }
+                else {
+                    Set-FirewallRule -Scope &amp;#34;LAN&amp;#34; -Addresses $addresses
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;3&amp;#34; {
+                Write-Host &amp;#34;&amp;#34;
+                Write-Log &amp;#34;Warning: This allows connections from any IP address&amp;#34; &amp;#34;WARNING&amp;#34;
+                if (Confirm-Action &amp;#34;  Create unrestricted firewall rule?&amp;#34;) {
+                    Set-FirewallRule -Scope &amp;#34;Any&amp;#34;
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;4&amp;#34; {
+                if (Confirm-Action &amp;#34;  Remove all Caddy firewall rules?&amp;#34;) {
+                    Remove-FirewallRules
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;5&amp;#34; { }
+            &amp;#34;B&amp;#34; { return }
+        }
+    }
+}
+
+# ============================================================================
+# AUTHENTICATION FUNCTIONS
+# ============================================================================
+
+function Get-CaddyPasswordHash {
+    param (
+        [Parameter(Mandatory)]
+        [SecureString]$Password
+    )
+    
+    $exePath = Join-Path $InstallPath $Script:Config.CaddyExe
+    
+    if (-not (Test-Path $exePath)) {
+        Write-Log &amp;#34;Caddy not installed. Install Caddy first.&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $null
+    }
+    
+    $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
+    $plainPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR)
+    
+    try {
+        $hash = $plainPassword | &amp;amp; $exePath hash-password 2&amp;gt;$null
+        
+        if ($hash -and $hash -match &amp;#39;^\$2[aby]?\$&amp;#39;) {
+            return $hash.Trim()
+        }
+        else {
+            Write-Log &amp;#34;Failed to generate password hash&amp;#34; &amp;#34;ERROR&amp;#34;
+            return $null
+        }
+    }
+    catch {
+        Write-Log &amp;#34;Error generating hash: $_&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $null
+    }
+    finally {
+        $plainPassword = $null
+        [System.GC]::Collect()
+    }
+}
+
+function Request-AuthCredentials {
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ║           Authentication Setup                        ║&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;&amp;#34;
+    
+    $defaultUser = $Script:AuthUser
+    $inputUser = Read-Host &amp;#34;  Username [$defaultUser]&amp;#34;
+    if ([string]::IsNullOrWhiteSpace($inputUser)) {
+        $Script:AuthUser = $defaultUser
+    }
+    else {
+        $Script:AuthUser = $inputUser.Trim()
+    }
+    
+    $passwordMatch = $false
+    $attempts = 0
+    
+    while (-not $passwordMatch -and $attempts -lt 3) {
+        Write-Host &amp;#34;&amp;#34;
+        $password1 = Read-Host &amp;#34;  Password&amp;#34; -AsSecureString
+        $password2 = Read-Host &amp;#34;  Confirm Password&amp;#34; -AsSecureString
+        
+        $BSTR1 = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password1)
+        $BSTR2 = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password2)
+        $plain1 = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR1)
+        $plain2 = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR2)
+        [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR1)
+        [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR2)
+        
+        if ($plain1 -eq $plain2) {
+            if ($plain1.Length -lt 8) {
+                Write-Log &amp;#34;Password must be at least 8 characters&amp;#34; &amp;#34;WARNING&amp;#34;
+                $attempts&#43;&#43;
+            }
+            else {
+                $passwordMatch = $true
+                Write-Host &amp;#34;&amp;#34;
+                Write-Log &amp;#34;Generating password hash...&amp;#34; &amp;#34;INFO&amp;#34;
+                $Script:AuthHash = Get-CaddyPasswordHash -Password $password1
+                
+                if ($Script:AuthHash) {
+                    Write-Log &amp;#34;Password hash generated&amp;#34; &amp;#34;SUCCESS&amp;#34;
+                    $Script:AuthEnabled = $true
+                    return $true
+                }
+                else {
+                    return $false
+                }
+            }
+        }
+        else {
+            Write-Log &amp;#34;Passwords do not match&amp;#34; &amp;#34;WARNING&amp;#34;
+            $attempts&#43;&#43;
+        }
+        
+        $plain1 = $null
+        $plain2 = $null
+        [System.GC]::Collect()
+    }
+    
+    if (-not $passwordMatch) {
+        Write-Log &amp;#34;Too many failed attempts&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+    return $false
+}
+
+function Save-AuthConfig {
+    $authPath = Join-Path $InstallPath $Script:Config.AuthFile
+    
+    $authConfig = @{
+        Enabled  = $Script:AuthEnabled
+        Username = $Script:AuthUser
+        Hash     = $Script:AuthHash
+        Updated  = (Get-Date -Format &amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;)
+    }
+    
+    try {
+        $authConfig | ConvertTo-Json | Out-File -FilePath $authPath -Encoding UTF8 -Force
+        
+        $acl = Get-Acl $authPath
+        $acl.SetAccessRuleProtection($true, $false)
+        $adminRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            &amp;#34;BUILTIN\Administrators&amp;#34;, &amp;#34;FullControl&amp;#34;, &amp;#34;Allow&amp;#34;
+        )
+        $systemRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            &amp;#34;NT AUTHORITY\SYSTEM&amp;#34;, &amp;#34;FullControl&amp;#34;, &amp;#34;Allow&amp;#34;
+        )
+        $acl.SetAccessRule($adminRule)
+        $acl.SetAccessRule($systemRule)
+        Set-Acl -Path $authPath -AclObject $acl
+        
+        Write-Log &amp;#34;Auth config saved: $authPath&amp;#34; &amp;#34;SUCCESS&amp;#34;
+        return $true
+    }
+    catch {
+        Write-Log &amp;#34;Failed to save auth config: $_&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+}
+
+function Read-AuthConfig {
+    $authPath = Join-Path $InstallPath $Script:Config.AuthFile
+    
+    if (Test-Path $authPath) {
+        try {
+            $authConfig = Get-Content $authPath -Raw | ConvertFrom-Json
+            $Script:AuthEnabled = $authConfig.Enabled
+            $Script:AuthUser = $authConfig.Username
+            $Script:AuthHash = $authConfig.Hash
+            return $true
+        }
+        catch {
+            Write-Log &amp;#34;Failed to read auth config: $_&amp;#34; &amp;#34;WARNING&amp;#34;
+            return $false
+        }
+    }
+    return $false
+}
+
+function Remove-AuthConfig {
+    $Script:AuthEnabled = $false
+    $Script:AuthUser = &amp;#34;admin&amp;#34;
+    $Script:AuthHash = $null
+    
+    $authPath = Join-Path $InstallPath $Script:Config.AuthFile
+    if (Test-Path $authPath) {
+        Remove-Item $authPath -Force -ErrorAction SilentlyContinue
+    }
+    
+    New-Caddyfile
+    
+    $service = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+    if ($service -and $service.Status -eq &amp;#34;Running&amp;#34;) {
+        Restart-Service -Name $Script:Config.ServiceName -Force
+        Write-Log &amp;#34;Authentication disabled and service restarted&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    else {
+        Write-Log &amp;#34;Authentication disabled&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+}
+
+# ============================================================================
+# CADDY FUNCTIONS
+# ============================================================================
+
+function Install-Caddy {
+    Write-Log &amp;#34;Installing Caddy...&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    if (-not (Test-Path $InstallPath)) {
+        New-Item -ItemType Directory -Path $InstallPath -Force | Out-Null
+        Write-Log &amp;#34;Created directory: $InstallPath&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    
+    @(&amp;#34;data&amp;#34;, &amp;#34;logs&amp;#34;) | ForEach-Object {
+        $subDir = Join-Path $InstallPath $_
+        if (-not (Test-Path $subDir)) {
+            New-Item -ItemType Directory -Path $subDir -Force | Out-Null
+        }
+    }
+    
+    $exePath = Join-Path $InstallPath $Script:Config.CaddyExe
+    Write-Log &amp;#34;Downloading Caddy...&amp;#34; &amp;#34;INFO&amp;#34;
+    try {
+        Invoke-WebRequest -Uri $Script:Config.CaddyDownloadUrl -OutFile $exePath -UseBasicParsing
+        Write-Log &amp;#34;Download complete&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    catch {
+        Write-Log &amp;#34;Download failed: $_&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+    
+    $version = &amp;amp; $exePath version 2&amp;gt;$null
+    if ($version) {
+        Write-Log &amp;#34;Caddy version: $version&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    else {
+        Write-Log &amp;#34;Could not verify Caddy&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+    
+    return $true
+}
+
+function New-Caddyfile {
+    Write-Log &amp;#34;Creating Caddyfile...&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    $caddyfilePath = Join-Path $InstallPath $Script:Config.CaddyFile
+    
+    $authBlock = &amp;#34;&amp;#34;
+    if ($Script:AuthEnabled -and $Script:AuthHash) {
+        $authBlock = @&amp;#34;
+
+    # HTTP Basic Authentication
+    basicauth {
+        $($Script:AuthUser) $($Script:AuthHash)
+    }
+&amp;#34;@
+    }
+    
+    $authStatus = if ($Script:AuthEnabled) { &amp;#34;Enabled (User: $($Script:AuthUser))&amp;#34; } else { &amp;#34;Disabled&amp;#34; }
+    
+    $caddyfileContent = @&amp;#34;
+# Caddy Reverse Proxy for LibreHardwareMonitor
+# Generated: $(Get-Date -Format &amp;#34;yyyy-MM-dd HH:mm:ss&amp;#34;)
+# Tailscale IP: $($Script:TailscaleIP)
+# Upstream: $($UpstreamIP):$($UpstreamPort)
+# Authentication: $authStatus
+
+$($Script:TailscaleIP):$ProxyPort {$authBlock
+    reverse_proxy $($UpstreamIP):$($UpstreamPort)
+    tls internal
+}
+&amp;#34;@
+    
+    try {
+        $caddyfileContent | Out-File -FilePath $caddyfilePath -Encoding UTF8 -Force
+        Write-Log &amp;#34;Created Caddyfile: $caddyfilePath&amp;#34; &amp;#34;SUCCESS&amp;#34;
+        
+        Write-Host &amp;#34;`n--- Caddyfile Contents ---&amp;#34; -ForegroundColor DarkGray
+        Get-Content $caddyfilePath | ForEach-Object { Write-Host &amp;#34;  $_&amp;#34; -ForegroundColor DarkGray }
+        Write-Host &amp;#34;--- End Caddyfile ---`n&amp;#34; -ForegroundColor DarkGray
+        
+        return $true
+    }
+    catch {
+        Write-Log &amp;#34;Failed to create Caddyfile: $_&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+}
+
+function Install-CaddyService {
+    Write-Log &amp;#34;Installing Caddy service...&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    $exePath = Join-Path $InstallPath $Script:Config.CaddyExe
+    $configPath = Join-Path $InstallPath $Script:Config.CaddyFile
+    $serviceName = $Script:Config.ServiceName
+    
+    $existingService = Get-Service -Name $serviceName -ErrorAction SilentlyContinue
+    if ($existingService) {
+        Write-Log &amp;#34;Removing existing service...&amp;#34; &amp;#34;INFO&amp;#34;
+        Stop-Service -Name $serviceName -Force -ErrorAction SilentlyContinue
+        &amp;amp; sc.exe delete $serviceName 2&amp;gt;$null | Out-Null
+        Start-Sleep -Seconds 2
+    }
+    
+    $binPath = &amp;#34;`&amp;#34;$exePath`&amp;#34; run --config `&amp;#34;$configPath`&amp;#34;&amp;#34;
+    
+    $result = &amp;amp; sc.exe create $serviceName start= auto binPath= $binPath 2&amp;gt;&amp;amp;1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Log &amp;#34;Failed to create service: $result&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+    Write-Log &amp;#34;Created service: $serviceName&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    
+    &amp;amp; sc.exe failure $serviceName reset= 86400 actions= restart/60000/restart/60000/restart/60000 2&amp;gt;$null | Out-Null
+    &amp;amp; sc.exe description $serviceName &amp;#34;Caddy reverse proxy for LibreHardwareMonitor via Tailscale&amp;#34; 2&amp;gt;$null | Out-Null
+    Write-Log &amp;#34;Configured auto-restart on failure&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    
+    Write-Log &amp;#34;Starting service...&amp;#34; &amp;#34;INFO&amp;#34;
+    try {
+        Start-Service -Name $serviceName -ErrorAction Stop
+        Start-Sleep -Seconds 2
+        $service = Get-Service -Name $serviceName
+        if ($service.Status -eq &amp;#34;Running&amp;#34;) {
+            Write-Log &amp;#34;Service started&amp;#34; &amp;#34;SUCCESS&amp;#34;
+            return $true
+        }
+        else {
+            Write-Log &amp;#34;Service status: $($service.Status)&amp;#34; &amp;#34;WARNING&amp;#34;
+            return $false
+        }
+    }
+    catch {
+        Write-Log &amp;#34;Failed to start service: $_&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+}
+
+# ============================================================================
+# WORKFLOW FUNCTIONS
+# ============================================================================
+
+function Select-UpstreamIP {
+    Clear-Host
+    Write-Host &amp;#34;`n  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ║           LHM Upstream IP Scanner                     ║&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  Scanning local interfaces for Port $UpstreamPort...&amp;#34; -ForegroundColor Gray
+    Write-Host &amp;#34;&amp;#34;
+
+    $ipList = @(&amp;#34;127.0.0.1&amp;#34;)
+    try {
+        $adapters = Get-NetIPAddress -AddressFamily IPv4 -AddressState Preferred | Where-Object { $_.InterfaceAlias -notlike &amp;#34;*Loopback*&amp;#34; }
+        $ipList &#43;= $adapters.IPAddress
+    }
+    catch {
+        Write-Log &amp;#34;Could not enumerate network adapters.&amp;#34; &amp;#34;WARNING&amp;#34;
+    }
+
+    $validOptions = @()
+    for ($i = 0; $i -lt $ipList.Count; $i&#43;&#43;) {
+        $currentIP = $ipList[$i]
+        $isResponsive = Test-PortOpen -ComputerName $currentIP -Port $UpstreamPort
+        
+        $indexTag = &amp;#34;  [$($i&#43;1)]&amp;#34;.PadRight(7)
+        $ipTag = &amp;#34;$currentIP&amp;#34;.PadRight(18)
+        
+        if ($isResponsive) { 
+            Write-Host &amp;#34;$indexTag$ipTag&amp;#34; -NoNewline -ForegroundColor White
+            Write-Host &amp;#34; [FOUND LHM!] &amp;#34; -ForegroundColor Green
+            $validOptions &#43;= $currentIP
+        }
+        else {
+            Write-Host &amp;#34;$indexTag$ipTag&amp;#34; -NoNewline -ForegroundColor Gray
+            Write-Host &amp;#34; [No Response] &amp;#34; -ForegroundColor DarkGray
+        }
+    }
+
+    Write-Host &amp;#34;&amp;#34;
+    if ($validOptions.Count -gt 0) {
+        Write-Host &amp;#34;  LHM was detected on $($validOptions.Count) interface(s).&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;  LHM was not detected on any interface.&amp;#34; -ForegroundColor Red
+        Write-Host &amp;#34;  Ensure LHM is running and the Web Server is enabled.&amp;#34; -ForegroundColor Yellow
+    }
+
+    $choice = Read-Host &amp;#34;  Select IP number to use [1-$($ipList.Count)] or Enter to cancel&amp;#34;
+
+    if ($choice -match &amp;#39;^\d&#43;$&amp;#39; -and $choice -ge 1 -and $choice -le $ipList.Count) {
+        $selected = $ipList[$choice - 1]
+        $Script:UpstreamIP = $selected
+        Write-Host &amp;#34;&amp;#34;
+        Write-Log &amp;#34;Upstream IP updated to: $selected&amp;#34; &amp;#34;SUCCESS&amp;#34;
+        Start-Sleep -Seconds 2
+    }
+}
+
+function Select-FirewallScope {
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ║           Firewall Scope Selection                    ║&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  [1] Tailscale Only (100.64.0.0/10)&amp;#34; -ForegroundColor Green
+    Write-Host &amp;#34;      Recommended - Only Tailscale devices can connect&amp;#34; -ForegroundColor Gray
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  [2] LAN Restricted (specify addresses)&amp;#34;
+    Write-Host &amp;#34;      Allow specific IPs or subnets&amp;#34; -ForegroundColor Gray
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  [3] Any (all addresses)&amp;#34; -ForegroundColor Yellow
+    Write-Host &amp;#34;      Least secure - allows all connections&amp;#34; -ForegroundColor Gray
+    Write-Host &amp;#34;&amp;#34;
+    
+    $choice = Read-Host &amp;#34;  Select scope [1]&amp;#34;
+    
+    switch ($choice) {
+        &amp;#34;2&amp;#34; {
+            Write-Host &amp;#34;&amp;#34;
+            Write-Host &amp;#34;  Enter allowed addresses (comma-separated)&amp;#34; -ForegroundColor Cyan
+            Write-Host &amp;#34;  Example: 10.1.10.0/24 or 10.1.10.10,10.1.10.30&amp;#34; -ForegroundColor Gray
+            $addresses = Read-Host &amp;#34;  Addresses&amp;#34;
+            
+            if ([string]::IsNullOrWhiteSpace($addresses)) {
+                Write-Log &amp;#34;No addresses specified, defaulting to Tailscale Only&amp;#34; &amp;#34;WARNING&amp;#34;
+                $Script:FWScope = &amp;#34;TailscaleOnly&amp;#34;
+                $Script:FWAllowedAddresses = $null
+            }
+            else {
+                $Script:FWScope = &amp;#34;LAN&amp;#34;
+                $Script:FWAllowedAddresses = $addresses
+            }
+        }
+        &amp;#34;3&amp;#34; {
+            $Script:FWScope = &amp;#34;Any&amp;#34;
+            $Script:FWAllowedAddresses = $null
+        }
+        default {
+            $Script:FWScope = &amp;#34;TailscaleOnly&amp;#34;
+            $Script:FWAllowedAddresses = $null
+        }
+    }
+}
+
+function Test-Prerequisites {
+    Write-Log &amp;#34;Checking prerequisites...&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    $passed = $true
+    
+    if (Test-TailscaleInstalled) {
+        $Script:TailscaleIP = if ($TailscaleIP) { $TailscaleIP } else { Get-TailscaleIP }
+        if ($Script:TailscaleIP) {
+            Write-Log &amp;#34;Tailscale IP: $($Script:TailscaleIP)&amp;#34; &amp;#34;SUCCESS&amp;#34;
+        }
+        else {
+            Write-Log &amp;#34;Tailscale not connected&amp;#34; &amp;#34;ERROR&amp;#34;
+            $passed = $false
+        }
+    }
+    else {
+        Write-Log &amp;#34;Tailscale not installed&amp;#34; &amp;#34;ERROR&amp;#34;
+        $passed = $false
+    }
+    
+    Write-Log &amp;#34;Checking LibreHardwareMonitor at $($UpstreamIP):$($UpstreamPort)...&amp;#34; &amp;#34;INFO&amp;#34;
+    if (Test-PortOpen -ComputerName $UpstreamIP -Port $UpstreamPort) {
+        Write-Log &amp;#34;LibreHardwareMonitor responding&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    else {
+        Write-Log &amp;#34;LibreHardwareMonitor not responding on $($UpstreamIP):$($UpstreamPort)&amp;#34; &amp;#34;WARNING&amp;#34;
+        Write-Log &amp;#34;Make sure LHM is running with web server enabled&amp;#34; &amp;#34;WARNING&amp;#34;
+        Write-Log &amp;#34;Download: $($Script:Config.LHMReleases)&amp;#34; &amp;#34;INFO&amp;#34;
+    }
+    
+    return $passed
+}
+
+function Invoke-Installation {
+    Write-Log &amp;#34;Starting Caddy Installation&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    if (-not (Test-Prerequisites)) {
+        Write-Log &amp;#34;Prerequisites check failed&amp;#34; &amp;#34;ERROR&amp;#34;
+        return $false
+    }
+    
+    if (-not (Install-Caddy)) { return $false }
+    
+    if ($EnableAuth -or $Script:AuthEnabled) {
+        if (-not $Script:AuthHash) {
+            if (-not (Request-AuthCredentials)) {
+                Write-Log &amp;#34;Authentication setup cancelled. Proceeding without auth.&amp;#34; &amp;#34;WARNING&amp;#34;
+                $Script:AuthEnabled = $false
+            }
+        }
+        
+        if ($Script:AuthEnabled) {
+            Save-AuthConfig
+        }
+    }
+    
+    if (-not (New-Caddyfile)) { return $false }
+    
+    if (-not (Set-FirewallRule -Scope $Script:FWScope -Addresses $Script:FWAllowedAddresses)) {
+        Write-Log &amp;#34;Firewall rule creation failed - continuing anyway&amp;#34; &amp;#34;WARNING&amp;#34;
+    }
+    
+    if (-not (Install-CaddyService)) { return $false }
+    
+    Test-Installation
+    
+    return $true
+}
+
+function Invoke-Uninstall {
+    Write-Log &amp;#34;Uninstalling Caddy...&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    if (-not $Force) {
+        if (-not (Confirm-Action &amp;#34;This will remove Caddy. Continue?&amp;#34;)) {
+            Write-Log &amp;#34;Uninstall cancelled&amp;#34; &amp;#34;INFO&amp;#34;
+            return $false
+        }
+    }
+    
+    $service = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+    if ($service) {
+        Write-Log &amp;#34;Removing service...&amp;#34; &amp;#34;INFO&amp;#34;
+        Stop-Service -Name $Script:Config.ServiceName -Force -ErrorAction SilentlyContinue
+        &amp;amp; sc.exe delete $Script:Config.ServiceName 2&amp;gt;$null | Out-Null
+        Write-Log &amp;#34;Service removed&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    
+    Remove-FirewallRules
+    
+    if (Test-Path $InstallPath) {
+        Remove-Item -Path $InstallPath -Recurse -Force -ErrorAction SilentlyContinue
+        Write-Log &amp;#34;Removed directory: $InstallPath&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    }
+    
+    Write-Log &amp;#34;Uninstall complete&amp;#34; &amp;#34;SUCCESS&amp;#34;
+    return $true
+}
+
+function Test-Installation {
+    Write-Log &amp;#34;Verifying Installation&amp;#34; &amp;#34;HEADER&amp;#34;
+    
+    $allPassed = $true
+    
+    $service = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+    Write-Host &amp;#34;  Caddy Service:   &amp;#34; -NoNewline
+    if ($service -and $service.Status -eq &amp;#34;Running&amp;#34;) {
+        Write-Host &amp;#34;Running&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Not Running&amp;#34; -ForegroundColor Red
+        $allPassed = $false
+    }
+    
+    Write-Host &amp;#34;  Proxy Port:      &amp;#34; -NoNewline
+    if ($Script:TailscaleIP -and (Test-PortOpen -ComputerName $Script:TailscaleIP -Port $ProxyPort)) {
+        Write-Host &amp;#34;Listening ($($Script:TailscaleIP):$ProxyPort)&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Not Responding&amp;#34; -ForegroundColor Red
+        $allPassed = $false
+    }
+    
+    Write-Host &amp;#34;  LHM Upstream:    &amp;#34; -NoNewline
+    if (Test-PortOpen -ComputerName $UpstreamIP -Port $UpstreamPort) {
+        Write-Host &amp;#34;Responding ($($UpstreamIP):$($UpstreamPort))&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Not Responding&amp;#34; -ForegroundColor Yellow
+    }
+    
+    Write-Host &amp;#34;  Authentication:  &amp;#34; -NoNewline
+    if ($Script:AuthEnabled) {
+        Write-Host &amp;#34;Enabled (User: $($Script:AuthUser))&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Disabled&amp;#34; -ForegroundColor Yellow
+    }
+    
+    Write-Host &amp;#34;  Firewall:        &amp;#34; -NoNewline
+    $fwRules = Get-FirewallRules
+    if ($fwRules) {
+        $ruleName = ($fwRules | Select-Object -First 1).DisplayName
+        Write-Host $ruleName -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;No rules configured&amp;#34; -ForegroundColor Yellow
+    }
+    
+    if ($allPassed) {
+        Write-Host &amp;#34;&amp;#34;
+        Write-Log &amp;#34;Installation verified!&amp;#34; &amp;#34;SUCCESS&amp;#34;
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Green
+        Write-Host &amp;#34;  ║                    ACCESS URL                         ║&amp;#34; -ForegroundColor Green
+        Write-Host &amp;#34;  ╠═══════════════════════════════════════════════════════╣&amp;#34; -ForegroundColor Green
+        Write-Host &amp;#34;  ║  &amp;#34; -ForegroundColor Green -NoNewline
+        Write-Host &amp;#34;https://$($Script:TailscaleIP):$ProxyPort/&amp;#34; -ForegroundColor Cyan -NoNewline
+        $padding = 55 - &amp;#34;https://$($Script:TailscaleIP):$ProxyPort/&amp;#34;.Length - 2
+        Write-Host (&amp;#34; &amp;#34; * $padding) -NoNewline
+        Write-Host &amp;#34;║&amp;#34; -ForegroundColor Green
+        Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Green
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  Note: Accept the self-signed certificate warning&amp;#34; -ForegroundColor Yellow
+        if ($Script:AuthEnabled) {
+            Write-Host &amp;#34;  Login: $($Script:AuthUser) / [your password]&amp;#34; -ForegroundColor Yellow
+        }
+    }
+    else {
+        Write-Log &amp;#34;Some components failed verification&amp;#34; &amp;#34;WARNING&amp;#34;
+    }
+    
+    return $allPassed
+}
+
+function Show-Status {
+    $Script:TailscaleIP = if ($TailscaleIP) { $TailscaleIP } else { Get-TailscaleIP }
+    
+    Read-AuthConfig | Out-Null
+    Read-FirewallConfig | Out-Null
+    
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ║          Caddy Proxy Status                           ║&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;&amp;#34;
+    
+    Write-Host &amp;#34;  Tailscale IP:    &amp;#34; -NoNewline
+    if ($Script:TailscaleIP) {
+        Write-Host $Script:TailscaleIP -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Not Connected&amp;#34; -ForegroundColor Red
+    }
+    
+    $service = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+    Write-Host &amp;#34;  Caddy Service:   &amp;#34; -NoNewline
+    if ($service) {
+        $color = if ($service.Status -eq &amp;#34;Running&amp;#34;) { &amp;#34;Green&amp;#34; } else { &amp;#34;Yellow&amp;#34; }
+        Write-Host $service.Status -ForegroundColor $color
+    }
+    else {
+        Write-Host &amp;#34;Not Installed&amp;#34; -ForegroundColor Red
+    }
+    
+    Write-Host &amp;#34;  Proxy Port:      &amp;#34; -NoNewline
+    if ($Script:TailscaleIP -and (Test-PortOpen -ComputerName $Script:TailscaleIP -Port $ProxyPort)) {
+        Write-Host &amp;#34;Listening (:$ProxyPort)&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Not Responding&amp;#34; -ForegroundColor Red
+    }
+    
+    Write-Host &amp;#34;  LHM Upstream:    &amp;#34; -NoNewline
+    if (Test-PortOpen -ComputerName $UpstreamIP -Port $UpstreamPort) {
+        Write-Host &amp;#34;Responding ($($UpstreamIP):$($UpstreamPort))&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Not Responding&amp;#34; -ForegroundColor Yellow
+    }
+    
+    Write-Host &amp;#34;  Authentication:  &amp;#34; -NoNewline
+    if ($Script:AuthEnabled) {
+        Write-Host &amp;#34;Enabled (User: $($Script:AuthUser))&amp;#34; -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;Disabled&amp;#34; -ForegroundColor Yellow
+    }
+    
+    Write-Host &amp;#34;  Firewall:        &amp;#34; -NoNewline
+    $fwRules = Get-FirewallRules
+    if ($fwRules) {
+        $ruleName = ($fwRules | Select-Object -First 1).DisplayName
+        $shortName = $ruleName -replace &amp;#34;^Caddy Reverse Proxy &amp;#34;, &amp;#34;&amp;#34;
+        Write-Host $shortName -ForegroundColor Green
+    }
+    else {
+        Write-Host &amp;#34;No rules&amp;#34; -ForegroundColor Yellow
+    }
+    
+    if ($Script:TailscaleIP -and $service -and $service.Status -eq &amp;#34;Running&amp;#34;) {
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  Access URL:      &amp;#34; -NoNewline
+        Write-Host &amp;#34;https://$($Script:TailscaleIP):$ProxyPort/&amp;#34; -ForegroundColor Cyan
+    }
+}
+
+function Show-LHMSetup {
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Magenta
+    Write-Host &amp;#34;  ║     LibreHardwareMonitor Setup Instructions           ║&amp;#34; -ForegroundColor Magenta
+    Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Magenta
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  1. Download LibreHardwareMonitor:&amp;#34; -ForegroundColor White
+    Write-Host &amp;#34;     $($Script:Config.LHMReleases)&amp;#34; -ForegroundColor Cyan
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  2. Extract and run &amp;#34; -NoNewline -ForegroundColor White
+    Write-Host &amp;#34;LibreHardwareMonitor.exe&amp;#34; -ForegroundColor Yellow
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  3. Enable Web Server:&amp;#34; -ForegroundColor White
+    Write-Host &amp;#34;     Options &amp;gt; Remote Web Server &amp;gt; Run (check)&amp;#34; -ForegroundColor Gray
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  4. Configure Port:&amp;#34; -ForegroundColor White
+    Write-Host &amp;#34;     Options &amp;gt; Remote Web Server &amp;gt; Port: &amp;#34; -NoNewline -ForegroundColor Gray
+    Write-Host &amp;#34;$UpstreamPort&amp;#34; -ForegroundColor Yellow
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  5. Select correct IP (important!):&amp;#34; -ForegroundColor White
+    Write-Host &amp;#34;     Options &amp;gt; Remote Web Server &amp;gt; IP: &amp;#34; -NoNewline -ForegroundColor Gray
+    Write-Host &amp;#34;Your LAN IP&amp;#34; -ForegroundColor Yellow
+    Write-Host &amp;#34;     (Avoid Hyper-V IPs like 172.x.x.x)&amp;#34; -ForegroundColor DarkGray
+    Write-Host &amp;#34;&amp;#34;
+    Write-Host &amp;#34;  6. (Optional) Disable LHM Authentication:&amp;#34; -ForegroundColor White
+    Write-Host &amp;#34;     Caddy &#43; Tailscale &#43; basicauth provides security&amp;#34; -ForegroundColor Gray
+    Write-Host &amp;#34;&amp;#34;
+}
+
+function Show-AuthMenu {
+    while ($true) {
+        Clear-Host
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  ╔═══════════════════════════════════════════════════════╗&amp;#34; -ForegroundColor Cyan
+        Write-Host &amp;#34;  ║          Authentication Management                    ║&amp;#34; -ForegroundColor Cyan
+        Write-Host &amp;#34;  ╚═══════════════════════════════════════════════════════╝&amp;#34; -ForegroundColor Cyan
+        Write-Host &amp;#34;&amp;#34;
+        
+        Write-Host &amp;#34;  Current Status:  &amp;#34; -NoNewline
+        if ($Script:AuthEnabled) {
+            Write-Host &amp;#34;Enabled&amp;#34; -ForegroundColor Green
+            Write-Host &amp;#34;  Username:        &amp;#34; -NoNewline
+            Write-Host $Script:AuthUser -ForegroundColor Cyan
+        }
+        else {
+            Write-Host &amp;#34;Disabled&amp;#34; -ForegroundColor Yellow
+        }
+        
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  ─────────────────────────────────────────────────────────&amp;#34; -ForegroundColor DarkGray
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  [1] Enable/Update Authentication&amp;#34;
+        Write-Host &amp;#34;  [2] Change Password&amp;#34;
+        Write-Host &amp;#34;  [3] Disable Authentication&amp;#34;
+        Write-Host &amp;#34;  [B] Back to Main Menu&amp;#34;
+        Write-Host &amp;#34;&amp;#34;
+        
+        $choice = Read-Host &amp;#34;  Select option&amp;#34;
+        
+        switch ($choice.ToUpper()) {
+            &amp;#34;1&amp;#34; {
+                $exePath = Join-Path $InstallPath $Script:Config.CaddyExe
+                if (-not (Test-Path $exePath)) {
+                    Write-Log &amp;#34;Caddy not installed. Install Caddy first.&amp;#34; &amp;#34;ERROR&amp;#34;
+                    Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+                    continue
+                }
+                
+                if (Request-AuthCredentials) {
+                    Save-AuthConfig
+                    New-Caddyfile
+                    
+                    $service = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+                    if ($service -and $service.Status -eq &amp;#34;Running&amp;#34;) {
+                        Restart-Service -Name $Script:Config.ServiceName -Force
+                        Write-Log &amp;#34;Service restarted with new auth settings&amp;#34; &amp;#34;SUCCESS&amp;#34;
+                    }
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;2&amp;#34; {
+                if (-not $Script:AuthEnabled) {
+                    Write-Log &amp;#34;Authentication not enabled&amp;#34; &amp;#34;WARNING&amp;#34;
+                    Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+                    continue
+                }
+                
+                $exePath = Join-Path $InstallPath $Script:Config.CaddyExe
+                if (-not (Test-Path $exePath)) {
+                    Write-Log &amp;#34;Caddy not installed&amp;#34; &amp;#34;ERROR&amp;#34;
+                    Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+                    continue
+                }
+                
+                Write-Host &amp;#34;&amp;#34;
+                Write-Host &amp;#34;  Changing password for user: $($Script:AuthUser)&amp;#34; -ForegroundColor Cyan
+                
+                $passwordMatch = $false
+                $attempts = 0
+                
+                while (-not $passwordMatch -and $attempts -lt 3) {
+                    Write-Host &amp;#34;&amp;#34;
+                    $password1 = Read-Host &amp;#34;  New Password&amp;#34; -AsSecureString
+                    $password2 = Read-Host &amp;#34;  Confirm Password&amp;#34; -AsSecureString
+                    
+                    $BSTR1 = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password1)
+                    $BSTR2 = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($password2)
+                    $plain1 = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR1)
+                    $plain2 = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR2)
+                    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR1)
+                    [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR2)
+                    
+                    if ($plain1 -eq $plain2) {
+                        if ($plain1.Length -lt 8) {
+                            Write-Log &amp;#34;Password must be at least 8 characters&amp;#34; &amp;#34;WARNING&amp;#34;
+                            $attempts&#43;&#43;
+                        }
+                        else {
+                            $passwordMatch = $true
+                            Write-Host &amp;#34;&amp;#34;
+                            Write-Log &amp;#34;Generating password hash...&amp;#34; &amp;#34;INFO&amp;#34;
+                            $Script:AuthHash = Get-CaddyPasswordHash -Password $password1
+                            
+                            if ($Script:AuthHash) {
+                                Save-AuthConfig
+                                New-Caddyfile
+                                
+                                $service = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+                                if ($service -and $service.Status -eq &amp;#34;Running&amp;#34;) {
+                                    Restart-Service -Name $Script:Config.ServiceName -Force
+                                    Write-Log &amp;#34;Password changed and service restarted&amp;#34; &amp;#34;SUCCESS&amp;#34;
+                                }
+                                else {
+                                    Write-Log &amp;#34;Password changed&amp;#34; &amp;#34;SUCCESS&amp;#34;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        Write-Log &amp;#34;Passwords do not match&amp;#34; &amp;#34;WARNING&amp;#34;
+                        $attempts&#43;&#43;
+                    }
+                    
+                    $plain1 = $null
+                    $plain2 = $null
+                    [System.GC]::Collect()
+                }
+                
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;3&amp;#34; {
+                if (-not $Script:AuthEnabled) {
+                    Write-Log &amp;#34;Authentication already disabled&amp;#34; &amp;#34;INFO&amp;#34;
+                    Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+                    continue
+                }
+                
+                if (Confirm-Action &amp;#34;Disable authentication?&amp;#34;) {
+                    Remove-AuthConfig
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;B&amp;#34; { return }
+        }
+    }
+}
+
+function Show-InteractiveMenu {
+    Read-AuthConfig | Out-Null
+    Read-FirewallConfig | Out-Null
+    
+    while ($true) {
+        Clear-Host
+        Show-Status
+        
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  ─────────────────────────────────────────────────────────&amp;#34; -ForegroundColor DarkGray
+        Write-Host &amp;#34;&amp;#34;
+        Write-Host &amp;#34;  [1] Install Caddy Proxy&amp;#34;
+        Write-Host &amp;#34;  [2] Uninstall Caddy&amp;#34;
+        Write-Host &amp;#34;  [3] Test Installation&amp;#34;
+        Write-Host &amp;#34;  [4] Restart Caddy Service&amp;#34;
+        Write-Host &amp;#34;  [5] View Caddyfile&amp;#34;
+        Write-Host &amp;#34;  [6] Edit Caddyfile&amp;#34;
+        Write-Host &amp;#34;  [7] LHM Setup Instructions&amp;#34;
+        Write-Host &amp;#34;  [8] Open Install Folder&amp;#34;
+        Write-Host &amp;#34;  [A] Authentication Settings&amp;#34;
+        Write-Host &amp;#34;  [F] Firewall Settings&amp;#34;
+        Write-Host &amp;#34;  [S] Scan/Select Upstream IP&amp;#34;
+        Write-Host &amp;#34;  [Q] Quit&amp;#34;
+        Write-Host &amp;#34;&amp;#34;
+        
+        $choice = Read-Host &amp;#34;  Select option&amp;#34;
+        
+        switch ($choice.ToUpper()) {
+            &amp;#34;1&amp;#34; {
+                Write-Host &amp;#34;&amp;#34;
+                $enableAuthChoice = Read-Host &amp;#34;  Enable password authentication? (Y/N)&amp;#34;
+                if ($enableAuthChoice -match &amp;#39;^[Yy]&amp;#39;) {
+                    $Script:AuthEnabled = $true
+                }
+                else {
+                    $Script:AuthEnabled = $false
+                }
+                
+                Select-FirewallScope
+                
+                Invoke-Installation
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;2&amp;#34; {
+                Invoke-Uninstall
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;3&amp;#34; {
+                Test-Installation
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;4&amp;#34; {
+                Write-Log &amp;#34;Restarting Caddy service...&amp;#34; &amp;#34;INFO&amp;#34;
+                Restart-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+                Start-Sleep -Seconds 2
+                $svc = Get-Service -Name $Script:Config.ServiceName -ErrorAction SilentlyContinue
+                if ($svc -and $svc.Status -eq &amp;#34;Running&amp;#34;) {
+                    Write-Log &amp;#34;Service restarted&amp;#34; &amp;#34;SUCCESS&amp;#34;
+                }
+                else {
+                    Write-Log &amp;#34;Service restart failed&amp;#34; &amp;#34;ERROR&amp;#34;
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;5&amp;#34; {
+                $caddyfilePath = Join-Path $InstallPath $Script:Config.CaddyFile
+                if (Test-Path $caddyfilePath) {
+                    Write-Host &amp;#34;&amp;#34;
+                    Get-Content $caddyfilePath
+                }
+                else {
+                    Write-Log &amp;#34;Caddyfile not found&amp;#34; &amp;#34;ERROR&amp;#34;
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;6&amp;#34; {
+                $caddyfilePath = Join-Path $InstallPath $Script:Config.CaddyFile
+                if (Test-Path $caddyfilePath) {
+                    notepad $caddyfilePath
+                    Write-Log &amp;#34;Remember to restart Caddy after editing&amp;#34; &amp;#34;WARNING&amp;#34;
+                }
+                else {
+                    Write-Log &amp;#34;Caddyfile not found&amp;#34; &amp;#34;ERROR&amp;#34;
+                }
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;7&amp;#34; {
+                Show-LHMSetup
+                Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+            }
+            &amp;#34;8&amp;#34; {
+                if (Test-Path $InstallPath) {
+                    explorer.exe $InstallPath
+                }
+                else {
+                    Write-Log &amp;#34;Install path does not exist&amp;#34; &amp;#34;ERROR&amp;#34;
+                    Read-Host &amp;#34;`n  Press Enter to continue&amp;#34;
+                }
+            }
+            &amp;#34;A&amp;#34; { Show-AuthMenu }
+            &amp;#34;F&amp;#34; { Show-FirewallMenu }
+            &amp;#34;S&amp;#34; { Select-UpstreamIP }
+            &amp;#34;Q&amp;#34; { return }
+        }
+    }
+}
+
+# ============================================================================
+# MAIN ENTRY POINT
+# ============================================================================
+
+$Script:TailscaleIP = if ($TailscaleIP) { $TailscaleIP } else { Get-TailscaleIP }
+
+switch ($Action) {
+    &amp;#34;Menu&amp;#34; { Show-InteractiveMenu }
+    &amp;#34;Install&amp;#34; { Invoke-Installation }
+    &amp;#34;Uninstall&amp;#34; { Invoke-Uninstall }
+    &amp;#34;Status&amp;#34; { Show-Status }
+    &amp;#34;Test&amp;#34; { Test-Installation }
+}
+</textarea></div><h2 id=references>References</h2><ul><li><a href=https://caddyserver.com/docs/>Caddy Documentation</a></li><li><a href=https://caddyserver.com/docs/quick-starts/reverse-proxy>Caddy Reverse Proxy Quick-Start</a></li><li><a href=https://caddyserver.com/docs/caddyfile/directives/tls>Caddy TLS Directive</a></li><li><a href=https://caddyserver.com/docs/caddyfile/directives/basicauth>Caddy basicauth Directive</a></li><li><a href=https://caddyserver.com/docs/command-line#caddy-hash-password>Caddy hash-password Command</a></li><li><a href=https://tailscale.com/blog/caddy>Tailscale with Caddy</a></li><li><a href=https://tailscale.com/kb/1015/100.x-addresses>Tailscale CGNAT Range</a></li><li><a href=https://github.com/LibreHardwareMonitor/LibreHardwareMonitor>LibreHardwareMonitor GitHub</a></li><li><a href=https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sc-create>Microsoft sc.exe Documentation</a></li><li><a href=https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule>Windows Firewall PowerShell</a></li><li><a href=https://learn.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule>New-NetFirewallRule</a></li></ul></div></article><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
+Back to Posts</a></div></span><section class=author-section><div class="authorbox clearfix"><figure class=authorbox__avatar><img alt="Andrew Jones avatar" src=/images/posts/Andrew.png class=avatar height=90 width=90></figure><div class=authorbox__content><h3 class=authorbox__name>Andrew Jones</h3><p class=authorbox__bio>IT engineer with 5 years in the industry and a lifetime of hands-on experience with computers. Passionate about gaming technology, cybersecurity, and creating educational content that makes complex topics accessible.</p></div></div></section><style>article{overflow-x:auto;-webkit-overflow-scrolling:touch}article table{width:100%;min-width:500px;border-collapse:collapse;margin:1.5rem 0;font-size:.875rem;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);border-radius:4px;display:table;table-layout:auto}article table thead{background-color:rgba(255,255,255,8%)}article table th{padding:.625rem .75rem;text-align:left;font-weight:600;border-bottom:2px solid rgba(255,255,255,.2);white-space:nowrap;font-size:.8125rem}article table td{padding:.625rem .75rem;border-bottom:1px solid rgba(255,255,255,.1);vertical-align:top}article table tbody tr:hover{background-color:rgba(255,255,255,3%)}article table tbody tr:last-child td{border-bottom:none}@media(min-width:640px){article table{font-size:.9375rem;min-width:600px}article table th{padding:.75rem 1rem;font-size:.9375rem}article table td{padding:.75rem 1rem}}@media(min-width:1024px){article{overflow-x:visible}article table{font-size:1rem;min-width:auto;max-width:100%}article table th{padding:.875rem 1.25rem;font-size:1rem}article table td{padding:.875rem 1.25rem}article table tbody tr:hover{background-color:rgba(255,255,255,5%);transition:background-color .2s ease}}@media(min-width:1280px){article table th,article table td{padding:1rem 1.5rem}}@media(prefers-color-scheme:dark){article table{background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.12)}article table thead{background-color:rgba(255,255,255,.1)}article table th{border-bottom-color:rgba(255,255,255,.25)}article table td{border-bottom-color:rgba(255,255,255,.12)}article table tbody tr:hover{background-color:rgba(255,255,255,6%)}}article table td.numeric,article table th.numeric{text-align:right;font-variant-numeric:tabular-nums}article table td.narrow,article table th.narrow{width:1%;white-space:nowrap}article table td.wide,article table th.wide{min-width:200px}article table code{font-size:.875em;padding:.125rem .375rem;background:rgba(255,255,255,.1);border-radius:3px}pre,pre[style],code,.highlight pre{background-color:#000!important;background:#000!important}code[class*=language-]{background-color:#000!important}.highlight,div[class*=highlight]{background-color:#000!important}pre[style*=background-color]{background-color:#000!important}.toc{background:0 0;border-left:3px solid red;border-top:none;border-right:none;border-bottom:none;padding:1.5rem;border-radius:8px;margin:2rem 0;width:fit-content;color:#000}.toc h2{margin-top:0;font-size:1.1rem}.toc nav>ol,.toc nav>ul{padding-left:1.2rem;margin:0}.toc ol,.toc ul{line-height:1.8}.toc li{margin:.4rem 0;color:#000}.toc a{text-decoration:none;transition:color .2s}.toc a:hover{color:red}@media(max-width:1024px){.content-wrapper{grid-template-columns:1fr}}.post-nav-right{display:flex;justify-content:flex-end;margin-bottom:2rem}.read-more{display:inline-flex;align-items:center;gap:.5rem;color:#000;text-decoration:none;font-weight:500;transition:all .2s ease;border-bottom:2px dotted transparent}.read-more:hover{color:red;border-bottom:2px dotted #c53030}.read-more svg{transition:transform .2s ease}.read-more:hover svg{transform:translateX(-7px)}.reading-time{color:#000;font-size:.9rem;white-space:nowrap}.professional-post{max-width:800px;margin:0 auto;padding:2rem 1rem}.professional-header{margin-bottom:2rem;border-bottom:1px solid red;padding-bottom:1.5rem}.post-meta{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}.post-date{color:#000;font-size:.9rem;font-weight:500}.reading-time{color:#000;font-size:.9rem;font-weight:500}.post-category{background:#f3f4f6;color:#000;padding:.25rem .75rem;border-radius:0;font-size:.8rem;font-weight:500}.post-title{font-size:2.5rem;color:#000;margin:0 0 1rem;font-weight:300;line-height:1.2}.post-description{font-size:1.2rem;color:#000;margin-bottom:1.5rem;line-height:1.6}.author-info{display:flex;align-items:center;gap:.5rem}.author{color:#000;font-size:.9rem}.post-content{line-height:1.7;color:#000;font-size:1.1rem}.post-content h2{color:#000;font-weight:400;margin:2rem 0 1rem;font-size:1.8rem}.post-content h3{color:#000;font-weight:500;margin:1.5rem 0 .75rem;font-size:1.4rem}.post-content p{margin-bottom:1.5rem}.post-content ul,.post-content ol{margin-bottom:1.5rem;padding-left:1.5rem}.post-content li{margin-bottom:.5rem}@media(max-width:768px){.professional-post{padding:1rem .5rem}.post-title{font-size:2rem}.post-meta{gap:.75rem}}</style></div></div><footer class=footer><div class="container footer__container flex"><div class=footer__copyright>&copy; 2026 Andy J Blog - Trials of an IT Engineer.
+<span class=footer__copyright-credits>Generated with <a href=https://gohugo.io/ rel="nofollow noopener" target=_blank>Hugo</a> and <a href=https://github.com/Vimux/Mainroad/ rel="nofollow noopener" target=_blank>Mainroad</a> theme.</span></div></div></footer></div><script async defer src=/js/menu.js></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script><script>window.addEventListener("pageshow",function(){document.body.style.transition="opacity 200ms cubic-bezier(0.23, 1, 0.32, 1)",requestAnimationFrame(()=>{document.body.style.opacity="1"})}),document.addEventListener("click",function(e){const t=e.target.closest("a");if(t&&t.href&&t.origin===window.location.origin&&t.target!=="_blank"&&!t.hash&&!e.metaKey&&!e.ctrlKey){e.preventDefault();const n=t.href;document.body.style.opacity="0",setTimeout(()=>{window.location.href=n},200)}})</script></body></html><style>*{margin:0;padding:0;box-sizing:border-box}html{margin:0!important;padding:0!important;background-color:#181a1b!important}body{opacity:0;margin:0!important;padding:0!important;background-color:#181a1b!important;will-change:opacity;-webkit-backface-visibility:hidden;backface-visibility:hidden}.container--outer{margin-top:0!important;padding-top:0!important}.header{margin-top:0!important;padding-top:1rem!important;top:0!important}html,body{margin:0!important;padding:0!important}.container--outer{margin-top:0!important;padding-top:0!important;border-top:none!important;border-left:none!important;border-right:none!important;box-shadow:0 10px 30px rgba(0,0,0,.3)!important}.hero{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:400px;padding:4rem 1rem;margin:0 0 3rem!important;background-size:cover;background-position:50%;background-color:#181a1b;transition:background-image .8s ease-in-out,opacity .5s ease;overflow:hidden;box-shadow:inset 0 10px 20px rgba(0,0,0,.7),inset 0 -10px 20px rgba(0,0,0,.7)!important;border:none!important}.hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:1;pointer-events:none}body .hero h1,body .hero h2,body .hero h3,body .hero p,body .hero a{position:relative!important;z-index:10!important;color:#fff!important;margin-left:auto;margin-right:auto;max-width:850px;text-shadow:2px 2px 5px rgba(0,0,0,.9)!important;-webkit-text-stroke:0!important;word-wrap:break-word;overflow-wrap:break-word;box-sizing:border-box}body .hero h1{font-size:3rem;font-weight:800;margin-bottom:1rem;line-height:1.2}body .hero p{font-size:1.15rem;line-height:1.6;font-weight:400;padding:0 1rem}body .hero a{display:inline-block;margin-top:1rem;text-decoration:none!important;border-bottom:2px solid rgba(255,255,255,.3)!important;transition:all .3s ease}body .hero a:hover{border-bottom:2px solid #fff!important;background:rgba(255,255,255,.1)}@media(max-width:768px){.hero{min-height:350px;padding:3rem 1rem}body .hero h1{font-size:2.2rem}}@media(max-width:480px){.hero{min-height:280px;padding:2rem 15px!important;margin-bottom:2rem!important}body .hero h1{font-size:1.6rem!important;width:100%!important;padding:0 5px}body .hero p{font-size:.95rem!important;width:100%!important;padding:0 5px}.hero>*{max-width:100%!important;box-sizing:border-box!important}}.copy-code-btn:hover{background:#fff!important;border-color:red!important;transform:translateY(-1px)}html,body{margin:0;padding:0;min-height:100vh;opacity:1;transition:opacity .3s ease}.wrapper{position:relative;z-index:1}@media(max-width:768px){.copy-code-btn{opacity:1!important;font-size:11px;padding:3px 8px}}.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 4px 12px rgba(0,0,0,.5);padding:1rem 0}.menu{position:relative}.header a,.header h1,.header h2{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.8)}.menu__link,.menu__item{color:#fff!important}.menu__link:hover{color:#e0e0e0!important;transition:all .2s ease}.logo__title{color:#fff!important;text-shadow:0 2px 4px rgba(0,0,0,.9)}@media(max-width:768px){.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);box-shadow:0 4px 12px rgba(0,0,0,.5)}}@media(max-width:480px){.header{position:sticky;top:0;z-index:1000;background:rgba(24,26,27,.98);box-shadow:0 4px 12px rgba(0,0,0,.5);padding:.75rem 0}}html,body{background-color:#000!important;margin:0!important;padding:0!important}.container--outer{background-color:#181a1b!important;margin-top:0!important;border:none!important}.footer{border-top:3px solid red!important;padding:2rem 0!important;margin-top:0!important;background-color:rgba(24,26,27,.98)!important;margin-top:auto!important}.footer__copyright{color:#a0a0a0!important;font-size:.85rem;padding-left:1.5rem!important;color:rgba(255,255,255,.4)!important;font-size:.8rem;font-weight:400;letter-spacing:.02em;padding-left:1.5rem!important;transition:color .3s ease}.footer__copyright a{color:#fff!important;text-decoration:none!important}.footer__copyright a:hover{color:#fff!important;text-decoration:underline!important}</style><script async defer src=/js/hero-carousel.js></script><script src=/js/codemirror.bundle.js defer></script><script>(function(){document.body.style.transform="translateY(-10px)";var e=document.querySelector(".container--outer");e&&(e.style.transform="translateY(10px)"),document.body.style.position="relative",e&&(e.style.position="relative")})()</script></body></html>

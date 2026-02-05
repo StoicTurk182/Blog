@@ -1,0 +1,7 @@
+{{- /* layouts/shortcodes/codemirror.html */ -}}
+<div class="codemirror-container" 
+     data-codemirror 
+     data-language="{{ .Get "lang" | default "powershell" }}" 
+     data-readonly="{{ .Get "readonly" | default "true" }}">
+    <textarea style="display: none;">{{ .Inner | htmlEscape }}</textarea>
+</div>
