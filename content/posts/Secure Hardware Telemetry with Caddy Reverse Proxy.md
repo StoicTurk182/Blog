@@ -363,7 +363,7 @@ LocalAddress   LocalPort
 
 From any Tailscale-connected device, navigate to:
 
-```
+```powershell
 https://100.69.66.60:8086/
 ```
 
