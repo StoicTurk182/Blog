@@ -175,7 +175,7 @@ This guide covers implementing Veeam agent-level backups for Linux VMs and Windo
 ---
 
 **For Active Directory Objects**:
-```
+```bash
 Name: Linux-VMs-Production
 Type: Microsoft Active Directory objects
 Scope: OU=LinuxServers,DC=company,DC=local
@@ -192,13 +192,14 @@ Credentials: DOMAIN\VeeamAgentInstaller (with local admin rights)
 ---
 
 For Linux systems:
-```
+
+```bash
 Account: root or sudo user
 Authentication: SSH key-based (recommended) or password
 ```
 
 For Windows systems:
-```
+```bash
 Account: DOMAIN\AgentInstaller
 Requirements: Local Administrator group membership
 ```
@@ -358,13 +359,13 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 2. Click **Add**
 3. Name: "Agent Backup User"
 4. Grant permissions:
-   - ✅ Start backup jobs
-   - ✅ Stop backup jobs
-   - ✅ View job sessions
-   - ✅ Restore files
-   - ❌ Modify jobs
-   - ❌ Delete backups
-   - ❌ Modify infrastructure
+   -  Start backup jobs
+   -  Stop backup jobs
+   -  View job sessions
+   -  DO NOT! Restore files
+   -  DO NOT! Modify jobs
+   -  DO NOT! Delete backups
+   -  DO NOT! Modify infrastructure
 
 5. **Scope Objects** tab:
    - Select specific protection groups
@@ -437,14 +438,14 @@ msiexec /i VeeamAgentWindows.msi /quiet ACCEPT_EULA=1 ACCEPT_THIRDPARTY_LICENSES
 **Configuration Steps**:
 
 For Agents managed by Veeam B&R:
-```
+```bash
 1. Inventory → Physical Infrastructure → Protection Group
 2. Right-click agent computer → Properties
 3. Options → Access Mode → Read-only
 ```
 
 Or set during Protection Group creation:
-```
+```bash
 Protection Group wizard → Options step →
 ☑ Enable read-only access mode for backup agents
 ```
@@ -483,7 +484,7 @@ Protection Group wizard → Options step →
 
 **Use Case**: Linux VMs in datacenter, stable connectivity
 
-```
+```bash
 1. Backup → Agent Backup → Add Agent Backup Job
 2. Job Mode: Managed by backup server
 3. Name: Linux-VMs-Daily
@@ -506,7 +507,7 @@ Protection Group wizard → Options step →
 
 **Use Case**: Windows workstations, laptops, remote workers
 
-```
+```bash
 1. Backup → Agent Backup → Add Agent Backup Job
 2. Job Mode: Managed by agent
 3. Name: Workstations-Policy
@@ -550,7 +551,7 @@ Protection Group wizard → Options step →
 **Implementation**:
 
 1. **Create Protection Group**:
-   ```
+   ```bash
    Name: Linux-Production-Servers
    Type: CSV file import
    File: \\veeam\config\linux-servers.csv
@@ -569,7 +570,7 @@ Protection Group wizard → Options step →
    ```
 
 3. **Create Backup Policy**:
-   ```
+   ```bash
    Name: Linux-Servers-Policy
    Mode: Managed by agent
    Protection Groups: Linux-Production-Servers
@@ -581,18 +582,19 @@ Protection Group wizard → Options step →
    ```
 
 4. **Configure User Permissions**:
-   ```
+   ```bash
    Add AD Group: DOMAIN\LinuxAdmins
    Role: Veeam Backup Operator
    Scope: Linux-Production-Servers protection group
    ```
 
 5. **User Access Setup**:
+```bash
    - Users SSH to their Linux VMs
    - Run: `sudo veeam` for interactive TUI
    - Or: `sudo veeamconfig` for CLI management
    - Can modify job settings, run manual backups, perform restores
-
+```
 ### Scenario 2: Windows Workstations with Read-Only Mode
 ---
 
@@ -600,8 +602,11 @@ Protection Group wizard → Options step →
 
 **Implementation**:
 
-1. **Create Protection Group**:
-   ```
+
+
+ 1. **Create Protection Group**
+   ```bash
+
    Name: Corporate-Workstations
    Type: Active Directory Objects
    Scope: OU=Workstations,OU=Computers,DC=company,DC=local
@@ -610,9 +615,10 @@ Protection Group wizard → Options step →
    Discovery: Every 4 hours
    Auto-install: Yes
    ```
+   
 
-2. **Create Backup Policy**:
-   ```
+2. **Create Backup Policy**
+   ```bash
    Name: Workstation-Daily-Backup
    Mode: Managed by agent
    Protection Groups: Corporate-Workstations
@@ -627,7 +633,7 @@ Protection Group wizard → Options step →
    ```
 
 3. **Configure Permissions**:
-   ```
+   ```bash
    Add AD Group: DOMAIN\Domain Users
    Role: Custom "Workstation Backup Users"
    Permissions:
@@ -637,12 +643,15 @@ Protection Group wizard → Options step →
      - Modify settings: No
    Scope: Corporate-Workstations
    ```
+   
 
 4. **User Workflow**:
+```bash
    - User sees Veeam icon in system tray
    - Right-click → **Backup Now** (runs configured policy)
    - View status: **Control Panel** (read-only view)
    - Restore: **Control Panel** → **Restore** → **File-level restore**
+   ```
 
 ### Scenario 3: Mixed Environment (Linux + Windows)
 ---
@@ -654,7 +663,7 @@ Protection Group wizard → Options step →
 1. **Create Multiple Protection Groups**:
 
    **Linux Servers**:
-   ```
+   ```bash
    Name: Linux-Servers
    Type: Individual computers (manually added)
    Computers: [linux01, linux02, ..., linux30]
@@ -663,7 +672,7 @@ Protection Group wizard → Options step →
    ```
 
    **Windows Workstations**:
-   ```
+   ```bash
    Name: Windows-Workstations
    Type: Active Directory (OU)
    Credentials: DOMAIN\AgentInstaller
@@ -673,7 +682,7 @@ Protection Group wizard → Options step →
 2. **Create Separate Backup Policies**:
 
    **Linux Policy**:
-   ```
+   ```bash
    Name: Linux-Backup-Job
    Mode: Managed by agent
    Computers: Linux-Servers
@@ -684,7 +693,7 @@ Protection Group wizard → Options step →
    ```
 
    **Windows Policy**:
-   ```
+   ```bash
    Name: Workstation-Policy
    Mode: Managed by agent
    Computers: Windows-Workstations
@@ -749,7 +758,7 @@ Protection Group wizard → Options step →
 ---
 
 1. **Configure Notifications**:
-   ```
+   ```bash
    Email notifications:
    - Failed jobs → Administrators
    - Successful jobs → Log only
@@ -850,7 +859,9 @@ sudo veeamconfig vbrserver sync
 ```
 
 Windows:
-```powershell
+
+```bash
+
 # Test connectivity
 Test-NetConnection -ComputerName veeam-server.company.local -Port 10002
 
@@ -863,6 +874,7 @@ Get-EventLog -LogName "Veeam Agent" -Newest 50
 # Manual sync
 & "C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe" /server.sync
 ```
+
 
 **Firewall Issues**:
 ```bash
@@ -926,12 +938,12 @@ vssadmin delete shadows /all /quiet
 
 **Solution**:
 1. Verify mode in Veeam console:
-   ```
+   ```bash
    Inventory → Computer → Properties → Options → Access Mode
    ```
 
 2. Force policy sync:
-   ```
+   ```bash
    Protection Group → Rescan
    ```
 
@@ -979,7 +991,7 @@ iostat -x 5 10
 ```
 
 **Windows**:
-```
+```bash
 # Event Viewer
 Applications and Services Logs → Veeam Agent
 

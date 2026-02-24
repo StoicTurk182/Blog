@@ -12,15 +12,15 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/v
 </span></span><span style=display:flex><span>- dkms
 </span></span><span style=display:flex><span>- linux-headers-<span style=color:#66d9ef>$(</span>uname -r<span style=color:#66d9ef>)</span>
 </span></span><span style=display:flex><span>- build-essential
-</span></span></code></pre></div><h3 id=windows-workstations-requirements>Windows Workstations Requirements</h3><hr><p><strong>Supported OS</strong>:</p><ul><li>Windows 11 (22H2, 23H2, 24H2)</li><li>Windows 10 (1809 and later)</li><li>Windows Server 2025, 2022, 2019, 2016</li></ul><p><strong>System Requirements</strong>:</p><ul><li>CPU: x86-64 processor</li><li>Memory: 2 GB RAM minimum</li><li>Disk: 200 MB for installation</li><li>.NET Framework 4.5.2 or later (auto-installed if missing)</li></ul><h3 id=network-requirements>Network Requirements</h3><hr><ul><li>Port 6160/TCP: Veeam Installer Service</li><li>Port 2500-3300/TCP: Data transmission</li><li>Port 10005-10007/TCP: Agent communication</li><li>DNS resolution between server and agents</li></ul><h3 id=licensing-requirements>Licensing Requirements</h3><hr><p><strong>License Types</strong>:</p><ol><li><strong>Per-Instance License</strong>: Based on number of protected machines</li><li><strong>Per-Socket License</strong>: Up to 6 instances for agent protection</li><li><strong>Community Edition</strong>: Limited free functionality</li></ol><p><strong>Agent Editions</strong>:</p><ul><li><strong>Server Edition</strong>: Full functionality for servers</li><li><strong>Workstation Edition</strong>: For desktops/laptops with some limitations</li><li><strong>Free Edition</strong>: Basic functionality, single backup job</li></ul><p><strong>Key Limitations</strong>:</p><ul><li>Workstation Edition: Limited to 1 job to local/network/repository + unlimited Cloud Connect jobs</li><li>Free Edition: 1 job total, no Cloud Connect, no database processing</li></ul><hr><h2 id=installation--deployment>Installation & Deployment</h2><hr><h3 id=method-1-automatic-deployment-recommended>Method 1: Automatic Deployment (Recommended)</h3><hr><h4 id=step-1-create-protection-group>Step 1: Create Protection Group</h4><hr><ol><li>In Veeam B&amp;R console, go to <strong>Inventory</strong> → <strong>Physical Infrastructure</strong></li><li>Right-click → <strong>Add Protection Group</strong></li><li>Choose type:<ul><li><strong>Individual computers</strong>: Enter IP addresses/hostnames</li><li><strong>Microsoft Active Directory</strong>: Select domain, OUs, or computers</li><li><strong>CSV file</strong>: Import computer list</li><li><strong>Pre-installed agents</strong>: For manual/GPO deployment</li></ul></li></ol><h4 id=step-2-configure-protection-group-settings>Step 2: Configure Protection Group Settings</h4><hr><p><strong>For Active Directory Objects</strong>:</p><pre tabindex=0><code>Name: Linux-VMs-Production
-Type: Microsoft Active Directory objects
-Scope: OU=LinuxServers,DC=company,DC=local
-Credentials: DOMAIN\VeeamAgentInstaller (with local admin rights)
-</code></pre><p><strong>Discovery Options</strong>:</p><ul><li><strong>Automatic discovery schedule</strong>: Daily at 2:00 AM</li><li><strong>Install backup agent automatically</strong>: Enabled</li><li><strong>Automatic upgrade</strong>: Enabled</li><li><strong>Distribution server</strong>: Select closest Veeam proxy/repository</li></ul><h4 id=step-3-credentials-configuration>Step 3: Credentials Configuration</h4><hr><p>For Linux systems:</p><pre tabindex=0><code>Account: root or sudo user
-Authentication: SSH key-based (recommended) or password
-</code></pre><p>For Windows systems:</p><pre tabindex=0><code>Account: DOMAIN\AgentInstaller
-Requirements: Local Administrator group membership
-</code></pre><h3 id=method-2-manual-installation-linux>Method 2: Manual Installation (Linux)</h3><hr><h4 id=for-rhelcentosrockyalmalinux>For RHEL/CentOS/Rocky/AlmaLinux:</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Add Veeam repository (RHEL 8 example)</span>
+</span></span></code></pre></div><h3 id=windows-workstations-requirements>Windows Workstations Requirements</h3><hr><p><strong>Supported OS</strong>:</p><ul><li>Windows 11 (22H2, 23H2, 24H2)</li><li>Windows 10 (1809 and later)</li><li>Windows Server 2025, 2022, 2019, 2016</li></ul><p><strong>System Requirements</strong>:</p><ul><li>CPU: x86-64 processor</li><li>Memory: 2 GB RAM minimum</li><li>Disk: 200 MB for installation</li><li>.NET Framework 4.5.2 or later (auto-installed if missing)</li></ul><h3 id=network-requirements>Network Requirements</h3><hr><ul><li>Port 6160/TCP: Veeam Installer Service</li><li>Port 2500-3300/TCP: Data transmission</li><li>Port 10005-10007/TCP: Agent communication</li><li>DNS resolution between server and agents</li></ul><h3 id=licensing-requirements>Licensing Requirements</h3><hr><p><strong>License Types</strong>:</p><ol><li><strong>Per-Instance License</strong>: Based on number of protected machines</li><li><strong>Per-Socket License</strong>: Up to 6 instances for agent protection</li><li><strong>Community Edition</strong>: Limited free functionality</li></ol><p><strong>Agent Editions</strong>:</p><ul><li><strong>Server Edition</strong>: Full functionality for servers</li><li><strong>Workstation Edition</strong>: For desktops/laptops with some limitations</li><li><strong>Free Edition</strong>: Basic functionality, single backup job</li></ul><p><strong>Key Limitations</strong>:</p><ul><li>Workstation Edition: Limited to 1 job to local/network/repository + unlimited Cloud Connect jobs</li><li>Free Edition: 1 job total, no Cloud Connect, no database processing</li></ul><hr><h2 id=installation--deployment>Installation & Deployment</h2><hr><h3 id=method-1-automatic-deployment-recommended>Method 1: Automatic Deployment (Recommended)</h3><hr><h4 id=step-1-create-protection-group>Step 1: Create Protection Group</h4><hr><ol><li>In Veeam B&amp;R console, go to <strong>Inventory</strong> → <strong>Physical Infrastructure</strong></li><li>Right-click → <strong>Add Protection Group</strong></li><li>Choose type:<ul><li><strong>Individual computers</strong>: Enter IP addresses/hostnames</li><li><strong>Microsoft Active Directory</strong>: Select domain, OUs, or computers</li><li><strong>CSV file</strong>: Import computer list</li><li><strong>Pre-installed agents</strong>: For manual/GPO deployment</li></ul></li></ol><h4 id=step-2-configure-protection-group-settings>Step 2: Configure Protection Group Settings</h4><hr><p><strong>For Active Directory Objects</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Linux-VMs-Production
+</span></span><span style=display:flex><span>Type: Microsoft Active Directory objects
+</span></span><span style=display:flex><span>Scope: OU<span style=color:#f92672>=</span>LinuxServers,DC<span style=color:#f92672>=</span>company,DC<span style=color:#f92672>=</span>local
+</span></span><span style=display:flex><span>Credentials: DOMAIN<span style=color:#ae81ff>\V</span>eeamAgentInstaller <span style=color:#f92672>(</span>with local admin rights<span style=color:#f92672>)</span>
+</span></span></code></pre></div><p><strong>Discovery Options</strong>:</p><ul><li><strong>Automatic discovery schedule</strong>: Daily at 2:00 AM</li><li><strong>Install backup agent automatically</strong>: Enabled</li><li><strong>Automatic upgrade</strong>: Enabled</li><li><strong>Distribution server</strong>: Select closest Veeam proxy/repository</li></ul><h4 id=step-3-credentials-configuration>Step 3: Credentials Configuration</h4><hr><p>For Linux systems:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Account: root or sudo user
+</span></span><span style=display:flex><span>Authentication: SSH key-based <span style=color:#f92672>(</span>recommended<span style=color:#f92672>)</span> or password
+</span></span></code></pre></div><p>For Windows systems:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Account: DOMAIN<span style=color:#ae81ff>\A</span>gentInstaller
+</span></span><span style=display:flex><span>Requirements: Local Administrator group membership
+</span></span></code></pre></div><h3 id=method-2-manual-installation-linux>Method 2: Manual Installation (Linux)</h3><hr><h4 id=for-rhelcentosrockyalmalinux>For RHEL/CentOS/Rocky/AlmaLinux:</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Add Veeam repository (RHEL 8 example)</span>
 </span></span><span style=display:flex><span>sudo yum install http://repository.veeam.com/backup/linux/agent/rpm/el/8/x86_64/veeam-release-el8-1.0.7-1.x86_64.rpm
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Install dependencies (if needed)</span>
@@ -72,125 +72,134 @@ Requirements: Local Administrator group membership
 </span></span><span style=display:flex><span><span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /server.add /address<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;veeam-server.company.local&#34;</span> /port<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#ae81ff>10002</span> /login<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;DOMAIN\user&#34;</span> /password<span style=color:#960050;background-color:#1e0010>:</span><span style=color:#e6db74>&#34;password&#34;</span>
 </span></span></code></pre></div><h4 id=group-policy-deployment-enterprise>Group Policy Deployment (Enterprise):</h4><hr><ol><li><p><strong>Prepare Installation Package</strong>:</p><ul><li>Place installer in network share: <code>\\server\share\Veeam\</code></li><li>Create config file: <code>config.xml</code></li></ul></li><li><p><strong>Create GPO</strong>:</p><ul><li>Computer Configuration → Policies → Software Settings</li><li>Software Installation → New → Package</li><li>Select <code>VeeamAgentWindows.msi</code></li></ul></li><li><p><strong>Add Startup Script</strong> (for configuration):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-batch data-lang=batch><span style=display:flex><span>@<span style=color:#66d9ef>echo</span> off
 </span></span><span style=display:flex><span><span style=color:#e6db74>&#34;C:\Program Files\Veeam\Endpoint Backup\Veeam.Agent.Configurator.exe&#34;</span> /install /p:<span style=color:#e6db74>&#34;\\server\share\Veeam\config.xml&#34;</span>
-</span></span></code></pre></div></li></ol><hr><h2 id=user-permissions--roles>User Permissions & Roles</h2><hr><h3 id=veeam-backup--replication-roles>Veeam Backup & Replication Roles</h3><hr><p><strong>Built-in Roles</strong>:</p><ol><li><p><strong>Veeam Backup Administrator</strong></p><ul><li>Full control over all operations</li><li>Can create/modify/delete all objects</li><li>Manage licenses and infrastructure</li></ul></li><li><p><strong>Veeam Backup Operator</strong></p><ul><li>Start/stop backup jobs</li><li>Perform restores</li><li>View job statistics</li><li>Cannot modify infrastructure</li></ul></li><li><p><strong>Veeam Restore Operator</strong></p><ul><li>Perform restore operations only</li><li>View backup files</li><li>Cannot run backups</li></ul></li><li><p><strong>Custom Roles</strong></p><ul><li>Create tailored permission sets</li><li>Scope to specific jobs/computers</li></ul></li></ol><h3 id=configuring-user-roles>Configuring User Roles</h3><hr><h4 id=add-users-to-veeam-console>Add Users to Veeam Console:</h4><hr><ol><li>In Veeam B&amp;R console: <strong>Users and Roles</strong> → <strong>Security</strong></li><li>Click <strong>Add</strong></li><li>Select <strong>Active Directory Object</strong> or <strong>Local User/Group</strong></li><li>Enter user/group: <code>DOMAIN\Username</code> or <code>DOMAIN\BackupOperators</code></li><li>Assign role:<ul><li><strong>Veeam Backup Operator</strong> (recommended for most users)</li><li><strong>Custom Role</strong> (for fine-grained control)</li></ul></li></ol><h4 id=create-custom-role>Create Custom Role:</h4><hr><ol><li><p><strong>Users and Roles</strong> → <strong>Roles</strong></p></li><li><p>Click <strong>Add</strong></p></li><li><p>Name: &ldquo;Agent Backup User&rdquo;</p></li><li><p>Grant permissions:</p><ul><li>✅ Start backup jobs</li><li>✅ Stop backup jobs</li><li>✅ View job sessions</li><li>✅ Restore files</li><li>❌ Modify jobs</li><li>❌ Delete backups</li><li>❌ Modify infrastructure</li></ul></li><li><p><strong>Scope Objects</strong> tab:</p><ul><li>Select specific protection groups</li><li>Select individual backup jobs</li><li>Restrict to only their computers</li></ul></li></ol><h3 id=local-agent-permissions>Local Agent Permissions</h3><hr><p><strong>For Users to Control Agents Locally</strong>:</p><p><strong>Windows</strong>:</p><ul><li>User must be local Administrator on their workstation</li><li>OR add user to &ldquo;Veeam Endpoint Users&rdquo; local group (if using full access mode)</li></ul><p><strong>Linux</strong>:</p><ul><li>User must be root or in sudo group</li><li>Veeam commands require elevation:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo veeam
+</span></span></code></pre></div></li></ol><hr><h2 id=user-permissions--roles>User Permissions & Roles</h2><hr><h3 id=veeam-backup--replication-roles>Veeam Backup & Replication Roles</h3><hr><p><strong>Built-in Roles</strong>:</p><ol><li><p><strong>Veeam Backup Administrator</strong></p><ul><li>Full control over all operations</li><li>Can create/modify/delete all objects</li><li>Manage licenses and infrastructure</li></ul></li><li><p><strong>Veeam Backup Operator</strong></p><ul><li>Start/stop backup jobs</li><li>Perform restores</li><li>View job statistics</li><li>Cannot modify infrastructure</li></ul></li><li><p><strong>Veeam Restore Operator</strong></p><ul><li>Perform restore operations only</li><li>View backup files</li><li>Cannot run backups</li></ul></li><li><p><strong>Custom Roles</strong></p><ul><li>Create tailored permission sets</li><li>Scope to specific jobs/computers</li></ul></li></ol><h3 id=configuring-user-roles>Configuring User Roles</h3><hr><h4 id=add-users-to-veeam-console>Add Users to Veeam Console:</h4><hr><ol><li>In Veeam B&amp;R console: <strong>Users and Roles</strong> → <strong>Security</strong></li><li>Click <strong>Add</strong></li><li>Select <strong>Active Directory Object</strong> or <strong>Local User/Group</strong></li><li>Enter user/group: <code>DOMAIN\Username</code> or <code>DOMAIN\BackupOperators</code></li><li>Assign role:<ul><li><strong>Veeam Backup Operator</strong> (recommended for most users)</li><li><strong>Custom Role</strong> (for fine-grained control)</li></ul></li></ol><h4 id=create-custom-role>Create Custom Role:</h4><hr><ol><li><p><strong>Users and Roles</strong> → <strong>Roles</strong></p></li><li><p>Click <strong>Add</strong></p></li><li><p>Name: &ldquo;Agent Backup User&rdquo;</p></li><li><p>Grant permissions:</p><ul><li>Start backup jobs</li><li>Stop backup jobs</li><li>View job sessions</li><li>DO NOT! Restore files</li><li>DO NOT! Modify jobs</li><li>DO NOT! Delete backups</li><li>DO NOT! Modify infrastructure</li></ul></li><li><p><strong>Scope Objects</strong> tab:</p><ul><li>Select specific protection groups</li><li>Select individual backup jobs</li><li>Restrict to only their computers</li></ul></li></ol><h3 id=local-agent-permissions>Local Agent Permissions</h3><hr><p><strong>For Users to Control Agents Locally</strong>:</p><p><strong>Windows</strong>:</p><ul><li>User must be local Administrator on their workstation</li><li>OR add user to &ldquo;Veeam Endpoint Users&rdquo; local group (if using full access mode)</li></ul><p><strong>Linux</strong>:</p><ul><li>User must be root or in sudo group</li><li>Veeam commands require elevation:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sudo veeam
 </span></span><span style=display:flex><span>sudo veeamconfig
-</span></span></code></pre></div></li></ul><hr><h2 id=self-service-configuration>Self-Service Configuration</h2><hr><h3 id=configuration-options>Configuration Options</h3><hr><h4 id=option-1-full-agent-control-standalone-like>Option 1: Full Agent Control (Standalone-like)</h4><hr><p><strong>When to Use</strong>:</p><ul><li>Power users who understand backup concepts</li><li>Remote workers with limited connectivity</li><li>Users who need schedule flexibility</li></ul><p><strong>Setup</strong>:</p><ol><li>Create Protection Group</li><li>Create Backup Policy (not Backup Job)</li><li>Set <strong>Read-Only Mode</strong> to <strong>OFF</strong></li><li>Users get full control via local agent interface</li></ol><p><strong>User Capabilities</strong>:</p><ul><li>Create/modify backup jobs</li><li>Change schedules</li><li>Select backup locations</li><li>Initiate manual backups</li><li>Perform restores</li></ul><h4 id=option-2-limited-self-service-read-only-mode>Option 2: Limited Self-Service (Read-Only Mode)</h4><hr><p><strong>When to Use</strong>:</p><ul><li>Standard users needing occasional manual backups</li><li>Compliance requirements for change control</li><li>Centralized backup management preferred</li></ul><p><strong>Setup</strong>:</p><ol><li>Create Protection Group</li><li>Create Backup Job OR Backup Policy</li><li>Enable <strong>Read-Only Mode</strong></li><li>Users can only:<ul><li>Run manual backup (using existing schedule/config)</li><li>View backup status</li><li>Restore individual files</li></ul></li></ol><p><strong>Configuration Steps</strong>:</p><p>For Agents managed by Veeam B&amp;R:</p><pre tabindex=0><code>1. Inventory → Physical Infrastructure → Protection Group
-2. Right-click agent computer → Properties
-3. Options → Access Mode → Read-only
-</code></pre><p>Or set during Protection Group creation:</p><pre tabindex=0><code>Protection Group wizard → Options step →
-☑ Enable read-only access mode for backup agents
-</code></pre><h4 id=option-3-hybrid-approach-backup-policies>Option 3: Hybrid Approach (Backup Policies)</h4><hr><p><strong>Best for</strong>: Most enterprise environments</p><p><strong>Configuration</strong>:</p><ol><li>Use Backup Policies (agent-managed jobs)</li><li>Define backup configuration centrally</li><li>Agents execute backups locally on schedule</li><li>Users can manually trigger between scheduled runs (read-only) OR modify locally (full access)</li></ol><hr><h2 id=operating-modes-explained>Operating Modes Explained</h2><hr><h3 id=backup-job-vs-backup-policy>Backup Job vs Backup Policy</h3><hr><table><thead><tr><th>Feature</th><th>Backup Job (Server-Managed)</th><th>Backup Policy (Agent-Managed)</th></tr></thead><tbody><tr><td><strong>Execution</strong></td><td>Runs from Veeam server</td><td>Runs on agent computer</td></tr><tr><td><strong>Data Transfer</strong></td><td>Pulled from agents</td><td>Agent pushes to repository</td></tr><tr><td><strong>Network Requirements</strong></td><td>Constant connectivity</td><td>Periodic sync (6 hours)</td></tr><tr><td><strong>Best For</strong></td><td>Servers, stable network</td><td>Workstations, roaming laptops</td></tr><tr><td><strong>User Control</strong></td><td>None (server-side job)</td><td>Full or read-only (agent-side)</td></tr><tr><td><strong>Backup Target</strong></td><td>Veeam repository only</td><td>Repository, Cloud Connect, local, network share</td></tr><tr><td><strong>Multiple Jobs</strong></td><td>Servers: unlimited, Workstations: limited</td><td>Per licensing edition</td></tr></tbody></table><h3 id=creating-backup-jobs-server-managed>Creating Backup Jobs (Server-Managed)</h3><hr><p><strong>Use Case</strong>: Linux VMs in datacenter, stable connectivity</p><pre tabindex=0><code>1. Backup → Agent Backup → Add Agent Backup Job
-2. Job Mode: Managed by backup server
-3. Name: Linux-VMs-Daily
-4. Add protection groups or individual computers
-5. Backup Mode: 
-   - Entire computer (image-level)
-   - Volume level
-   - File level
-6. Storage: Select Veeam backup repository
-7. Guest Processing: Enable if needed (for Linux: requires Perl)
-8. Schedule: Daily at 10:00 PM
-9. Advanced settings:
-   - Retention: 14 restore points
-   - Encryption: Enable if required
-   - Notifications: Email on failures
-</code></pre><h3 id=creating-backup-policies-agent-managed>Creating Backup Policies (Agent-Managed)</h3><hr><p><strong>Use Case</strong>: Windows workstations, laptops, remote workers</p><pre tabindex=0><code>1. Backup → Agent Backup → Add Agent Backup Job
-2. Job Mode: Managed by agent
-3. Name: Workstations-Policy
-4. Add protection groups or individual computers
-5. Backup Mode:
-   - Entire computer (recommended for laptops)
-   - Volume level
-   - File level
-6. Backup Target:
-   - Veeam backup repository (if accessible)
-   - Shared folder: \\fileserver\backups\%COMPUTERNAME%
-   - Local: D:\Backups (for temporary storage)
-   - Cloud Connect repository
-7. Schedule: 
-   - Daily at 6:00 PM (when users typically online)
-   - Monthly on 1st Sunday (full)
-   - Retry failed jobs: Yes
-8. Advanced:
-   - Backup window: 6 PM - 10 PM
-   - Pre-/post-job scripts (optional)
-   - Application-aware processing
-</code></pre><p><strong>Policy Application</strong>:</p><ul><li>Policy pushed to agents immediately upon creation</li><li>Agents sync every 6 hours for updates</li><li>Manual sync:<ul><li>Linux: <code>sudo veeamconfig job sync</code></li><li>Windows: Right-click agent tray icon → <strong>Synchronize with Veeam Backup & Replication</strong></li></ul></li></ul><hr><h2 id=step-by-step-implementation>Step-by-Step Implementation</h2><hr><h3 id=scenario-1-linux-vms-with-full-user-control>Scenario 1: Linux VMs with Full User Control</h3><hr><p><strong>Environment</strong>: 50 Linux VMs in production, sysadmins need backup flexibility</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Protection Group</strong>:</p><pre tabindex=0><code>Name: Linux-Production-Servers
-Type: CSV file import
-File: \\veeam\config\linux-servers.csv
-Credentials: root (SSH key)
-Discovery: Daily at 1 AM
-Auto-install: Yes
-Auto-upgrade: Yes
-</code></pre></li><li><p><strong>CSV File Format</strong> (<code>linux-servers.csv</code>):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csv data-lang=csv><span style=display:flex><span><span style=color:#e6db74>Name</span>,<span style=color:#e6db74>IP</span>,<span style=color:#e6db74>Description</span>
+</span></span></code></pre></div></li></ul><hr><h2 id=self-service-configuration>Self-Service Configuration</h2><hr><h3 id=configuration-options>Configuration Options</h3><hr><h4 id=option-1-full-agent-control-standalone-like>Option 1: Full Agent Control (Standalone-like)</h4><hr><p><strong>When to Use</strong>:</p><ul><li>Power users who understand backup concepts</li><li>Remote workers with limited connectivity</li><li>Users who need schedule flexibility</li></ul><p><strong>Setup</strong>:</p><ol><li>Create Protection Group</li><li>Create Backup Policy (not Backup Job)</li><li>Set <strong>Read-Only Mode</strong> to <strong>OFF</strong></li><li>Users get full control via local agent interface</li></ol><p><strong>User Capabilities</strong>:</p><ul><li>Create/modify backup jobs</li><li>Change schedules</li><li>Select backup locations</li><li>Initiate manual backups</li><li>Perform restores</li></ul><h4 id=option-2-limited-self-service-read-only-mode>Option 2: Limited Self-Service (Read-Only Mode)</h4><hr><p><strong>When to Use</strong>:</p><ul><li>Standard users needing occasional manual backups</li><li>Compliance requirements for change control</li><li>Centralized backup management preferred</li></ul><p><strong>Setup</strong>:</p><ol><li>Create Protection Group</li><li>Create Backup Job OR Backup Policy</li><li>Enable <strong>Read-Only Mode</strong></li><li>Users can only:<ul><li>Run manual backup (using existing schedule/config)</li><li>View backup status</li><li>Restore individual files</li></ul></li></ol><p><strong>Configuration Steps</strong>:</p><p>For Agents managed by Veeam B&amp;R:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>1. Inventory → Physical Infrastructure → Protection Group
+</span></span><span style=display:flex><span>2. Right-click agent computer → Properties
+</span></span><span style=display:flex><span>3. Options → Access Mode → Read-only
+</span></span></code></pre></div><p>Or set during Protection Group creation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Protection Group wizard → Options step →
+</span></span><span style=display:flex><span>☑ Enable read-only access mode <span style=color:#66d9ef>for</span> backup agents
+</span></span></code></pre></div><h4 id=option-3-hybrid-approach-backup-policies>Option 3: Hybrid Approach (Backup Policies)</h4><hr><p><strong>Best for</strong>: Most enterprise environments</p><p><strong>Configuration</strong>:</p><ol><li>Use Backup Policies (agent-managed jobs)</li><li>Define backup configuration centrally</li><li>Agents execute backups locally on schedule</li><li>Users can manually trigger between scheduled runs (read-only) OR modify locally (full access)</li></ol><hr><h2 id=operating-modes-explained>Operating Modes Explained</h2><hr><h3 id=backup-job-vs-backup-policy>Backup Job vs Backup Policy</h3><hr><table><thead><tr><th>Feature</th><th>Backup Job (Server-Managed)</th><th>Backup Policy (Agent-Managed)</th></tr></thead><tbody><tr><td><strong>Execution</strong></td><td>Runs from Veeam server</td><td>Runs on agent computer</td></tr><tr><td><strong>Data Transfer</strong></td><td>Pulled from agents</td><td>Agent pushes to repository</td></tr><tr><td><strong>Network Requirements</strong></td><td>Constant connectivity</td><td>Periodic sync (6 hours)</td></tr><tr><td><strong>Best For</strong></td><td>Servers, stable network</td><td>Workstations, roaming laptops</td></tr><tr><td><strong>User Control</strong></td><td>None (server-side job)</td><td>Full or read-only (agent-side)</td></tr><tr><td><strong>Backup Target</strong></td><td>Veeam repository only</td><td>Repository, Cloud Connect, local, network share</td></tr><tr><td><strong>Multiple Jobs</strong></td><td>Servers: unlimited, Workstations: limited</td><td>Per licensing edition</td></tr></tbody></table><h3 id=creating-backup-jobs-server-managed>Creating Backup Jobs (Server-Managed)</h3><hr><p><strong>Use Case</strong>: Linux VMs in datacenter, stable connectivity</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>1. Backup → Agent Backup → Add Agent Backup Job
+</span></span><span style=display:flex><span>2. Job Mode: Managed by backup server
+</span></span><span style=display:flex><span>3. Name: Linux-VMs-Daily
+</span></span><span style=display:flex><span>4. Add protection groups or individual computers
+</span></span><span style=display:flex><span>5. Backup Mode: 
+</span></span><span style=display:flex><span>   - Entire computer <span style=color:#f92672>(</span>image-level<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Volume level
+</span></span><span style=display:flex><span>   - File level
+</span></span><span style=display:flex><span>6. Storage: Select Veeam backup repository
+</span></span><span style=display:flex><span>7. Guest Processing: Enable <span style=color:#66d9ef>if</span> needed <span style=color:#f92672>(</span><span style=color:#66d9ef>for</span> Linux: requires Perl<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>8. Schedule: Daily at 10:00 PM
+</span></span><span style=display:flex><span>9. Advanced settings:
+</span></span><span style=display:flex><span>   - Retention: <span style=color:#ae81ff>14</span> restore points
+</span></span><span style=display:flex><span>   - Encryption: Enable <span style=color:#66d9ef>if</span> required
+</span></span><span style=display:flex><span>   - Notifications: Email on failures
+</span></span></code></pre></div><h3 id=creating-backup-policies-agent-managed>Creating Backup Policies (Agent-Managed)</h3><hr><p><strong>Use Case</strong>: Windows workstations, laptops, remote workers</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>1. Backup → Agent Backup → Add Agent Backup Job
+</span></span><span style=display:flex><span>2. Job Mode: Managed by agent
+</span></span><span style=display:flex><span>3. Name: Workstations-Policy
+</span></span><span style=display:flex><span>4. Add protection groups or individual computers
+</span></span><span style=display:flex><span>5. Backup Mode:
+</span></span><span style=display:flex><span>   - Entire computer <span style=color:#f92672>(</span>recommended <span style=color:#66d9ef>for</span> laptops<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Volume level
+</span></span><span style=display:flex><span>   - File level
+</span></span><span style=display:flex><span>6. Backup Target:
+</span></span><span style=display:flex><span>   - Veeam backup repository <span style=color:#f92672>(</span><span style=color:#66d9ef>if</span> accessible<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Shared folder: <span style=color:#ae81ff>\\</span>fileserver<span style=color:#ae81ff>\b</span>ackups<span style=color:#ae81ff>\%</span>COMPUTERNAME%
+</span></span><span style=display:flex><span>   - Local: D:<span style=color:#ae81ff>\B</span>ackups <span style=color:#f92672>(</span><span style=color:#66d9ef>for</span> temporary storage<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Cloud Connect repository
+</span></span><span style=display:flex><span>7. Schedule: 
+</span></span><span style=display:flex><span>   - Daily at 6:00 PM <span style=color:#f92672>(</span>when users typically online<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Monthly on 1st Sunday <span style=color:#f92672>(</span>full<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Retry failed jobs: Yes
+</span></span><span style=display:flex><span>8. Advanced:
+</span></span><span style=display:flex><span>   - Backup window: <span style=color:#ae81ff>6</span> PM - <span style=color:#ae81ff>10</span> PM
+</span></span><span style=display:flex><span>   - Pre-/post-job scripts <span style=color:#f92672>(</span>optional<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Application-aware processing
+</span></span></code></pre></div><p><strong>Policy Application</strong>:</p><ul><li>Policy pushed to agents immediately upon creation</li><li>Agents sync every 6 hours for updates</li><li>Manual sync:<ul><li>Linux: <code>sudo veeamconfig job sync</code></li><li>Windows: Right-click agent tray icon → <strong>Synchronize with Veeam Backup & Replication</strong></li></ul></li></ul><hr><h2 id=step-by-step-implementation>Step-by-Step Implementation</h2><hr><h3 id=scenario-1-linux-vms-with-full-user-control>Scenario 1: Linux VMs with Full User Control</h3><hr><p><strong>Environment</strong>: 50 Linux VMs in production, sysadmins need backup flexibility</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Protection Group</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Linux-Production-Servers
+</span></span><span style=display:flex><span>Type: CSV file import
+</span></span><span style=display:flex><span>File: <span style=color:#ae81ff>\\</span>veeam<span style=color:#ae81ff>\c</span>onfig<span style=color:#ae81ff>\l</span>inux-servers.csv
+</span></span><span style=display:flex><span>Credentials: root <span style=color:#f92672>(</span>SSH key<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Discovery: Daily at <span style=color:#ae81ff>1</span> AM
+</span></span><span style=display:flex><span>Auto-install: Yes
+</span></span><span style=display:flex><span>Auto-upgrade: Yes
+</span></span></code></pre></div></li><li><p><strong>CSV File Format</strong> (<code>linux-servers.csv</code>):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csv data-lang=csv><span style=display:flex><span><span style=color:#e6db74>Name</span>,<span style=color:#e6db74>IP</span>,<span style=color:#e6db74>Description</span>
 </span></span><span style=display:flex><span><span style=color:#e6db74>web01</span>,<span style=color:#e6db74>192.168.1.10</span>,<span style=color:#e6db74>Web Server</span>
 </span></span><span style=display:flex><span><span style=color:#e6db74>db01</span>,<span style=color:#e6db74>192.168.1.20</span>,<span style=color:#e6db74>Database Server</span>
 </span></span><span style=display:flex><span><span style=color:#e6db74>app01</span>,<span style=color:#e6db74>192.168.1.30</span>,<span style=color:#e6db74>Application Server</span>
-</span></span></code></pre></div></li><li><p><strong>Create Backup Policy</strong>:</p><pre tabindex=0><code>Name: Linux-Servers-Policy
-Mode: Managed by agent
-Protection Groups: Linux-Production-Servers
-Backup Mode: Entire computer
-Target: Veeam Repository (linux-backups)
-Schedule: Daily at 11 PM
-Retention: 14 restore points
-Read-Only Mode: Disabled (users have full control)
-</code></pre></li><li><p><strong>Configure User Permissions</strong>:</p><pre tabindex=0><code>Add AD Group: DOMAIN\LinuxAdmins
-Role: Veeam Backup Operator
-Scope: Linux-Production-Servers protection group
-</code></pre></li><li><p><strong>User Access Setup</strong>:</p><ul><li>Users SSH to their Linux VMs</li><li>Run: <code>sudo veeam</code> for interactive TUI</li><li>Or: <code>sudo veeamconfig</code> for CLI management</li><li>Can modify job settings, run manual backups, perform restores</li></ul></li></ol><h3 id=scenario-2-windows-workstations-with-read-only-mode>Scenario 2: Windows Workstations with Read-Only Mode</h3><hr><p><strong>Environment</strong>: 200 Windows 10/11 laptops, users need manual backup initiation only</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Protection Group</strong>:</p><pre tabindex=0><code>Name: Corporate-Workstations
-Type: Active Directory Objects
-Scope: OU=Workstations,OU=Computers,DC=company,DC=local
-Exclude: OU=Kiosks (optional)
-Credentials: DOMAIN\VeeamAgentDeployer
-Discovery: Every 4 hours
-Auto-install: Yes
-</code></pre></li><li><p><strong>Create Backup Policy</strong>:</p><pre tabindex=0><code>Name: Workstation-Daily-Backup
-Mode: Managed by agent
-Protection Groups: Corporate-Workstations
-Backup Mode: Entire computer
-Target: \\fileserver\backups\%COMPUTERNAME%
-Fallback: C:\LocalBackups (if network unavailable)
-Schedule: 
-  - Workdays at 7 PM
-  - Allow backup on battery (laptops)
-Retention: 7 restore points
-Read-Only Mode: ENABLED
-</code></pre></li><li><p><strong>Configure Permissions</strong>:</p><pre tabindex=0><code>Add AD Group: DOMAIN\Domain Users
-Role: Custom &#34;Workstation Backup Users&#34;
-Permissions:
-  - View backup jobs: Yes
-  - Run manual backup: Yes
-  - Restore files: Yes
-  - Modify settings: No
-Scope: Corporate-Workstations
-</code></pre></li><li><p><strong>User Workflow</strong>:</p><ul><li>User sees Veeam icon in system tray</li><li>Right-click → <strong>Backup Now</strong> (runs configured policy)</li><li>View status: <strong>Control Panel</strong> (read-only view)</li><li>Restore: <strong>Control Panel</strong> → <strong>Restore</strong> → <strong>File-level restore</strong></li></ul></li></ol><h3 id=scenario-3-mixed-environment-linux--windows>Scenario 3: Mixed Environment (Linux + Windows)</h3><hr><p><strong>Environment</strong>: 30 Linux servers, 100 Windows workstations, different policies</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Multiple Protection Groups</strong>:</p><p><strong>Linux Servers</strong>:</p><pre tabindex=0><code>Name: Linux-Servers
-Type: Individual computers (manually added)
-Computers: [linux01, linux02, ..., linux30]
-Credentials: root (SSH key)
-Auto-install: Yes
-</code></pre><p><strong>Windows Workstations</strong>:</p><pre tabindex=0><code>Name: Windows-Workstations
-Type: Active Directory (OU)
-Credentials: DOMAIN\AgentInstaller
-Auto-install: Yes
-</code></pre></li><li><p><strong>Create Separate Backup Policies</strong>:</p><p><strong>Linux Policy</strong>:</p><pre tabindex=0><code>Name: Linux-Backup-Job
-Mode: Managed by agent
-Computers: Linux-Servers
-Type: Volume-level (system volumes only)
-Target: Veeam Repository
-Schedule: Daily 2 AM
-Read-Only: Disabled
-</code></pre><p><strong>Windows Policy</strong>:</p><pre tabindex=0><code>Name: Workstation-Policy
-Mode: Managed by agent
-Computers: Windows-Workstations
-Type: Entire computer
-Target: Network Share
-Schedule: Daily 7 PM
-Read-Only: Enabled
-</code></pre></li><li><p><strong>Role Assignments</strong>:</p><ul><li>Linux Admins → Full control on Linux-Servers group</li><li>Windows Users → Read-only on Windows-Workstations group</li></ul></li></ol><hr><h2 id=best-practices>Best Practices</h2><hr><h3 id=security>Security</h3><hr><ol><li><p><strong>Credential Management</strong>:</p><ul><li>Use service accounts for agent deployment</li><li>Implement least privilege principle</li><li>Rotate passwords regularly</li><li>Use SSH keys for Linux (not passwords)</li></ul></li><li><p><strong>Network Security</strong>:</p><ul><li>Segment backup traffic (VLAN)</li><li>Use TLS for agent communication</li><li>Firewall rules: only allow Veeam server → agents</li><li>VPN for remote agents</li></ul></li><li><p><strong>Backup Repository Security</strong>:</p><ul><li>Immutability where possible</li><li>Access control on shares</li><li>Encryption at rest and in transit</li><li>Air-gapped copies for critical data</li></ul></li></ol><h3 id=performance>Performance</h3><hr><ol><li><p><strong>Scheduling</strong>:</p><ul><li>Stagger backup windows across protection groups</li><li>Linux servers: 10 PM - 6 AM</li><li>Workstations: 7 PM - 10 PM (when online)</li><li>Avoid peak business hours</li></ul></li><li><p><strong>Resource Management</strong>:</p><ul><li>Set concurrent tasks limits</li><li>Throttle network bandwidth if needed</li><li>Enable CBT (Changed Block Tracking) for faster incrementals</li><li>Use appropriate block size for repositories</li></ul></li><li><p><strong>Repository Configuration</strong>:</p><ul><li>Deduplicated storage for workstations</li><li>Fast storage tier for active backups</li><li>Archive tier for long-term retention</li><li>Per-VM backup files for granular management</li></ul></li></ol><h3 id=monitoring>Monitoring</h3><hr><ol><li><p><strong>Configure Notifications</strong>:</p><pre tabindex=0><code>Email notifications:
-- Failed jobs → Administrators
-- Successful jobs → Log only
-- Warnings → Daily digest
-</code></pre></li><li><p><strong>Reporting</strong>:</p><ul><li>Weekly backup status reports</li><li>Capacity planning reports</li><li>License usage tracking</li><li>Agent health checks</li></ul></li><li><p><strong>Health Checks</strong>:</p><ul><li>Daily: Check failed jobs</li><li>Weekly: Review agent connectivity</li><li>Monthly: Validate restore capability</li><li>Quarterly: Test DR procedures</li></ul></li></ol><h3 id=maintenance>Maintenance</h3><hr><ol><li><p><strong>Regular Tasks</strong>:</p><ul><li>Update agents (automatic or scheduled)</li><li>Review and adjust retention</li><li>Clean up old/orphaned jobs</li><li>Archive to tape/cloud for long-term</li></ul></li><li><p><strong>Documentation</strong>:</p><ul><li>Protection group inventory</li><li>User access matrix</li><li>Network diagram</li><li>Runbook for common tasks</li></ul></li><li><p><strong>Training</strong>:</p><ul><li>User guides for self-service</li><li>Admin training for troubleshooting</li><li>Documentation of custom configurations</li></ul></li></ol><hr><h2 id=troubleshooting>Troubleshooting</h2><hr><h3 id=common-issues>Common Issues</h3><hr><h4 id=agent-installation-failures>Agent Installation Failures</h4><hr><p><strong>Linux - Missing Dependencies</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Problem: dkms not found</span>
+</span></span></code></pre></div></li><li><p><strong>Create Backup Policy</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Linux-Servers-Policy
+</span></span><span style=display:flex><span>Mode: Managed by agent
+</span></span><span style=display:flex><span>Protection Groups: Linux-Production-Servers
+</span></span><span style=display:flex><span>Backup Mode: Entire computer
+</span></span><span style=display:flex><span>Target: Veeam Repository <span style=color:#f92672>(</span>linux-backups<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Schedule: Daily at <span style=color:#ae81ff>11</span> PM
+</span></span><span style=display:flex><span>Retention: <span style=color:#ae81ff>14</span> restore points
+</span></span><span style=display:flex><span>Read-Only Mode: Disabled <span style=color:#f92672>(</span>users have full control<span style=color:#f92672>)</span>
+</span></span></code></pre></div></li><li><p><strong>Configure User Permissions</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Add AD Group: DOMAIN<span style=color:#ae81ff>\L</span>inuxAdmins
+</span></span><span style=display:flex><span>Role: Veeam Backup Operator
+</span></span><span style=display:flex><span>Scope: Linux-Production-Servers protection group
+</span></span></code></pre></div></li><li><p><strong>User Access Setup</strong>:</p></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>   - Users SSH to their Linux VMs
+</span></span><span style=display:flex><span>   - Run: <span style=color:#e6db74>`</span>sudo veeam<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> interactive TUI
+</span></span><span style=display:flex><span>   - Or: <span style=color:#e6db74>`</span>sudo veeamconfig<span style=color:#e6db74>`</span> <span style=color:#66d9ef>for</span> CLI management
+</span></span><span style=display:flex><span>   - Can modify job settings, run manual backups, perform restores
+</span></span></code></pre></div><h3 id=scenario-2-windows-workstations-with-read-only-mode>Scenario 2: Windows Workstations with Read-Only Mode</h3><hr><p><strong>Environment</strong>: 200 Windows 10/11 laptops, users need manual backup initiation only</p><p><strong>Implementation</strong>:</p><ol><li><strong>Create Protection Group</strong></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span>Name: Corporate-Workstations
+</span></span><span style=display:flex><span>Type: Active Directory Objects
+</span></span><span style=display:flex><span>Scope: OU<span style=color:#f92672>=</span>Workstations,OU<span style=color:#f92672>=</span>Computers,DC<span style=color:#f92672>=</span>company,DC<span style=color:#f92672>=</span>local
+</span></span><span style=display:flex><span>Exclude: OU<span style=color:#f92672>=</span>Kiosks <span style=color:#f92672>(</span>optional<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Credentials: DOMAIN<span style=color:#ae81ff>\V</span>eeamAgentDeployer
+</span></span><span style=display:flex><span>Discovery: Every <span style=color:#ae81ff>4</span> hours
+</span></span><span style=display:flex><span>Auto-install: Yes
+</span></span></code></pre></div><ol start=2><li><p><strong>Create Backup Policy</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Workstation-Daily-Backup
+</span></span><span style=display:flex><span>Mode: Managed by agent
+</span></span><span style=display:flex><span>Protection Groups: Corporate-Workstations
+</span></span><span style=display:flex><span>Backup Mode: Entire computer
+</span></span><span style=display:flex><span>Target: <span style=color:#ae81ff>\\</span>fileserver<span style=color:#ae81ff>\b</span>ackups<span style=color:#ae81ff>\%</span>COMPUTERNAME%
+</span></span><span style=display:flex><span>Fallback: C:<span style=color:#ae81ff>\L</span>ocalBackups <span style=color:#f92672>(</span><span style=color:#66d9ef>if</span> network unavailable<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Schedule: 
+</span></span><span style=display:flex><span>  - Workdays at <span style=color:#ae81ff>7</span> PM
+</span></span><span style=display:flex><span>  - Allow backup on battery <span style=color:#f92672>(</span>laptops<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Retention: <span style=color:#ae81ff>7</span> restore points
+</span></span><span style=display:flex><span>Read-Only Mode: ENABLED
+</span></span></code></pre></div></li><li><p><strong>Configure Permissions</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Add AD Group: DOMAIN<span style=color:#ae81ff>\D</span>omain Users
+</span></span><span style=display:flex><span>Role: Custom <span style=color:#e6db74>&#34;Workstation Backup Users&#34;</span>
+</span></span><span style=display:flex><span>Permissions:
+</span></span><span style=display:flex><span>  - View backup jobs: Yes
+</span></span><span style=display:flex><span>  - Run manual backup: Yes
+</span></span><span style=display:flex><span>  - Restore files: Yes
+</span></span><span style=display:flex><span>  - Modify settings: No
+</span></span><span style=display:flex><span>Scope: Corporate-Workstations
+</span></span></code></pre></div></li><li><p><strong>User Workflow</strong>:</p></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>   - User sees Veeam icon in system tray
+</span></span><span style=display:flex><span>   - Right-click → **Backup Now** <span style=color:#f92672>(</span>runs configured policy<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - View status: **Control Panel** <span style=color:#f92672>(</span>read-only view<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>   - Restore: **Control Panel** → **Restore** → **File-level restore**
+</span></span></code></pre></div><h3 id=scenario-3-mixed-environment-linux--windows>Scenario 3: Mixed Environment (Linux + Windows)</h3><hr><p><strong>Environment</strong>: 30 Linux servers, 100 Windows workstations, different policies</p><p><strong>Implementation</strong>:</p><ol><li><p><strong>Create Multiple Protection Groups</strong>:</p><p><strong>Linux Servers</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Linux-Servers
+</span></span><span style=display:flex><span>Type: Individual computers <span style=color:#f92672>(</span>manually added<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Computers: <span style=color:#f92672>[</span>linux01, linux02, ..., linux30<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>Credentials: root <span style=color:#f92672>(</span>SSH key<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Auto-install: Yes
+</span></span></code></pre></div><p><strong>Windows Workstations</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Windows-Workstations
+</span></span><span style=display:flex><span>Type: Active Directory <span style=color:#f92672>(</span>OU<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Credentials: DOMAIN<span style=color:#ae81ff>\A</span>gentInstaller
+</span></span><span style=display:flex><span>Auto-install: Yes
+</span></span></code></pre></div></li><li><p><strong>Create Separate Backup Policies</strong>:</p><p><strong>Linux Policy</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Linux-Backup-Job
+</span></span><span style=display:flex><span>Mode: Managed by agent
+</span></span><span style=display:flex><span>Computers: Linux-Servers
+</span></span><span style=display:flex><span>Type: Volume-level <span style=color:#f92672>(</span>system volumes only<span style=color:#f92672>)</span>
+</span></span><span style=display:flex><span>Target: Veeam Repository
+</span></span><span style=display:flex><span>Schedule: Daily <span style=color:#ae81ff>2</span> AM
+</span></span><span style=display:flex><span>Read-Only: Disabled
+</span></span></code></pre></div><p><strong>Windows Policy</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Name: Workstation-Policy
+</span></span><span style=display:flex><span>Mode: Managed by agent
+</span></span><span style=display:flex><span>Computers: Windows-Workstations
+</span></span><span style=display:flex><span>Type: Entire computer
+</span></span><span style=display:flex><span>Target: Network Share
+</span></span><span style=display:flex><span>Schedule: Daily <span style=color:#ae81ff>7</span> PM
+</span></span><span style=display:flex><span>Read-Only: Enabled
+</span></span></code></pre></div></li><li><p><strong>Role Assignments</strong>:</p><ul><li>Linux Admins → Full control on Linux-Servers group</li><li>Windows Users → Read-only on Windows-Workstations group</li></ul></li></ol><hr><h2 id=best-practices>Best Practices</h2><hr><h3 id=security>Security</h3><hr><ol><li><p><strong>Credential Management</strong>:</p><ul><li>Use service accounts for agent deployment</li><li>Implement least privilege principle</li><li>Rotate passwords regularly</li><li>Use SSH keys for Linux (not passwords)</li></ul></li><li><p><strong>Network Security</strong>:</p><ul><li>Segment backup traffic (VLAN)</li><li>Use TLS for agent communication</li><li>Firewall rules: only allow Veeam server → agents</li><li>VPN for remote agents</li></ul></li><li><p><strong>Backup Repository Security</strong>:</p><ul><li>Immutability where possible</li><li>Access control on shares</li><li>Encryption at rest and in transit</li><li>Air-gapped copies for critical data</li></ul></li></ol><h3 id=performance>Performance</h3><hr><ol><li><p><strong>Scheduling</strong>:</p><ul><li>Stagger backup windows across protection groups</li><li>Linux servers: 10 PM - 6 AM</li><li>Workstations: 7 PM - 10 PM (when online)</li><li>Avoid peak business hours</li></ul></li><li><p><strong>Resource Management</strong>:</p><ul><li>Set concurrent tasks limits</li><li>Throttle network bandwidth if needed</li><li>Enable CBT (Changed Block Tracking) for faster incrementals</li><li>Use appropriate block size for repositories</li></ul></li><li><p><strong>Repository Configuration</strong>:</p><ul><li>Deduplicated storage for workstations</li><li>Fast storage tier for active backups</li><li>Archive tier for long-term retention</li><li>Per-VM backup files for granular management</li></ul></li></ol><h3 id=monitoring>Monitoring</h3><hr><ol><li><p><strong>Configure Notifications</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Email notifications:
+</span></span><span style=display:flex><span>- Failed jobs → Administrators
+</span></span><span style=display:flex><span>- Successful jobs → Log only
+</span></span><span style=display:flex><span>- Warnings → Daily digest
+</span></span></code></pre></div></li><li><p><strong>Reporting</strong>:</p><ul><li>Weekly backup status reports</li><li>Capacity planning reports</li><li>License usage tracking</li><li>Agent health checks</li></ul></li><li><p><strong>Health Checks</strong>:</p><ul><li>Daily: Check failed jobs</li><li>Weekly: Review agent connectivity</li><li>Monthly: Validate restore capability</li><li>Quarterly: Test DR procedures</li></ul></li></ol><h3 id=maintenance>Maintenance</h3><hr><ol><li><p><strong>Regular Tasks</strong>:</p><ul><li>Update agents (automatic or scheduled)</li><li>Review and adjust retention</li><li>Clean up old/orphaned jobs</li><li>Archive to tape/cloud for long-term</li></ul></li><li><p><strong>Documentation</strong>:</p><ul><li>Protection group inventory</li><li>User access matrix</li><li>Network diagram</li><li>Runbook for common tasks</li></ul></li><li><p><strong>Training</strong>:</p><ul><li>User guides for self-service</li><li>Admin training for troubleshooting</li><li>Documentation of custom configurations</li></ul></li></ol><hr><h2 id=troubleshooting>Troubleshooting</h2><hr><h3 id=common-issues>Common Issues</h3><hr><h4 id=agent-installation-failures>Agent Installation Failures</h4><hr><p><strong>Linux - Missing Dependencies</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Problem: dkms not found</span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Solution:</span>
 </span></span><span style=display:flex><span>sudo yum install epel-release
 </span></span><span style=display:flex><span>sudo yum install dkms kernel-devel
@@ -223,7 +232,8 @@ Read-Only: Enabled
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Manual sync</span>
 </span></span><span style=display:flex><span>sudo veeamconfig vbrserver sync
-</span></span></code></pre></div><p>Windows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#75715e># Test connectivity</span>
+</span></span></code></pre></div><p>Windows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Test connectivity</span>
 </span></span><span style=display:flex><span>Test-NetConnection -ComputerName veeam-server.company.local -Port <span style=color:#ae81ff>10002</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Check service</span>
@@ -267,9 +277,9 @@ Read-Only: Enabled
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Clear old shadow copies</span>
 </span></span><span style=display:flex><span>vssadmin delete shadows /all /quiet
-</span></span></code></pre></div><h4 id=read-only-mode-not-working>Read-Only Mode Not Working</h4><hr><p><strong>Issue</strong>: Users can still modify backup settings despite read-only mode enabled</p><p><strong>Solution</strong>:</p><ol><li><p>Verify mode in Veeam console:</p><pre tabindex=0><code>Inventory → Computer → Properties → Options → Access Mode
-</code></pre></li><li><p>Force policy sync:</p><pre tabindex=0><code>Protection Group → Rescan
-</code></pre></li><li><p>Check agent local permissions:</p><ul><li>Windows: Remove user from local Administrators</li><li>Linux: Revoke sudo access for veeam commands</li></ul></li></ol><h4 id=performance-issues>Performance Issues</h4><hr><p><strong>Slow Backups</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Check network throughput</span>
+</span></span></code></pre></div><h4 id=read-only-mode-not-working>Read-Only Mode Not Working</h4><hr><p><strong>Issue</strong>: Users can still modify backup settings despite read-only mode enabled</p><p><strong>Solution</strong>:</p><ol><li><p>Verify mode in Veeam console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Inventory → Computer → Properties → Options → Access Mode
+</span></span></code></pre></div></li><li><p>Force policy sync:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>Protection Group → Rescan
+</span></span></code></pre></div></li><li><p>Check agent local permissions:</p><ul><li>Windows: Remove user from local Administrators</li><li>Linux: Revoke sudo access for veeam commands</li></ul></li></ol><h4 id=performance-issues>Performance Issues</h4><hr><p><strong>Slow Backups</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Check network throughput</span>
 </span></span><span style=display:flex><span>iperf3 -c veeam-server.company.local
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Linux - Monitor I/O</span>
@@ -288,15 +298,15 @@ Read-Only: Enabled
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Database</span>
 </span></span><span style=display:flex><span>/var/lib/veeam/
-</span></span></code></pre></div><p><strong>Windows</strong>:</p><pre tabindex=0><code># Event Viewer
-Applications and Services Logs → Veeam Agent
-
-# File logs
-C:\ProgramData\Veeam\Endpoint\Logs\
-
-# Configuration
-C:\ProgramData\Veeam\Endpoint\
-</code></pre><h3 id=support-commands>Support Commands</h3><hr><p><strong>Linux Diagnostic Bundle</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Generate support bundle</span>
+</span></span></code></pre></div><p><strong>Windows</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Event Viewer</span>
+</span></span><span style=display:flex><span>Applications and Services Logs → Veeam Agent
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># File logs</span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\P</span>rogramData<span style=color:#ae81ff>\V</span>eeam<span style=color:#ae81ff>\E</span>ndpoint<span style=color:#ae81ff>\L</span>ogs<span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Configuration</span>
+</span></span><span style=display:flex><span>C:<span style=color:#ae81ff>\P</span>rogramData<span style=color:#ae81ff>\V</span>eeam<span style=color:#ae81ff>\E</span>ndpoint<span style=color:#ae81ff>\
+</span></span></span></code></pre></div><h3 id=support-commands>Support Commands</h3><hr><p><strong>Linux Diagnostic Bundle</strong>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Generate support bundle</span>
 </span></span><span style=display:flex><span>sudo veeamconfig support export --path /tmp/veeam-support.zip
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Include system info</span>
