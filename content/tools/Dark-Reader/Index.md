@@ -72,11 +72,11 @@ This eye-care extension enables night mode by creating dark themes for websites 
 
 | Feature | Free Version | Donation Version |
 |---------|--------------|-------------|
-| All Features | ✅ Full access | ✅ Full access |
-| Ads | ✅ None | ✅ None |
-| Data Collection | ✅ None | ✅ None |
+| All Features |  Full access |  Full access |
+| Ads |  None |  None |
+| Data Collection |  None |  None |
 | Support | Community | Priority support |
-| Updates | ✅ Automatic | ✅ Automatic |
+| Updates |  Automatic |  Automatic |
 | Cost | Free | Voluntary donation |
 
 ## Use Cases

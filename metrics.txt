@@ -1,0 +1,52 @@
+Start building sites ΓÇª 
+hugo v0.159.1-86c7d3afacab79dc53325602d77ef884b7570268+extended windows/amd64 BuildDate=2026-03-26T09:54:15Z VendorInfo=gohugoio
+
+
+Template Metrics:
+
+       cumulative       average       maximum         
+         duration      duration      duration  count  template
+       ----------      --------      --------  -----  --------
+       766.3236ms    6.230273ms     90.2138ms    123  rss.xml
+       741.0134ms     5.52995ms     86.8919ms    134  list.html
+       254.5379ms   12.120852ms    122.1805ms     21  single.html
+       187.2497ms    93.62485ms    120.1749ms      2  _partials/codemirror.html
+        88.4422ms     88.4422ms     88.4422ms      1  index.html
+        83.2668ms     498.603┬╡s     11.8604ms    167  _partials/head-custom.html
+        83.0843ms     83.0843ms     83.0843ms      1  index.json
+        17.4221ms     17.4221ms     17.4221ms      1  404.html
+        15.2556ms       91.35┬╡s      1.0089ms    167  _partials/header.html
+         8.5944ms      51.463┬╡s      1.0088ms    167  _partials/menu.html
+         7.5243ms      62.184┬╡s       1.492ms    121  alias.html
+          6.045ms      36.197┬╡s      1.0089ms    167  _partials/logo.html
+         4.4287ms      26.519┬╡s       2.005ms    167  _partials/sidebar.html
+         3.4533ms      43.712┬╡s      1.4747ms     79  _markup/render-table.html.html
+         3.0305ms      18.146┬╡s       730.2┬╡s    167  _partials/footer.html
+         2.9293ms      2.9293ms      2.9293ms      1  sitemap.xml
+         2.2492ms     374.866┬╡s         699┬╡s      6  tools-single.html
+         1.0792ms       13.66┬╡s       544.4┬╡s     79  _markup/render-table.json.json
+          507.9┬╡s       507.9┬╡s       507.9┬╡s      1  contact.html
+          504.8┬╡s       504.8┬╡s       504.8┬╡s      1  search.html
+               0s            0s            0s      1  _partials/widgets/recent.html
+               0s            0s            0s     79  _markup/render-table.rss.xml
+               0s            0s            0s    167  _partials/mathjax.html
+               0s            0s            0s    167  _partials/footer_links.html
+               0s            0s            0s      1  _partials/widgets/categories.html
+               0s            0s            0s      1  tools.html
+               0s            0s            0s     42  _partials/post-navigation.html
+               0s            0s            0s      1  build.html
+               0s            0s            0s      1  /css/style.css
+               0s            0s            0s      3  _shortcodes/codemirror.html
+
+
+                  Γöé EN  
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö╝ΓöÇΓöÇΓöÇΓöÇΓöÇ
+ Pages            Γöé 279 
+ Paginator pages  Γöé  13 
+ Non-page files   Γöé   0 
+ Static files     Γöé  57 
+ Processed images Γöé   0 
+ Aliases          Γöé 121 
+ Cleaned          Γöé   0 
+
+Total in 649 ms

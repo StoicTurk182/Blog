@@ -76,9 +76,9 @@ This professional-grade remote management tool consolidates multiple connection 
 |---------|--------------|--------------|
 | Active Connections | 1 | Unlimited |
 | Royal Server Integration | Limited | Full |
-| Dynamic Folders | ❌ | ✅ |
+| Dynamic Folders | NO | YES |
 | Task Automation | Basic | Advanced |
-| Team Collaboration | ❌ | ✅ |
+| Team Collaboration | NO | YES |
 | Price | Free | Subscription |
 
 ## Use Cases
