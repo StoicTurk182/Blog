@@ -20,11 +20,13 @@ codemirror: true
 
 
 ## Overview
+---
 
 A Python script that converts images into coloured ASCII art using bitmap-based character matching.
 This script analyzes images pixel-by-pixel and matches each region to ASCII characters based on visual similarity. It uses OpenCV for image processing, PIL for font rendering, and NumPy for bitmap comparison operations.
 
 ## How It Works
+---
 
 The conversion process uses L1 distance (Manhattan distance) to match image patches with pre-rendered character bitmaps:
 
@@ -39,6 +41,7 @@ The conversion process uses L1 distance (Manhattan distance) to match image patc
 The L1 metric (sum of absolute pixel differences) provides effective character matching by accounting for both density and spatial distribution within each glyph.
 
 ## Features
+---
 
 - Three density levels: Simple (9 chars), Medium (18 chars), Full (95 ASCII chars)
 - Color or grayscale rendering
@@ -47,12 +50,14 @@ The L1 metric (sum of absolute pixel differences) provides effective character m
 - Cross-platform font detection (Windows/Mac/Linux)
 
 ## Requirements
+---
 
 ```bash
 pip install numpy opencv-python pillow
 ```
 
 ## Usage
+---
 
 ```bash
 python ascii_art.py
@@ -68,6 +73,7 @@ Interactive prompts:
 Output: `output_ascii.png`
 
 ## Code
+---
 
 ```python
 import os, platform
@@ -175,8 +181,10 @@ if __name__ == "__main__":
 ```
 
 ## Technical Details
+---
 
 ### Character Density Levels
+---
 
 | Level | Characters | Use Case |
 |-------|-----------|----------|
@@ -185,16 +193,19 @@ if __name__ == "__main__":
 | 3 | Full ASCII (32-127) | Maximum detail and texture variation |
 
 ### CLAHE Parameters
+---
 
 The script uses OpenCV's Contrast Limited Adaptive Histogram Equalization with:
 - Clip limit: 3.0 (prevents over-amplification of noise)
 - Tile grid size: 8x8 (local contrast enhancement regions)
 
 ### Font Cell Calculation
+---
 
 Font cell dimensions are determined using PIL's `getbbox()` method on the character "M" (widest monospace character). This ensures proper aspect ratio preservation when converting image dimensions to character grid dimensions.
 
 ### Distance Metric
+---
 
 The L1 distance (Manhattan distance) is calculated as:
 
@@ -205,6 +216,7 @@ distance = sum(|pixel_patch - character_bitmap|)
 This metric is computationally efficient and provides good visual matching for character selection compared to L2 (Euclidean) distance.
 
 ## Platform Compatibility
+---
 
 The script automatically detects and loads monospace fonts based on operating system:
 
@@ -217,6 +229,7 @@ The script automatically detects and loads monospace fonts based on operating sy
 If no system font is found, PIL's default font is used as fallback.
 
 ## References
+---
 
 - OpenCV CLAHE Documentation: https://docs.opencv.org/4.x/d6/dc7/group__imgproc__hist.html#gad689d2607b7b3889453804f414ab1018
 - PIL ImageFont Module: https://pillow.readthedocs.io/en/stable/reference/ImageFont.html

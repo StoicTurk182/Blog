@@ -3,10 +3,12 @@
 Documented process for consolidating Hugo blog categories from 27 down to 10 core categories.
 
 ## Overview
+---
 
 This guide covers the complete process of analysing, mapping, and cleaning up Hugo blog categories using PowerShell scripts and manual fixes.
 
 ## Before and After
+---
 
 | Metric | Before | After |
 |--------|--------|-------|
@@ -15,6 +17,7 @@ This guide covers the complete process of analysing, mapping, and cleaning up Hu
 | Duplicate/Redundant | 17 | 0 |
 
 ### Final Category Structure
+---
 
 | Category | Description |
 |----------|-------------|
@@ -30,8 +33,10 @@ This guide covers the complete process of analysing, mapping, and cleaning up Hu
 | page | Hugo internal (ignore) |
 
 ## Process
+---
 
 ### Step 1: Analyse Current Categories
+---
 
 Run from Hugo site root to get category count:
 
@@ -50,6 +55,7 @@ $cats.GetEnumerator() | Sort-Object Value -Descending | Format-Table @{L='Catego
 ```
 
 ### Step 2: View Posts with Categories
+---
 
 ```powershell
 Get-ChildItem -Path "content/posts" -Filter "*.md" | ForEach-Object {
@@ -61,6 +67,7 @@ Get-ChildItem -Path "content/posts" -Filter "*.md" | ForEach-Object {
 ```
 
 ### Step 3: Define Category Mapping
+---
 
 Categories were consolidated using this mapping:
 
@@ -86,6 +93,7 @@ Categories were consolidated using this mapping:
 | Getting Started Server Deployment - Debian VPS | Infrastructure |
 
 ### Step 4: Run Bulk Replacement
+---
 
 ```powershell
 $mapping = @{
@@ -124,6 +132,7 @@ Get-ChildItem "content\posts" -Filter "*.md" | ForEach-Object {
 ```
 
 ### Step 5: Fix Remaining Stragglers
+---
 
 After initial cleanup, check for remaining old categories:
 
@@ -157,6 +166,7 @@ Get-ChildItem "content\posts" -Filter "*.md" | ForEach-Object {
 ```
 
 ### Step 6: Move Backup Folder
+---
 
 If the cleanup script created a backup inside `content/`, move it out to prevent Hugo processing it:
 
@@ -165,6 +175,7 @@ Move-Item "content\posts_backup_*" -Destination "..\posts_backup" -Force
 ```
 
 ### Step 7: Clean Rebuild
+---
 
 ```powershell
 Remove-Item "public", "resources" -Recurse -Force -ErrorAction SilentlyContinue
@@ -172,6 +183,7 @@ hugo --gc --cleanDestinationDir
 ```
 
 ### Step 8: Verify Final Categories
+---
 
 ```powershell
 Get-ChildItem "public/categories" -Directory | Select-Object Name
@@ -192,8 +204,10 @@ tools
 ```
 
 ## Troubleshooting
+---
 
 ### Old categories still appearing in sidebar
+---
 
 The Mainroad theme's sidebar widget pulls from Hugo's taxonomy system. Ensure:
 
@@ -203,6 +217,7 @@ The Mainroad theme's sidebar widget pulls from Hugo's taxonomy system. Ensure:
 4. Run `hugo --gc --cleanDestinationDir`
 
 ### Backup folder being processed as content
+---
 
 Hugo processes everything in `content/`. Move backups outside:
 
@@ -211,6 +226,7 @@ Move-Item "content\posts_backup_*" -Destination "C:\backups\" -Force
 ```
 
 ### Duplicate categories in array
+---
 
 Clean up malformed category arrays:
 
@@ -222,6 +238,7 @@ Select-String -Path "content\posts\*.md" -Pattern 'categories:\s*\[' | ForEach-O
 ```
 
 ### Check specific post categories
+---
 
 ```powershell
 $file = "content\posts\example.md"
@@ -232,6 +249,7 @@ if ($content -match 'categories:\s*\[([^\]]*)\]') {
 ```
 
 ## Hugo Configuration
+---
 
 The sidebar categories widget is configured in `hugo.toml`:
 
@@ -249,6 +267,7 @@ The sidebar categories widget is configured in `hugo.toml`:
 The widget automatically displays all categories found in posts. No manual category list is required.
 
 ## Files Created
+---
 
 | File | Purpose |
 |------|---------|
@@ -256,6 +275,7 @@ The widget automatically displays all categories found in posts. No manual categ
 | This guide | Documentation of the process |
 
 ## References
+---
 
 - Hugo Front Matter: https://gohugo.io/content-management/front-matter/
 - Hugo Taxonomies: https://gohugo.io/content-management/taxonomies/

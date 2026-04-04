@@ -16,6 +16,7 @@ socialShare: true
 Guide for installing Windows 11 Pro on devices with OEM Home edition keys embedded in BIOS/UEFI firmware.
 
 ## Problem Overview
+---
 
 Many OEM devices (Dell, HP, Lenovo, etc.) have Windows Home product keys embedded in the BIOS MSDM table. During Windows Setup, this key is detected automatically and forces Home edition installation, bypassing edition selection entirely.
 
@@ -25,6 +26,7 @@ This causes issues for:
 - Domain join scenarios
 
 ## Solution Methods
+---
 
 | Method | Best For | Requires |
 |--------|----------|----------|
@@ -34,10 +36,12 @@ This causes issues for:
 ---
 
 ## Method 1: ISO Modification (Recommended)
+---
 
 Inject ei.cfg and pid.txt into the Windows ISO to force Pro edition selection.
 
 ### Why Both Files Are Required (Windows 11 24H2+)
+---
 
 | Windows Version | Requirement |
 |-----------------|-------------|
@@ -47,6 +51,7 @@ Inject ei.cfg and pid.txt into the Windows ISO to force Pro edition selection.
 The "Modern Setup" in 24H2 treats clean installs like upgrades, checking BIOS keys first. The pid.txt forces the installer to use the specified key instead.
 
 ### Step 1: Create Configuration Files
+---
 
 Run in PowerShell:
 
@@ -71,6 +76,7 @@ Write-Host "Files created on Desktop" -ForegroundColor Green
 ```
 
 ### Step 2: Install Required Tools
+---
 
 7-Zip (for viewing) and AnyBurn (for editing):
 
@@ -87,6 +93,7 @@ winget install --id PowerSoftware.AnyBurn
 ```
 
 ### Step 3: Inject Files Using AnyBurn
+---
 
 1. Open AnyBurn
 2. Click "Edit image file"
@@ -100,6 +107,7 @@ winget install --id PowerSoftware.AnyBurn
 10. Wait for completion
 
 ### Step 4: Verify (Optional)
+---
 
 Using 7-Zip:
 
@@ -108,6 +116,7 @@ Using 7-Zip:
 3. Confirm `ei.cfg` and `pid.txt` are present
 
 ### Alternative: Ventoy Injection
+---
 
 If using Ventoy USB boot, create injection folder structure:
 
@@ -140,10 +149,12 @@ Note: YUMI's Ventoy integration may not support injection. Standard Ventoy does.
 ---
 
 ## Method 2: Post-Install Upgrade (Workaround)
+---
 
 Install Windows Home, bypass OOBE, upgrade to Pro, then reset.
 
 ### Step 1: Bypass Network Requirement
+---
 
 At OOBE network screen, press Shift+F10 to open Command Prompt:
 
@@ -156,6 +167,7 @@ This immediately triggers the local account creation flow without requiring a re
 Note: The older `oobe\bypassnro` command no longer works on recent Windows 11 builds.
 
 ### Step 2: Complete OOBE with Local Account
+---
 
 1. Local account creation screen appears
 2. Create local account (any name/password)
@@ -163,6 +175,7 @@ Note: The older `oobe\bypassnro` command no longer works on recent Windows 11 bu
 4. Reach desktop
 
 ### Step 3: Upgrade to Pro
+---
 
 Open PowerShell as Administrator:
 
@@ -173,6 +186,7 @@ slmgr /ipk VK7JG-NPHTM-C97JM-9MPGT-3V66T
 Wait for confirmation dialog. Device is now Pro (unactivated).
 
 ### Step 4: Configure Regional Settings
+---
 
 ```powershell
 # Set timezone to GMT/UK
@@ -194,6 +208,7 @@ Set-WinUILanguageOverride -Language en-GB
 Restart required for locale changes.
 
 ### Step 5: Run Windows Update (Optional but Recommended)
+---
 
 Apply all updates before reset. These will be preserved with local reinstall.
 
@@ -205,6 +220,7 @@ winget upgrade --all --accept-package-agreements --accept-source-agreements
 Or via Settings > Windows Update.
 
 ### Step 6: Reset to OOBE
+---
 
 1. Settings > System > Recovery
 2. Reset this PC
@@ -218,8 +234,10 @@ Device reboots into OOBE with Pro edition. Autopilot will now detect and work.
 ---
 
 ## Configuration File Reference
+---
 
 ### ei.cfg Options
+---
 
 ```ini
 [EditionID]
@@ -237,6 +255,7 @@ _Default
 | VL | 0 or 1 | 0 = not volume license |
 
 ### pid.txt Format
+---
 
 ```ini
 [PID]
@@ -244,6 +263,7 @@ Value=XXXXX-XXXXX-XXXXX-XXXXX-XXXXX
 ```
 
 ### Generic Windows 11 Keys (Installation Only)
+---
 
 | Edition | Key |
 |---------|-----|
@@ -257,6 +277,7 @@ These keys select edition only - do not activate Windows. Activation occurs via 
 ---
 
 ## BIOS Options (If Available)
+---
 
 Some BIOS/UEFI have option to disable embedded key:
 
@@ -274,6 +295,7 @@ Note: Consumer devices often lock this setting. Business-class machines (OptiPle
 ---
 
 ## Post-Reset Behaviour
+---
 
 | Reset Type | Pro Preserved | Updates Preserved |
 |------------|---------------|-------------------|
@@ -290,8 +312,10 @@ To permanently preserve Pro after any reset, link to Microsoft account:
 ---
 
 ## Troubleshooting
+---
 
 ### ei.cfg/pid.txt Not Working
+---
 
 - Verify files are in `sources` folder (not root)
 - Check file encoding is ASCII (not UTF-8 with BOM)
@@ -299,12 +323,14 @@ To permanently preserve Pro after any reset, link to Microsoft account:
 - For 24H2+, both files required
 
 ### Autopilot Still Fails After Pro Upgrade
+---
 
 - Reset was not "Local reinstall" (used Cloud download)
 - Pro upgrade didn't complete before reset
 - Profile not assigned in Intune
 
 ### "This account can't be used with this edition"
+---
 
 - Windows Home cannot join Entra ID
 - Must upgrade to Pro before Autopilot enrolment
@@ -312,6 +338,7 @@ To permanently preserve Pro after any reset, link to Microsoft account:
 ---
 
 ## References
+---
 
 - Microsoft Learn - ei.cfg and pid.txt: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/windows-setup-edition-configuration-and-product-id-files--eicfg-and-pidtxt
 - Windows 11 Forum - ei.cfg with 24H2: https://www.elevenforum.com/t/windows-11-pro-install-defaults-to-home-hp-te01-5364-sk-hynix-ssd-ei-cfg-ignored.39116/

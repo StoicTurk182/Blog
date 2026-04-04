@@ -15,12 +15,14 @@ codemirror: true
 ---
 
 ## Overview
+---
 
 The convergence of home lab infrastructure, remote systems administration, and Zero Trust networking principles has necessitated robust solutions for exposing internal telemetry without compromising security. This guide provides a comprehensive implementation for securing LibreHardwareMonitor using Caddy as a reverse proxy and Tailscale as the transport layer.
 
 The architecture moves beyond simple port forwarding, utilizing an overlay network (Tailscale) to render the service invisible to the public internet, while employing application-layer encryption (TLS) via Caddy. Version 5.0 adds HTTP Basic Authentication and granular firewall rule management, adhering to the principle of Defence in Depth.
 
 ## Architecture Overview
+---
 
 The solution integrates three distinct technologies with multiple security layers:
 
@@ -31,6 +33,7 @@ The solution integrates three distinct technologies with multiple security layer
 | Tailscale | Encrypted overlay network | WireGuard tunnel |
 
 ### Security Layers
+---
 
 | Layer | Protection |
 |-------|------------|
@@ -42,8 +45,10 @@ The solution integrates three distinct technologies with multiple security layer
 | Binding | Tailscale IP only - no LAN exposure |
 
 ## Prerequisites
+---
 
 ### LibreHardwareMonitor Configuration
+---
 
 LibreHardwareMonitor must be configured to expose its web server on the local network.
 
@@ -60,6 +65,7 @@ Test-NetConnection -ComputerName 10.1.10.30 -Port 8085
 ```
 
 ### Tailscale Installation
+---
 
 Ensure Tailscale is installed and authenticated on the host system. Verify your Tailscale IP:
 
@@ -70,8 +76,10 @@ tailscale ip -4
 Example output: `100.0.0.0`
 
 ## Implementation
+---
 
 ### Quick Start
+---
 
 For automated deployment with recommended security settings:
 
@@ -82,6 +90,7 @@ For automated deployment with recommended security settings:
 This enables authentication (prompts for credentials) and restricts firewall access to Tailscale devices only.
 
 ### Step 1: Create Directory Structure
+---
 
 ```powershell
 New-Item -ItemType Directory -Path "C:\Caddy" -Force
@@ -90,6 +99,7 @@ New-Item -ItemType Directory -Path "C:\Caddy\logs" -Force
 ```
 
 ### Step 2: Download Caddy
+---
 
 ```powershell
 Invoke-WebRequest -Uri "https://caddyserver.com/api/download?os=windows&arch=amd64" -OutFile "C:\Caddy\caddy.exe"
@@ -102,6 +112,7 @@ C:\Caddy\caddy.exe version
 ```
 
 ### Step 3: Create Caddyfile
+---
 
 Open Notepad to create the configuration:
 
@@ -146,10 +157,12 @@ Configuration breakdown:
 | `tls internal` | Generate self-signed certificate for HTTPS |
 
 ### Step 4: Configure Windows Firewall
+---
 
 The script provides three firewall scope options for different security requirements:
 
 #### Tailscale Only (Recommended)
+---
 
 Restricts access to the Tailscale CGNAT range (100.64.0.0/10):
 
@@ -164,6 +177,7 @@ New-NetFirewallRule -DisplayName "Caddy Reverse Proxy (Tailscale Only)" `
 ```
 
 #### LAN Restricted
+---
 
 Allows specific IP addresses or subnets:
 
@@ -178,6 +192,7 @@ New-NetFirewallRule -DisplayName "Caddy Reverse Proxy (LAN Restricted)" `
 ```
 
 #### Any (Least Secure)
+---
 
 Allows all connections (not recommended for production):
 
@@ -191,6 +206,7 @@ New-NetFirewallRule -DisplayName "Caddy Reverse Proxy (Any)" `
 ```
 
 ### Step 5: Test Configuration
+---
 
 Run Caddy in foreground mode to verify the configuration:
 
@@ -215,6 +231,7 @@ Test-NetConnection -ComputerName 100.0.0.0 -Port 8086
 ```
 
 ### Step 6: Install as Windows Service
+---
 
 Stop the foreground process (Ctrl+C), then create the service:
 
@@ -241,12 +258,15 @@ Start-Service Caddy
 ```
 
 ## Authentication
+---
 
 ### How It Works
+---
 
 Caddy's `basicauth` directive provides HTTP Basic Authentication with bcrypt-hashed passwords. The script uses Caddy's built-in `hash-password` command to generate secure hashes, ensuring passwords are never stored in plain text.
 
 ### Password Requirements
+---
 
 | Requirement | Value |
 |-------------|-------|
@@ -255,6 +275,7 @@ Caddy's `basicauth` directive provides HTTP Basic Authentication with bcrypt-has
 | Storage | auth.json (admin-only ACL) |
 
 ### Managing Authentication via Script
+---
 
 The interactive menu provides full authentication management:
 
@@ -275,6 +296,7 @@ Command-line usage:
 ```
 
 ### Security Considerations for Authentication
+---
 
 The script handles password security by:
 1. Accepting passwords via `SecureString` (masked input)
@@ -284,8 +306,10 @@ The script handles password security by:
 5. Restricting file permissions to Administrators and SYSTEM only
 
 ## Firewall Management
+---
 
 ### Scope Options
+---
 
 | Scope | Remote Address | Profile | Security Level |
 |-------|----------------|---------|----------------|
@@ -294,6 +318,7 @@ The script handles password security by:
 | Any | Any | Any | Lowest |
 
 ### Command-Line Usage
+---
 
 ```powershell
 # Tailscale only (default, most secure)
@@ -310,6 +335,7 @@ The script handles password security by:
 ```
 
 ### Interactive Menu
+---
 
 The firewall submenu (`[F]` from main menu) provides:
 
@@ -322,6 +348,7 @@ The firewall submenu (`[F]` from main menu) provides:
 | [5] Refresh Status | View current rule configuration |
 
 ### Viewing Current Rules
+---
 
 ```powershell
 Get-NetFirewallRule -DisplayName "Caddy Reverse Proxy*" | ForEach-Object {
@@ -338,14 +365,17 @@ Get-NetFirewallRule -DisplayName "Caddy Reverse Proxy*" | ForEach-Object {
 ```
 
 ## Verification
+---
 
 ### Service Status
+---
 
 ```powershell
 Get-Service Caddy
 ```
 
 ### Port Listening
+---
 
 ```powershell
 Get-NetTCPConnection -LocalPort 8086 -State Listen | Format-Table LocalAddress, LocalPort
@@ -360,6 +390,7 @@ LocalAddress   LocalPort
 ```
 
 ### Browser Test
+---
 
 From any Tailscale-connected device, navigate to:
 
@@ -370,6 +401,7 @@ https://100.0.0.0:8086/
 If authentication is enabled, you will be prompted for credentials. Accept the certificate warning (expected for self-signed certificates), and the LibreHardwareMonitor dashboard should load.
 
 ## Service Management
+---
 
 | Action | Command |
 |--------|---------|
@@ -383,12 +415,14 @@ If authentication is enabled, you will be prompted for credentials. Accept the c
 # Local Scheduled Task setup
 
 ## LibreHardwareMonitor Setup Guide
+---
 
 Configuration guide for LibreHardwareMonitor with persistent settings and automatic restart watchdog.
 
 Repository: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
 
 ## Download and Install
+---
 
 1. Download latest release from: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases
 2. Extract ZIP to `C:\LibreHardwareMonitor`
@@ -401,6 +435,7 @@ winget install LibreHardwareMonitor.LibreHardwareMonitor
 ```
 
 ## Configure Web Server
+---
 
 1. Open LibreHardwareMonitor
 2. **Options** > **Remote Web Server** > **Run** (enable checkbox)
@@ -410,6 +445,7 @@ winget install LibreHardwareMonitor.LibreHardwareMonitor
 Avoid selecting Hyper-V virtual switch IPs (172.x.x.x range). Choose your physical NIC IP.
 
 ## Configure Startup Behaviour
+---
 
 1. **Options** > **Run On Windows Startup** (if available)
 2. **Options** > **Start Minimized**
@@ -417,6 +453,7 @@ Avoid selecting Hyper-V virtual switch IPs (172.x.x.x range). Choose your physic
 4. **Options** > **Minimize On Close**
 
 ## Verify Web Server
+---
 
 ```powershell
 Test-NetConnection -ComputerName localhost -Port 8085
@@ -429,10 +466,12 @@ http://localhost:8085/
 ```
 
 ## Watchdog Task
+---
 
 Creates a scheduled task that checks every 5 minutes and restarts LHM if not running.
 
 ### Option A: Interactive Mode (Recommended)
+---
 
 Runs in your desktop session with visible tray icon. Use this if you need to access LHM settings or view the GUI.
 
@@ -451,6 +490,7 @@ Register-ScheduledTask -TaskName "LibreHardwareMonitor-Watchdog" -Action $action
 ```
 
 ### Option B: Background Mode (Headless)
+---
 
 Runs as SYSTEM in session 0. No tray icon visible. Use for servers or headless monitoring where GUI access is not required.
 
@@ -469,12 +509,14 @@ Register-ScheduledTask -TaskName "LibreHardwareMonitor-Watchdog" -Action $action
 ```
 
 ### Start Watchdog Immediately
+---
 
 ```powershell
 Start-ScheduledTask -TaskName "LibreHardwareMonitor-Watchdog"
 ```
 
 ### Test Watchdog
+---
 
 ```powershell
 # Stop LHM
@@ -488,22 +530,26 @@ Get-Process -Name "LibreHardwareMonitor"
 ```
 
 ### Verify Watchdog
+---
 
 ```powershell
 Get-ScheduledTask -TaskName "LibreHardwareMonitor-Watchdog" | Select-Object TaskName, State
 ```
 
 ### Remove Watchdog
+---
 
 ```powershell
 Unregister-ScheduledTask -TaskName "LibreHardwareMonitor-Watchdog" -Confirm:$false
 ```
 
 ## Persistent Settings
+---
 
 Settings are stored in `LibreHardwareMonitor.config` in the application folder.
 
 ### Lock Settings (Read-Only)
+---
 
 Prevents accidental changes after configuration is complete:
 
@@ -512,6 +558,7 @@ Set-ItemProperty -Path "C:\LibreHardwareMonitor\LibreHardwareMonitor.config" -Na
 ```
 
 ### Unlock Settings
+---
 
 Required before making changes:
 
@@ -520,18 +567,21 @@ Set-ItemProperty -Path "C:\LibreHardwareMonitor\LibreHardwareMonitor.config" -Na
 ```
 
 ### Backup Settings
+---
 
 ```powershell
 Copy-Item "C:\LibreHardwareMonitor\LibreHardwareMonitor.config" "C:\LibreHardwareMonitor\LibreHardwareMonitor.config.bak"
 ```
 
 ### Restore Settings
+---
 
 ```powershell
 Copy-Item "C:\LibreHardwareMonitor\LibreHardwareMonitor.config.bak" "C:\LibreHardwareMonitor\LibreHardwareMonitor.config" -Force
 ```
 
 ## Verification Commands
+---
 
 Check LHM process:
 
@@ -552,8 +602,10 @@ Get-NetTCPConnection -LocalPort 8085 -State Listen | Select-Object LocalAddress,
 ```
 
 ## Troubleshooting
+---
 
 ### Web Server Not Responding
+---
 
 1. Verify LHM is running: `Get-Process -Name "LibreHardwareMonitor"`
 2. Check port binding: `Get-NetTCPConnection -LocalPort 8085 -State Listen`
@@ -561,6 +613,7 @@ Get-NetTCPConnection -LocalPort 8085 -State Listen | Select-Object LocalAddress,
 4. Restart LHM after changing web server settings
 
 ### Bound to Wrong IP
+---
 
 If bound to Hyper-V IP (172.x.x.x):
 
@@ -568,22 +621,26 @@ If bound to Hyper-V IP (172.x.x.x):
 2. Uncheck then re-check Run to restart web server
 
 ### Settings Not Persisting
+---
 
 1. Close LHM properly via tray icon > Exit (not Task Manager kill)
 2. Check config file exists: `Test-Path "C:\LibreHardwareMonitor\LibreHardwareMonitor.config"`
 3. Check file is not read-only when trying to save
 
 ### Watchdog Not Starting LHM
+---
 
 1. Verify path is correct in task
 2. Check task is running with correct principal (SYSTEM for background, username for interactive)
 3. View task history in Task Scheduler for errors
 
 ### LHM Running But No Tray Icon
+---
 
 This occurs when using Background Mode (Option B). The process runs in session 0 (SYSTEM) which is isolated from your desktop. Switch to Interactive Mode (Option A) if you need tray access.
 
 ## Directory Structure
+---
 
 ```powershell
 C:\LibreHardwareMonitor\
@@ -594,6 +651,7 @@ C:\LibreHardwareMonitor\
 ```
 
 ## Integration with Caddy Proxy
+---
 
 After configuring LHM, use the Caddy proxy script for secure Tailscale access:
 
@@ -608,6 +666,7 @@ https://<tailscale-ip>:8086/
 ```
 
 ## References
+---
 
 - LibreHardwareMonitor GitHub: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
 - LibreHardwareMonitor Releases: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases
@@ -616,6 +675,7 @@ https://<tailscale-ip>:8086/
 
 
 ## Menu Options
+---
 
 The interactive menu provides comprehensive management:
 
@@ -635,6 +695,7 @@ The interactive menu provides comprehensive management:
 | Q | Quit | Exit menu |
 
 ## File Structure
+---
 
 ```powershell
 C:\Caddy\
@@ -647,8 +708,10 @@ C:\Caddy\
 ```
 
 ## Troubleshooting
+---
 
 ### Common Issues
+---
 
 | Symptom | HTTP Code | Cause | Resolution |
 |---------|-----------|-------|------------|
@@ -659,6 +722,7 @@ C:\Caddy\
 | Blank Page | 200 | JavaScript/header mismatch | Update LibreHardwareMonitor |
 
 ### Diagnostic Commands
+---
 
 Check if Caddy is listening:
 
@@ -691,6 +755,7 @@ Get-Content C:\Caddy\Caddyfile | Select-String "basicauth" -Context 0,3
 ```
 
 ## Updating Caddy
+---
 
 Caddy is distributed as a static binary, making updates straightforward:
 
@@ -701,6 +766,7 @@ Start-Service Caddy
 ```
 
 ## Uninstallation
+---
 
 ```powershell
 # Stop and remove service
@@ -721,8 +787,10 @@ Or use the script:
 ```
 
 ## Security Considerations
+---
 
 ### Why Tailscale-Only Binding?
+---
 
 By binding Caddy exclusively to the Tailscale IP (`100.0.0.0`), the service is inaccessible from:
 - The local LAN (unless devices are on Tailscale)
@@ -730,6 +798,7 @@ By binding Caddy exclusively to the Tailscale IP (`100.0.0.0`), the service is i
 - Port scanners (Shodan, Censys)
 
 ### Why Scope-Based Firewall Rules?
+---
 
 The script creates port-based rules with address filtering rather than program-based rules:
 
@@ -741,6 +810,7 @@ The script creates port-based rules with address filtering rather than program-b
 For Tailscale-only deployments, restricting to `100.64.0.0/10` ensures only Tailnet devices can connect, even if the firewall rule is accidentally modified.
 
 ### Internal TLS Rationale
+---
 
 While Tailscale already encrypts traffic using WireGuard, adding application-layer TLS provides:
 - End-to-end encryption where the private key is held by Caddy
@@ -748,6 +818,7 @@ While Tailscale already encrypts traffic using WireGuard, adding application-lay
 - Defence in depth if the VPN tunnel is somehow compromised
 
 ### Authentication Rationale
+---
 
 HTTP Basic Authentication adds a credential layer that:
 - Prevents unauthorized access even if someone gains Tailnet access
@@ -756,6 +827,7 @@ HTTP Basic Authentication adds a credential layer that:
 - Uses bcrypt hashing (computationally expensive to brute force)
 
 ### Recommended Configuration
+---
 
 For maximum security, combine all layers:
 
@@ -770,6 +842,7 @@ This provides:
 4. basicauth requires username/password
 
 ### Alternative: Tailscale HTTPS Certificates
+---
 
 Caddy can use Tailscale's built-in certificate provisioning:
 
@@ -788,6 +861,7 @@ Caddy can use Tailscale's built-in certificate provisioning:
 This provides valid Let's Encrypt certificates with no browser warnings, but requires additional Tailscale socket permissions on Windows.
 
 ## Full Script
+---
 
 Presented using CodeMirror for a more complete visualization, this was an off the cuff project that I had an idea to a while ago but never followed through with. I have always felt that HW Info is limited when it comes to remote HW telemetry even though it is a truly excellent piece of software.
 
@@ -2217,6 +2291,7 @@ switch ($Action) {
 {{< /codemirror >}}
 
 ## Final References
+---
 
 - [Caddy Documentation](https://caddyserver.com/docs/)
 - [Caddy Reverse Proxy Quick-Start](https://caddyserver.com/docs/quick-starts/reverse-proxy)

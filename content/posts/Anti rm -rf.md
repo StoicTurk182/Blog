@@ -17,29 +17,36 @@ toc: true
 *A single command, or a slight variation of it, has led to the death of thousands of innocent servers. The most frustrating part? It is entirely preventable. I consider the following setup a mandatory part of any deployment process—even for non-production systems. For a sobering reminder of the absolute worst-case scenario, [read this account](https://www.reddit.com/r/cscareerquestions/comments/1qjsfv8/accidentally_rm_rfd_a_production_server/) of a production server being wiped in an instant.*
 
 ## Standard Operating Procedure: The "Double-Lock"
+---
 > This SOP establishes a redundant protection system for Debian-based servers to prevent catastrophic data loss caused by accidental `rm -rf /` execution.
 
 ## Target Systems
+---
 
 - Debian (all versions)
 - Ubuntu (all versions)
 
 ## Protection Layers
+---
 
 1. **Layer 1 (Application)**: `safe-rm` binary wrapper
 2. **Layer 2 (System)**: `sudoers` command-level exclusion
 
 ### Layer 1: Application-Level Protection (safe-rm)
+---
 
 The `safe-rm` utility acts as a binary wrapper that intercepts deletion commands before they reach the system `rm` binary. When a protected path is targeted, `safe-rm` refuses to execute the command regardless of user privileges.
 
 ### Layer 2: System-Level Protection (sudoers)
+---
 
 The sudoers configuration implements command-level exclusion rules that prevent specific dangerous command patterns from executing, even when invoked with elevated privileges. This layer operates independently of Layer 1 and provides redundant protection.
 
 ## Implementation
+---
 
 ### Step 1: Install and Intercept
+---
 
 The default `safe-rm` installation does not replace the system `rm` binary. Manual intervention is required to redirect system calls to the protected version.
 
@@ -60,6 +67,7 @@ Expected output: `/usr/local/bin/rm`
 The symbolic link placement leverages the standard Linux PATH resolution order where `/usr/local/bin` is evaluated before `/bin`. This ensures `safe-rm` intercepts all `rm` commands without modifying the base system binary.
 
 ### Step 2: Configure Protected Paths
+---
 
 Define the "No-Fly Zone." Any path listed in `/etc/safe-rm.conf` will be skipped by `safe-rm`, even if the user is root.
 
@@ -94,6 +102,7 @@ EOF
 The configuration file uses one path per line. Add any additional custom paths that contain critical data or system configurations specific to your deployment.
 
 ### Step 3: Deploy the Sudoers "Kill-Switch"
+---
 
 This prevents the `rm -rf /` command string from even executing. It acts as the primary barrier before the command reaches the binary.
 
@@ -116,6 +125,7 @@ Expected output: `parsed OK`
 The sudoers file must have permissions of 0440 (read-only for root and group). Incorrect permissions will cause sudo to ignore the file. The `visudo -c` command validates syntax before the configuration takes effect. A syntax error in sudoers can lock you out of sudo access.
 
 ### Step 4: Verification Procedure (The Canary Test)
+---
 
 Use this test sequence to confirm both protection layers are active without targeting actual protected paths.
 
@@ -139,6 +149,7 @@ sudo /usr/local/bin/rm -rf /
 The first test verifies `safe-rm` is intercepting commands and checking the configuration file. The second test verifies the sudoers exclusion rules are active. Both should fail to execute the deletion command.
 
 ### Step 5: Final Summary Script
+---
 
 Run this on every new server to ensure the SOP was followed correctly:
 
@@ -152,14 +163,17 @@ echo "=========================="
 ```
 
 ## Maintenance & Removal
+---
 
 To add a new protected path: Add the line to `/etc/safe-rm.conf`.
 
 To remove protection: Delete `/etc/sudoers.d/prevent_nuke` and the symlink `/usr/local/bin/rm`.
 
 ## Technical Details
+---
 
 ### PATH Resolution Order
+---
 
 The standard Linux PATH on Debian/Ubuntu systems is evaluated in this order:
 
@@ -170,6 +184,7 @@ The standard Linux PATH on Debian/Ubuntu systems is evaluated in this order:
 By placing the `safe-rm` symlink at `/usr/local/bin/rm`, all invocations of `rm` resolve to `safe-rm` before reaching the system binary at `/bin/rm`.
 
 ### Sudoers Pattern Matching
+---
 
 The sudoers exclusion rules use wildcard pattern matching to block commands regardless of how they are invoked:
 
@@ -179,6 +194,7 @@ The sudoers exclusion rules use wildcard pattern matching to block commands rega
 The patterns account for various flag combinations and whitespace variations. The asterisk wildcard matches any flags between `rm` and the path target.
 
 ## Limitations
+---
 
 This protection system has the following limitations:
 
@@ -191,6 +207,7 @@ This protection system has the following limitations:
 The system is designed to prevent accidental catastrophic deletion, not to protect against deliberate circumvention by an adversary with root access.
 
 ## Full Deployment Script
+---
 
 Single-line command to deploy all protection layers on your VPS instances:
 
@@ -227,6 +244,7 @@ sudo chmod 440 /etc/sudoers.d/prevent_nuke && sudo visudo -c
 This single-line deployment script combines all steps for rapid deployment across multiple VPS instances.
 
 ## References
+---
 
 - safe-rm package: https://packages.debian.org/stable/safe-rm
 - safe-rm source repository: https://github.com/lagerspetz/safe-rm

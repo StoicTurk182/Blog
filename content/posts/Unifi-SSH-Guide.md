@@ -20,10 +20,12 @@ This guide documents the known working methods for each device type as of UniFi 
 ---
 
 ## Device Type Reference
+---
 
 UniFi devices fall into two distinct tiers when it comes to SSH configuration ownership. Understanding which tier a device belongs to determines how SSH is configured, where credentials are managed, and what survives a reboot or firmware update.
 
 ### Tier 1 - Independent SSH Configuration
+---
 
 These devices run full Linux environments and own their SSH stack independently of the controller. SSH can be configured directly on the device via `sshd_config`, `authorized_keys`, and standard Linux tooling. The controller can push credentials to these devices, but the device retains its own SSH daemon and can be accessed regardless of controller availability.
 
@@ -34,6 +36,7 @@ These devices run full Linux environments and own their SSH stack independently 
 | UDR / UXG Pro | UniFi OS (Debian-based) | 22 | Yes | Partial (lost on firmware update) |
 
 ### Tier 2 - Controller-Delegated SSH
+---
 
 These devices have no meaningful independent SSH configuration. SSH credentials are pushed down from the controller at adoption and updated whenever the controller's Device SSH Authentication settings change. There is nothing to configure on the device directly — SSH access is entirely dependent on what the controller has provisioned.
 
@@ -47,10 +50,12 @@ Note: The USW-Ultra is an exception even within Tier 2 — it has no SSH access 
 ---
 
 ## Unadopted Device SSH Access
+---
 
 Unadopted devices use factory default credentials. These are well known and should be treated as temporary — they are overwritten the moment a device is adopted by a controller.
 
 ### Default Credentials by Firmware Generation
+---
 
 | Device Type | Newer Firmware | Older Firmware |
 |-------------|---------------|----------------|
@@ -60,6 +65,7 @@ Unadopted devices use factory default credentials. These are well known and shou
 If you are unsure which applies, try the newer credentials first. If those fail, try the older set. If both fail, the device has most likely been adopted by another controller and retains that controller's SSH password — a factory reset is the only recovery path in that scenario.
 
 ### Default IP Addresses
+---
 
 If the device has not received a DHCP lease (e.g. connected directly to a laptop with no DHCP server), it will fall back to a static IP:
 
@@ -71,6 +77,7 @@ If the device has not received a DHCP lease (e.g. connected directly to a laptop
 Reference: [UniFi Default SSH Credentials - UniHosted](https://www.unihosted.com/blog/default-password-in-unifi-devices)
 
 ### Connecting to an Unadopted Device
+---
 
 ```bash
 # Newer firmware - APs and switches
@@ -88,6 +95,7 @@ ssh root@<DEVICE-IP>
 ```
 
 ### Manual Adoption via SSH (set-inform)
+---
 
 If a device is on the network but not appearing in the controller, or is pointing at the wrong controller, SSH in using the default credentials and run the `set-inform` command to point it at your controller manually:
 
@@ -104,6 +112,7 @@ set-inform http://10.2.1.10:8080/inform
 The device will then appear as pending adoption in the UniFi Network controller. The controller must be reachable from the device on port 8080 for this to work.
 
 ### Orphaned Devices
+---
 
 An orphaned device is one that was previously adopted by a controller you no longer have access to. It will not respond to default credentials and cannot be pointed at a new controller via SSH without the original controller password. The only recovery path is a physical factory reset:
 
@@ -113,6 +122,7 @@ An orphaned device is one that was previously adopted by a controller you no lon
 4. Default credentials are restored and the device is ready for fresh adoption
 
 ### USW-Ultra Switch Exception
+---
 
 The USW-Ultra series switches do not support SSH at all — neither before nor after adoption. The traditional `set-inform` adoption workflow is not available on these devices. If DHCP Option 43 is not configured to push the controller inform URL automatically, alternatives include using the UniFi mobile app on the same network segment, or temporarily spinning up a local controller on a laptop connected to the same LAN to adopt the device and then redirect it to the primary controller.
 
@@ -121,10 +131,12 @@ Reference: [USW-Ultra and the adoption challenge - Cody Deluisio](https://deluis
 ---
 
 ## Remote Adoption via set-inform (WAN / DDNS)
+---
 
 The `set-inform` command is not limited to local network adoption. Devices at remote sites can be pointed at a controller over the internet using either a static WAN IP or a DDNS hostname. This is the standard method for managing remote site devices from a centralised controller without requiring a VPN.
 
 ### Prerequisites
+---
 
 Before attempting remote adoption the following must be in place:
 
@@ -136,6 +148,7 @@ Before attempting remote adoption the following must be in place:
 | SSH access to the remote device | Either physically present or via an existing management path |
 
 ### Method 1: Static WAN IP
+---
 
 If the controller site has a static WAN IP, point the device directly at it:
 
@@ -144,6 +157,7 @@ set-inform http://<CONTROLLER-WAN-IP>:8080/inform
 ```
 
 ### Method 2: Cloudflare DDNS Hostname
+---
 
 For sites without a static WAN IP, Cloudflare DDNS provides a stable hostname that updates automatically as the WAN IP changes. This is the recommended approach for homelab and SMB deployments.
 
@@ -156,6 +170,7 @@ set-inform http://<FQDN or IP>:8080/inform
 The device resolves the hostname via public DNS, connects to the WAN IP on port 8080, and registers with the controller. It will then appear as pending adoption in the UniFi Network controller.
 
 ### Cloudflare DDNS - How It Works
+---
 
 Cloudflare DDNS works by running a client on the controller host (or gateway) that periodically checks the current WAN IP and updates the Cloudflare DNS A record if it has changed. The controller's inform URL therefore remains stable even when the ISP changes the WAN IP.
 
@@ -173,6 +188,7 @@ Set TTL to 60 seconds on the Cloudflare DNS record so IP changes propagate quick
 Reference: [Cloudflare API - Update DNS Record](https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/update/)
 
 ### Firewall Requirements
+---
 
 Port 8080 TCP must be open inbound on the controller site's gateway. If the controller is behind a pfSense or UniFi gateway, add a NAT port forward and corresponding firewall rule:
 
@@ -190,6 +206,7 @@ Redirect target port: 8080
 For UniFi gateway, add a port forward rule under Settings > Routing > Port Forwarding targeting the controller's LAN IP on port 8080.
 
 ### Verifying Inform Status After set-inform
+---
 
 After running `set-inform` on the remote device, confirm it is attempting to reach the controller:
 
@@ -213,6 +230,7 @@ nc -zv <FQDN> 8080
 If `nc` fails, port 8080 is not reachable from the remote device — the issue is either a firewall rule on the controller site or the DDNS hostname is not resolving correctly.
 
 ### Security Consideration
+---
 
 Exposing port 8080 to the internet is required for remote adoption but represents an attack surface. Options to reduce exposure:
 
@@ -225,6 +243,7 @@ Reference: [UniFi - Inform Communication](https://help.ui.com/hc/en-us/articles/
 ---
 
 ## Enable SSH in UniFi Network Controller
+---
 
 SSH credentials must be configured before any of the methods below will work. Ubiquiti has moved this setting multiple times across recent versions. Use the table below to find the correct location for your controller version.
 
@@ -243,14 +262,17 @@ Reference: [UniFi - Connecting with Debug Tools and SSH](https://help.ui.com/hc/
 ---
 
 ## UNAS Pro
+---
 
 The UNAS Pro runs a full Debian-based Linux environment. SSH behaves as it would on any standard Debian host. Key-based authentication is fully supported and can be made persistent across reboots using the `rwfs` overlay filesystem.
 
 ### Important: Controller SSH Settings Do Not Apply to the UNAS Pro
+---
 
 The UNAS Pro is a Tier 1 device and manages its own SSH daemon independently. Changing Device SSH Authentication credentials in the UniFi Network controller has no effect on the UNAS Pro. SSH access is controlled entirely by the local `sshd_config` and the local root password on the device itself.
 
 ### Method 1: Password Authentication
+---
 
 ```bash
 ssh root@<UNAS-IP>
@@ -270,12 +292,14 @@ systemctl reload ssh
 ```
 
 ### Method 2: Ed25519 Key Authentication (Recommended)
+---
 
 Key-based authentication is the most secure and practical method for regular access. The UNAS Pro supports all standard OpenSSH key types. Ed25519 is preferred over RSA for new keys due to smaller key size and equivalent security at lower computational cost.
 
 Reference: [OpenSSH key types comparison - OpenBSD man page](https://man.openbsd.org/ssh-keygen)
 
 #### Generate Key Pair (on client machine)
+---
 
 ```bash
 ssh-keygen -t ed25519 -C "orion-unas" -f ~/.ssh/id_ed25519_unas
@@ -284,6 +308,7 @@ ssh-keygen -t ed25519 -C "orion-unas" -f ~/.ssh/id_ed25519_unas
 The `-C` flag adds a comment for identification. The `-f` flag specifies the output filename to keep UNAS keys separate from other key pairs.
 
 #### Copy Public Key to UNAS Pro
+---
 
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519_unas.pub root@<UNAS-IP>
@@ -296,12 +321,14 @@ cat ~/.ssh/id_ed25519_unas.pub | ssh root@<UNAS-IP> "mkdir -p ~/.ssh && cat >> ~
 ```
 
 #### Connect Using the Key
+---
 
 ```bash
 ssh -i ~/.ssh/id_ed25519_unas root@<UNAS-IP>
 ```
 
 #### Persistent Key Storage via rwfs Overlay
+---
 
 By default on the UNAS Pro, the root filesystem is partially read-only. Changes written to standard paths may not survive a reboot. The `rwfs` overlay provides a writable layer that persists across reboots.
 
@@ -336,6 +363,7 @@ cat /root/.ssh/authorized_keys
 Note: Firmware updates on the UNAS Pro may reset the overlay or overwrite symlinks. Verify key persistence after any firmware update.
 
 ### Method 3: SSH Config Entry (Client Side)
+---
 
 Add an entry to `~/.ssh/config` on the client machine to avoid specifying the key and user on every connection:
 
@@ -354,6 +382,7 @@ ssh unas
 ```
 
 ### Method 4: Verifying and Auditing sshd_config
+---
 
 Before relying on any SSH method, verify the daemon configuration is in the expected state:
 
@@ -377,6 +406,7 @@ cat /etc/ssh/sshd_config
 ```
 
 #### The Include Directive - Critical Check
+---
 
 The UNAS Pro `sshd_config` contains an include directive at the top:
 
@@ -394,6 +424,7 @@ cat /etc/ssh/sshd_config.d/*.conf
 ```
 
 #### AllowGroups Restriction
+---
 
 The UNAS Pro may contain an `AllowGroups` directive in `/etc/ssh/sshd_config.d/` — for example:
 
@@ -406,6 +437,7 @@ AllowGroups root
 This restricts SSH access to users belonging only to the `root` group. Connecting as `root` is unaffected, but any other user account cannot SSH in unless added to that group. This is expected and correct for a single-admin homelab NAS.
 
 #### Testing Both Auth Methods
+---
 
 Always test both methods from a second terminal before closing your active session:
 
@@ -439,10 +471,12 @@ who
 ---
 
 ## UniFi Gateway (UDM Pro / UDM SE / UXG Pro)
+---
 
 UniFi gateways run UniFi OS, a Debian-based environment with an additional application layer managing network services. SSH access reaches the UniFi OS shell, from which the UniFi Network application container can also be accessed.
 
 ### Method 1: Password Authentication
+---
 
 ```bash
 ssh root@<GATEWAY-IP>
@@ -451,22 +485,26 @@ ssh root@<GATEWAY-IP>
 Password is the SSH password set in UniFi Network > Settings > System > Advanced. This is the same credential used across all adopted devices.
 
 ### Method 2: Key Authentication
+---
 
 Key authentication is supported on UniFi gateways but persistence is more limited than on the UNAS Pro.
 
 #### Copy Public Key
+---
 
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519_unas.pub root@<GATEWAY-IP>
 ```
 
 #### Persistence Caveat
+---
 
 On UniFi gateways, `~/.ssh/authorized_keys` is stored in the root filesystem which may be reset on firmware update. There is no officially documented persistent overlay equivalent to the UNAS Pro rwfs path. Keys survive normal reboots but should be re-applied after firmware updates.
 
 Reference: [UniFi OS SSH key persistence - community discussion](https://community.ui.com/questions/SSH-Key-Authentication/a25be39d-9873-4f3e-9a2b-5870ef399d65)
 
 ### Accessing the UniFi Network Application Container
+---
 
 From the gateway SSH shell, the UniFi Network application runs in a container that can be accessed directly:
 
@@ -479,6 +517,7 @@ docker exec -it unifi-network-application /bin/bash
 ```
 
 ### SSH Config Entry
+---
 
 ```bash
 
@@ -493,10 +532,12 @@ Host udm
 ---
 
 ## UniFi Managed Switches (USW Series)
+---
 
 UniFi switches run proprietary firmware with a restricted shell environment. Full Linux functionality is not available. SSH access is primarily useful for diagnostics, checking link state, and running limited show commands.
 
 ### Method 1: Password Authentication
+---
 
 ```bash
 ssh admin@<SWITCH-IP>
@@ -512,6 +553,7 @@ ssh ubnt@<SWITCH-IP>
 ```
 
 ### Available Shell Commands
+---
 
 | Command | Function |
 |---------|----------|
@@ -525,16 +567,19 @@ ssh ubnt@<SWITCH-IP>
 Full Linux commands such as `ip`, `ss`, `systemctl`, or package management are not available on switch firmware.
 
 ### Key Authentication on Switches
+---
 
 Key-based authentication is not reliably supported across all USW firmware versions. Password authentication should be treated as the primary method for switch access.
 
 ---
 
 ## UniFi Access Points (UAP Series)
+---
 
 Access points run a BusyBox or OpenWrt-based environment. SSH access is available primarily for diagnostics.
 
 ### Method 1: Password Authentication
+---
 
 ```bash
 ssh admin@<AP-IP>
@@ -543,6 +588,7 @@ ssh admin@<AP-IP>
 Same SSH password as all other adopted devices. Username `ubnt` with password `ubnt` applies to factory reset or unadopted devices.
 
 ### Useful AP Shell Commands
+---
 
 ```bash
 # Show system info
@@ -565,24 +611,29 @@ logread
 ```
 
 ### Key Authentication on APs
+---
 
 Key authentication is not persistently supported on access points. Keys written to `~/.ssh/authorized_keys` will be lost on reboot as the AP filesystem is largely volatile. Password authentication is the practical method for AP access.
 
 ---
 
 ## SSH Troubleshooting Reference
+---
 
 ### Connection Refused
+---
 
 SSH is not enabled on the device or the device has not been adopted by the controller.
 
 Verify SSH is enabled: UniFi Network > Settings > System > Advanced > Device SSH Authentication.
 
 ### Authentication Failed (Password)
+---
 
 The password entered does not match the SSH password in the controller. Confirm the password in UniFi Network settings. On factory reset devices, try `ubnt` / `ubnt`.
 
 ### Authentication Failed (Key)
+---
 
 The public key is not present in `authorized_keys` on the target device, or the file permissions are incorrect.
 
@@ -601,10 +652,12 @@ chmod 600 ~/.ssh/authorized_keys
 ```
 
 ### Key Lost After Reboot (UNAS Pro)
+---
 
 The `authorized_keys` file is not stored on the rwfs overlay. Follow the persistent key storage steps in the UNAS Pro section above.
 
 ### Key Lost After Firmware Update
+---
 
 Expected behaviour on gateways and APs. Re-copy the public key after any firmware update:
 
@@ -613,6 +666,7 @@ ssh-copy-id -i ~/.ssh/id_ed25519_unas.pub root@<DEVICE-IP>
 ```
 
 ### Host Key Changed Warning
+---
 
 Occurs when a device has been factory reset or replaced but the same IP is reused. Remove the stale entry from the known hosts file:
 
@@ -621,6 +675,7 @@ ssh-keygen -R <DEVICE-IP>
 ```
 
 ### Verbose SSH Output for Debugging
+---
 
 ```bash
 ssh -vvv root@<DEVICE-IP>
@@ -631,6 +686,7 @@ The triple verbose flag shows the full authentication negotiation and will ident
 ---
 
 ## SSH Config Reference (All Devices)
+---
 
 A consolidated `~/.ssh/config` block for the ORION environment:
 
@@ -664,6 +720,7 @@ Replace IP addresses with actual device addresses. Key authentication entries ca
 ---
 
 ## References
+---
 
 - UniFi Default SSH Credentials: https://www.unihosted.com/blog/default-password-in-unifi-devices
 - USW-Ultra Adoption Challenge: https://deluisio.com/networking/unifi/2025/02/05/the-missing-ssh-unifi-ultra-switches-and-the-adoption-challenge/
