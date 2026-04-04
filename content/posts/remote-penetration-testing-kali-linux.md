@@ -403,7 +403,8 @@ gobuster --help
 ## Conclusion
 ---
 
-This comprehensive guide has equipped you with the knowledge and tools to conduct professional remote penetration tests using Kali Linux. From automated reconnaissance to detailed vulnerability assessment, you now have a complete methodology for identifying and documenting security weaknesses.
+This basic guide can be used for labs and fast self testing but I would not recommend using this as a source of truth. It will catch the basics but cannot be relied upon as
+as a definitive resource.  
 
 ### What's Next?
 ---
@@ -430,9 +431,6 @@ This comprehensive guide has equipped you with the knowledge and tools to conduc
 - Always verify authorization before running scans
 - Consider organizational policies and compliance requirements
 - Update wordlist paths based on your Kali installation
-
-**Master the art of ethical hacking with this comprehensive guide to remote penetration testing using Kali Linux.** This guide provides security professionals, system administrators, and ethical hackers with a complete methodology for assessing remote system security, complete with automated scripts and real-world examples.
-
 
 > ⚠️ **IMPORTANT SECURITY DISCLAIMER**
 > 
