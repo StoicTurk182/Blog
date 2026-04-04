@@ -404,7 +404,7 @@ gobuster --help
 ---
 
 This basic guide can be used for labs and fast self testing but I would not recommend using this as a source of truth. It will catch the basics but cannot be relied upon as
-as a definitive resource.  
+as a definitive resource.
 
 ### What's Next?
 ---
