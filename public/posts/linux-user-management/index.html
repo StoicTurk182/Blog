@@ -2,7 +2,7 @@
 <span class=menu__btn-title tabindex=-1>Menu</span></button><ul class=menu__list><li class=menu__item><a class=menu__link href=/><span class=menu__text>Home</span></a></li><li class=menu__item><a class=menu__link href=/posts/><span class=menu__text>Posts</span></a></li><li class=menu__item><a class=menu__link href=/tools/><span class=menu__text>Tools</span></a></li><li class=menu__item><a class=menu__link href=/contact/><span class=menu__text>Contact</span></a></li><li class="menu__item menu__item--search"><form class=menu__search action=/search/ method=get><input type=text name=q placeholder=Search... aria-label=Search></form></li></ul></nav></div></header><div class="wrapper flex"><div class=primary><article class=professional-post><header class=professional-header><div class=post-meta><span class=post-date>November 19, 2025</span>
 <span class=reading-time>• 8 min read</span>
 <span class=post-category>Linux</span></div><h1 class=post-title>Linux User Management, Permissions, and Navigation Guide</h1><p class=post-description>Comprehensive guide covering Linux user management, file permissions, system navigation, and file operations for system administration.</p><div class=author-info><span class=author>By Andrew Jones</span></div></header><span><div class=post-nav-right><a href=/posts/ class="read-more back-button"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0 9.41 1.41 3.83 7H16V9H3.83l5.58 5.59L8 16 0 8 8 0z"/></svg>
-Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/debian-gnu-linux.avif alt="Linux User Management, Permissions, and Navigation Guide"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a></li><li><a href=#part-1-linux-users-groups-and-permissions>Part 1: Linux Users, Groups, and Permissions</a></li><li><a href=#part-2-linux-navigation-and-file-location>Part 2: Linux Navigation and File Location</a></li><li><a href=#part-3-essential-applications-and-tools>Part 3: Essential Applications and Tools</a></li><li><a href=#best-practices-and-security>Best Practices and Security</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></aside><div class=post-content><h2 id=introduction>Introduction</h2><hr><p>This comprehensive guide covers everything you need to know about Linux user management, file permissions, system navigation, and file operations. Whether you&rsquo;re a beginner or an experienced user, this reference will help you master Linux system administration. Also a good application that you can use after you grasp the basics is Midnight Commander - <a href=https://midnight-commander.org>https://midnight-commander.org</a></p><p>A highly regarded tool to make file management easier and more like working within a regular desktop environment.</p><h2 id=part-1-linux-users-groups-and-permissions>Part 1: Linux Users, Groups, and Permissions</h2><hr><h3 id=user-management>User Management</h3><hr><h4 id=viewing-user-information>Viewing User Information</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Current user information</span>
+Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/debian-gnu-linux.avif alt="Linux User Management, Permissions, and Navigation Guide"></div><aside class=toc><h2>Table of Contents</h2><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a></li><li><a href=#part-1-linux-users-groups-and-permissions>Part 1: Linux Users, Groups, and Permissions</a></li><li><a href=#part-2-linux-navigation-and-file-location>Part 2: Linux Navigation and File Location</a></li><li><a href=#part-3-essential-applications-and-tools>Part 3: Essential Applications and Tools</a></li><li><a href=#best-practices-and-security>Best Practices and Security</a></li><li><a href=#conclusion>Conclusion</a></li></ol></nav></aside><div class=post-content><h2 id=introduction>Introduction</h2><hr><p>This comprehensive guide covers everything you need to know about Linux user management, file permissions, system navigation, and file operations. Whether you&rsquo;re a beginner or an experienced user, this reference will help you master Linux system administration. Also a good application that you can use after you grasp the basics is Midnight Commander - <a href=https://midnight-commander.org>https://midnight-commander.org</a></p><p>A highly regarded tool to make file management easier and more like working within a regular desktop environment.</p><h2 id=part-1-linux-users-groups-and-permissions>Part 1: Linux Users, Groups, and Permissions</h2><hr><h3 id=user-management>User Management</h3><hr><h4 id=viewing-user-information>Viewing User Information</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Current user information</span>
 </span></span><span style=display:flex><span>whoami
 </span></span><span style=display:flex><span>id
 </span></span><span style=display:flex><span>
@@ -17,7 +17,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span><span style=color:#75715e># User password/account status</span>
 </span></span><span style=display:flex><span>sudo cat /etc/shadow
 </span></span><span style=display:flex><span>chage -l username
-</span></span></code></pre></div><h4 id=creating-and-modifying-users>Creating and Modifying Users</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Create user with home directory and specific shell</span>
+</span></span></code></pre></div><h4 id=creating-and-modifying-users>Creating and Modifying Users</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Create user with home directory and specific shell</span>
 </span></span><span style=display:flex><span>sudo useradd -m -c <span style=color:#e6db74>&#34;John Doe&#34;</span> -s /bin/bash johndoe
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Add user to supplementary groups</span>
@@ -27,7 +27,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>sudo usermod -aG sudo johndoe      <span style=color:#75715e># Add to sudo group</span>
 </span></span><span style=display:flex><span>sudo usermod -s /bin/zsh johndoe   <span style=color:#75715e># Change shell</span>
 </span></span><span style=display:flex><span>sudo usermod -L johndoe            <span style=color:#75715e># Lock account</span>
-</span></span></code></pre></div><h3 id=group-management>Group Management</h3><hr><h4 id=viewing-and-managing-groups>Viewing and Managing Groups</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Current user&#39;s groups</span>
+</span></span></code></pre></div><h3 id=group-management>Group Management</h3><hr><h4 id=viewing-and-managing-groups>Viewing and Managing Groups</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Current user&#39;s groups</span>
 </span></span><span style=display:flex><span>groups
 </span></span><span style=display:flex><span>id -Gn
 </span></span><span style=display:flex><span>
@@ -35,12 +35,12 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>sudo groupadd developers
 </span></span><span style=display:flex><span>sudo usermod -aG developers johndoe
 </span></span><span style=display:flex><span>sudo gpasswd -a johndoe developers
-</span></span></code></pre></div><h3 id=file-permissions-basics>File Permissions Basics</h3><hr><h4 id=understanding-permission-types>Understanding Permission Types</h4><hr><ul><li><strong>Read (r) = 4</strong>: View file contents or list directory</li><li><strong>Write (w) = 2</strong>: Modify file or directory contents</li><li><strong>Execute (x) = 1</strong>: Run file or traverse directory</li></ul><h4 id=permission-classes>Permission Classes</h4><hr><ul><li><strong>User (u)</strong>: File owner</li><li><strong>Group (g)</strong>: Group owner</li><li><strong>Others (o)</strong>: All other users</li></ul><h4 id=viewing-permissions>Viewing Permissions</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>ls -l file.txt
+</span></span></code></pre></div><h3 id=file-permissions-basics>File Permissions Basics</h3><hr><h4 id=understanding-permission-types>Understanding Permission Types</h4><hr><ul><li><strong>Read (r) = 4</strong>: View file contents or list directory</li><li><strong>Write (w) = 2</strong>: Modify file or directory contents</li><li><strong>Execute (x) = 1</strong>: Run file or traverse directory</li></ul><h4 id=permission-classes>Permission Classes</h4><hr><ul><li><strong>User (u)</strong>: File owner</li><li><strong>Group (g)</strong>: Group owner</li><li><strong>Others (o)</strong>: All other users</li></ul><h4 id=viewing-permissions>Viewing Permissions</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ls -l file.txt
 </span></span><span style=display:flex><span><span style=color:#75715e># -rw-r--r-- 1 johndoe developers 1024 Dec 10 14:30 file.txt</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># With numeric permissions</span>
 </span></span><span style=display:flex><span>stat -c <span style=color:#e6db74>&#34;%a %n&#34;</span> file.txt
-</span></span></code></pre></div><h3 id=permission-modification>Permission Modification</h3><hr><h4 id=changing-permissions-with-chmod>Changing Permissions with chmod</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Symbolic notation</span>
+</span></span></code></pre></div><h3 id=permission-modification>Permission Modification</h3><hr><h4 id=changing-permissions-with-chmod>Changing Permissions with chmod</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Symbolic notation</span>
 </span></span><span style=display:flex><span>chmod u+x file.txt                 <span style=color:#75715e># Add execute for user</span>
 </span></span><span style=display:flex><span>chmod g-w file.txt                 <span style=color:#75715e># Remove write for group</span>
 </span></span><span style=display:flex><span>
@@ -50,7 +50,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Recursive changes</span>
 </span></span><span style=display:flex><span>chmod -R <span style=color:#ae81ff>755</span> directory/
-</span></span></code></pre></div><h4 id=changing-ownership>Changing Ownership</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Change owner and group</span>
+</span></span></code></pre></div><h4 id=changing-ownership>Changing Ownership</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Change owner and group</span>
 </span></span><span style=display:flex><span>sudo chown johndoe:developers file.txt
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Change group only</span>
@@ -58,7 +58,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Recursive ownership changes</span>
 </span></span><span style=display:flex><span>sudo chown -R johndoe:developers directory/
-</span></span></code></pre></div><h3 id=special-permissions>Special Permissions</h3><hr><h4 id=setuid-setgid-and-sticky-bit>SetUID, SetGID, and Sticky Bit</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># SetUID - executes with owner&#39;s privileges</span>
+</span></span></code></pre></div><h3 id=special-permissions>Special Permissions</h3><hr><h4 id=setuid-setgid-and-sticky-bit>SetUID, SetGID, and Sticky Bit</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># SetUID - executes with owner&#39;s privileges</span>
 </span></span><span style=display:flex><span>chmod u+s file
 </span></span><span style=display:flex><span>chmod <span style=color:#ae81ff>4755</span> file
 </span></span><span style=display:flex><span>
@@ -69,7 +69,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span><span style=color:#75715e># Sticky Bit - users can only delete their own files</span>
 </span></span><span style=display:flex><span>chmod +t directory/
 </span></span><span style=display:flex><span>chmod <span style=color:#ae81ff>1777</span> directory/
-</span></span></code></pre></div><h3 id=access-control-lists-acl>Access Control Lists (ACL)</h3><hr><h4 id=advanced-permission-management>Advanced Permission Management</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Install ACL tools</span>
+</span></span></code></pre></div><h3 id=access-control-lists-acl>Access Control Lists (ACL)</h3><hr><h4 id=advanced-permission-management>Advanced Permission Management</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Install ACL tools</span>
 </span></span><span style=display:flex><span>sudo apt install acl        <span style=color:#75715e># Debian/Ubuntu</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># View and set ACLs</span>
@@ -83,19 +83,19 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Default ACLs for directories</span>
 </span></span><span style=display:flex><span>setfacl -m d:u:bob:rwx shared_directory/
-</span></span></code></pre></div><h3 id=sudo-and-privilege-escalation>Sudo and Privilege Escalation</h3><hr><h4 id=sudo-configuration>Sudo Configuration</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Edit sudoers file safely</span>
+</span></span></code></pre></div><h3 id=sudo-and-privilege-escalation>Sudo and Privilege Escalation</h3><hr><h4 id=sudo-configuration>Sudo Configuration</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Edit sudoers file safely</span>
 </span></span><span style=display:flex><span>sudo visudo
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Test sudo access</span>
 </span></span><span style=display:flex><span>sudo -l
-</span></span></code></pre></div><h4 id=sudoers-file-examples>Sudoers File Examples</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span># User specifications
+</span></span></code></pre></div><h4 id=sudoers-file-examples>Sudoers File Examples</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># User specifications
 </span></span><span style=display:flex><span>username    ALL=(ALL:ALL) ALL
 </span></span><span style=display:flex><span>%groupname  ALL=(ALL:ALL) ALL
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span># Specific command permissions
 </span></span><span style=display:flex><span>johndoe     ALL=(root) /usr/bin/apt, /usr/bin/systemctl
 </span></span><span style=display:flex><span>%developers ALL=(ALL) NOPASSWD: /usr/bin/docker
-</span></span></code></pre></div><h2 id=part-2-linux-navigation-and-file-location>Part 2: Linux Navigation and File Location</h2><hr><h3 id=basic-navigation>Basic Navigation</h3><hr><h4 id=directory-operations>Directory Operations</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Current directory</span>
+</span></span></code></pre></div><h2 id=part-2-linux-navigation-and-file-location>Part 2: Linux Navigation and File Location</h2><hr><h3 id=basic-navigation>Basic Navigation</h3><hr><h4 id=directory-operations>Directory Operations</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Current directory</span>
 </span></span><span style=display:flex><span>pwd
 </span></span><span style=display:flex><span>pwd -P                    <span style=color:#75715e># Physical location (resolve symlinks)</span>
 </span></span><span style=display:flex><span>
@@ -109,7 +109,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>pushd /path/to/directory  <span style=color:#75715e># Save current and change</span>
 </span></span><span style=display:flex><span>popd                      <span style=color:#75715e># Return to saved directory</span>
 </span></span><span style=display:flex><span>dirs                      <span style=color:#75715e># Show directory stack</span>
-</span></span></code></pre></div><h3 id=linux-filesystem-hierarchy>Linux Filesystem Hierarchy</h3><hr><h4 id=essential-directory-structure>Essential Directory Structure</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>/
+</span></span></code></pre></div><h3 id=linux-filesystem-hierarchy>Linux Filesystem Hierarchy</h3><hr><h4 id=essential-directory-structure>Essential Directory Structure</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>/
 </span></span><span style=display:flex><span>├── bin/          # Essential user binaries
 </span></span><span style=display:flex><span>├── etc/          # System configuration files
 </span></span><span style=display:flex><span>├── home/         # User home directories
@@ -117,7 +117,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>├── tmp/          # Temporary files
 </span></span><span style=display:flex><span>├── usr/          # User utilities and applications
 </span></span><span style=display:flex><span>└── var/          # Variable data (logs, cache)
-</span></span></code></pre></div><h3 id=file-system-navigation>File System Navigation</h3><hr><h4 id=listing-files-and-directories>Listing Files and Directories</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Basic listing with details</span>
+</span></span></code></pre></div><h3 id=file-system-navigation>File System Navigation</h3><hr><h4 id=listing-files-and-directories>Listing Files and Directories</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Basic listing with details</span>
 </span></span><span style=display:flex><span>ls -la                    <span style=color:#75715e># Long format with hidden files</span>
 </span></span><span style=display:flex><span>ls -lh                    <span style=color:#75715e># Human readable sizes</span>
 </span></span><span style=display:flex><span>ls -ltr                   <span style=color:#75715e># Sorted by time (oldest first)</span>
@@ -125,7 +125,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span><span style=color:#75715e># Tree structure view</span>
 </span></span><span style=display:flex><span>tree -L <span style=color:#ae81ff>2</span>                 <span style=color:#75715e># Limit depth to 2 levels</span>
 </span></span><span style=display:flex><span>tree -d                   <span style=color:#75715e># Directories only</span>
-</span></span></code></pre></div><h4 id=file-information-commands>File Information Commands</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># File type and information</span>
+</span></span></code></pre></div><h4 id=file-information-commands>File Information Commands</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># File type and information</span>
 </span></span><span style=display:flex><span>file filename
 </span></span><span style=display:flex><span>stat filename              <span style=color:#75715e># Detailed file statistics</span>
 </span></span><span style=display:flex><span>
@@ -133,7 +133,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>realpath filename
 </span></span><span style=display:flex><span>basename /path/to/file     <span style=color:#75715e># Extract filename</span>
 </span></span><span style=display:flex><span>dirname /path/to/file      <span style=color:#75715e># Extract directory path</span>
-</span></span></code></pre></div><h3 id=searching-for-files>Searching for Files</h3><hr><h4 id=using-find-command>Using find Command</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Basic find syntax</span>
+</span></span></code></pre></div><h3 id=searching-for-files>Searching for Files</h3><hr><h4 id=using-find-command>Using find Command</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Basic find syntax</span>
 </span></span><span style=display:flex><span>find <span style=color:#f92672>[</span>path<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>options<span style=color:#f92672>]</span> <span style=color:#f92672>[</span>expression<span style=color:#f92672>]</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># By name and type</span>
@@ -152,14 +152,14 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span><span style=color:#75715e># Actions on found files</span>
 </span></span><span style=display:flex><span>find /tmp -name <span style=color:#e6db74>&#34;*.tmp&#34;</span> -delete
 </span></span><span style=display:flex><span>find . -name <span style=color:#e6db74>&#34;*.old&#34;</span> -exec rm <span style=color:#f92672>{}</span> <span style=color:#ae81ff>\;</span>
-</span></span></code></pre></div><h4 id=fast-search-with-locate>Fast Search with locate</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Update file database</span>
+</span></span></code></pre></div><h4 id=fast-search-with-locate>Fast Search with locate</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Update file database</span>
 </span></span><span style=display:flex><span>sudo updatedb
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Fast filename search</span>
 </span></span><span style=display:flex><span>locate filename
 </span></span><span style=display:flex><span>locate -i <span style=color:#e6db74>&#34;readme&#34;</span>          <span style=color:#75715e># Case insensitive</span>
 </span></span><span style=display:flex><span>locate -l <span style=color:#ae81ff>20</span> <span style=color:#e6db74>&#34;*.jpg&#34;</span>        <span style=color:#75715e># Limit to 20 results</span>
-</span></span></code></pre></div><h4 id=finding-commands>Finding Commands</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Find executables</span>
+</span></span></code></pre></div><h4 id=finding-commands>Finding Commands</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Find executables</span>
 </span></span><span style=display:flex><span>which ls
 </span></span><span style=display:flex><span>which -a python3            <span style=color:#75715e># Show all instances</span>
 </span></span><span style=display:flex><span>
@@ -169,7 +169,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Command documentation</span>
 </span></span><span style=display:flex><span>whatis ls
-</span></span></code></pre></div><h3 id=finding-file-content>Finding File Content</h3><hr><h4 id=grep-for-text-search>grep for Text Search</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Basic text search</span>
+</span></span></code></pre></div><h3 id=finding-file-content>Finding File Content</h3><hr><h4 id=grep-for-text-search>grep for Text Search</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Basic text search</span>
 </span></span><span style=display:flex><span>grep <span style=color:#e6db74>&#34;pattern&#34;</span> file.txt
 </span></span><span style=display:flex><span>grep -i <span style=color:#e6db74>&#34;pattern&#34;</span> file.txt        <span style=color:#75715e># Case insensitive</span>
 </span></span><span style=display:flex><span>grep -n <span style=color:#e6db74>&#34;pattern&#34;</span> file.txt        <span style=color:#75715e># Show line numbers</span>
@@ -180,14 +180,14 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Context around matches</span>
 </span></span><span style=display:flex><span>grep -A <span style=color:#ae81ff>3</span> -B <span style=color:#ae81ff>2</span> <span style=color:#e6db74>&#34;pattern&#34;</span> file.txt <span style=color:#75715e># 3 lines after, 2 lines before</span>
-</span></span></code></pre></div><h4 id=modern-alternatives>Modern Alternatives</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># ripgrep (faster)</span>
+</span></span></code></pre></div><h4 id=modern-alternatives>Modern Alternatives</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># ripgrep (faster)</span>
 </span></span><span style=display:flex><span>rg <span style=color:#e6db74>&#34;pattern&#34;</span>
 </span></span><span style=display:flex><span>rg -t py <span style=color:#e6db74>&#34;import&#34;</span>                 <span style=color:#75715e># Python files only</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Silver Searcher</span>
 </span></span><span style=display:flex><span>ag <span style=color:#e6db74>&#34;pattern&#34;</span>
 </span></span><span style=display:flex><span>ag -G <span style=color:#e6db74>&#34;\.js</span>$<span style=color:#e6db74>&#34;</span> <span style=color:#e6db74>&#34;function&#34;</span>          <span style=color:#75715e># JavaScript files</span>
-</span></span></code></pre></div><h3 id=file-compression-and-archiving>File Compression and Archiving</h3><hr><h4 id=tar-commands>tar Commands</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Create archives</span>
+</span></span></code></pre></div><h3 id=file-compression-and-archiving>File Compression and Archiving</h3><hr><h4 id=tar-commands>tar Commands</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Create archives</span>
 </span></span><span style=display:flex><span>tar -czvf archive.tar.gz files/   <span style=color:#75715e># Create gzip compressed</span>
 </span></span><span style=display:flex><span>tar -cjvf archive.tar.bz2 files/  <span style=color:#75715e># Create bzip2 compressed</span>
 </span></span><span style=display:flex><span>
@@ -197,13 +197,13 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># List contents</span>
 </span></span><span style=display:flex><span>tar -tzf archive.tar.gz           <span style=color:#75715e># List gzip archive</span>
-</span></span></code></pre></div><h4 id=other-compression-tools>Other Compression Tools</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Individual file compression</span>
+</span></span></code></pre></div><h4 id=other-compression-tools>Other Compression Tools</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Individual file compression</span>
 </span></span><span style=display:flex><span>gzip file.txt                     <span style=color:#75715e># Creates file.txt.gz</span>
 </span></span><span style=display:flex><span>gunzip file.txt.gz                <span style=color:#75715e># Decompress</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>bzip2 file.txt                    <span style=color:#75715e># Creates file.txt.bz2</span>
 </span></span><span style=display:flex><span>xz file.txt                       <span style=color:#75715e># Creates file.txt.xz</span>
-</span></span></code></pre></div><h3 id=disk-usage-analysis>Disk Usage Analysis</h3><hr><h4 id=analyzing-space-usage>Analyzing Space Usage</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Disk usage by directory</span>
+</span></span></code></pre></div><h3 id=disk-usage-analysis>Disk Usage Analysis</h3><hr><h4 id=analyzing-space-usage>Analyzing Space Usage</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Disk usage by directory</span>
 </span></span><span style=display:flex><span>du -sh directory/                 <span style=color:#75715e># Summary total</span>
 </span></span><span style=display:flex><span>du -h --max-depth<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span> /var         <span style=color:#75715e># One level deep</span>
 </span></span><span style=display:flex><span>
@@ -213,20 +213,20 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span><span style=color:#75715e># Free space</span>
 </span></span><span style=display:flex><span>df -h                             <span style=color:#75715e># Human readable filesystem usage</span>
 </span></span><span style=display:flex><span>df -i                             <span style=color:#75715e># Inode usage</span>
-</span></span></code></pre></div><h4 id=interactive-analysis>Interactive Analysis</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># NCurses disk usage</span>
+</span></span></code></pre></div><h4 id=interactive-analysis>Interactive Analysis</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># NCurses disk usage</span>
 </span></span><span style=display:flex><span>ncdu /path
 </span></span><span style=display:flex><span>ncdu -x /                         <span style=color:#75715e># Stay on filesystem</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Find large files</span>
 </span></span><span style=display:flex><span>find / -type f -size +100M -exec ls -lh <span style=color:#f92672>{}</span> <span style=color:#ae81ff>\;</span> 2&gt;/dev/null
-</span></span></code></pre></div><h3 id=file-operations>File Operations</h3><hr><h4 id=copying-and-moving>Copying and Moving</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Copy with preservation</span>
+</span></span></code></pre></div><h3 id=file-operations>File Operations</h3><hr><h4 id=copying-and-moving>Copying and Moving</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Copy with preservation</span>
 </span></span><span style=display:flex><span>cp -p file1 file2                <span style=color:#75715e># Preserve attributes</span>
 </span></span><span style=display:flex><span>cp -a dir1/ dir2/                <span style=color:#75715e># Archive mode (preserve all)</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Safe moves</span>
 </span></span><span style=display:flex><span>mv -i file* dest/                <span style=color:#75715e># Prompt before overwrite</span>
 </span></span><span style=display:flex><span>mv --backup<span style=color:#f92672>=</span>numbered file1 file2 <span style=color:#75715e># Numbered backups</span>
-</span></span></code></pre></div><h4 id=creating-files-and-directories>Creating Files and Directories</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Create nested directories</span>
+</span></span></code></pre></div><h4 id=creating-files-and-directories>Creating Files and Directories</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Create nested directories</span>
 </span></span><span style=display:flex><span>mkdir -p path/to/nested/dirs     <span style=color:#75715e># Create parent directories</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Create files with content</span>
@@ -237,7 +237,7 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Create large files</span>
 </span></span><span style=display:flex><span>dd <span style=color:#66d9ef>if</span><span style=color:#f92672>=</span>/dev/zero of<span style=color:#f92672>=</span>largefile.bin bs<span style=color:#f92672>=</span>1M count<span style=color:#f92672>=</span><span style=color:#ae81ff>100</span>  <span style=color:#75715e># 100MB file</span>
-</span></span></code></pre></div><h4 id=text-file-operations>Text File Operations</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># View files</span>
+</span></span></code></pre></div><h4 id=text-file-operations>Text File Operations</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># View files</span>
 </span></span><span style=display:flex><span>cat file.txt
 </span></span><span style=display:flex><span>less file.txt                    <span style=color:#75715e># Interactive pager</span>
 </span></span><span style=display:flex><span>head -20 file.txt                <span style=color:#75715e># First 20 lines</span>
@@ -251,61 +251,61 @@ Back to Posts</a></div></span><div class=featured-image><img src=/images/posts/d
 </span></span><span style=display:flex><span>sort file.txt
 </span></span><span style=display:flex><span>sort -n file.txt                 <span style=color:#75715e># Numerical sort</span>
 </span></span><span style=display:flex><span>uniq -c file.txt                 <span style=color:#75715e># Count occurrences</span>
-</span></span></code></pre></div><h2 id=part-3-essential-applications-and-tools>Part 3: Essential Applications and Tools</h2><hr><h3 id=terminal-file-managers>Terminal File Managers</h3><hr><h4 id=midnight-commander-mc>Midnight Commander (mc)</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
+</span></span></code></pre></div><h2 id=part-3-essential-applications-and-tools>Part 3: Essential Applications and Tools</h2><hr><h3 id=terminal-file-managers>Terminal File Managers</h3><hr><h4 id=midnight-commander-mc>Midnight Commander (mc)</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
 </span></span><span style=display:flex><span>sudo apt install mc        <span style=color:#75715e># Debian/Ubuntu</span>
 </span></span><span style=display:flex><span>sudo yum install mc        <span style=color:#75715e># RHEL/CentOS</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Features: Two-pane interface, built-in FTP, file operations</span>
-</span></span></code></pre></div><h4 id=ranger>Ranger</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
+</span></span></code></pre></div><h4 id=ranger>Ranger</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
 </span></span><span style=display:flex><span>sudo apt install ranger
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Features: Vim-like navigation, three-pane layout, file previews</span>
-</span></span></code></pre></div><h4 id=other-terminal-managers>Other Terminal Managers</h4><hr><ul><li><strong>Vifm</strong>: Dual-pane with Vim keybindings</li><li><strong>nnn</strong>: Fast and minimalistic</li><li><strong>Yazi</strong>: Modern, asynchronous (Rust-based)</li></ul><h3 id=enhanced-search-tools>Enhanced Search Tools</h3><hr><h4 id=ripgrep-rg>ripgrep (rg)</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
+</span></span></code></pre></div><h4 id=other-terminal-managers>Other Terminal Managers</h4><hr><ul><li><strong>Vifm</strong>: Dual-pane with Vim keybindings</li><li><strong>nnn</strong>: Fast and minimalistic</li><li><strong>Yazi</strong>: Modern, asynchronous (Rust-based)</li></ul><h3 id=enhanced-search-tools>Enhanced Search Tools</h3><hr><h4 id=ripgrep-rg>ripgrep (rg)</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
 </span></span><span style=display:flex><span>sudo apt install ripgrep
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Usage: Faster than grep, better default experience</span>
 </span></span><span style=display:flex><span>rg <span style=color:#e6db74>&#34;pattern&#34;</span>
 </span></span><span style=display:flex><span>rg -t js <span style=color:#e6db74>&#34;function&#34;</span>              <span style=color:#75715e># JavaScript files only</span>
-</span></span></code></pre></div><h4 id=fd-find>fd-find</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation  </span>
+</span></span></code></pre></div><h4 id=fd-find>fd-find</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation  </span>
 </span></span><span style=display:flex><span>sudo apt install fd-find
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Usage: Simpler alternative to find</span>
 </span></span><span style=display:flex><span>fd <span style=color:#e6db74>&#34;*.txt&#34;</span>
 </span></span><span style=display:flex><span>fd -e py                         <span style=color:#75715e># Python files</span>
-</span></span></code></pre></div><h3 id=disk-analysis-tools>Disk Analysis Tools</h3><hr><h4 id=ncdu>ncdu</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
+</span></span></code></pre></div><h3 id=disk-analysis-tools>Disk Analysis Tools</h3><hr><h4 id=ncdu>ncdu</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
 </span></span><span style=display:flex><span>sudo apt install ncdu
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Usage: Interactive disk usage analyzer</span>
 </span></span><span style=display:flex><span>ncdu /path/to/scan
-</span></span></code></pre></div><h4 id=dust>dust</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation (via cargo)</span>
+</span></span></code></pre></div><h4 id=dust>dust</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation (via cargo)</span>
 </span></span><span style=display:flex><span>cargo install du-dust
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Usage: More intuitive disk usage</span>
 </span></span><span style=display:flex><span>dust /var
-</span></span></code></pre></div><h3 id=permission-management-tools>Permission Management Tools</h3><hr><h4 id=acl-tools>ACL Tools</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
+</span></span></code></pre></div><h3 id=permission-management-tools>Permission Management Tools</h3><hr><h4 id=acl-tools>ACL Tools</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Installation</span>
 </span></span><span style=display:flex><span>sudo apt install acl
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Essential commands</span>
 </span></span><span style=display:flex><span>getfacl /path/to/file
 </span></span><span style=display:flex><span>setfacl -m u:user:perms /path/to/file
-</span></span></code></pre></div><h2 id=best-practices-and-security>Best Practices and Security</h2><hr><h3 id=security-guidelines>Security Guidelines</h3><hr><h4 id=principle-of-least-privilege>Principle of Least Privilege</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>chmod <span style=color:#ae81ff>750</span> sensitive_directory/
+</span></span></code></pre></div><h2 id=best-practices-and-security>Best Practices and Security</h2><hr><h3 id=security-guidelines>Security Guidelines</h3><hr><h4 id=principle-of-least-privilege>Principle of Least Privilege</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>chmod <span style=color:#ae81ff>750</span> sensitive_directory/
 </span></span><span style=display:flex><span>chown root:root /etc/shadow
 </span></span><span style=display:flex><span>chmod <span style=color:#ae81ff>600</span> /etc/shadow
-</span></span></code></pre></div><h4 id=regular-audits>Regular Audits</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Find world-writable files</span>
+</span></span></code></pre></div><h4 id=regular-audits>Regular Audits</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Find world-writable files</span>
 </span></span><span style=display:flex><span>find / -perm -o+w ! -type l 2&gt;/dev/null
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Find SetUID/SetGID files</span>
 </span></span><span style=display:flex><span>find / -perm /6000 2&gt;/dev/null
-</span></span></code></pre></div><h4 id=secure-defaults>Secure Defaults</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Set secure umask</span>
+</span></span></code></pre></div><h4 id=secure-defaults>Secure Defaults</h4><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Set secure umask</span>
 </span></span><span style=display:flex><span>umask <span style=color:#ae81ff>027</span>
-</span></span></code></pre></div><h3 id=navigation-efficiency>Navigation Efficiency</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Directory shortcuts</span>
+</span></span></code></pre></div><h3 id=navigation-efficiency>Navigation Efficiency</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Directory shortcuts</span>
 </span></span><span style=display:flex><span>export CDPATH<span style=color:#f92672>=</span>.:~:/var/www:/opt
 </span></span><span style=display:flex><span>alias proj<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;cd /home/user/projects/current&#39;</span>
 </span></span><span style=display:flex><span>alias logs<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;cd /var/log/apache2&#39;</span>
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#75715e># Enhanced prompt showing path</span>
 </span></span><span style=display:flex><span>PS1<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;\u@\h:\w\$ &#39;</span>
-</span></span></code></pre></div><h3 id=file-management-tips>File Management Tips</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Safe operations</span>
+</span></span></code></pre></div><h3 id=file-management-tips>File Management Tips</h3><hr><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># Safe operations</span>
 </span></span><span style=display:flex><span>cp -i file* dest/                <span style=color:#75715e># Always prompt before overwrite</span>
 </span></span><span style=display:flex><span>rm -I file*                      <span style=color:#75715e># Prompt if deleting &gt;3 files</span>
 </span></span><span style=display:flex><span>
