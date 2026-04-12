@@ -165,22 +165,17 @@
 
 
 
-/* Table */
+/* Table - container handles overflow, table keeps native layout */
+.post__content,
+.content {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 table {
-  display: block !important;
-  width: 100%;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Table width fix */
-article table {
-  width: max-content !important;
-  max-width: 100%;
-}
-
-/* Table border fix */
-article table {
-  border-radius: 0 !important;
-  border: 1px solid #ebebeb !important;
+    display: table !important;
+    width: auto !important;
+    min-width: 100% !important;
+    border-radius: 0 !important;
+    border: 1px solid #ebebeb !important;
 }
