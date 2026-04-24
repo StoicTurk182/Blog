@@ -1,20 +1,6 @@
 /* ===== HTML ELEMENT TOP GAP FIX - MUST BE FIRST ===== */
 /* The html element itself has spacing - this fixes it */
 
-
-.table-wrapper {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.table-wrapper table {
-  min-width: 600px; /* forces scroll to kick in before columns collapse */
-  width: 100%;
-  border-collapse: collapse;
-}
-
 html {
     margin: 0 !important;
     margin-top: 0 !important;
@@ -260,11 +246,10 @@ body {
     }
 }
 
-
-/* Table */
+/* Table - base layout only, overflow handled by custom.css */
 table {
-  display: block !important;
-  width: 100%;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
+
+

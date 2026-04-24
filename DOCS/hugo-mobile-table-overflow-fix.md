@@ -168,3 +168,26 @@ Hugo sites using Mainroad (and likely other themes) load `static/css/custom.css`
 - MDN overflow-x: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x
 - MDN display: https://developer.mozilla.org/en-US/docs/Web/CSS/display
 - CSS Specificity: https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity
+
+
+# applied fix
+
+> display: block !important kills the table layout, and then width: max-content and max-width: 100% fight each other at narrow viewports, producing the ghost column.
+
+```css
+/* Table - container handles overflow, table keeps native layout */
+.post__content,
+.content {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    display: table !important;
+    width: auto !important;
+    min-width: 100% !important;
+    border-radius: 0 !important;
+    border: 1px solid #ebebeb !important;
+}
+
+```

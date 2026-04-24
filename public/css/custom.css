@@ -164,18 +164,15 @@
 
 
 
-
-/* Table - container handles overflow, table keeps native layout */
-.post__content,
-.content {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
+/* Table overflow scroll */
 table {
-    display: table !important;
-    width: auto !important;
-    min-width: 100% !important;
-    border-radius: 0 !important;
+    display: block !important;
+    width: max-content !important;
+    min-width: unset !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
     border: 1px solid #ebebeb !important;
+    border-collapse: collapse;
+    border-radius: 0 !important;
 }
