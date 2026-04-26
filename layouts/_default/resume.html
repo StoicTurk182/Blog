@@ -1,0 +1,443 @@
+{{ define "main" }}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  .cv {
+    font-family: 'Inter', sans-serif;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 5rem;
+    color: #ffffff;
+    background: #000000;
+  }
+
+  /* ── Header ── */
+  .cv-header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid #333;
+    margin-bottom: 3rem;
+    
+  }
+  .cv-name {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.3rem;
+    color: #ffffff;
+    text-align: right; 
+  }
+  .cv-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #ffffff;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 1.5rem;
+  }
+  .cv-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cv-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid #333;
+    color: #888;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Section ── */
+  .cv-section {
+    margin-bottom: 3rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .cv-section.visible {
+    opacity: 1;
+    transform: none;
+  }
+  .cv-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #ff0000;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #1f1f1f;
+  }
+
+  /* ── Profile text ── */
+  .cv-text {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: #ffffff;
+    font-weight: 300;
+  }
+  .cv-text p { margin: 0 0 0.9rem; }
+
+  /* ── Focus ── */
+  .cv-focus {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .cv-focus li {
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #1a1a1a;
+    color: #bbb;
+    display: flex;
+    gap: 0.8rem;
+    align-items: baseline;
+  }
+  .cv-focus li::before {
+    content: '—';
+    color: #444;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Timeline ── */
+  .cv-job { margin-bottom: 2.5rem; }
+  .cv-job-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+  .cv-job-role {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .cv-job-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #555;
+  }
+  .cv-job-org {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #777;
+    margin-bottom: 0.8rem;
+  }
+  .cv-job-body {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #ffffff;
+    font-weight: 300;
+    margin: 0 0 0.7rem;
+  }
+  .cv-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.8rem;
+  }
+  .cv-bullets li {
+    font-size: 0.88rem;
+    color: #999;
+    padding: 0.2rem 0 0.2rem 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+  .cv-bullets li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #555;
+  }
+  .cv-job-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .cv-tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid #2a2a2a;
+    color: #666;
+    letter-spacing: 0.04em;
+  }
+  .cv-divider {
+    border: none;
+    border-top: 1px solid #1f1f1f;
+    margin: 2rem 0;
+  }
+
+  /* ── Skills ── */
+  .cv-skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 3rem;
+  }
+  .cv-skill-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #666;
+    margin-bottom: 0.35rem;
+  }
+  .cv-skill-track {
+    height: 1px;
+    background: #222;
+    position: relative;
+  }
+  .cv-skill-fill {
+    height: 1px;
+    background: #ffffff;
+    width: 0;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .cv-skill-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+  }
+
+  /* ── Education ── */
+  .cv-edu { margin-bottom: 1.2rem; }
+  .cv-edu-qual {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #ddd;
+    margin: 0 0 0.15rem;
+  }
+  .cv-edu-inst {
+    font-size: 0.82rem;
+    color: #666;
+    font-weight: 300;
+  }
+
+  /* ── Link ── */
+  .cv-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #888;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .cv-link:hover { color: #fff; border-color: #fff; }
+
+  @media (max-width: 580px) {
+    .cv-skills { grid-template-columns: 1fr; }
+    .cv-job-meta { flex-direction: column; }
+  }
+</style>
+
+<div class="cv">
+
+  <div class="cv-header">
+    <h1 class="cv-name">Andrew Jones</h1>
+    <div class="cv-title">// IT Engineer &nbsp;·&nbsp; MSP &nbsp;·&nbsp; Infrastructure &nbsp;·&nbsp; Homelab</div>
+    <div class="cv-tags">
+      <span class="cv-tag">Microsoft 365</span>
+      <span class="cv-tag">Intune / Entra</span>
+      <span class="cv-tag">Active Directory</span>
+      <span class="cv-tag">pfSense</span>
+      <span class="cv-tag">Tailscale</span>
+      <span class="cv-tag">PowerShell</span>
+      <span class="cv-tag">Linux</span>
+      <span class="cv-tag">Docker</span>
+      <span class="cv-tag">Ansible</span>
+      <span class="cv-tag">CrowdSec</span>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <div class="cv-section-label">Profile</div>
+    <div class="cv-text">
+      <p>L2 IT Support Engineer at an MSP, working across Microsoft 365 administration, Intune endpoint management, Active Directory, and UniFi networking for multiple client environments. Day-to-day work covers system administration and helpdesk support with regular exposure to different client infrastructures.</p>
+      <p>Outside of work I maintain a home lab built around a Netgate 4200 running pfSense, with seven VLANs, multiple VPN implementations, and intrusion detection. I also manage a small fleet of Debian VPS servers with centralised monitoring and security tooling. What I encounter at work, I rebuild in my own environment to understand it properly. The result is tested documentation and practical knowledge rather than surface familiarity.</p>
+      <p>I publish technical documentation on this blog, maintain a public PowerShell script repository on GitHub, and use Obsidian for knowledge management.</p>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <div class="cv-section-label">Current Focus</div>
+    <ul class="cv-focus">
+      <li>pfSense firewall rules and network segmentation</li>
+      <li>Microsoft Defender for Endpoint P2 and Defender for Office 365 P2</li>
+      <li>Conditional Access policy design and migration from Security Defaults</li>
+      <li>PowerShell automation tooling for M365 and web services</li>
+      <li>Python for IT tooling and VPS administration</li>
+      <li>Self-hosted alerting with ntfy over Tailscale HTTPS</li>
+    </ul>
+  </div>
+
+  <div class="cv-section">
+    <div class="cv-section-label">Experience</div>
+
+    <div class="cv-job">
+      <div class="cv-job-meta">
+        <span class="cv-job-role">IT Support Engineer</span>
+        <span class="cv-job-period">Oct 2025 – Present</span>
+      </div>
+      <div class="cv-job-org">Informal IT Ltd — London</div>
+      <div class="cv-job-body">L2 engineer providing infrastructure management and technical support across multiple client environments, spanning system administration, helpdesk support, and network troubleshooting.</div>
+      <ul class="cv-bullets">
+        <li>Full remote deployment of 10+ machines for an accountancy firm including SAGE and IRIS application installation, migration, and server upgrades.</li>
+        <li>Multiple M365 tenant deployments with full DNS protections, DMARC / DKIM, and domain migrations.</li>
+        <li>Large scale network deployment site surveys.</li>
+      </ul>
+      <div class="cv-job-tech">
+        <span class="cv-tech">Active Directory</span>
+        <span class="cv-tech">Entra ID</span>
+        <span class="cv-tech">M365</span>
+        <span class="cv-tech">Intune</span>
+        <span class="cv-tech">Autopilot</span>
+        <span class="cv-tech">UniFi</span>
+        <span class="cv-tech">pfSense</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-job">
+      <div class="cv-job-meta">
+        <span class="cv-job-role">IT Support Engineer</span>
+        <span class="cv-job-period">Jan 2024 – Oct 2025</span>
+      </div>
+      <div class="cv-job-org">GMA Ltd — London</div>
+      <div class="cv-job-body">First and second-line technical support across hardware, software, and physical network infrastructure.</div>
+      <ul class="cv-bullets">
+        <li>Resolved 1,700+ tickets with 95% first-contact resolution rate across 7 months.</li>
+        <li>Administered 100+ M365 tenants with Intune device management for 300+ endpoints including Macs.</li>
+        <li>Daily backup integrity verification across all clients using Veeam.</li>
+        <li>3CX telephony system management and client support across the full business.</li>
+      </ul>
+      <div class="cv-job-tech">
+        <span class="cv-tech">Autotask</span>
+        <span class="cv-tech">M365 / Intune</span>
+        <span class="cv-tech">Veeam</span>
+        <span class="cv-tech">3CX</span>
+        <span class="cv-tech">PowerShell</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-job">
+      <div class="cv-job-meta">
+        <span class="cv-job-role">IT Engineer</span>
+        <span class="cv-job-period">Sep 2022 – Jan 2024</span>
+      </div>
+      <div class="cv-job-org">Testronic Labs — London</div>
+      <div class="cv-job-body">Network security, VDI implementation, and SharePoint integration. Physical network preparation for major expansion to Manila supporting high-value IP protection.</div>
+      <ul class="cv-bullets">
+        <li>Architected company-wide SharePoint redevelopment.</li>
+        <li>Completed asset audit of 1,750+ devices over 12 months, integrated into a custom SharePoint site.</li>
+        <li>Deployed Parsec clusters and Azure VDI infrastructure with ongoing support for WFH testers.</li>
+        <li>Developed GPU pass-through solutions using Hyper-V integrated GPU parallelisation.</li>
+      </ul>
+      <div class="cv-job-tech">
+        <span class="cv-tech">SharePoint</span>
+        <span class="cv-tech">Parsec</span>
+        <span class="cv-tech">Azure VDI</span>
+        <span class="cv-tech">Hyper-V</span>
+        <span class="cv-tech">VLAN</span>
+        <span class="cv-tech">CrowdStrike</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <div class="cv-section-label">Projects</div>
+
+    <div class="cv-job">
+      <div class="cv-job-meta"><span class="cv-job-role">ORION Home Lab</span></div>
+      <div class="cv-job-org">Netgate 4200 · pfSense · Seven VLANs</div>
+      <div class="cv-job-body">Enterprise-grade home network with full VLAN segmentation, WireGuard, IPsec IKEv2, and OpenVPN remote access. Suricata IDS, pfBlockerNG GeoIP and DNSBL. FreeRADIUS TOTP with Authentik MFA. Active Directory forest with Entra Connect Sync and Intune deployed to real hardware.</div>
+      <div class="cv-job-tech">
+        <span class="cv-tech">pfSense</span><span class="cv-tech">WireGuard</span><span class="cv-tech">Suricata</span><span class="cv-tech">FreeRADIUS</span><span class="cv-tech">Authentik</span><span class="cv-tech">Hyper-V</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-job">
+      <div class="cv-job-meta"><span class="cv-job-role">VPS Infrastructure</span></div>
+      <div class="cv-job-org">OVH Debian · Ansible · Semaphore</div>
+      <div class="cv-job-body">Multi-server Debian environment with defence-in-depth security. CrowdSec blocking 53,000+ malicious IPs, Fail2ban, ntfy self-hosted alerting over Tailscale HTTPS, and Postfix SMTP relay through Microsoft 365.</div>
+      <div class="cv-job-tech">
+        <span class="cv-tech">Ansible</span><span class="cv-tech">CrowdSec</span><span class="cv-tech">Tailscale</span><span class="cv-tech">ntfy</span><span class="cv-tech">Postfix</span><span class="cv-tech">Docker</span>
+      </div>
+    </div>
+
+    <hr class="cv-divider">
+
+    <div class="cv-job">
+      <div class="cv-job-meta"><span class="cv-job-role">IT-Scripts Toolbox</span></div>
+      <div class="cv-job-org">PowerShell · GitHub · iex launcher</div>
+      <div class="cv-job-body">Public PowerShell repository with an iex-compatible menu launcher for on-the-fly script execution from GitHub. Scripts cover Active Directory automation, M365 security posture reporting, Intune packaging, and device setup tasks.</div>
+      <div class="cv-job-tech">
+        <span class="cv-tech">PowerShell</span><span class="cv-tech">Active Directory</span><span class="cv-tech">GitHub</span><span class="cv-tech">M365</span>
+      </div>
+      <br>
+      <a class="cv-link" href="https://github.com/StoicTurk182/IT-Scripts" target="_blank" rel="noopener">github.com/StoicTurk182/IT-Scripts</a>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <div class="cv-section-label">Skills</div>
+    <div class="cv-skills">
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>PowerShell</span><span>90%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="90"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>Microsoft 365 / Entra</span><span>88%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="88"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>Active Directory</span><span>85%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="85"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>Intune / Autopilot</span><span>82%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="82"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>pfSense / Networking</span><span>78%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="78"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>Linux Administration</span><span>75%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="75"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>Docker / Containers</span><span>68%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="68"></div></div></div>
+      <div class="cv-skill-row"><div class="cv-skill-meta"><span>Python</span><span>55%</span></div><div class="cv-skill-track"><div class="cv-skill-fill" data-w="55"></div></div></div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <div class="cv-section-label">Education</div>
+    <div class="cv-edu">
+      <div class="cv-edu-qual">Bachelor of Computer Science (2:2)</div>
+      <div class="cv-edu-inst">University of Wales Trinity St David &nbsp;·&nbsp; 2011–2014</div>
+    </div>
+    <hr class="cv-divider">
+    <div class="cv-edu">
+      <div class="cv-edu-qual">HNC Mechanical Engineering (Merit)</div>
+      <div class="cv-edu-inst">Pembrokeshire College</div>
+    </div>
+    <hr class="cv-divider">
+    <div class="cv-edu">
+      <div class="cv-edu-qual">HND Photographic Studies (Double Merit)</div>
+      <div class="cv-edu-inst">Havering College</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const sections = document.querySelectorAll('.cv-section');
+  const sObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); sObs.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  sections.forEach(s => sObs.observe(s));
+
+  const fills = document.querySelectorAll('.cv-skill-fill');
+  const fObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.width = e.target.dataset.w + '%'; fObs.unobserve(e.target); }});
+  }, { threshold: 0.5 });
+  fills.forEach(f => fObs.observe(f));
+</script>
+{{ end }}

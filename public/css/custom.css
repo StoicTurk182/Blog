@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 /* Search Widget - Clean Square Style */
 .widget-search__field {
     -webkit-appearance: none;
@@ -175,4 +178,15 @@ table {
     border: 1px solid #ebebeb !important;
     border-collapse: collapse;
     border-radius: 0 !important;
+}
+
+
+
+
+body, p, li, td, th, blockquote {
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+}
+
+code, pre, kbd, samp, .highlight {
+  font-family: 'JetBrains Mono', Consolas, "Courier New", monospace !important;
 }
