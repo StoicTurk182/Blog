@@ -136,7 +136,7 @@
 
 /* 2. Hover Icon Color - NO BOX */
 .copy-code-btn:hover {
-    color: #ef4444 !important; /* Red hover */
+    color: #ff0000 !important; /* Red hover */
     background: transparent !important;
 }
 
@@ -190,3 +190,140 @@ body, p, li, td, th, blockquote {
 code, pre, kbd, samp, .highlight {
   font-family: 'JetBrains Mono', Consolas, "Courier New", monospace !important;
 }
+
+/* =============================================================================
+   MAINROAD THEME - NAV MENU & SEARCH INPUT OVERRIDES
+   File: static/css/custom.css (append to existing overrides)
+   Target element: .container.header__container > nav.menu .menu__item--search
+   ============================================================================= */
+
+/* --------------------------------------------------------------------------
+   NAV MENU - Item hover and active highlight
+   (Retained from previous override block for completeness)
+   -------------------------------------------------------------------------- */
+
+nav.menu .menu__item:hover {
+    background: #cc0000 !important;
+}
+
+nav.menu .menu__item--active {
+    background: #cc0000 !important;
+}
+
+@media screen and (min-width: 767px) {
+    nav.menu {
+        border-bottom: 5px solid #cc0000 !important;
+    }
+}
+
+.js .menu__btn--active {
+    color: #cc0000 !important;
+}
+
+:focus > .menu__btn-title {
+    box-shadow: inset 0 0 1px 3px #cc0000 !important;
+}
+
+/* --------------------------------------------------------------------------
+   NAV SEARCH ITEM - li wrapper
+   The hover highlight on the li does not fire reliably when the child input
+   captures pointer events. Pointer-events is forced to none on the li
+   background layer and the input handles interaction directly instead.
+   -------------------------------------------------------------------------- */
+
+nav.menu .menu__item--search {
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 !important;
+}
+
+/* Suppress the generic .menu__item:hover on this specific item
+   so the red highlight block does not flash behind the input */
+nav.menu .menu__item--search:hover {
+    background: transparent !important;
+}
+
+/* --------------------------------------------------------------------------
+   NAV SEARCH - Form wrapper
+   -------------------------------------------------------------------------- */
+
+nav.menu .menu__search {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding: 0 10px !important;
+    margin: 0 !important;
+}
+
+/* --------------------------------------------------------------------------
+   NAV SEARCH - Input field
+   Override base theme input styles which assume a light page context.
+   The field sits inside the black menu bar so needs dark-context treatment.
+   -------------------------------------------------------------------------- */
+
+nav.menu .menu__search input[type="text"] {
+    width: 140px !important;
+    padding: 5px 10px !important;
+    font-size: 13px !important;
+    font-family: inherit !important;
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.10) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 0px !important;
+    outline: none !important;
+    transition: width 0.25s ease, border-color 0.25s ease, background 0.25s ease !important;
+    vertical-align: middle !important;
+    -webkit-appearance: none !important;
+}
+
+/* Placeholder text */
+nav.menu .menu__search input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.50) !important;
+}
+
+nav.menu .menu__search input[type="text"]::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.50) !important;
+}
+
+nav.menu .menu__search input[type="text"]:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.50) !important;
+}
+
+/* Focus state - expands width and highlights with accent colour */
+nav.menu .menu__search input[type="text"]:focus {
+    width: 200px !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #cc0000 !important;
+    box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.35) !important;
+    color: #ffffff !important;
+}
+
+/* Hover state - subtle brightening before focus */
+nav.menu .menu__search input[type="text"]:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* --------------------------------------------------------------------------
+   READ MORE BUTTON - bright red
+   -------------------------------------------------------------------------- */
+
+.btn {
+    background: #cc0000 !important;
+    color: #ffffff !important;
+}
+
+.btn:hover {
+    background: #ff0000 !important;
+    color: #ffffff !important;
+}
+
+/* =============================================================================
+   COLOUR REFERENCE
+   #cc0000              — primary accent (menu highlight, focus border, btn)
+   #ff0000              — hover accent  (btn hover only)
+   rgba(255,255,255,.10) — search input resting background (on black nav bar)
+   rgba(255,255,255,.15) — search input hover/focus background
+   rgba(204,0,0,.35)    — search focus glow ring
+   ============================================================================= */
