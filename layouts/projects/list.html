@@ -1,0 +1,29 @@
+{{ define "main" }}
+<div class="projects-page wrapper">
+
+  <header class="main__header">
+    <h1 class="main__title">{{ .Title }}</h1>
+    {{ with .Content }}<div class="main__content">{{ . }}</div>{{ end }}
+  </header>
+
+  <div class="projects-grid">
+    {{ range .Pages.ByParam "weight" }}
+    <div class="project-tile">
+      <a class="project-wrap" href="{{ .RelPermalink }}">
+        {{ if .Params.thumbnail }}
+        <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}" loading="lazy">
+        {{ else }}
+        <div class="project-placeholder"></div>
+        {{ end }}
+        <div class="project-overlay">
+          {{ with .Params.category }}<p class="project-cat">{{ . }}</p>{{ end }}
+          <h3 class="project-title">{{ .Title }}</h3>
+          <span class="project-btn">View Project</span>
+        </div>
+      </a>
+    </div>
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}

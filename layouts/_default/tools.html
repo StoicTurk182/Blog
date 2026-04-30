@@ -15,26 +15,24 @@
 
 
         <div class="tools-grid">
-            {{ range .Pages }}
-            <article class="tool-card">
-                <div class="card-header">
-                    <span class="card-badge">
-                        {{ if .Params.download_url }}Application{{ else }}Tool{{ end }}
-                    </span>
-                    {{ with .Params.version }}
-                    <span class="card-version">v{{ . }}</span>
-                    {{ end }}
-                </div>
-                
-                <h3 class="card-title">
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </h3>
-                
-                {{ with .Params.description }}
-                <p class="card-description">{{ . }}</p>
-                {{ else }}
-                <p class="card-description">{{ .Summary | plainify | safeHTML | truncate 120 }}</p>
-                {{ end }}
+    {{ range .Pages }}
+    <article class="tool-card" onclick="location.href='{{ .RelPermalink }}'">
+        <div class="card-header">
+            <span class="card-badge">
+                {{ if .Params.download_url }}Application{{ else }}Tool{{ end }}
+            </span>
+            {{ with .Params.version }}
+            <span class="card-version">v{{ . }}</span>
+            {{ end }}
+        </div>
+        
+        <h3 class="card-title">{{ .Title }}</h3>
+        
+        {{ with .Params.description }}
+        <p class="card-description">{{ . }}</p>
+        {{ else }}
+        <p class="card-description">{{ .Summary | plainify | safeHTML | truncate 120 }}</p>
+        {{ end }}
 
                 <!-- Tool Metadata -->
                 {{ if or .Params.tags .Params.categories }}
@@ -60,14 +58,7 @@
                 </div>
                 {{ end }}
 
-                <div class="card-footer">
-    <a href="{{ .RelPermalink }}" class="read-more">
-        View Details
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"></path>
-        </svg>
-    </a>
-</div>
+             
             </article>
             {{ else }}
             <div class="no-tools">
@@ -145,12 +136,40 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
+}
+
+.tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #cbcbcb 0.75px, transparent 0.75px);
+    background-size: 6px 6px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tool-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.tool-card:hover::before {
+    opacity: 1;
 }
 
 .tool-card:hover {
     border-color: #aaa7a7;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
+}
+
+.tool-card:active {
+    transform: translateY(1px);
+    box-shadow: none;
+    transition: transform 0.08s ease;
 }
 
 .tool-card .card-header {

@@ -13,7 +13,7 @@
         </div>
     </section>
 
-    <!-- Posts Section -->
+<!-- Posts Section -->
     <section class="posts">
         <div class="section-intro">
             <h2>Recent Articles</h2>
@@ -22,7 +22,7 @@
 
         <div class="posts-list">
             {{ range .Site.RegularPages.ByDate.Reverse | first 6 }}
-            <article class="post-item">
+            <article class="post-item" onclick="location.href='{{ .RelPermalink }}'">
                 <div class="post-meta">
                     <time class="post-date">{{ .Date.Format "January 2, 2006" }}</time>
                     {{ with .Params.categories }}
@@ -30,9 +30,7 @@
                     {{ end }}
                 </div>
                 
-                <h3 class="post-title">
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                </h3>
+                <h3 class="post-title">{{ .Title }}</h3>
 
                 <div class="post-excerpt">
                     {{ with .Params.description }}
@@ -42,17 +40,6 @@
                     {{ end }}
                 </div>
 
-                <div class="post-actions">
-                    <a href="{{ .RelPermalink }}" class="read-more">
-                        Read article
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </a>
-                    <span class="reading-time">
-                        {{ .ReadingTime }} min read
-                    </span>
-                </div>
             </article>
             {{ else }}
             <div class="no-posts">
@@ -158,15 +145,14 @@
     padding: 2rem 0;
     border-bottom-style: hidden;
     transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.3s ease, box-shadow 0.2s ease;
 }
 
 .post-item:hover {
     border-bottom-color: #ff0000;
 }
 
-.post-item:last-child {
-    border-bottom: none;
-}
+
 
 .post-meta {
     display: flex;
@@ -315,6 +301,46 @@
     .post-title {
         font-size: 1.25rem;
     }
+}
+
+.post-item {
+    padding: 2rem;
+    border: 1px solid #ebebeb;
+    background: rgba(255, 255, 255, 0.639);
+    transition: border-color 0.2s ease, background 0.2s ease;
+    position: relative;
+}
+
+.post-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #cbcbcb 0.75px, transparent 0.75px);
+    background-size: 6px 6px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.post-item > * {
+    position: relative;
+    z-index: 1;
+}
+
+.post-item:hover::before {
+    opacity: 1;
+}
+
+.post-item:hover {
+    border-color: #aaa7a7;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.post-item:active {
+    transform: translateY(3px);
+    box-shadow: none;
+    transition: transform 0.15s ease;
 }
 
 </style>

@@ -73,9 +73,14 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
   weight = 25
 
 [[menu.main]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 30
+
+[[menu.main]]
   name = "Contact"  # ← ADD THIS LINE
   url = "/contact/" # ← ADD THIS LINE  
-  weight = 30      # ← ADD THIS LINE
+  weight = 35      # ← ADD THIS LINE
 
 [markup]
   [markup.goldmark]

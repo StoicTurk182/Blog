@@ -1,0 +1,62 @@
+{{ define "main" }}
+<article class="post wrapper">
+
+  <header class="post__header">
+    <h1 class="post__title">{{ .Title }}</h1>
+    <div class="post__meta meta">
+      {{ with .Params.category }}
+      <span class="meta__item">{{ . }}</span>
+      {{ end }}
+      {{ with .Params.status }}
+      <span class="meta__item">Status: {{ . }}</span>
+      {{ end }}
+      {{ with .Date }}
+      <span class="meta__item">{{ .Format "January 2006" }}</span>
+      {{ end }}
+    </div>
+  </header>
+
+  {{ with .Params.warning }}
+  <div class="project-warning">
+      <span class="project-warning__icon">!</span>
+      <p class="project-warning__text">
+          <span class="project-warning__label">Security Warning</span>
+          {{ . }}
+      </p>
+  </div>
+  {{ end }}
+
+  {{ with .Params.thumbnail }}
+  <div class="post__thumbnail">
+    <img src="{{ . }}" alt="{{ $.Title }}">
+  </div>
+  {{ end }}
+
+  <div class="post__content content">
+    {{ .Content }}
+  </div>
+
+  {{ with .Params.links }}
+  <div class="project-links">
+    <h3>Links</h3>
+    <ul>
+      {{ range . }}
+      <li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .label }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+
+  <div class="post__footer">
+    <a class="project-back" href="/projects/">
+      <span class="project-back__chevron">
+        <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="8,2 4,6 8,10"/>
+        </svg>
+      </span>
+      Projects
+    </a>
+  </div>
+
+</article>
+{{ end }}

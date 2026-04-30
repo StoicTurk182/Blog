@@ -67,15 +67,7 @@
                     {{ end }}
                 </div>
                 
-                <div class="article-actions">
-                    <a href="{{ .RelPermalink }}" class="read-more">
-                        Read article
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0L6.59 1.41L12.17 7H0V9H12.17L6.59 14.59L8 16L16 8L8 0Z"/>
-                        </svg>
-                    </a>
-                    <span class="reading-time">{{ .ReadingTime }} min read</span>
-                </div>
+              
             </div>
         </article>
         {{ else }}
@@ -424,7 +416,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #e53e3e;
+    color: #000000;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
@@ -432,7 +424,13 @@
 
 .pagination-prev:hover,
 .pagination-next:hover {
-    color: #c53030;
+    color: #ff0000;
+}
+
+.pagination-prev:active, 
+.pagination-next:active {
+  /* Moves button down by 3-4px */
+  transform: translateY(0.8px); ease 0.8s;
 }
 
 .pagination-info {
