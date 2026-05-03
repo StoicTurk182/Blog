@@ -13,7 +13,7 @@ Obsidian Vault MGMT
 
 Custom database management and oversight of my obsidian vault, allowing for the tracking of changes over time. Created via Windows lite SQL server and HTML front end. 
 
-This provides the ability to see the growth and changes over time of the vault as well as see a comparative data set. 
+This provides the ability to see the growth and changes over time of the vault, it also allows for comparative data sets. This just makes large vault much easier to keep organized to prevent format drift.   
 
 ---
 
