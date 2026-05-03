@@ -339,6 +339,19 @@ nav.menu .menu__search input[type="text"]:hover {
     padding: 25px;
 }
 
+/* === Project Detail Page - Thumbnail === */
+.post__thumbnail {
+    text-align: left;
+    margin: 0 0 24px 0;
+}
+
+.post__thumbnail img {
+    display: inline-block;
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+}
+
 /* Grid layout */
 .projects-grid {
     display: grid;

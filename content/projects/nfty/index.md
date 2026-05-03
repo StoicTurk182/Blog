@@ -3,7 +3,7 @@ title: "nfty - Server Alerts"
 category: "SysOps"
 thumbnail: "/images/posts/nfty_project.png"
 status: "Active"
-weight: 20
+weight: 40
 date: 2026-01-01
 ---
 

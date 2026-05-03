@@ -5,7 +5,7 @@ lastmod: 2026-04-30
 draft: false
 author: "Andrew Jones"
 description: "PowerShell pipeline that wraps IntuneWinAppUtil.exe to bulk-package Win32 apps with auto-detected install commands and detection rules."
-categories: ["Intune"]
+category: "Intune"
 tags: ["Intune","PowerShell","Win32","Packaging","MSI"]
 toc: true
 thumbnail: "/images/posts/interwin32.png"
