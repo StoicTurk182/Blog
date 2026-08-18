@@ -623,3 +623,14 @@ nav.menu .menu__search input[type="text"]:hover {
     display: block;
     margin-bottom: 4px;
 }
+
+
+.post-back-nav {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 0 1.5rem;
+    padding: 0 1rem;
+    position: ;
+    z-index: 2;
+    clear: both;
+}
