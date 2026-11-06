@@ -1,3 +1,4 @@
 [submodule "themes/mainroad"]
 	path = themes/mainroad
-	url = https://github.com/vimux/mainroad
+	url = https://github.com/StoicTurk182/mainroad.git
+	branch = custom-theme
