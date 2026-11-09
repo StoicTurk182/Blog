@@ -82,64 +82,6 @@ body {
     display: none;
 }
 
-/* Menu Search Box - Force Override */
-
-
-/* 1. Kill the theme's global focus shadow specifically for search */
-.menu__item--search:focus-within .menu__btn-title,
-.menu__item--search:focus .menu__btn-title,
-.menu__search:focus-within,
-.menu__search:focus {
-    box-shadow: none !important;
-}
-
-/* 2. Prevent the menu item background from changing on hover/focus */
-.menu__item--search:hover,
-.menu__item--search:focus-within {
-    background: transparent !important;
-}
-
-/* 3. Ensure the input itself doesn't trigger the inherited shadow */
-.menu__search input:focus {
-    box-shadow: none !important;
-    outline: 0 !important;
-    /* Maintain your desired background here */
-    background: rgba(255, 255, 255, 0.1) !important;
-}
-
-.menu__item--search {
-    border-left: 1px solid rgba(255, 255, 255, .1) !important;
-}
-
-.menu__search input,
-.menu__search input[type="text"],
-.menu .menu__search input {
-    display: block !important;
-    padding: .625rem .9375rem !important;
-    font-weight: 700 !important;
-    font-size: .875rem !important;
-    text-transform: uppercase !important;
-    color: #fff !important;
-    background: transparent !important;
-    border: none !important;
-    width: 120px !important;
-    transition: background-color .25s ease-out !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-}
-
-.menu__search input::placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-}
-
-.menu__search input:focus {
-    outline: none !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    width: 160px !important;
-}
-
 /* --- Clean Obsidian Icon Only --- */
 
 .highlight {

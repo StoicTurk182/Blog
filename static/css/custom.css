@@ -39,64 +39,6 @@
     display: none;
 }
 
-/* Menu Search Box - Force Override */
-
-
-/* 1. Kill the theme's global focus shadow specifically for search */
-.menu__item--search:focus-within .menu__btn-title,
-.menu__item--search:focus .menu__btn-title,
-.menu__search:focus-within,
-.menu__search:focus {
-    box-shadow: none !important;
-}
-
-/* 2. Prevent the menu item background from changing on hover/focus */
-.menu__item--search:hover,
-.menu__item--search:focus-within {
-    background: transparent !important;
-}
-
-/* 3. Ensure the input itself doesn't trigger the inherited shadow */
-.menu__search input:focus {
-    box-shadow: none !important;
-    outline: 0 !important;
-    /* Maintain your desired background here */
-    background: rgba(255, 255, 255, 0.1) !important;
-}
-
-.menu__item--search {
-    border-left: 1px solid rgba(255, 255, 255, .1) !important;
-}
-
-.menu__search input,
-.menu__search input[type="text"],
-.menu .menu__search input {
-    display: block !important;
-    padding: .625rem .9375rem !important;
-    font-weight: 700 !important;
-    font-size: .875rem !important;
-    text-transform: uppercase !important;
-    color: #fff !important;
-    background: transparent !important;
-    border: none !important;
-    width: 120px !important;
-    transition: background-color .25s ease-out !important;
-    -webkit-appearance: none !important;
-    appearance: none !important;
-}
-
-.menu__search input::placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-}
-
-.menu__search input:focus {
-    outline: none !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    width: 160px !important;
-}
-
 /* --- Clean Obsidian Icon Only --- */
 
 .highlight {
@@ -192,17 +134,13 @@ code, pre, kbd, samp, .highlight {
 }
 
 /* =============================================================================
-   MAINROAD THEME - NAV MENU & SEARCH INPUT OVERRIDES
-   File: static/css/custom.css (append to existing overrides)
-   Target element: .container.header__container > nav.menu .menu__item--search
+   NAV MENU AND SEARCH
+   Markup: layouts/partials/menu.html
    ============================================================================= */
 
-/* --------------------------------------------------------------------------
-   NAV MENU - Item hover and active highlight
-   (Retained from previous override block for completeness)
-   -------------------------------------------------------------------------- */
-
-nav.menu .menu__item:hover {
+/* Menu item hover and active highlight.
+   Search item excluded so the red block does not show behind the input. */
+nav.menu .menu__item:not(.menu__item--search):hover {
     background: #cc0000 !important;
 }
 
@@ -224,85 +162,70 @@ nav.menu .menu__item--active {
     box-shadow: inset 0 0 1px 3px #cc0000 !important;
 }
 
-/* --------------------------------------------------------------------------
-   NAV SEARCH ITEM - li wrapper
-   The hover highlight on the li does not fire reliably when the child input
-   captures pointer events. Pointer-events is forced to none on the li
-   background layer and the input handles interaction directly instead.
-   -------------------------------------------------------------------------- */
-
+/* Search wrapper. Vertical padding stops the input sitting flush
+   against the bottom of the dropdown on mobile. */
 nav.menu .menu__item--search {
-    background: transparent !important;
-    display: flex !important;
-    align-items: center !important;
-    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    background: transparent;
 }
-
-/* Suppress the generic .menu__item:hover on this specific item
-   so the red highlight block does not flash behind the input */
-nav.menu .menu__item--search:hover {
-    background: transparent !important;
-}
-
-/* --------------------------------------------------------------------------
-   NAV SEARCH - Form wrapper
-   -------------------------------------------------------------------------- */
 
 nav.menu .menu__search {
-    display: flex !important;
-    align-items: center !important;
-    height: 100% !important;
-    padding: 0 10px !important;
-    margin: 0 !important;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: .625rem .9375rem;
 }
 
-/* --------------------------------------------------------------------------
-   NAV SEARCH - Input field
-   Override base theme input styles which assume a light page context.
-   The field sits inside the black menu bar so needs dark-context treatment.
-   -------------------------------------------------------------------------- */
-
-nav.menu .menu__search input[type="text"] {
-    width: 140px !important;
-    padding: 5px 10px !important;
-    font-size: 13px !important;
-    font-family: inherit !important;
-    color: #ffffff !important;
-    background: rgba(255, 255, 255, 0.10) !important;
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    border-radius: 0px !important;
-    outline: none !important;
-    transition: width 0.25s ease, border-color 0.25s ease, background 0.25s ease !important;
-    vertical-align: middle !important;
-    -webkit-appearance: none !important;
+/* Search input. Understated: no box, hairline underline only.
+   16px on mobile prevents iOS Safari zooming on focus. */
+nav.menu .menu__search input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 4px 2px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 0;
+    outline: none;
+    appearance: none;
+    transition: width 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Placeholder text */
-nav.menu .menu__search input[type="text"]::placeholder {
-    color: rgba(255, 255, 255, 0.50) !important;
+nav.menu .menu__search input::placeholder {
+    color: rgba(255, 255, 255, 0.40);
 }
 
-nav.menu .menu__search input[type="text"]::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.50) !important;
+nav.menu .menu__search input:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.40);
 }
 
-nav.menu .menu__search input[type="text"]:-moz-placeholder {
-    color: rgba(255, 255, 255, 0.50) !important;
+/* After :hover so the focus colour wins when both apply */
+nav.menu .menu__search input:focus {
+    border-bottom-color: #cc0000;
+    box-shadow: 0 1px 0 #cc0000;
 }
 
-/* Focus state - expands width and highlights with accent colour */
-nav.menu .menu__search input[type="text"]:focus {
-    width: 200px !important;
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: #cc0000 !important;
-    box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.35) !important;
-    color: #ffffff !important;
-}
+/* Desktop: compact fixed width, small expansion on focus */
+@media screen and (min-width: 767px) {
+    nav.menu .menu__search {
+        width: auto;
+        padding: 0 .9375rem;
+    }
 
-/* Hover state - subtle brightening before focus */
-nav.menu .menu__search input[type="text"]:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: rgba(255, 255, 255, 0.45) !important;
+    nav.menu .menu__search input {
+        width: 130px;
+        font-size: 13px;
+    }
+
+    nav.menu .menu__search input:focus {
+        width: 170px;
+    }
 }
 
 /* --------------------------------------------------------------------------
