@@ -188,6 +188,39 @@ code, pre, kbd, samp, .highlight {
 }
 
 /* =============================================================================
+   SITE BACKDROP - slow drifting dot grid
+   Drawn on a layer pinned to the screen, so it stays still while the
+   page scrolls. Shows in the page margins beside the content container.
+   ============================================================================= */
+html::before {
+    content: '';
+    position: fixed;
+    inset: -22px;
+    z-index: -1;
+    background-color: #000000;
+    background-image: radial-gradient(circle, #2b2b2b 1px, transparent 1px);
+    background-size: 22px 22px;
+    animation: backdrop-drift 60s linear infinite;
+    pointer-events: none;
+}
+
+/* The body's own black is switched off so the pinned layer shows through */
+body.body {
+    background-color: transparent !important;
+}
+
+@keyframes backdrop-drift {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(22px, 22px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html::before {
+        animation: none;
+    }
+}
+
+/* =============================================================================
    NAV MENU AND SEARCH
    Markup: layouts/partials/menu.html
    ============================================================================= */
