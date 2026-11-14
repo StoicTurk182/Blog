@@ -108,6 +108,7 @@
     {{- $js := resources.Get "js/copy-code.js" | minify | fingerprint -}}
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>        
     <link rel="expect" blocking="render" href="#page-end">
+    {{ if .IsHome }}<link rel="preload" as="image" href="/images/posts/pexels-pixabay-159304.jpg">{{ end }}
 </head>
 
 <body class="body">
