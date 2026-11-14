@@ -221,6 +221,27 @@ body.body {
 }
 
 /* =============================================================================
+   PAGE TRANSITIONS
+   Uses the browser's built-in cross-page transition. The header is named so
+   it holds still while the rest of the page cross-fades.
+   ============================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition {
+        navigation: auto;
+    }
+}
+
+.header {
+    view-transition-name: site-header;
+}
+
+/* Retire the old script fade: keep the body visible and un-animated */
+body.body {
+    opacity: 1 !important;
+    transition: none !important;
+}
+
+/* =============================================================================
    NAV MENU AND SEARCH
    Markup: layouts/partials/menu.html
    ============================================================================= */

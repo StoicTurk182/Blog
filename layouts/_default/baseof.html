@@ -107,6 +107,7 @@
     
     {{- $js := resources.Get "js/copy-code.js" | minify | fingerprint -}}
     <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>        
+    <link rel="expect" blocking="render" href="#page-end">
 </head>
 
 <body class="body">
@@ -147,33 +148,9 @@ window.addEventListener('pageshow', function() {
         document.body.style.opacity = '1';
     });
 });
-
-document.addEventListener('click', function(e) {
-    const link = e.target.closest('a');
-    
-    if (link && 
-        link.href && 
-        link.origin === window.location.origin && 
-        link.target !== '_blank' &&
-        !link.hash &&
-        !e.metaKey && !e.ctrlKey) { // Don't fade if user Cmd/Ctrl+Clicks to open new tab
-        
-        e.preventDefault();
-        const destination = link.href;
-        
-        document.body.style.opacity = '0';
-        
-        // Match this delay exactly to the transition duration (200ms)
-        setTimeout(() => {
-            window.location.href = destination;
-        }, 200);
-    }
-});
 </script>
 
 
-</body>
-</html>
 
 <style>
 
@@ -548,5 +525,6 @@ body {
 
 
 
+<div id="page-end" hidden></div>
 </body>
 </html>
