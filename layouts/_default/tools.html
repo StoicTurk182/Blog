@@ -139,25 +139,9 @@
     position: relative;
 }
 
-.tool-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, #cbcbcb 0.75px, transparent 0.75px);
-    background-size: 6px 6px;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
 .tool-card > * {
     position: relative;
     z-index: 1;
-}
-
-.tool-card:hover::before {
-    opacity: 1;
 }
 
 .tool-card:hover {
