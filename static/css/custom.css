@@ -242,6 +242,17 @@ body.body {
 }
 
 /* =============================================================================
+   SCROLLBAR - stable layout and dark colours
+   Reserves the scrollbar's space on every page so content does not shift
+   sideways between short and long pages, and colours it to match the site.
+   ============================================================================= */
+html:root {
+    scrollbar-gutter: stable;
+    scrollbar-color: #444444 #000000;
+    background-color: #000000 !important;
+}
+
+/* =============================================================================
    NAV MENU AND SEARCH
    Markup: layouts/partials/menu.html
    ============================================================================= */
