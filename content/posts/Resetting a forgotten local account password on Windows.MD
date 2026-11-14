@@ -17,25 +17,6 @@ socialShare: true
 
 Procedure for resetting a forgotten **local account** password on Windows 11 and Windows Server using the Windows Recovery Environment (WinRE). Works by temporarily replacing the accessibility binary (`utilman.exe`) with `cmd.exe` to obtain a SYSTEM-level command prompt at the login screen. Verified on a personal Windows 11 device where the OS volume mounted as `E:` under WinRE; the same technique applies to Windows Server (Desktop Experience) editions with the deltas noted below.
 
-**Table of Contents**
-
-1. [Overview](#overview)
-2. [Applicability and Limitations](#applicability-and-limitations)
-3. [Windows Server Applicability](#windows-server-applicability)
-4. [Prerequisites](#prerequisites)
-5. [Procedure](#procedure)
-	1. [Step 1: Boot into WinRE](#step-1-boot-into-winre)
-	2. [Step 2: Identify the Windows Volume](#step-2-identify-the-windows-volume)
-	3. [Step 3: Verify BitLocker Status](#step-3-verify-bitlocker-status)
-	4. [Step 4: Swap utilman.exe with cmd.exe](#step-4-swap-utilmanexe-with-cmdexe)
-	5. [Step 5: Reset the Password](#step-5-reset-the-password)
-	6. [Step 6: Restore utilman.exe](#step-6-restore-utilmanexe)
-6. [Critical Notes](#critical-notes)
-7. [Troubleshooting](#troubleshooting)
-8. [Command Reference](#command-reference)
-9. [References](#references)
-
-
 ## Overview
 
 The `utilman.exe` swap is a physical-access recovery technique. At the Windows login screen, the Accessibility (Ease of Access) button launches `utilman.exe` with SYSTEM privileges. Replacing that binary with `cmd.exe` yields an elevated command prompt before authentication, from which `net user` can reset any local account password.

@@ -17,22 +17,29 @@
         <div class="tools-grid">
     {{ range .Pages }}
     <article class="tool-card" onclick="location.href='{{ .RelPermalink }}'">
-        <div class="card-header">
-            <span class="card-badge">
-                {{ if .Params.download_url }}Application{{ else }}Tool{{ end }}
-            </span>
-            {{ with .Params.version }}
-            <span class="card-version">v{{ . }}</span>
+        <div class="card-main">
+            {{ with .Params.tool_image }}
+            <img class="card-thumb" src="{{ . | relURL }}" alt="" loading="lazy">
             {{ end }}
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-badge">
+                        {{ if .Params.download_url }}Application{{ else }}Tool{{ end }}
+                    </span>
+                    {{ with .Params.version }}
+                    <span class="card-version">v{{ . }}</span>
+                    {{ end }}
+                </div>
+
+                <h3 class="card-title">{{ .Title }}</h3>
+
+                {{ with .Params.description }}
+                <p class="card-description">{{ . }}</p>
+                {{ else }}
+                <p class="card-description">{{ .Summary | plainify | safeHTML | truncate 120 }}</p>
+                {{ end }}
+            </div>
         </div>
-        
-        <h3 class="card-title">{{ .Title }}</h3>
-        
-        {{ with .Params.description }}
-        <p class="card-description">{{ . }}</p>
-        {{ else }}
-        <p class="card-description">{{ .Summary | plainify | safeHTML | truncate 120 }}</p>
-        {{ end }}
 
                 <!-- Tool Metadata -->
                 {{ if or .Params.tags .Params.categories }}
@@ -154,6 +161,27 @@
     transform: translateY(1px);
     box-shadow: none;
     transition: transform 0.08s ease;
+}
+
+.tool-card .card-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.tool-card .card-thumb {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border: 1px solid #ebebeb;
+    background: #ffffff;
+}
+
+.tool-card .card-body {
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .tool-card .card-header {
