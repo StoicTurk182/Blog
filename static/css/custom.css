@@ -133,6 +133,60 @@ code, pre, kbd, samp, .highlight {
   font-family: 'JetBrains Mono', Consolas, "Courier New", monospace !important;
 }
 
+/* Code blocks - black background on every layout.
+   !important is needed to override the inline background colour
+   that Hugo's syntax highlighter writes on each <pre>. */
+.highlight,
+.highlight pre {
+    background-color: #000000 !important;
+}
+
+.highlight pre code {
+    background-color: transparent !important;
+}
+
+/* =============================================================================
+   TEXT LINKS - shared standard
+   Colours are defined once here. Cards are deliberately not included.
+   ============================================================================= */
+:root {
+    --link-color: #000000;
+    --link-hover: #ff0000;
+    --link-active: #b91c1c;
+}
+
+/* Title links in text listings: posts list and search results */
+.article-title a,
+.search-result-title a {
+    color: var(--link-color);
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.article-title a:hover,
+.article-title a:focus-visible,
+.search-result-title a:hover,
+.search-result-title a:focus-visible {
+    color: var(--link-hover);
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--link-hover);
+}
+
+.article-title a:active,
+.search-result-title a:active {
+    color: var(--link-active);
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--link-active);
+}
+
 /* =============================================================================
    NAV MENU AND SEARCH
    Markup: layouts/partials/menu.html
