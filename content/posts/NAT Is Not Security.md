@@ -40,6 +40,7 @@ So is "behind NAT, so it is secure" true? Not in any meaningful sense. NAT happe
 This article explains why the security commonly attributed to NAT is incidental rather than designed. It covers why anti-spoofing controls (blocking RFC1918 and bogon sources) are still required at a NAT edge, and why ALGs weaken the edge by letting packet payloads control firewall pinholes. The examples use pfSense (FreeBSD pf), but the principles apply to any NAT device.
 
 ## Summary
+---
 
 | Assumption | Reality |
 |------------|---------|
@@ -51,6 +52,7 @@ This article explains why the security commonly attributed to NAT is incidental 
 RFC 4864 states that the protection people perceive in IPv4 NAT can be provided in IPv6 by stateful filtering alone, without address translation.
 
 ## What NAT Actually Does
+---
 
 NAT (RFC 3022) rewrites addresses, and NAPT also rewrites ports, so that many inside hosts can share one public address. It was designed to conserve addresses, not to provide security.
 ```bash
@@ -62,10 +64,12 @@ For each outbound flow the device records a mapping:
 A reply that matches the mapping is translated back and forwarded. A packet that matches no mapping has no translation to apply. What happens to that packet next depends on the **filter policy**, not on NAT.
 
 ## Packet Flow Through NAT
+---
 
 This section follows one outbound flow from the inside host's Ethernet frame to the translated frame on the WAN, then the return path. It shows at which point each header is stripped, rewritten or rebuilt, and where the drop of unsolicited inbound traffic actually happens.
 
 ### Scenario
+---
 
 ```bash
 Inside host   : 192.168.1.10   MAC aa:aa:aa:00:00:10
@@ -78,6 +82,7 @@ Flow: 192.168.1.10:51000  ->  198.51.100.7:443
 ```
 
 ### Overview
+---
 
 ```bash
 [Host] --frame 1--> [Switch] --frame 1--> [Router LAN NIC]
@@ -96,6 +101,7 @@ Flow: 192.168.1.10:51000  ->  198.51.100.7:443
 ```
 
 ### Stage 1: Host Builds the Frame
+---
 
 The destination is off-subnet, so the host sends the frame to its default gateway. It resolves the gateway MAC via ARP. The IP destination stays the remote server.
 
@@ -125,6 +131,7 @@ The destination is off-subnet, so the host sends the frame to its default gatewa
 ```
 
 ### Stage 2: Switch Forwards (Layer 2 Only)
+---
 
 ```bash
 Switch looks up Dst MAC bb:bb:bb:00:00:01 in its MAC table
@@ -133,6 +140,7 @@ No change to any header.
 ```
 
 ### Stage 3: Router Receives on LAN and De-encapsulates
+---
 
 ```bash
 1. NIC checks FCS and that Dst MAC matches its own (or broadcast/multicast).
@@ -145,6 +153,7 @@ No change to any header.
 ```
 
 ### Stage 4: pf Processing (pfSense)
+---
 
 ```bash
 Inbound on LAN
@@ -168,6 +177,7 @@ Outbound on WAN
 ```
 
 ### Stage 5: Header Rewrite
+---
 
 ```bash
 Field           Before              After              Why
@@ -186,6 +196,7 @@ Payload         unchanged           unchanged          (unless an ALG
 Checksums are normally updated incrementally rather than fully recomputed (RFC 1624). The payload row is where ALGs enter the picture; see [ALG: Binding Ports to Payloads](#alg-binding-ports-to-payloads).
 
 ### Stage 6: Re-encapsulate on WAN
+---
 
 The router resolves the next-hop MAC (the ISP gateway) via ARP and builds a brand new Ethernet header.
 
@@ -216,6 +227,7 @@ The router resolves the next-hop MAC (the ISP gateway) via ARP and builds a bran
 If the WAN uses PPPoE, a PPPoE (6 bytes) plus PPP (2 bytes) header sits between the Ethernet header and IP. The EtherType becomes 0x8864 and the effective MTU drops to 1492 (RFC 2516).
 
 ### Stage 7: Return Path (Reverse Translation)
+---
 
 ```bash
 Server reply arrives on WAN:
@@ -242,6 +254,7 @@ Unsolicited inbound packet (no state match, no port forward):
 ```
 
 ### Variant: NAT-T (IPsec ESP Encapsulated in UDP 4500)
+---
 
 ESP has no ports, so NAPT cannot multiplex it. When NAT is detected during IKE, ESP is wrapped in UDP.
 
@@ -262,6 +275,7 @@ With NAT-T (RFC 3948):
 NAT rewrites only the outer IP and UDP headers. The ESP payload is untouched, so integrity holds. IKE also moves from UDP 500 to 4500. AH cannot be fixed this way because its integrity check covers the outer IP header, which NAT changes.
 
 ### Comparison: IPv6 (No NAT, Stateful Filter)
+---
 
 ```bash
 Stage 3  : same, except Hop Limit is decremented instead of TTL
@@ -278,8 +292,10 @@ Stage 7  : reply matches state and is forwarded; unsolicited inbound is
 The IPv6 flow reaches the same security outcome at stages 4 and 7 with no translation at all.
 
 ## The Obfuscation Assumption
+---
 
 ### Hidden Is Not Unreachable
+---
 
 The belief is that remote hosts cannot see or address inside hosts, so inside hosts cannot be attacked. That is partly true for hosts across the internet, but for the wrong reason:
 
@@ -287,6 +303,7 @@ The belief is that remote hosts cannot see or address inside hosts, so inside ho
 - That protection comes from **other networks' routing policy**, not from your NAT device.
 
 ### Routing Still Delivers Packets to Inside Addresses
+---
 
 Any host that can reach your WAN interface at layer 2 does not depend on internet routing. Examples include a host on the same ISP segment, a shared DOCSIS or PON segment, an upstream router you don't control, a compromised CPE, or a datacentre neighbour. That host can simply point a route at your WAN address:
 
@@ -301,6 +318,7 @@ Your firewall is a router. It receives a packet with destination `192.168.1.10`,
 Logical deduction, consistent with how IP forwarding works (RFC 1812): a Linux router doing `MASQUERADE` with a permissive `FORWARD` policy forwards these packets. A pfSense box does not, but only because its default WAN ruleset blocks unsolicited inbound traffic.
 
 ### Where the Drop Actually Happens
+---
 
 On pfSense the sequence for an unsolicited inbound packet is:
 
@@ -314,8 +332,10 @@ WAN NIC -> strip Ethernet -> pf state lookup (no match)
 Remove the default-deny WAN rule and NAT would still be "working", yet inside hosts would be reachable from the WAN segment. The security was always the filter.
 
 ## Why Block RFC1918 and Bogons Is Still Needed
+---
 
 ### What the Rules Actually Match
+---
 
 pfSense exposes two options on the WAN interface (Interfaces > WAN > Reserved Networks):
 
@@ -338,6 +358,7 @@ Why spoofed private sources matter:
 - Spoofed bogon sources are common in DoS and scanning traffic, because the attacker never needs the replies.
 
 ### RFC1918 and Special-Purpose Ranges
+---
 
 | Range | Defined In | Purpose |
 |-------|------------|---------|
@@ -352,6 +373,7 @@ Why spoofed private sources matter:
 The full list of special-purpose ranges is maintained in the IANA registries defined by RFC 6890. Which ranges each pfSense option includes depends on the version; confirm on your box with the commands in [Verification on pfSense](#verification-on-pfsense).
 
 ### Bogon Networks
+---
 
 Bogons are address ranges that should never appear as a source on the internet. They include reserved and special-purpose ranges, plus ("fullbogons") space that IANA or the RIRs have not yet allocated.
 
@@ -362,6 +384,7 @@ pfSense-specific notes:
 - Unallocated space changes as RIRs allocate blocks. A stale list can block newly allocated, legitimate ranges, so keep updates enabled.
 
 ### Egress Filtering (BCP 38)
+---
 
 The same logic applies outbound. BCP 38 (RFC 2827) and BCP 84 (RFC 3704) ask network edges to drop outbound packets whose source is not a legitimate internal address.
 
@@ -376,6 +399,7 @@ Source: RFC1918 alias (10/8, 172.16/12, 192.168/16) | Log: enabled
 Outbound NAT on pfSense is applied before WAN outbound filter rules see the packet, so translated traffic, which has the WAN address as its source, is not matched by this rule.
 
 ### When to Disable the Private Networks Rule
+---
 
 If the WAN itself sits on a private network, the rule blocks legitimate upstream traffic and must be unchecked on that interface only:
 
@@ -387,8 +411,10 @@ If the WAN itself sits on a private network, the rule blocks legitimate upstream
 Keep bogon blocking enabled in these cases unless the upstream range is itself in the bogon list.
 
 ## ALG: Binding Ports to Payloads
+---
 
 ### Why ALGs Exist
+---
 
 Some protocols carry IP addresses and ports **inside the payload**, not just in the headers:
 
@@ -401,6 +427,7 @@ Some protocols carry IP addresses and ports **inside the payload**, not just in 
 NAT rewrites headers only. An ALG (RFC 2663, RFC 3027) parses the payload, rewrites the embedded addresses, and pre-creates an **expectation**: a pinhole allowing an inbound connection that the control channel announced.
 
 ### The Trust Problem
+---
 
 The ALG breaks the normal security model of a NAT edge:
 
@@ -415,6 +442,7 @@ The payload is controlled by the inside endpoint, and by anything that can influ
 - Parsing is port-based on many implementations, so traffic that merely looks like SIP on port 5060 is treated as SIP.
 
 ### Known Abuse: NAT Slipstreaming
+---
 
 In 2020 Samy Kamkar published NAT Slipstreaming:
 
@@ -426,14 +454,17 @@ In 2020 Samy Kamkar published NAT Slipstreaming:
 A second version extended this to reach other internal hosts, not only the victim's machine. Browser vendors responded by blocking the relevant ports, but the root cause is the ALG design.
 
 ### SIP ALG Breakage
+---
 
 Even without an attacker, SIP ALGs on many routers corrupt SIP signalling. They rewrite headers incorrectly, mangle SDP, or break TLS-protected SIP that they cannot read. Standard VoIP provider guidance is to disable the SIP ALG and let the phone system handle NAT traversal (STUN, ICE, TURN, or an SBC). On pfSense, Netgate's VoIP guidance centres on static-port outbound NAT rather than payload rewriting.
 
 ### Linux Conntrack Helper Change
+---
 
 Linux netfilter used to attach helpers (Linux's ALG equivalent) automatically to any traffic on well-known ports. Starting with kernel 4.7, automatic helper assignment is disabled by default (`nf_conntrack_helper=0`), and helpers must be assigned explicitly to specific flows. The Netfilter project documented why: helpers applied broadly let attackers craft traffic that opens expectations.
 
 ### ALG Recommendations
+---
 
 - Disable SIP and H.323 ALGs on edge devices unless a specific, supported need exists.
 - Prefer protocols that don't embed addresses: passive FTP or SFTP instead of active FTP, SIP over TLS with ICE/STUN or an SBC.
@@ -441,6 +472,7 @@ Linux netfilter used to attach helpers (Linux's ALG equivalent) automatically to
 - Treat any ALG as part of the attack surface in firewall reviews.
 
 ## What Actually Provides the Security
+---
 
 | Control | What It Stops |
 |---------|---------------|
@@ -455,6 +487,7 @@ Linux netfilter used to attach helpers (Linux's ALG equivalent) automatically to
 NAT appears nowhere in the "What It Stops" column. It can coexist with all of these controls but contributes none of them.
 
 ## IPv6 Perspective
+---
 
 IPv6 removes NAT for general use and makes the point explicit:
 
@@ -464,10 +497,12 @@ IPv6 removes NAT for general use and makes the point explicit:
 - ALG payload rewriting is no longer needed. Stateful firewalls still use helpers for "related" expectations, with the same trust caveats.
 
 ## IPv6 Is Routable by Design
+---
 
 Without NAT to fall back on, the obfuscation assumption disappears completely in IPv6. Every host with a global address can be addressed from anywhere, and firewall policy is the only boundary. This matters most for IoT, where large numbers of poorly maintained devices now receive global IPv6 addresses automatically.
 
 ### Address Scope
+---
 
 Not every IPv6 address is globally routable. The scope depends on the range (RFC 4291):
 
@@ -482,6 +517,7 @@ Not every IPv6 address is globally routable. The scope depends on the range (RFC
 Every IPv6 interface has a link-local address. Most hosts also configure one or more GUAs through SLAAC or DHCPv6, and the GUA is what makes a host addressable from the internet.
 
 ### Routable Is Not Reachable
+---
 
 With a GUA, whether a host can be reached depends only on whether the edge policy permits the traffic:
 
@@ -494,6 +530,7 @@ Internet -> ISP routes 2001:db8:10::/56 to your WAN
 This is the same outcome as the IPv4 NAT case, achieved explicitly instead of as a side effect. RFC 6092 recommends stateful default-deny inbound as the default for IPv6 CPE.
 
 ### What Changes Operationally
+---
 
 - **Firewall mistakes are exposed immediately.** A broad IPv6 `pass` rule on WAN exposes real hosts directly. In IPv4, NAT with no port forward would still have had nowhere to send the traffic. IPv6 rule reviews must be as thorough as IPv4 reviews.
 - **Host firewalls matter more.** Host-level filtering (Windows Defender Firewall, nftables, pf) is a real second layer, because the edge is the only other control between the host and the internet.
@@ -502,6 +539,7 @@ This is the same outcome as the IPv4 NAT case, achieved explicitly instead of as
 - **"We don't use IPv6" is still an IPv6 exposure.** Modern operating systems enable IPv6 by default. On a network with no IPv6 deployed, a rogue Router Advertisement can make hosts configure addresses and route IPv6 through an attacker, with no edge involvement at all (RFC 7123). Mitigate with RA Guard (RFC 6105) or an explicit IPv6 policy, not by ignoring it.
 
 ### IoT and IPv6
+---
 
 IoT is where the loss of accidental NAT protection has the largest effect:
 
@@ -517,6 +555,7 @@ IoT is where the loss of accidental NAT protection has the largest effect:
 In IPv4, a vulnerable camera behind NAT with no port forward was unreachable from the internet by accident. In IPv6, that same camera has a globally routable address, and it is protected only if the firewall policy is correct.
 
 ### Recommended IoT Controls on pfSense
+---
 
 - **Separate IoT network.** Put IoT devices on a dedicated VLAN and interface, with their own IPv6 prefix from DHCPv6-PD.
 - **No inbound from WAN.** Keep the default deny and add no WAN pass rules targeting the IoT prefix. Device cloud services work outbound through state.
@@ -534,6 +573,7 @@ Action: Pass  | Address Family: IPv4+IPv6 | Source: IOT net | Destination: any (
 - **Switch-level protection.** Enable RA Guard and DHCPv6 Guard on access switches so a compromised device cannot become a rogue IPv6 router.
 
 ### IPv6 Exposure Checks
+---
 
 On pfSense, confirm IPv6 WAN policy:
 
@@ -571,6 +611,7 @@ ndp -an
 ```
 
 ## Verification on pfSense
+---
 
 Confirm the WAN block rules are loaded:
 
@@ -610,6 +651,7 @@ Services > UPnP & NAT-PMP  (disabled unless required; if enabled, restrict with 
 ```
 
 ## References
+---
 
 - RFC 1918 - Address Allocation for Private Internets: https://datatracker.ietf.org/doc/html/rfc1918
 - RFC 3022 - Traditional IP Network Address Translator: https://datatracker.ietf.org/doc/html/rfc3022

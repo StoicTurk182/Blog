@@ -18,12 +18,14 @@ socialShare: true
 Procedure for resetting a forgotten **local account** password on Windows 11 and Windows Server using the Windows Recovery Environment (WinRE). Works by temporarily replacing the accessibility binary (`utilman.exe`) with `cmd.exe` to obtain a SYSTEM-level command prompt at the login screen. Verified on a personal Windows 11 device where the OS volume mounted as `E:` under WinRE; the same technique applies to Windows Server (Desktop Experience) editions with the deltas noted below.
 
 ## Overview
+---
 
 The `utilman.exe` swap is a physical-access recovery technique. At the Windows login screen, the Accessibility (Ease of Access) button launches `utilman.exe` with SYSTEM privileges. Replacing that binary with `cmd.exe` yields an elevated command prompt before authentication, from which `net user` can reset any local account password.
 
 The technique requires the ability to boot the machine into WinRE (physical or console access) and an **unencrypted** system volume, or the BitLocker recovery key if the volume is encrypted. It applies only to hardware you own or are authorised to administer; use on a machine without authorisation is unauthorised access.
 
 ## Applicability and Limitations
+---
 
 | Scenario | Supported | Notes |
 |----------|-----------|-------|
@@ -38,6 +40,7 @@ The technique requires the ability to boot the machine into WinRE (physical or c
 On Windows 11, Device Encryption (a BitLocker variant) is enabled automatically on compatible hardware, so treat the volume as encrypted until confirmed otherwise. Modifying files on an encrypted volume triggers the recovery-key prompt on next boot. (Windows OS Hub; Pureinfotech — see References.)
 
 ## Windows Server Applicability
+---
 
 The same `utilman.exe` swap works on Windows Server (Desktop Experience) editions — 2012 R2, 2016, 2019, 2022, and 2025 — using the identical Procedure below. The differences are operational, not mechanical. (Clouvider; PhoenixNAP; ServerAdminz — see References.)
 
@@ -65,15 +68,18 @@ net user administrator NewP@ssw0rd!
 Restore `utilman.exe` afterward exactly as in Step 6.
 
 ### Exceptions
+---
 
 - **Domain Controllers.** A DC has no local SAM — the local account database is removed during promotion (`dcpromo`), so `net user` for a local account resets nothing. Domain accounts are reset through Active Directory by an authorised administrator using `Set-ADAccountPassword` or Active Directory Users and Computers from another domain-joined admin session. Console and physical access to a DC is itself a critical security boundary and should be controlled accordingly. (Diengdoh — see References.)
 - **Server Core.** The minimal logon UI has no Ease of Access button, so the `utilman.exe` swap has nothing to click. Use the Sticky Keys variant instead: swap `sethc.exe` (triggered by pressing `Shift` five times at the logon screen) rather than `utilman.exe`, with the same backup and restore discipline. (Inferred: Server Core retains Winlogon/LogonUI but omits the Explorer shell and accessibility button; the Sticky Keys trigger is a Winlogon-level feature and therefore still fires.)
 
 ### Operational Note
+---
 
 On a server, treat this as emergency access only. Record the action in change control and audit logs, and after regaining access review account lockout policy, local/domain security policy, and the Security event log for anything unexpected. (ServerAdminz — see References.)
 
 ## Prerequisites
+---
 
 - Physical or console access to the device (for headless servers: IPMI / remote KVM with ISO mount capability)
 - Ability to reach WinRE (Shift+Restart, forced boot interruption, or Windows install media)
@@ -81,8 +87,10 @@ On a server, treat this as emergency access only. Record the action in change co
 - BitLocker recovery key on hand **if** the volume is encrypted — retrieve from https://account.microsoft.com/devices/recoverykey
 
 ## Procedure
+---
 
 ### Step 1: Boot into WinRE
+---
 
 From a reachable login screen:
 
@@ -99,6 +107,7 @@ Troubleshoot > Advanced options > Command Prompt
 ```
 
 ### Step 2: Identify the Windows Volume
+---
 
 In WinRE, `X:` is the RAM disk. The Windows volume is frequently **not** `C:` — in the verified case it was `E:`. Enumerate volumes:
 
@@ -125,6 +134,7 @@ dir E:\Windows\System32\utilman.exe
 If the file lists, the volume is correct. If "File Not Found", try the next letter until it resolves.
 
 ### Step 3: Verify BitLocker Status
+---
 
 This is the go/no-go gate before writing to System32:
 
@@ -150,6 +160,7 @@ manage-bde -protectors -disable E:
 ```
 
 ### Step 4: Swap utilman.exe with cmd.exe
+---
 
 Back up the original to the **root of the fixed OS volume** (not the USB, so it survives reboot), then overwrite:
 
@@ -171,6 +182,7 @@ wpeutil reboot
 ```
 
 ### Step 5: Reset the Password
+---
 
 At the Windows login screen, click the **Accessibility / Ease of Access** button (bottom-right), or on a server press `Ctrl+Alt+Del` then `Win+U`. A SYSTEM-level command prompt opens instead of Utility Manager.
 
@@ -195,6 +207,7 @@ net user "YourAccount" /active:yes
 Log in with the new password.
 
 ### Step 6: Restore utilman.exe
+---
 
 Once booted into normal Windows, the OS volume reverts to its standard letter — `C:` — so the backup made at `E:\utilman.bak` is now at `C:\utilman.bak`. Open an elevated Command Prompt (Run as administrator) and restore:
 
@@ -212,6 +225,7 @@ manage-bde -protectors -enable C:
 ```
 
 ## Critical Notes
+---
 
 - **Volume letter changes between environments.** WinRE mounted the OS volume as `E:`; normal Windows mounts the same volume as `C:`. Back up and reference files using the letter valid in the current environment. This was the primary point of confusion during the verified run.
 - **Restore is mandatory.** A swapped `utilman.exe` (or `sethc.exe`) is a persistent SYSTEM-level command prompt reachable from the lock screen by anyone with physical access. Restoring the original binary closes it.
@@ -220,6 +234,7 @@ manage-bde -protectors -enable C:
 - **Physical access is the real control.** This technique exists because console access to a machine is equivalent to control of its local accounts. For servers — and especially Domain Controllers — physical and out-of-band (IPMI/KVM) access is the security boundary that matters.
 
 ## Troubleshooting
+---
 
 | Symptom | Likely cause | Action |
 |---------|--------------|--------|
@@ -235,6 +250,7 @@ manage-bde -protectors -enable C:
 | `net user` resets nothing on a Domain Controller | DC has no local SAM | Reset the domain account via `Set-ADAccountPassword` / ADUC from another admin session |
 
 ## Command Reference
+---
 
 | Command | Purpose |
 |---------|---------|

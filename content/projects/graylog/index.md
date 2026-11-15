@@ -10,6 +10,7 @@ date: 2026-01-01
 Centralised log ingestion and search via Graylog...
 
 ## Overview
+---
 
 Centralised log ingestion across the homelab estate. pfSense firewall deny events, Unifi FW traffic and overall system level logs. 
 
@@ -17,6 +18,7 @@ Centralised log ingestion across the homelab estate. pfSense firewall deny event
 
 
 ## Stack
+---
 
 - Graylog
 - Elasticsearch

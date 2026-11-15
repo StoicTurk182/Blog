@@ -20,6 +20,7 @@ Install guide for the UniFi Network Application on a Debian or Ubuntu server, us
 The application is installed as a service with no GUI on the host. All management is done through the web interface on port 8443. Since UniFi Network 5.6.x the service does not run as root, so it cannot bind to privileged ports below 1024.
 
 ## Prerequisites
+---
 
 - Debian or Ubuntu server with `sudo` and `wget` available
 - Static IP address or a DHCP reservation on the management VLAN
@@ -29,6 +30,7 @@ The application is installed as a service with no GUI on the host. All managemen
 Back up the existing UniFi database before touching an in-place controller.
 
 ## Version Dependencies
+---
 
 The Java and MongoDB requirements changed at several release boundaries. Check these before choosing a MongoDB version, as UniFi will refuse to start against an unsupported database.
 
@@ -45,6 +47,7 @@ MongoDB 5.0 and later require AVX support on x86-64 CPUs. On older hardware or a
 Ubiquiti's own APT article still documents a MongoDB 3.6 repository line pinned to Ubuntu `bionic`. That instruction is retained for legacy compatibility and is not the correct choice for a new build on a current release.
 
 ## Step 1: Base Dependencies
+---
 
 ```bash
 sudo apt-get update
@@ -52,6 +55,7 @@ sudo apt-get install ca-certificates apt-transport-https wget curl gnupg -y
 ```
 
 ## Step 2: Add the UniFi Repository
+---
 
 ```bash
 echo 'deb [ arch=amd64,arm64 ] https://www.ui.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/100-ubnt-unifi.list
@@ -66,6 +70,7 @@ sudo wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ui.com/unifi/unifi
 The `stable` suite tracks the current supported release. Ubiquiti recommends staying on `stable` rather than `testing`.
 
 ## Step 3: Add the MongoDB Repository
+---
 
 Example for MongoDB 8.0 on Ubuntu 24.04 (`noble`). Substitute the distribution codename and MongoDB version to match the target release.
 
@@ -82,6 +87,7 @@ For Debian, substitute `apt/debian` and the Debian codename (`bookworm`) in the 
 Where the distribution already ships a compatible MongoDB in its own repositories, this step can be skipped.
 
 ## Step 4: Install
+---
 
 ```bash
 sudo apt-get update
@@ -95,6 +101,7 @@ sudo apt-get install openjdk-17-jre-headless -y
 ```
 
 ## Step 5: Verify the Service
+---
 
 ```bash
 sudo systemctl status unifi
@@ -117,6 +124,7 @@ sudo ss -tlnp | grep -E '8080|8443'
 ```
 
 ## Step 6: Firewall Ports
+---
 
 | Port | Protocol | Purpose |
 | :--- | :--- | :--- |
@@ -146,6 +154,7 @@ sudo ufw reload
 Restrict 8443 to the management VLAN rather than allowing it broadly. Port 8080 must remain reachable from every subnet containing UniFi devices, as that is where devices check in.
 
 ## Step 7: First Run
+---
 
 Browse to `https://<server-ip>:8443` and accept the self-signed certificate warning.
 
@@ -159,6 +168,7 @@ The setup wizard covers:
 Choosing a local-only administrator avoids a dependency on Ubiquiti cloud authentication for day-to-day access. Record the credentials somewhere durable, as local accounts have no cloud-based recovery path.
 
 ## Device Adoption
+---
 
 Devices on the same Layer 2 segment as the controller are discovered automatically and appear under Devices with a Pending Adoption state.
 
@@ -182,6 +192,7 @@ Useful device-side commands over SSH:
 | `set-default` | Factory reset, last resort |
 
 ## Backups
+---
 
 Auto-backups are written to:
 
@@ -200,6 +211,7 @@ rsync -av /usr/lib/unifi/data/backup/autobackup/ /mnt/backup/unifi/
 Backup before every UniFi or MongoDB upgrade. There is no supported downgrade path for the database once a major MongoDB version has been applied.
 
 ## Upgrades
+---
 
 ```bash
 sudo apt-get update
@@ -215,6 +227,7 @@ sudo apt-get update --allow-releaseinfo-change
 Application upgrades may cause adopted devices to be re-provisioned, which briefly interrupts client connectivity. Schedule accordingly.
 
 ## Log Files
+---
 
 | Path | Contents |
 | :--- | :--- |
@@ -224,6 +237,7 @@ Application upgrades may cause adopted devices to be re-provisioned, which brief
 Superuser privileges are required to read both.
 
 ## Troubleshooting
+---
 
 | Symptom | Resolution |
 | :--- | :--- |
@@ -236,12 +250,14 @@ Superuser privileges are required to read both.
 | Application will not bind to a chosen port | Ports below 1024 are unavailable, as the service does not run as root. |
 
 ## Note on UniFi OS Server
+---
 
 Ubiquiti's newer self-hosting path is UniFi OS Server, which runs the UniFi applications in containers using Podman via an official installation script, rather than the APT package and MongoDB pairing described here. It targets Debian 12 and later and Ubuntu 22.04 and later on x64 hardware, and provides the multi-application experience of a Cloud Gateway on self-managed hardware.
 
 The APT method above remains valid for Network-only deployments and is the lighter option where the host is already running other services. For new builds intended to grow beyond Network alone, UniFi OS Server is the more likely long-term direction, though at the time of writing the APT package continues to be published and documented by Ubiquiti.
 
 ## References
+---
 
 - Updating and Installing Self-Hosted UniFi Network Servers (Linux): https://help.ui.com/hc/en-us/articles/220066768-Updating-and-Installing-Self-Hosted-UniFi-Network-Servers-Linux
 - Self-Hosting a UniFi Network Server: https://help.ui.com/hc/en-us/articles/360012282453-Self-Hosting-a-UniFi-Network-Server

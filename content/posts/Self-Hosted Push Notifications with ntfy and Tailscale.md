@@ -12,6 +12,7 @@ toc: true
 ---
 
 ## Why ntfy
+---
 
 Most self-hosted notification setups require either a cloud relay, a Firebase account, or exposing a service to the public internet. ntfy sidesteps all of that. It is a lightweight HTTP pub/sub notification server — you publish a message to a topic via `curl`, and any subscribed client receives it. No accounts, no third-party relay, no Firebase.
 
@@ -22,6 +23,7 @@ This post covers the full deployment: ntfy install, Tailscale certificate, monit
 ---
 
 ## Architecture
+---
 
 The setup is deliberately minimal:
 
@@ -42,6 +44,7 @@ ntfy binds only to the Tailscale-assigned IP. It is not reachable on the public 
 ---
 
 ## Prerequisites
+---
 
 - A Debian 12 VPS (the instructions will work on Ubuntu with minor changes)
 - Tailscale installed and authenticated — `tailscale up` completed
@@ -57,6 +60,7 @@ These two values are used throughout. The Tailscale hostname takes the form `mac
 ---
 
 ## Installing ntfy
+---
 
 The official ntfy Debian repository moved to `archive.ntfy.sh` in September 2025. Add it and install:
 
@@ -79,6 +83,7 @@ GPG fingerprint for verification: `55BA 774A 6F5E E674 31E4 B6B7 CFDB 962D 4F1E 
 ---
 
 ## Issuing a Tailscale TLS Certificate
+---
 
 Before configuring ntfy, issue a TLS certificate for your Tailscale hostname. This requires HTTPS certificates to be enabled in the Tailscale admin console first.
 
@@ -114,6 +119,7 @@ Certificates are issued by Let's Encrypt via Tailscale and expire after 90 days.
 ---
 
 ## Configuring ntfy
+---
 
 Write the server configuration bound to your Tailscale IP:
 
@@ -144,6 +150,7 @@ EOF
 The `listen-http: "-"` line is important. Without it, ntfy opens a default listener on `:80` bound to all interfaces including your public IP. Always include it when using `listen-https`.
 
 ### Ensuring ntfy Starts After Tailscale
+---
 
 Without this, ntfy may attempt to bind before Tailscale assigns the IP:
 
@@ -160,6 +167,7 @@ sudo systemctl daemon-reload
 ```
 
 ### Start and Verify
+---
 
 ```bash
 sudo systemctl enable ntfy
@@ -186,6 +194,7 @@ Expected: `{"healthy":true}`
 ---
 
 ## The Alert Helper Script
+---
 
 Rather than calling curl directly from every script, a small wrapper keeps things consistent. The key pattern when writing this to disk is to avoid any automated tooling that might corrupt the hostname — write a placeholder and replace it in a text editor.
 
@@ -233,6 +242,7 @@ ntfy-alert.sh "Test" "ntfy is working" "default"
 ---
 
 ## Monitoring Triggers
+---
 
 With the helper in place, a single cron script handles all polling-based alerts. It checks disk usage, systemd service state, Postfix relay errors, and Fail2ban bans every five minutes.
 
@@ -317,6 +327,7 @@ sudo chmod 644 /etc/cron.d/vps-monitor
 ---
 
 ## CrowdSec Integration
+---
 
 CrowdSec has a native HTTP notification plugin that fires on every ban decision in real time — no polling needed. Create the notification config:
 
@@ -378,6 +389,7 @@ sudo cscli decisions delete --ip 1.2.3.4
 ---
 
 ## Certificate Auto-Renewal
+---
 
 Tailscale certificates expire after 90 days. A monthly cron job handles renewal and only restarts ntfy if the certificate actually changed:
 
@@ -420,6 +432,7 @@ Replace PLACEHOLDER in nano before saving.
 ---
 
 ## Mobile App
+---
 
 Install the ntfy app from F-Droid for self-hosted use. The Play Store build uses Firebase for background push, which requires the server to be internet-accessible. The F-Droid build polls over Tailscale directly.
 
@@ -430,6 +443,7 @@ Add your server in the app settings, then subscribe to your topics (`alerts`, `c
 ---
 
 ## What You End Up With
+---
 
 A fully private notification stack with no cloud dependency, no public exposure, and no third-party accounts beyond Tailscale:
 
@@ -444,6 +458,7 @@ The entire setup survives a VPS reboot cleanly provided the systemd ordering dro
 ---
 
 ## References
+---
 
 - ntfy Documentation: https://docs.ntfy.sh/
 - ntfy Installation: https://docs.ntfy.sh/install/

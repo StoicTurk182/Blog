@@ -7,6 +7,7 @@ updated: 2026-04-24T00:00:00
 # Hugo Blog Table Overflow Fix
 
 ## Table of Contents
+---
 
 1. [Problem](#problem)
 2. [Root Cause](#root-cause)
@@ -22,10 +23,12 @@ updated: 2026-04-24T00:00:00
 Wide tables (typically 4+ columns) overflow their container instead of triggering horizontal scroll on the Hugo blog at `blog.ajolnet.com`. The Mainroad theme is affected. The issue recurs when table CSS rules accumulate across both `assets/style.css` and `static/css/custom.css`.
 
 ## Problem
+---
 
 Tables expand beyond the content container rather than scrolling horizontally. The symptom is columns breaking out to the right edge of the viewport, with no scroll bar appearing.
 
 ## Root Cause
+---
 
 Three compounding issues:
 
@@ -44,10 +47,12 @@ With `!important` declarations spread across `style.css` and `custom.css`, casca
 Additionally, any `.table-wrapper` approach is ineffective in this context. Hugo's Goldmark markdown renderer does not wrap `<table>` elements in a parent div automatically, so wrapper-dependent rules have no element to match.
 
 ## Fix
+---
 
 The fix splits responsibility cleanly: `style.css` handles base structural defaults only, `custom.css` is the single authoritative source for all display and overflow overrides.
 
 ### assets/style.css
+---
 
 Remove all existing table rule blocks from `style.css`. Replace with the following base-only block containing no `!important`:
 
@@ -62,6 +67,7 @@ table {
 Remove any `.table-wrapper` blocks from `style.css` entirely.
 
 ### static/css/custom.css
+---
 
 Add or replace all table rules with one authoritative block:
 
@@ -81,6 +87,7 @@ table {
 ```
 
 ## Why This Works
+---
 
 | Property | Value | Reason |
 |---|---|---|
@@ -93,6 +100,7 @@ table {
 `custom.css` loads after the Mainroad theme's `style.css` in Hugo's asset pipeline, so it wins specificity ties at equal weight. Concentrating `!important` exclusively in `custom.css` makes cascade behaviour predictable: `style.css` sets defaults, `custom.css` overrides.
 
 ## What Not to Do
+---
 
 **Do not use `display: table !important`**
 
@@ -111,6 +119,7 @@ Hugo's Goldmark renderer outputs bare `<table>` elements with no wrapping div. W
 Once `!important` appears in both files on the same property, load order determines the winner and this can change across theme updates or Hugo version changes.
 
 ## References
+---
 
 - Hugo Goldmark renderer (table output): https://gohugo.io/getting-started/configuration-markup/#goldmark
 - MDN - CSS display property: https://developer.mozilla.org/en-US/docs/Web/CSS/display

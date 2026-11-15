@@ -23,6 +23,7 @@ updated: 2026-04-30T00:00:00
 Guide for locating the CSS that controls a custom Mainroad-style pagination block in a Hugo site, and applying overrides without modifying theme source files. Applies to a Hugo site using the Mainroad theme as a Git submodule with overrides in `static/css/custom.css`.
 
 ## Markup Under Investigation
+---
 
 ```html
 <nav class="pagination">
@@ -39,6 +40,7 @@ Guide for locating the CSS that controls a custom Mainroad-style pagination bloc
 The classes used are: `pagination`, `pagination-prev`, `pagination-info`, and (by inference) `pagination-next`.
 
 ## Why It Is Not Stock Mainroad
+---
 
 Stock Mainroad uses BEM (Block Element Modifier) naming for pagination, with double-underscore element separators:
 
@@ -59,6 +61,7 @@ The most likely explanations, in descending order of probability:
 In any of those cases, the matching CSS rules will be in one of a small set of files, listed below.
 
 ## Where the Controlling CSS Can Live
+---
 
 | Priority | Path | Likelihood | Why |
 |---|---|---|---|
@@ -74,10 +77,12 @@ The Hugo site loads CSS in this order, so later files override earlier ones:
 2. Files listed in `Params.customCSS` (your `static/css/custom.css`)
 
 ## Diagnostic Commands
+---
 
 Run these from the site root, e.g. `C:\Users\Administrator\Andrew J IT Labs\Blog`. Adjust the path to match your repository.
 
 ### Find the CSS Rules
+---
 
 ```powershell
 Get-ChildItem -Recurse -Include *.css,*.scss |
@@ -95,6 +100,7 @@ Get-ChildItem -Recurse -Include *.css,*.scss -Exclude themes |
 ```
 
 ### Find the Partial That Emits the Markup
+---
 
 ```powershell
 Get-ChildItem -Recurse -Include *.html |
@@ -104,12 +110,14 @@ Get-ChildItem -Recurse -Include *.html |
 This locates the Go template that generates the HTML. Standard Hugo partial resolution order means a file at `layouts/partials/pagination.html` in the site root will override one at `themes/mainroad/layouts/partials/pagination.html`, so the closer-to-root match is the one actually being rendered.
 
 ### DevTools Confirmation
+---
 
 Open the rendered page in Chrome or Firefox, right-click on the `Previous` link, and choose Inspect. In the Styles panel, scroll until you find the rules matching `.pagination-prev`. The right-hand column shows the source file and line number, formatted as `style.css:412` or similar. Click the file name to jump to it. This gives you a definitive answer that does not depend on grep.
 
 If no rules appear in the Styles panel apart from user-agent defaults and inherited rules, the conclusion is that no CSS exists for these classes yet, and the override block below will create the styling from scratch.
 
 ## Override CSS Template
+---
 
 Append this block to `static/css/custom.css`. It targets the exact classes in the snippet, lays them out as a horizontal flex bar, and pulls colour values from variables you can edit in one place.
 
@@ -193,6 +201,7 @@ nav.pagination .pagination-prev:only-of-type ~ .pagination-info {
 The `:root` custom properties keep colour and spacing values centralised, so further tweaks don't require hunting through selectors.
 
 ## Where to Apply
+---
 
 Edit the file at `static/css/custom.css` in your site root. This file is already declared in your `config.toml` under `Params.customCSS`, so Hugo will include it automatically:
 
@@ -214,6 +223,7 @@ hugo server -D
 ```
 
 ## If the Partial Lives in the Theme Submodule
+---
 
 If `Select-String` shows the partial inside `themes/mainroad/layouts/partials/`, copy it up to your site root rather than editing it inside the submodule. Hugo's partial resolution will then prefer your local copy:
 
@@ -224,6 +234,7 @@ Copy-Item .\themes\mainroad\layouts\partials\pagination.html .\layouts\partials\
 This isolates any markup changes from the submodule and keeps `git pull` on the submodule clean. The same applies if the CSS rules live inside the theme — the cleaner workflow is to leave the theme rules untouched and override them in `static/css/custom.css`.
 
 ## Verification
+---
 
 After deploying, confirm in DevTools:
 
@@ -235,6 +246,7 @@ After deploying, confirm in DevTools:
 If the override does not take effect, the most likely cause is browser cache. Hard refresh with Ctrl+Shift+R, or append a cache-busting query string when loading the page.
 
 ## References
+---
 
 - Mainroad theme source: https://github.com/Vimux/Mainroad
 - Hugo pagination documentation: https://gohugo.io/templates/pagination/

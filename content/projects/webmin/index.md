@@ -12,6 +12,7 @@ warning: "Must be secured when deployed. Do not expose on the open web. Wrap the
 Direct Management front end for Linux
 
 ## Overview
+---
 
 Browser-based admin panel for managing the OVH Debian VPS fleet without dropping to the CLI for every task. Covers user management, cron jobs, package updates, firewall rules, and service status across hosts. Useful as a quick-glance dashboard when Ansible/Semaphore is overkill for a one-off change.
 
@@ -20,6 +21,7 @@ Browser-based admin panel for managing the OVH Debian VPS fleet without dropping
 
 
 ## Stack
+---
 
 - Webmin
 - Debian 12 (OVH VPS)

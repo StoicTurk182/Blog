@@ -43,6 +43,7 @@ Practical use cases: CrowdSec ban alerts, disk threshold warnings, service outag
 ---
 
 ## Stack
+---
 
 - ntfy 2.22.0 (binwiederhier/ntfy) — Debian package, systemd service
 - Tailscale cert — Let's Encrypt certificate issued via Tailscale HTTPS feature
@@ -52,6 +53,7 @@ Practical use cases: CrowdSec ban alerts, disk threshold warnings, service outag
 ---
 
 ## Architecture
+---
 
 ```
 [Android / Browser on Tailnet]
@@ -70,6 +72,7 @@ ntfy binds only to the Tailscale-assigned IP. It is not reachable on the public 
 ---
 
 ## Deployment Summary
+---
 
 | Component | Status | Notes |
 |-----------|--------|-------|
@@ -86,6 +89,7 @@ ntfy binds only to the Tailscale-assigned IP. It is not reachable on the public 
 ---
 
 ## Alert Channels
+---
 
 Three ntfy topics are in use, each covering a distinct category:
 
@@ -98,8 +102,10 @@ Three ntfy topics are in use, each covering a distinct category:
 ---
 
 ## Monitoring Scripts
+---
 
 ### vps-monitor.sh
+---
 
 Polls disk usage, systemd service state, Postfix relay errors, and Fail2ban bans every five minutes. State files in `/var/lib/vps-monitor/` prevent repeat alerts for persistent conditions — a single alert fires when a condition is first detected and clears automatically when resolved.
 
@@ -127,6 +133,7 @@ exit
 ```
 
 ### vps-activity.sh
+---
 
 Watches journald for SSH logins, SSH brute force attempts, and sudo usage. Runs every minute via cron. State files in `/var/lib/vps-activity/` deduplicate events using an md5 hash of the journal line, auto-cleaned after 10 minutes.
 
@@ -160,6 +167,7 @@ exit
 ```
 
 ### ntfy-alert.sh Helper
+---
 
 Reusable curl wrapper used by both monitoring scripts and callable directly from any script on the VPS. Validates Tailscale is running before attempting delivery.
 
@@ -179,6 +187,7 @@ Priority values: `min` `low` `default` `high` `urgent`
 ---
 
 ## CrowdSec Integration
+---
 
 CrowdSec fires notifications in real time on every IP ban decision via its native HTTP notification plugin. No polling — the event triggers the notification immediately.
 
@@ -214,6 +223,7 @@ curl https://PLACEHOLDER:2586/crowdsec/json?since=10m
 ---
 
 ## Certificate Management
+---
 
 Certificate issued via `tailscale cert` for the Tailscale hostname. Valid 90 days, renewed monthly by cron.
 
@@ -247,6 +257,7 @@ Expected: `Certificate unchanged - no restart needed`
 ---
 
 ## Alert Reference
+---
 
 | Alert | Topic | Priority | Trigger | Repeat Suppressed |
 |-------|-------|----------|---------|-------------------|
@@ -262,8 +273,10 @@ Expected: `Certificate unchanged - no restart needed`
 ---
 
 ## Known Issues and Lessons Learned
+---
 
 ### Chat Interface Markdown Auto-Linking of Hostnames
+---
 
 The Windows Terminal interface auto-converts `.ts.net` hostnames into markdown hyperlinks when pasted into terminal commands. Files written via heredoc pick up the literal bracket and parenthesis characters, breaking the hostname value.
 
@@ -276,22 +289,27 @@ grep -c '\[' /path/to/script.sh
 Returns `0` if clean. Resolution: write scripts with `PLACEHOLDER` in the heredoc and replace the value manually in nano.
 
 ### ntfy Default Public HTTP Listener
+---
 
 When `listen-https` is configured without explicitly setting `listen-http`, ntfy opens a default listener on `:80` bound to all interfaces including the public IP. Always include `listen-http: "-"` in server.yml when using HTTPS.
 
 ### tailscale cert Glob chmod Failure
+---
 
 After `tailscale cert`, glob chmod commands (`chmod *.key`) may fail with "No such file or directory". The cert and key are already correctly permissioned by `tailscale cert` itself. Verify with `ls -la` and use literal filenames if correction is needed.
 
 ### CrowdSec HTTP Plugin Strict TLS Validation
+---
 
 The CrowdSec HTTP plugin performs strict x509 TLS validation. Connecting via IP (`100.75.228.108`) fails because the cert has no IP Subject Alternative Names. Always use the Tailscale hostname in the notification URL.
 
 ### CrowdSec Format Template Field Availability
+---
 
 The `cscli notifications test` command sends a minimal mock object. Fields like `.Value`, `.Type`, `.Duration`, and `.Source.IP` are unavailable in the test context and cause template errors. Only `.Scenario` is safe to use for test validation. Real ban decisions expose the full field set.
 
 ### journalctl _COMM=sudo Required for sudo Detection
+---
 
 Generic `journalctl` queries do not reliably surface sudo events on this system. The `_COMM=sudo` journald field filter is required:
 
@@ -300,14 +318,17 @@ journalctl _COMM=sudo --since "2 minutes ago" --no-pager -q
 ```
 
 ### 1 Minute Journal Window Too Tight
+---
 
 Initial `--since "1 minutes ago"` windows missed events that occurred just before the script ran. Extended to `--since "2 minutes ago"` across all journal queries to ensure overlap between cron runs.
 
 ### ntfy Topic Names are Case Sensitive
+---
 
 `activity`, `alerts`, and `crowdsec` must be subscribed exactly as lowercase. `Activity` or `Crowdsec` will not receive messages.
 
 ### rm -f Requires Root for State File Cleanup
+---
 
 The `debian` user does not have sudo rights for `rm` on `/var/lib/vps-monitor/` or `/var/lib/vps-activity/`. Manual state file cleanup must be done as root:
 
@@ -321,6 +342,7 @@ exit
 ---
 
 ## References
+---
 
 - ntfy Documentation: https://docs.ntfy.sh/
 - ntfy Installation: https://docs.ntfy.sh/install/

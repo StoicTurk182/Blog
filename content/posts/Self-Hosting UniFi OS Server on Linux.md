@@ -22,6 +22,7 @@ It is license-free and available to all UniFi users.
 Unlike the Network Server, this is not an APT package. It ships as a self-extracting installer binary that provisions a Podman container, a `uosserver` system user, and a systemd unit on the host.
 
 ## What It Is Not
+---
 
 Establish these constraints before building, as several are not reversible without a rebuild.
 
@@ -37,6 +38,7 @@ Establish these constraints before building, as several are not reversible witho
 The Cloud Gateway exclusion is the one that catches people out. A UDM or UCG cannot be adopted into a UniFi OS Server deployment at all.
 
 ## Requirements
+---
 
 Ubiquiti's stated requirements:
 
@@ -57,6 +59,7 @@ Two of these are worth treating with caution. Community installation reports put
 Older third-party guides cite Podman 4.3.1 as the minimum. Ubiquiti's current documentation states 4.9.3 with pasta networking, which is the figure to build against.
 
 ## Step 1: Install Podman
+---
 
 ```bash
 sudo apt-get update
@@ -74,6 +77,7 @@ ldd --version | head -n1
 Where the distribution repository ships a Podman older than required, the host is on too old a release. Upgrading the distribution is preferable to adding a third-party container repository, as the installer depends on host-level networking behaviour.
 
 ## Step 2: Obtain the Installer Link
+---
 
 The installer is not on a fixed URL. Download links are per-release and are found on the [Releases](https://community.ui.com/releases) section of the community site or the [Download page](https://ui.com/download), by right-clicking the Linux download and copying the link address.
 
@@ -86,6 +90,7 @@ https://fw-download.ubnt.com/data/unifi-os-server/<hash>-linux-x64-<version>-<uu
 Download links expire, so pull a fresh one rather than reusing a URL from an older guide.
 
 ## Step 3: Download and Run
+---
 
 ```bash
 mkdir -p ~/unifi-os && cd ~/unifi-os
@@ -101,6 +106,7 @@ The installer scaffolds the Podman container, creates the `uosserver` system use
 A warning that `unifi-core` did not start within 60 seconds is commonly reported and does not indicate failure. The installer times out before initialisation completes while the service continues starting in the background. Allow three to five minutes before opening a browser. If the interface is still unreachable after that, insufficient RAM is the most frequently reported cause.
 
 ## Step 4: Service Management
+---
 
 | Action | Command |
 | :--- | :--- |
@@ -119,6 +125,7 @@ sudo -u uosserver podman ps
 A healthy install shows the container `Up` with a healthy status.
 
 ## Step 5: First Run
+---
 
 Browse to `https://<server-ip>:11443` and proceed past the self-signed certificate warning.
 
@@ -133,6 +140,7 @@ Setup covers naming the server and choosing an authentication model:
 Skipping the sign-in gives a fully offline deployment at the cost of those features. The choice is worth making deliberately, since it determines whether the deployment has any recovery path outside the host itself.
 
 ## Network Ports
+---
 
 Ubiquiti's own article directs readers to the general ports reference rather than listing a UniFi OS Server set. Third-party sources covering the product consistently list the following:
 
@@ -153,6 +161,7 @@ Treat this list as a starting point rather than an authoritative reference, and 
 **The captive portal moved.** Portals are served on port 8444 under UniFi OS Server, changed from 8843 on Network Server. That port serves the certificate configured in the UniFi OS Console settings, or is served directly from UniFi Network where TLS is not configured. Any firewall rule or upstream NAT referencing 8843 needs updating.
 
 ## Certificates
+---
 
 The self-signed certificate warning can be safely ignored, and a custom TLS certificate can be uploaded under:
 
@@ -161,12 +170,14 @@ Settings > Control Plane > Console > Certificates
 ```
 
 ## Updates
+---
 
 UniFi OS Server and its applications update from the Update Manager in Site Manager, or from the local Control Plane settings.
 
 Manual upgrade by re-running a newer installer binary is also reported to work: the installer detects the existing installation, stops the container, swaps the image, and restarts the service, with configuration and data surviving in the named Podman volumes.
 
 ## Migrating from Network Server
+---
 
 1. Take a backup from the existing UniFi Network Server
 2. Close the Network Server before installing UniFi OS Server
@@ -182,12 +193,14 @@ Two constraints during migration:
 **Do not clone the VM.** Ubiquiti advises against cloning except for high availability or failover, because cloned VMs reuse the same remote access tokens for Site Manager and Fabrics, producing unexpected behaviour. Build fresh installations instead.
 
 ## Uptime Expectations
+---
 
 The server must continue running at all times to view and manage adopted devices. If it goes offline, devices continue running on their last available configuration.
 
 Where continuous uptime is not achievable, Ubiquiti points to a CloudKey or Official UniFi Hosting instead. Functionally, Official UniFi Hosting and UniFi OS Server are the same product, with the difference being that UniFi OS Server is fully self-managed for installation, maintenance, and uptime.
 
 ## Troubleshooting
+---
 
 | Symptom | Resolution |
 | :--- | :--- |
@@ -200,6 +213,7 @@ Where continuous uptime is not achievable, Ubiquiti points to a CloudKey or Offi
 | Cloud Gateway will not adopt | Expected. Cloud Gateways cannot be managed by an external UniFi OS Server. |
 
 ## Choosing Between the Two
+---
 
 The legacy Network Server remains documented and installable via APT, and stays the lighter option where the host already runs other services and only Network is needed. It is also the only route on distributions older than Ubuntu 24.04 or Debian 13.
 

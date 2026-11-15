@@ -3,6 +3,7 @@
 Guide for managing a Hugo site that uses a custom theme fork as a git submodule, covering the full local-to-VPS deployment workflow.
 
 ## Background
+---
 
 Hugo themes managed as git submodules require two separate repositories to stay in sync:
 
@@ -12,6 +13,7 @@ Hugo themes managed as git submodules require two separate repositories to stay 
 The parent repo does not store the theme files directly. It stores a commit hash pointer. If the submodule branch is not pushed to its remote, or the parent repo pointer is not updated, the VPS will not pick up theme changes regardless of how many times you deploy.
 
 ## Problem Summary
+---
 
 Theme changes made locally were not appearing on the live site after deployment. Root cause was a chain of three issues:
 
@@ -22,8 +24,10 @@ Theme changes made locally were not appearing on the live site after deployment.
 ---
 
 ## Local Workflow
+---
 
 ### Step 1: Commit and push theme changes
+---
 
 If changes were made inside `themes/mainroad`:
 
@@ -42,6 +46,7 @@ git push origin custom-theme
 ```
 
 ### Step 2: Update the parent repo submodule pointer
+---
 
 Return to the site root and lock in the new theme commit:
 
@@ -71,8 +76,10 @@ Should show:
 ---
 
 ## VPS Deployment
+---
 
 ### Step A: Fix permissions
+---
 
 Ensure the debian user owns the directory before running git operations:
 
@@ -81,6 +88,7 @@ sudo chown -R debian:debian /var/www/html
 ```
 
 ### Step B: Pull and sync submodule
+---
 
 ```bash
 cd /var/www/html
@@ -92,12 +100,14 @@ git submodule update --init --recursive
 `git submodule sync` updates the local submodule URL from `.gitmodules` in case it has changed. `git submodule update --init --recursive` forces the submodule to match the commit pointer stored in the parent repo.
 
 ### Step C: Build the site
+---
 
 ```bash
 hugo --minify --destination /var/www/html/public
 ```
 
 ### Step D: Restore webserver ownership
+---
 
 ```bash
 sudo chown -R www-data:www-data /var/www/html
@@ -108,6 +118,7 @@ sudo systemctl reload nginx
 ---
 
 ## Deploy Script
+---
 
 The deploy script at `/usr/local/bin/deploy` should contain the following:
 
@@ -147,6 +158,7 @@ echo "Deployment completed successfully!"
 ---
 
 ## Troubleshooting
+---
 
 | Issue | Command |
 |-------|---------|
@@ -161,6 +173,7 @@ echo "Deployment completed successfully!"
 ---
 
 ## Verify Submodule State
+---
 
 Check what commit the submodule is pointing at locally:
 
@@ -187,6 +200,7 @@ git remote -v
 ---
 
 ## References
+---
 
 - Git Submodules: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 - Hugo Theme Components: https://gohugo.io/hugo-modules/theme-components/

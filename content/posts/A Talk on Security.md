@@ -23,12 +23,14 @@ My short answer is that security is not a hindrance to work, it is what makes wo
 This post uses my own setup as an example, a personal VPS and Microsoft tenant. It then moves on to AI-driven social engineering, network and physical controls, and how to put all of it in place without degrading the support experience.
 
 ## The Core Idea
+---
 
 Security and support are not opposing goals. A control that users understand and can easily follow gets followed. A control that gets in the way gets bypassed, and the workaround is usually less secure than having no control at all.
 
 The NCSC has argued since 2017 that people can be the strongest link in security when systems are designed around how they actually work, rather than treating users as the weakest link.
 
 ## Why Friction Undermines Security
+---
 
 | Friction | Typical Workaround | Result |
 |----------|--------------------|--------|
@@ -42,10 +44,12 @@ The NCSC has argued since 2017 that people can be the strongest link in security
 NIST SP 800-63B and NCSC password guidance both advise against forced periodic password changes for this reason. Passwords should only be changed when there is evidence of compromise.
 
 ## Worked Example: Securing a Personal VPS and Tenant
+---
 
 These are the methods I apply to my own infrastructure, and why I use them. The same principles scale up to an organisation.
 
 ### Permissions: Zero Trust and Least Privilege
+---
 
 Identity-based protections are the first and last line of defence. Who someone is determines the access they get. This should always combine two principles:
 
@@ -65,6 +69,7 @@ The result is that every device is isolated and scoped, but I can still work wit
 Tailscale is one way to do identity-based networking. Others include Microsoft Entra Private Access, Cloudflare Zero Trust, and Headscale or plain WireGuard with firewall policy. The principle matters more than the product.
 
 ### Defence in Depth
+---
 
 No single control is relied on. Each layer covers a different failure.
 
@@ -95,6 +100,7 @@ sudo ss -tulpn
 ```
 
 ### Identity-Based Security
+---
 
 Modern security is moving towards identity-bound scope. Access is tied to the individual rather than to the resource, service or network. That lets many layers of control combine through one approach without a single point of failure.
 
@@ -112,6 +118,7 @@ Modern security is moving towards identity-bound scope. Access is tied to the in
 The role group is nested into the resource group, and permissions are never assigned directly to users. Access then becomes a group membership change that is auditable and easy to revoke. The same thinking still applies in Entra ID: assign access to security groups, not to individuals. That is how traditional resource control integrates with identity.
 
 ## AI and Social Engineering: The Elephant in the Room
+---
 
 Kevin Mitnick, one of the most famous hackers of the 1990s, was primarily a social engineer. His most effective attacks were against people, not machines. He later wrote in *The Art of Deception* that the human factor is security's weakest link.
 
@@ -124,6 +131,7 @@ What has changed is that, for the first time, people without his skill can pull 
 I consider AI-assisted social engineering the most dangerous threat currently facing organisations. It is very hard for a non-technical person to defend against, and technical people are still vulnerable to it. The NCSC assesses that AI lowers the barrier to entry for novice criminals and will increase the frequency and intensity of attacks through 2027.
 
 ### The Defence: Authentication and Authorisation
+---
 
 In my experience, the best defence is a consistent authentication and authorisation process. It must be completed before any action is taken:
 
@@ -137,6 +145,7 @@ In my experience, the best defence is a consistent authentication and authorisat
 This matters most for change requests that would have a wide impact or would give access to restricted material.
 
 ### Identity Verification Procedure
+---
 
 | Request Type | Minimum Verification |
 |--------------|----------------------|
@@ -149,6 +158,7 @@ This matters most for change requests that would have a wide impact or would giv
 Avoid knowledge-based questions such as date of birth or employee number, because these are easily found or guessed. Following the retail incidents, the NCSC advised organisations to review their helpdesk password reset processes, particularly for privileged accounts.
 
 ### Scripting the Conversation
+---
 
 Good support means the security step doesn't feel like an accusation:
 
@@ -159,6 +169,7 @@ Good support means the security step doesn't feel like an accusation:
 A consistent, polite script also takes the pressure off the technician. An attacker using urgency or seniority ("I'm the MD and I need this now") gets the same answer as everyone else.
 
 ## Physical and Network Security
+---
 
 Identity controls can be undermined if someone can plug into the network or walk into the comms room.
 
@@ -175,6 +186,7 @@ Identity controls can be undermined if someone can plug into the network or walk
 I have hands-on experience with all of the above, though I'm not an expert. In my own time I apply these principles to my personal setup, which is the most practical way to learn them.
 
 ## Controls That Improve Both Security and UX
+---
 
 These are the strongest talking points, because they remove the trade-off altogether.
 
@@ -191,6 +203,7 @@ These are the strongest talking points, because they remove the trade-off altoge
 | Just-in-time admin (Entra PIM) | No standing admin rights | Elevation in minutes, no ticket wait |
 
 ## Principles for Secure Support
+---
 
 | Principle | What It Means for Support |
 |-----------|---------------------------|
@@ -203,6 +216,7 @@ These are the strongest talking points, because they remove the trade-off altoge
 | Measure both sides | Track ticket volume and user satisfaction alongside security metrics after a change |
 
 ## Rolling Out a New Control
+---
 
 | Step | Action |
 |------|--------|
@@ -215,6 +229,7 @@ These are the strongest talking points, because they remove the trade-off altoge
 | 7. Review | Check ticket volume, user feedback and sign-in logs, then adjust |
 
 ## Mapping to the Core Principles
+---
 
 | Principle | Support-Friendly Implementation |
 |-----------|---------------------------------|
@@ -225,6 +240,7 @@ These are the strongest talking points, because they remove the trade-off altoge
 | Assume Breach | A blame-free reporting culture gets incidents reported early |
 
 ## Security as a Habit
+---
 
 I think habit-forming is the best approach to security: developing the right way of working with computers until it is automatic. That has been my own approach for a long time. Instead of seeing security as a hindrance to work, I now see it as what makes safe and secure work possible.
 
@@ -233,6 +249,7 @@ All of the above has to be applied and maintained consistently by technicians an
 From an organisational perspective, security must be encouraged as well as enforced. Enforcement without buy-in creates workarounds; buy-in without enforcement creates gaps. For a support professional, providing support with a security focus should be the baseline, not the exception.
 
 ## Talk Summary
+---
 
 **Anchor line:** "If security makes someone's job harder, they'll find a way around it, and that way around is our new vulnerability."
 

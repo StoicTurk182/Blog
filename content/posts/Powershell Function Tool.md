@@ -14,12 +14,14 @@ socialShare: true
 ---
 
 ## Overview
+---
 
 `dnscheck` is a PowerShell function that queries the common DNS records for a domain and shows them in grouped sections with colour-coded statuses. It covers web, zone, mail routing, email authentication (SPF, DMARC, DKIM) and the optional mail security records (MTA-STS, TLS-RPT, BIMI).
 
 It accepts a domain or a full email address, queries a public resolver by default, and runs the DKIM CNAME and key lookups as separate steps. That way it can tell whether a DKIM failure is in your own zone or at the provider.
 
 ## Requirements
+---
 
 | Requirement | Detail |
 |-------------|--------|
@@ -29,6 +31,7 @@ It accepts a domain or a full email address, queries a public resolver by defaul
 | Admin rights | Not required |
 
 ## Full Function
+---
 
 ```powershell
 function dnscheck {
@@ -146,6 +149,7 @@ function dnscheck {
 ```
 
 ## Parameters
+---
 
 | Parameter | Type | Required | Default | Purpose |
 |-----------|------|----------|---------|---------|
@@ -154,6 +158,7 @@ function dnscheck {
 | `-Selectors` | String array | No | `selector1`, `selector2` | DKIM selectors to check |
 
 ## Records Checked
+---
 
 | Section | Check | Query Name | Type |
 |---------|-------|------------|------|
@@ -174,6 +179,7 @@ function dnscheck {
 | Other TXT | TXT | `domain` | TXT, excluding SPF |
 
 ## Status Values
+---
 
 | Status | Colour | Meaning |
 |--------|--------|---------|
@@ -183,8 +189,10 @@ function dnscheck {
 | NONE | Grey | An optional record isn't set. This is normal for many domains. |
 
 ## How It Works
+---
 
 ### Input Handling
+---
 
 ```powershell
 $d = $Domain -replace '.*@'
@@ -193,6 +201,7 @@ $d = $Domain -replace '.*@'
 Removes everything up to and including the `@`, so `user@yourdomain.com` becomes `yourdomain.com`. A bare domain passes through unchanged. Without this, `Resolve-DnsName` returns "DNS name contains an invalid character".
 
 ### Helper Functions
+---
 
 The helpers are defined inside `dnscheck`, so they only exist while it runs and don't clutter the session:
 
@@ -206,6 +215,7 @@ The helpers are defined inside `dnscheck`, so they only exist while it runs and 
 The `www` query name is built as `('www.' + $d)` and not as `"www.$d"`. Both give the same result, but Markdown renderers such as Obsidian, chat clients and Hugo can auto-link `www.$d` into `[www.$d](https://www.$d)` when the code is copied from a rendered view. That would break the query. See [Copying Code Safely](#copying-code-safely).
 
 ### Answer Section Filtering
+---
 
 ```powershell
 Where-Object { $_.Section -eq 'Answer' -and "$($_.Type)" -eq $t }
@@ -219,6 +229,7 @@ Where-Object { $_.Section -eq 'Answer' -and "$($_.Type)" -eq $t }
 | `-Server` | Bypasses local DNS cache |
 
 ### DKIM Two-Step Lookup
+---
 
 ```powershell
 $cn  = (Q $n CNAME).NameHost
@@ -233,10 +244,12 @@ A single TXT query can't separate the two cases. When the CNAME exists but its t
 The key size is estimated from the length of the `p=` base64 value. Treat it as approximate.
 
 ### Duplicate SPF and DMARC Detection
+---
 
 More than one SPF record makes SPF return a permanent error (RFC 7208 section 4.5). More than one DMARC record causes DMARC processing to be skipped (RFC 7489 section 6.6.3). Both show as WARN, with every record listed.
 
 ## Usage Examples
+---
 
 ```powershell
 dnscheck yourdomain.com
@@ -263,6 +276,7 @@ Common DKIM selectors:
 Selectors are set by each provider and can change. Confirm them against the provider's dashboard, or against the `s=` value in a received message's `DKIM-Signature` header.
 
 ## Example Output
+---
 
 Output for a Microsoft 365 domain hosted on Azure DNS. The domain, tenant, IP addresses and verification token are anonymised:
 
@@ -304,8 +318,10 @@ Other TXT
 ```
 
 ## Reading the Output
+---
 
 ### A Record Shows NONE
+---
 
 `A NONE not set` means the domain has no A record at the root. This is normal when nothing is hosted on the bare domain, for example when the website is on a subdomain.
 
@@ -328,6 +344,7 @@ Resolve-DnsName blog.yourdomain.com -Type A -Server 1.1.1.1
 ```
 
 ### DKIM CNAME Found but No Key at Target
+---
 
 ```powershell
 DKIM selector2    WARN     CNAME found but no key at target
@@ -362,6 +379,7 @@ If the key still doesn't appear, users have reported (not verified) that disabli
 Mixed case in Microsoft's CNAME values, such as `ContosoLtd`, doesn't matter. DNS names aren't case-sensitive (RFC 4343).
 
 ### Other Findings
+---
 
 | Finding | Meaning | Action |
 |---------|---------|--------|
@@ -372,10 +390,12 @@ Mixed case in Microsoft's CNAME values, such as `ContosoLtd`, doesn't matter. DN
 | NS not at the expected provider | Records are being edited in the wrong DNS panel | Make the changes at the provider shown in NS |
 
 ## Installation
+---
 
 The function file goes in the IT-Scripts repo and is dot-sourced from the profile. This keeps it version-controlled and safe from profile overwrites. Put the repo in a synced folder such as OneDrive and the same file is used on every machine. Adjust the paths below to your own repo location.
 
 ### Step 1: Save the Function File
+---
 
 ```powershell
 New-Item -Path 'C:\Scripts\IT-Scripts\Utils\DNS-Tools' -ItemType Directory -Force
@@ -385,6 +405,7 @@ notepad 'C:\Scripts\IT-Scripts\Utils\DNS-Tools\dnscheck.ps1'
 Paste the [full function](#full-function) and save.
 
 ### Step 2: Dot-Source from the Profile
+---
 
 ```powershell
 notepad $PROFILE
@@ -402,6 +423,7 @@ if (Test-Path $dnscheck) { . $dnscheck } else { Write-Warning "dnscheck not foun
 The leading `. ` (dot-source) runs the file in the current scope, so the function stays available after the file has run. If you run the file without the dot, the function is discarded when the script ends.
 
 ### Step 3: Add to Show-Help
+---
 
 Add this line inside the `Show-Help` here-string (between `@"` and `"@`), at the top of the System Shortcuts section:
 
@@ -412,6 +434,7 @@ Add this line inside the `Show-Help` here-string (between `@"` and `"@`), at the
 The line must go inside the here-string. The `${command}`, `${reset}` and related variables are only defined inside `Show-Help`. Placed anywhere else in the profile, the line causes a parse error. The variables are `$PSStyle` colour codes, which need PowerShell 7.2 or later.
 
 ### Step 4: Reload and Verify
+---
 
 ```powershell
 . $PROFILE
@@ -423,6 +446,7 @@ dnscheck yourdomain.com
 `File` should show the `dnscheck.ps1` path.
 
 ### Chris Titus Tech Profile Notes
+---
 
 | Issue | Detail | Fix |
 |-------|--------|-----|
@@ -431,8 +455,10 @@ dnscheck yourdomain.com
 | Profile load time | The double init adds load time | Check with `Measure-Command { . $PROFILE }` |
 
 ## Function Management
+---
 
 ### How Functions Persist
+---
 
 | Defined By | Lifetime |
 |------------|----------|
@@ -444,6 +470,7 @@ dnscheck yourdomain.com
 PowerShell 7 (`pwsh.exe`) and Windows PowerShell 5.1 (`powershell.exe`) use separate profile files. Run `$PROFILE` in each to see its path. To have a function in both, dot-source the same `.ps1` from both profiles.
 
 ### List Functions
+---
 
 All functions in the session, including built-ins:
 
@@ -466,6 +493,7 @@ Get-ChildItem Function: | Where-Object { $_.Name -notin $base -and -not $_.Sourc
 | `console (pasted)` | Current session only |
 
 ### View a Function
+---
 
 ```powershell
 ${function:dnscheck}
@@ -476,6 +504,7 @@ Get-Help dnscheck -Full
 `Get-Help` reads the comment-based help block in the function.
 
 ### Remove a Function
+---
 
 From the current session:
 
@@ -503,6 +532,7 @@ notepad $PROFILE
 ```
 
 ### Profile Management
+---
 
 Create the profile if it doesn't exist:
 
@@ -536,6 +566,7 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 ### Verifying the Running Version
+---
 
 When the same function behaves or looks different on two machines, run this on each and compare. `CodeHash` fingerprints the code that's actually loaded in the session:
 
@@ -581,6 +612,7 @@ Get-FileHash 'C:\Scripts\IT-Scripts\Utils\DNS-Tools\dnscheck.ps1' | Select-Objec
 If the file hashes differ, OneDrive hasn't finished syncing or there's a local edit on one machine.
 
 ### Copying Code Safely
+---
 
 Copying code from a rendered Markdown view (Obsidian reading view, a chat window, a published Hugo page) can change it:
 
@@ -603,6 +635,7 @@ Select-String -Path '.\dnscheck.ps1' -Pattern '\]\(https?://'
 Nothing returned means the script is clean.
 
 ### Display Differences Between Systems
+---
 
 If `CodeHash` matches but the output still looks different, the cause is the environment, not the code:
 
@@ -615,6 +648,7 @@ If `CodeHash` matches but the output still looks different, the cause is the env
 | Colour scheme | The terminal theme overrides the console colour table | Terminal appearance settings |
 
 ### Quick Reference
+---
 
 | Task | Command |
 |------|---------|
@@ -632,6 +666,7 @@ If `CodeHash` matches but the output still looks different, the cause is the env
 | Load a function file | `. 'C:\path\file.ps1'` |
 
 ## Minimal Version (mailcheck)
+---
 
 A single-line check of SPF, DMARC and the Microsoft 365 DKIM CNAMEs only:
 
@@ -646,6 +681,7 @@ mailcheck yourdomain.com
 It outputs four lines in order: SPF, DMARC, selector1, selector2. It uses the local resolver.
 
 ## Limitations
+---
 
 | Limitation | Detail |
 |------------|--------|
@@ -659,6 +695,7 @@ It outputs four lines in order: SPF, DMARC, selector1, selector2. It uses the lo
 | Key size approximate | Estimated from the length of the `p=` value |
 
 ## Troubleshooting
+---
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|

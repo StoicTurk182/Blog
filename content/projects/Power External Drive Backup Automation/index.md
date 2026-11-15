@@ -19,6 +19,7 @@ PowerShell-driven data preservation for pre-reimage and pre-swap technician work
 This is the lightweight counterpart to the multi-profile `Backup-UserData.ps1`. Where the full script captures every profile on disk for a forensic-style sweep, this one captures one operator-selected profile fast — pairing cleanly with TransWiz or USMT for the actual profile state migration.
 
 ## What It Does
+---
 
 The script captures, for one user, into a labelled folder on an external drive:
 
@@ -31,12 +32,14 @@ The script captures, for one user, into a labelled folder on an external drive:
 Each source gets its own per-source `.log` file alongside its destination folder, plus a unified `Backup_Log.txt` at the run root.
 
 ## Why It Exists
+---
 
 There is a long-running gap in the standard MSP migration workflow. Vendor tools like ForensiT TransWiz handle profile state migration well — Outlook profiles, signatures, app config, the lived-in feel of a desktop — but they cannot help when the source machine is dead, when the technician needs a quick offline data snapshot before a reimage, or when the workflow involves swapping a disk. They also cannot capture Recycle Bin contents in any usable form.
 
 This script fills that gap. It runs unattended in seconds-to-minutes (depending on data volume), produces plain folders any future tool can consume, and writes everything to a single drive the technician can take away.
 
 ## How to Use
+---
 
 The intended workflow is plug-in-and-run on a live target machine.
 
@@ -71,6 +74,7 @@ Target profile:
 9. Review `<Drive>:\<HOSTNAME>_<label>_<TargetUser>_<DDMMYYYY_HHmmss>\Backup_Log.txt` for the run summary.
 
 ## Video Walkthrough
+---
 
 A short demonstration of the script in action — profile detection, destination selection, and a sample run on a multi-user test machine.
 
@@ -82,6 +86,7 @@ A short demonstration of the script in action — profile detection, destination
 </video>
 
 ## Output Structure
+---
 
 The destination folder is named `<HOSTNAME>_<label>_<TargetUser>_<DDMMYYYY>_<HHmmss>` so it is self-documenting at a glance. Multiple runs produce separate folders rather than merging.
 
@@ -109,6 +114,7 @@ W:\ORIONVI_PC_Andrew_03052026_142315\
 ```
 
 ## NVMe Tuning
+---
 
 Robocopy options are tuned for high-speed external destinations, not generic mechanical drives:
 
@@ -123,6 +129,7 @@ Robocopy options are tuned for high-speed external destinations, not generic mec
 Source-specific extras include `/B` (backup mode for locked-file handling), `/XD` excludes for browser caches (`Cache`, `GPUCache`, `Crashpad`, `ShaderCache`, `GrShaderCache`), `/XA:O` for OneDrive cloud-only placeholders, and `/A-:SH` plus a post-copy attribute cleanup pass for Recycle Bin destinations.
 
 ## Key Design Decisions
+---
 
 **Single-user, technician-driven.** The script captures one operator-selected profile per run. For multi-profile sweeps see the multi-profile `Backup-UserData.ps1`. Single-user keeps the prompt flow short and the output predictable.
 
@@ -137,6 +144,7 @@ Source-specific extras include `/B` (backup mode for locked-file handling), `/XD
 **Destination drive guard.** The Recycle Bin loop derives the destination drive letter from the run path and skips it. Without this, the script would attempt to copy the destination drive's `$Recycle.Bin` into itself.
 
 ## Limitations and Trade-offs
+---
 
 | Limitation | Note |
 |------------|------|
@@ -149,6 +157,7 @@ Source-specific extras include `/B` (backup mode for locked-file handling), `/XD
 | Browser App-Bound Encryption | Newer Chromium versions add a service-bound encryption layer on top of DPAPI for cookies and (Chrome 132+) passwords. Limits offline-decryption usefulness on modern installs |
 
 ## When to Reach for Which Tool
+---
 
 | Scenario | Tool |
 |----------|------|
@@ -163,6 +172,7 @@ Source-specific extras include `/B` (backup mode for locked-file handling), `/XD
 The script is deliberately not a TransWiz replacement. It is a layer below — the safety net that means the user's *data* is preserved even when the migration tool fails or is not applicable.
 
 ## References
+---
 
 - Robocopy command-line reference: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy
 - Robocopy exit codes: https://learn.microsoft.com/en-us/troubleshoot/windows-server/backup-and-storage/return-codes-used-robocopy-utility
