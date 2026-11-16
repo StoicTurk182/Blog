@@ -103,7 +103,7 @@ These use **different stored credentials**. One is ignored by the other, which i
 
 If normal RDP keeps prompting even with the TERMSRV credential stored, the cause on a workgroup target is credential delegation: Windows will not delegate a saved password to a host it cannot authenticate with Kerberos. Enable NTLM-only delegation on the client:
 
-```
+```powershell
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation" /v AllowSavedCredentialsWhenNTLMOnly /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation\AllowSavedCredentialsWhenNTLMOnly" /v 1 /t REG_SZ /d "TERMSRV/*" /f
 gpupdate /force
@@ -114,7 +114,7 @@ gpupdate /force
 
 The Tailscale IP (in the `100.64.0.0/10` range) does not change when the LAN address does, so it is the most stable target string. Store the credential against it and connect to it:
 
-```
+```powershell
 cmdkey /add:100.x.y.z /user:TARGET\Administrator /pass
 qwinsta /server:100.x.y.z
 mstsc /v:100.x.y.z /shadow:1 /control /noConsentPrompt
