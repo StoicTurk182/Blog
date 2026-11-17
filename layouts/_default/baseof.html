@@ -388,6 +388,13 @@ html, body {
     padding: 1rem 0;
 }
 
+/* ===== TOC ANCHOR OFFSET FOR STICKY HEADER ===== */
+html {
+    --header-offset-fallback: 200px;
+    --header-offset-gap: 16px;
+    scroll-padding-top: calc(var(--header-offset, var(--header-offset-fallback)) + var(--header-offset-gap));
+}
+
 .menu {
     position: relative;
 }
@@ -521,6 +528,38 @@ body {
 })();
 
 
+</script>
+
+<!-- TOC anchor offset: keeps --header-offset equal to the sticky header height -->
+<script>
+(function () {
+    var header = document.querySelector('.header');
+    if (!header) return;
+    var root = document.documentElement;
+
+    function setOffset(height) {
+        root.style.setProperty('--header-offset', Math.ceil(height) + 'px');
+    }
+
+    // Measure once now
+    setOffset(header.getBoundingClientRect().height);
+
+    // Re-align if the page was opened with #heading in the URL
+    if (location.hash) {
+        var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+        if (target) target.scrollIntoView();
+    }
+
+    // Track later size changes (window resize, nav wrap, text zoom)
+    if ('ResizeObserver' in window) {
+        new ResizeObserver(function (entries) {
+            var e = entries[0];
+            setOffset(e.borderBoxSize && e.borderBoxSize[0]
+                ? e.borderBoxSize[0].blockSize
+                : e.target.getBoundingClientRect().height);
+        }).observe(header);
+    }
+})();
 </script>
 
 
