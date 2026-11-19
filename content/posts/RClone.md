@@ -522,6 +522,65 @@ Writes through X: land in the local cache first and are uploaded in the backgrou
 | VPS host keys changed | `ssh-keygen -R "[100.64.0.10]:2222"`, reconnect once with ssh to accept the new key, then rebuild `known_hosts_rclone` |
 | Read-ahead still applied (VPS) | `cat /sys/block/sd?/queue/read_ahead_kb` should show `16384` |
 
+
+## Powershell Profile Function 
+> simple function to enable or to disable the RClone mount. 
+---
+
+```powershell
+
+function Register-RcloneMount {
+    <#
+    .SYNOPSIS
+        Register an always-on rclone mount as a scheduled task (rclone-mount-<letter>).
+    .EXAMPLE
+        Register-RcloneMount -Remote 'vps:/Data2' -Drive S: -VolName Data2
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)][string]$Remote,
+        [Parameter(Mandatory)][string]$Drive,
+        [string]$VolName = 'rclone',
+        [ValidateSet('off', 'minimal', 'writes', 'full')]
+        [string]$CacheMode = 'full',
+        [string]$Extra = ''
+    )
+    $letter = $Drive.TrimEnd(':', '\')
+    $Drive  = $letter + ':'
+    $rclone = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links\rclone.exe'
+    if (-not (Test-Path $rclone)) { $rclone = (Get-Command rclone).Source }
+    $log = Join-Path $env:LOCALAPPDATA "rclone\mount-$letter.log"
+    New-Item -ItemType Directory (Split-Path $log) -Force | Out-Null
+
+    $rcArgs = "mount $Remote $Drive --network-mode --volname $VolName --vfs-cache-mode $CacheMode " +
+              "--vfs-cache-max-size 20G --dir-cache-time 5m --no-console " +
+              "--log-file `"$log`" --log-level NOTICE $Extra"
+
+    $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
+    $trigger.Delay = 'PT30S'
+    $trigger.Repetition = (New-ScheduledTaskTrigger -Once -At (Get-Date) `
+        -RepetitionInterval (New-TimeSpan -Minutes 5)).Repetition
+    $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit ([TimeSpan]::Zero) `
+        -MultipleInstances IgnoreNew -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
+
+    Register-ScheduledTask -TaskName "rclone-mount-$letter" `
+        -Action (New-ScheduledTaskAction -Execute $rclone -Argument $rcArgs) `
+        -Trigger $trigger -Settings $settings -Description "rclone mount $Remote on $Drive" -Force | Out-Null
+    Start-ScheduledTask "rclone-mount-$letter"
+    Write-Host "Task rclone-mount-$letter registered and started" -ForegroundColor Green
+}
+
+function Unregister-RcloneMount {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)][string]$Drive)
+    $letter = $Drive.TrimEnd(':', '\')
+    Stop-ScheduledTask "rclone-mount-$letter" -ErrorAction SilentlyContinue
+    Unregister-ScheduledTask "rclone-mount-$letter" -Confirm:$false
+    Write-Host "Task rclone-mount-$letter removed" -ForegroundColor Green
+}
+
+```
+
 ## Troubleshooting
 ---
 
