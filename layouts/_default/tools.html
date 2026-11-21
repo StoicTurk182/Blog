@@ -33,7 +33,7 @@
 
                 <h3 class="card-title">{{ .Title }}</h3>
 
-                {{ with .Params.description }}
+                {{ with .Description }}
                 <p class="card-description">{{ . }}</p>
                 {{ else }}
                 <p class="card-description">{{ .Summary | plainify | safeHTML | truncate 120 }}</p>

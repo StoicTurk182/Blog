@@ -38,7 +38,7 @@
                     <h3 class="post-title">{{ .Title }}</h3>
 
                     <div class="post-excerpt">
-                        {{ with .Params.description }}
+                        {{ with .Description }}
                             <p>{{ . }}</p>
                         {{ else }}
                             <p>{{ .Summary | plainify | safeHTML | truncate 200 }}</p>

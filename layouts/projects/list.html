@@ -7,7 +7,7 @@
   </header>
 
   <div class="projects-grid">
-    {{ range .Pages.ByParam "weight" }}
+    {{ range .Pages.ByWeight }}
     <div class="project-tile">
       <a class="project-wrap" href="{{ .RelPermalink }}">
         {{ if .Params.thumbnail }}

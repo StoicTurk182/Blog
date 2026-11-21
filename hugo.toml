@@ -1,7 +1,7 @@
 baseURL = 'https://blog.ajolnet.com/'
 title = 'Andy J Blog - Trials of an IT Engineer'
 theme = 'mainroad'
-languageCode = 'en-us'
+locale = 'en-us'
 author = "Andrew Jones"
 copyright = "© 2025 Andrew Jones. All rights reserved."
 

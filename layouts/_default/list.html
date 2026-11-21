@@ -51,7 +51,7 @@
             </h2>
 
             <div class="article-excerpt">
-                {{ with .Params.description }}
+                {{ with .Description }}
                     <p>{{ . }}</p>
                 {{ else }}
                     <p>{{ .Summary | plainify | safeHTML | truncate 200 }}</p>
