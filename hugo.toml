@@ -44,6 +44,12 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
     categories_counter = true
     tags_counter = true
 
+  # CVE banner (layouts/partials/cve-banner.html) — CISA KEV feed, fetched at build time
+  [params.cveBanner]
+    enabled = true
+    count = 5
+    homeOnly = false
+
   [params.comments]
     utterances = true
     utterancesRepo = "StoicTurk182/Blog"
@@ -123,6 +129,12 @@ copyright = "© 2025 Andrew Jones. All rights reserved."
 [[module.mounts]]
   source = 'themes/mainroad/assets'
   target = 'assets'
+
+# Remote fetches (resources.GetRemote) are cached forever by default.
+# Refetch the CVE feed if the cached copy is older than this. Keep it shorter
+# than the server's rebuild timer (6h) so every scheduled rebuild gets fresh data.
+[caches.getresource]
+  maxAge = "1h"
 
 # ===== MINIFICATION & OPTIMIZATION =====
 [build]

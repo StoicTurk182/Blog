@@ -260,6 +260,8 @@
 
 .article-categories {
     display: flex;
+    flex-wrap: wrap;   /* posts with many categories would otherwise push the page wider than the screen on mobile */
+    min-width: 0;
     gap: 0.5rem;
 }
 

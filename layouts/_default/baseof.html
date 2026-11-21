@@ -114,7 +114,8 @@
 <body class="body">
     <div class="container container--outer">
         {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
-        
+        {{ partial "cve-banner.html" . }}
+
         <div class="wrapper flex">
             <div class="primary">
                 {{ block "main" . }}
